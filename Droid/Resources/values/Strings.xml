@@ -2,4 +2,12 @@
 <resources>
 	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">Floorball.Droid</string>
+
+  <string name="menu">Menü</string>
+  <string name="league">Bajnokság</string>
+  <string name="actual">Aktuális</string>
+  <string name="players">Játékosok</string>
+  <string name="referees">Bírók</string>
+  <string name="teams">Csapatok</string>
+
 </resources>

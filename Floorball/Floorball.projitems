@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -9,6 +9,17 @@
     <Import_RootNamespace>Floorball</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Model\EventMessageModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\EventModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\LeagueModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\MatchModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\PlayerModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\RefereeModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\StadiumModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\StatisticModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\TeamModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MyClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\FloorbalRESTClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RESTHelper.cs" />
   </ItemGroup>
 </Project>
