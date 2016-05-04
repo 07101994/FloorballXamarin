@@ -18,7 +18,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\StadiumModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\StatisticModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\TeamModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MyClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayerStatisticsMaker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayerStatisticsModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\FloorbalRESTClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RESTHelper.cs" />
   </ItemGroup>

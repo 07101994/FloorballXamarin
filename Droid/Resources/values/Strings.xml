@@ -10,4 +10,20 @@
   <string name="referees">Bírók</string>
   <string name="teams">Csapatok</string>
 
+
+  <string name="positionLabel">H</string>
+  <string name="matchLabel">M</string>
+  <string name="teamNameLabel">Csapat</string>
+  <string name="winLabel">GY</string>
+  <string name="drawLabel">D</string>
+  <string name="defeatLabel">V</string>
+  <string name="goalsLabel">GA</string>
+  <string name="pointsLabel">P</string>
+  <string name="playerNameLabel">Játékos</string>
+  <string name="scoreLabel">G</string>
+  <string name="assistLabel">A</string>
+  <string name="penaltyLabel">K</string>
+
+
+
 </resources>
