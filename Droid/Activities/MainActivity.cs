@@ -8,6 +8,10 @@ using Android.Content.Res;
 using Android.Views;
 using Android.Support.V4.View;
 using System;
+using System.Collections.Generic;
+using FloorballServer.Models.Floorball;
+using Floorball.REST;
+using System.Linq;
 
 namespace Floorball.Droid
 {
@@ -34,9 +38,21 @@ namespace Floorball.Droid
         private ListView listsView;
         private MyActionBarDrawerToggle ActionBarDrawerToggle { get; set; }
 
+        public List<LeagueModel> Leagues { get; set; }
+
+        public List<MatchModel> ActualMatches { get; set; }
+
+        public List<TeamModel> ActualTeams { get; set; }
+
+
+
         protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
+
+            Leagues = RESTHelper.GetAllLeague();
+            ActualMatches = RESTHelper.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
+            ActualTeams = GetActualTeams(ActualMatches);
 
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
@@ -204,6 +220,20 @@ namespace Floorball.Droid
             fragment.listItemSelected(s);
 
 
+        }
+
+        private List<TeamModel> GetActualTeams(List<MatchModel> actualMatches)
+        {
+            List<TeamModel> teams = new List<TeamModel>();
+
+            foreach (var match in actualMatches)
+            {
+
+                teams.Add(RESTHelper.GetTeamById(match.HomeTeamId));
+                teams.Add(RESTHelper.GetTeamById(match.AwayTeamId));
+            }
+
+            return teams;
         }
 
     }
