@@ -25,7 +25,6 @@ namespace Floorball.Droid.Activities
 
         LeaguePageAdapter pagerAdapter;
 
-
         public LeagueModel League { get; set; }
 
         public List<TeamModel> Teams { get; set; }

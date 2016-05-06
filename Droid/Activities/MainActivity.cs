@@ -44,6 +44,8 @@ namespace Floorball.Droid
 
         public List<TeamModel> ActualTeams { get; set; }
 
+        public List<TeamModel> Teams { get; set; }
+
 
 
         protected override void OnCreate (Bundle savedInstanceState)
@@ -53,6 +55,7 @@ namespace Floorball.Droid
             Leagues = RESTHelper.GetAllLeague();
             ActualMatches = RESTHelper.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
             ActualTeams = GetActualTeams(ActualMatches);
+            Teams = RESTHelper.GetAllTeam();
 
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);

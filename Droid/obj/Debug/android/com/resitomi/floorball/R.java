@@ -2652,6 +2652,8 @@ containing a value of this type.
         public static final int search_src_text=0x7f070067;
         public static final int search_voice_btn=0x7f07006b;
         public static final int select_dialog_listview=0x7f07006c;
+        public static final int sexPager=0x7f07009b;
+        public static final int sexTabs=0x7f07009a;
         public static final int shortcut=0x7f070057;
         public static final int showCustom=0x7f070023;
         public static final int showHome=0x7f070024;
@@ -2761,6 +2763,8 @@ containing a value of this type.
         public static final int select_dialog_singlechoice_material=0x7f04003c;
         public static final int statisticstablerow=0x7f04003d;
         public static final int support_simple_spinner_dropdown_item=0x7f04003e;
+        public static final int teamsfragment=0x7f04003f;
+        public static final int teamspagefragment=0x7f040040;
     }
     public static final class mipmap {
         public static final int icon=0x7f030000;

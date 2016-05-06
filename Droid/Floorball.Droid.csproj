@@ -95,6 +95,7 @@
     <Compile Include="Fragments\RefereesFragment.cs" />
     <Compile Include="Fragments\TeamsFragment.cs" />
     <Compile Include="Activities\MainActivity.cs" />
+    <Compile Include="Fragments\TeamsPageFragment.cs" />
     <Compile Include="MyActionBarDrawerToggle.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -149,6 +150,12 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout-land\MatchResult.axml" />
+    <AndroidResource Include="Resources\layout\TeamsFragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TeamsPageFragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />

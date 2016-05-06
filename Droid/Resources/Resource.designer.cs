@@ -2342,6 +2342,12 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f07006c
 			public const int select_dialog_listview = 2131165292;
 			
+			// aapt resource value: 0x7f07009b
+			public const int sexPager = 2131165339;
+			
+			// aapt resource value: 0x7f07009a
+			public const int sexTabs = 2131165338;
+			
 			// aapt resource value: 0x7f070057
 			public const int shortcut = 2131165271;
 			
@@ -2682,6 +2688,12 @@ namespace Floorball.Droid
 			
 			// aapt resource value: 0x7f04003e
 			public const int support_simple_spinner_dropdown_item = 2130968638;
+			
+			// aapt resource value: 0x7f04003f
+			public const int TeamsFragment = 2130968639;
+			
+			// aapt resource value: 0x7f040040
+			public const int TeamsPageFragment = 2130968640;
 			
 			static Layout()
 			{
