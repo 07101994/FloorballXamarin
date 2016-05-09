@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BBBBBB">
+    android:layout_gravity="center_horizontal">
     <Button
         android:id="@+id/yearsbutton"
         android:layout_height="60dp"
@@ -15,4 +15,17 @@
         android:textColor="@color/secondary_text"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbarStyle="insideOverlay">
+        <LinearLayout
+            android:id="@+id/teams"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+    </ScrollView>
 </LinearLayout>

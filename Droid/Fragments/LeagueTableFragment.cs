@@ -20,8 +20,6 @@ namespace Floorball.Droid.Fragments
     public class LeagueTableFragment : Fragment
     {
 
-
-
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

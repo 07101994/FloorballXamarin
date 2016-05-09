@@ -25,5 +25,10 @@
   <string name="penaltyLabel">K</string>
 
 
-
+  <string name="trainerLabel">Edző</string>
+  <string name="stadionLabel">Stadion</string>
+  <string name="playersTab">Játékosok</string>
+  <string name="matchesTab">Mérkőzések</string>
+  
+  
 </resources>

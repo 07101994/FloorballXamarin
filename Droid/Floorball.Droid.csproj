@@ -40,6 +40,10 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\MonoAndroid10\RestSharp.dll</HintPath>
       <Private>True</Private>
@@ -83,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\LeagueActivity.cs" />
+    <Compile Include="Activities\TeamActivity.cs" />
     <Compile Include="Adapters\LeaguesAdapter.cs" />
     <Compile Include="Fragments\ActualFragment.cs" />
     <Compile Include="Fragments\LeagueMatchesFragment.cs" />
@@ -91,6 +96,8 @@
     <Compile Include="Fragments\LeagueTableFragment.cs" />
     <Compile Include="Fragments\ListDialogFragment.cs" />
     <Compile Include="Fragments\MainFragment.cs" />
+    <Compile Include="Fragments\MatchListFragment.cs" />
+    <Compile Include="Fragments\PlayerListFragment.cs" />
     <Compile Include="Fragments\PlayersFragment.cs" />
     <Compile Include="Fragments\RefereesFragment.cs" />
     <Compile Include="Fragments\TeamsFragment.cs" />
@@ -156,6 +163,13 @@
     <AndroidResource Include="Resources\layout\TeamsPageFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\Team.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TeamActivity.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout-land\TeamActivity.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -276,6 +290,9 @@
     <Folder Include="Resources\values-xhdpi\" />
     <Folder Include="Resources\values-xxhdpi\" />
     <Folder Include="Resources\values-xxxhdpi\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\phoenix.jpg" />
   </ItemGroup>
   <Import Project="..\Floorball\Floorball.projitems" Label="Shared" Condition="Exists('..\Floorball\Floorball.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

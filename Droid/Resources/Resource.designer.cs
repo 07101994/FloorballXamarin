@@ -1969,8 +1969,11 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f020052
 			public const int ic_menu_black_24dp = 2130837586;
 			
+			// aapt resource value: 0x7f020054
+			public const int notification_template_icon_bg = 2130837588;
+			
 			// aapt resource value: 0x7f020053
-			public const int notification_template_icon_bg = 2130837587;
+			public const int phoenix = 2130837587;
 			
 			static Drawable()
 			{
@@ -2083,6 +2086,9 @@ namespace Floorball.Droid
 			
 			// aapt resource value: 0x7f070014
 			public const int clip_vertical = 2131165204;
+			
+			// aapt resource value: 0x7f07009b
+			public const int coachName = 2131165339;
 			
 			// aapt resource value: 0x7f070030
 			public const int collapseActionView = 2131165232;
@@ -2342,11 +2348,11 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f07006c
 			public const int select_dialog_listview = 2131165292;
 			
-			// aapt resource value: 0x7f07009b
-			public const int sexPager = 2131165339;
+			// aapt resource value: 0x7f0700a0
+			public const int sexPager = 2131165344;
 			
-			// aapt resource value: 0x7f07009a
-			public const int sexTabs = 2131165338;
+			// aapt resource value: 0x7f07009f
+			public const int sexTabs = 2131165343;
 			
 			// aapt resource value: 0x7f070057
 			public const int shortcut = 2131165271;
@@ -2384,6 +2390,9 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f07002c
 			public const int src_over = 2131165228;
 			
+			// aapt resource value: 0x7f07009c
+			public const int stadiumName = 2131165340;
+			
 			// aapt resource value: 0x7f07001b
 			public const int start = 2131165211;
 			
@@ -2404,6 +2413,18 @@ namespace Floorball.Droid
 			
 			// aapt resource value: 0x7f07007a
 			public const int table_scroll = 2131165306;
+			
+			// aapt resource value: 0x7f07009a
+			public const int teamName = 2131165338;
+			
+			// aapt resource value: 0x7f07009e
+			public const int teamPager = 2131165342;
+			
+			// aapt resource value: 0x7f0700a1
+			public const int teams = 2131165345;
+			
+			// aapt resource value: 0x7f07009d
+			public const int teamtabs = 2131165341;
 			
 			// aapt resource value: 0x7f070095
 			public const int text = 2131165333;
@@ -2690,10 +2711,16 @@ namespace Floorball.Droid
 			public const int support_simple_spinner_dropdown_item = 2130968638;
 			
 			// aapt resource value: 0x7f04003f
-			public const int TeamsFragment = 2130968639;
+			public const int Team = 2130968639;
 			
 			// aapt resource value: 0x7f040040
-			public const int TeamsPageFragment = 2130968640;
+			public const int TeamActivity = 2130968640;
+			
+			// aapt resource value: 0x7f040041
+			public const int TeamsFragment = 2130968641;
+			
+			// aapt resource value: 0x7f040042
+			public const int TeamsPageFragment = 2130968642;
 			
 			static Layout()
 			{
@@ -2817,6 +2844,9 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0a0020
 			public const int matchLabel = 2131361824;
 			
+			// aapt resource value: 0x7f0a002e
+			public const int matchesTab = 2131361838;
+			
 			// aapt resource value: 0x7f0a0019
 			public const int menu = 2131361817;
 			
@@ -2828,6 +2858,9 @@ namespace Floorball.Droid
 			
 			// aapt resource value: 0x7f0a001c
 			public const int players = 2131361820;
+			
+			// aapt resource value: 0x7f0a002d
+			public const int playersTab = 2131361837;
 			
 			// aapt resource value: 0x7f0a0026
 			public const int pointsLabel = 2131361830;
@@ -2841,6 +2874,9 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0a0028
 			public const int scoreLabel = 2131361832;
 			
+			// aapt resource value: 0x7f0a002c
+			public const int stadionLabel = 2131361836;
+			
 			// aapt resource value: 0x7f0a0013
 			public const int status_bar_notification_info_overflow = 2131361811;
 			
@@ -2849,6 +2885,9 @@ namespace Floorball.Droid
 			
 			// aapt resource value: 0x7f0a001e
 			public const int teams = 2131361822;
+			
+			// aapt resource value: 0x7f0a002b
+			public const int trainerLabel = 2131361835;
 			
 			// aapt resource value: 0x7f0a0022
 			public const int winLabel = 2131361826;

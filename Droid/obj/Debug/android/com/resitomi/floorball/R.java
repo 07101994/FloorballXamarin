@@ -2530,7 +2530,8 @@ containing a value of this type.
         public static final int ic_arrow_drop_up_black_24dp=0x7f020050;
         public static final int ic_arrow_drop_up_white_24dp=0x7f020051;
         public static final int ic_menu_black_24dp=0x7f020052;
-        public static final int notification_template_icon_bg=0x7f020053;
+        public static final int notification_template_icon_bg=0x7f020054;
+        public static final int phoenix=0x7f020053;
     }
     public static final class id {
         public static final int action0=0x7f07008b;
@@ -2566,6 +2567,7 @@ containing a value of this type.
         public static final int chronometer=0x7f070092;
         public static final int clip_horizontal=0x7f070013;
         public static final int clip_vertical=0x7f070014;
+        public static final int coachName=0x7f07009b;
         public static final int collapseActionView=0x7f070030;
         public static final int contentPanel=0x7f07004e;
         public static final int content_frame=0x7f070083;
@@ -2652,8 +2654,8 @@ containing a value of this type.
         public static final int search_src_text=0x7f070067;
         public static final int search_voice_btn=0x7f07006b;
         public static final int select_dialog_listview=0x7f07006c;
-        public static final int sexPager=0x7f07009b;
-        public static final int sexTabs=0x7f07009a;
+        public static final int sexPager=0x7f0700a0;
+        public static final int sexTabs=0x7f07009f;
         public static final int shortcut=0x7f070057;
         public static final int showCustom=0x7f070023;
         public static final int showHome=0x7f070024;
@@ -2666,6 +2668,7 @@ containing a value of this type.
         public static final int src_atop=0x7f07002a;
         public static final int src_in=0x7f07002b;
         public static final int src_over=0x7f07002c;
+        public static final int stadiumName=0x7f07009c;
         public static final int start=0x7f07001b;
         public static final int statisticsTableRow=0x7f070099;
         public static final int statisticstable=0x7f07007b;
@@ -2673,6 +2676,10 @@ containing a value of this type.
         public static final int submit_area=0x7f070069;
         public static final int tabMode=0x7f07001f;
         public static final int table_scroll=0x7f07007a;
+        public static final int teamName=0x7f07009a;
+        public static final int teamPager=0x7f07009e;
+        public static final int teams=0x7f0700a1;
+        public static final int teamtabs=0x7f07009d;
         public static final int text=0x7f070095;
         public static final int text2=0x7f070093;
         public static final int textSpacerNoButtons=0x7f070051;
@@ -2763,8 +2770,10 @@ containing a value of this type.
         public static final int select_dialog_singlechoice_material=0x7f04003c;
         public static final int statisticstablerow=0x7f04003d;
         public static final int support_simple_spinner_dropdown_item=0x7f04003e;
-        public static final int teamsfragment=0x7f04003f;
-        public static final int teamspagefragment=0x7f040040;
+        public static final int team=0x7f04003f;
+        public static final int teamactivity=0x7f040040;
+        public static final int teamsfragment=0x7f040041;
+        public static final int teamspagefragment=0x7f040042;
     }
     public static final class mipmap {
         public static final int icon=0x7f030000;
@@ -2801,17 +2810,21 @@ containing a value of this type.
         public static final int hello=0x7f0a0017;
         public static final int league=0x7f0a001a;
         public static final int matchLabel=0x7f0a0020;
+        public static final int matchesTab=0x7f0a002e;
         public static final int menu=0x7f0a0019;
         public static final int penaltyLabel=0x7f0a002a;
         public static final int playerNameLabel=0x7f0a0027;
         public static final int players=0x7f0a001c;
+        public static final int playersTab=0x7f0a002d;
         public static final int pointsLabel=0x7f0a0026;
         public static final int positionLabel=0x7f0a001f;
         public static final int referees=0x7f0a001d;
         public static final int scoreLabel=0x7f0a0028;
+        public static final int stadionLabel=0x7f0a002c;
         public static final int status_bar_notification_info_overflow=0x7f0a0013;
         public static final int teamNameLabel=0x7f0a0021;
         public static final int teams=0x7f0a001e;
+        public static final int trainerLabel=0x7f0a002b;
         public static final int winLabel=0x7f0a0022;
     }
     public static final class style {
