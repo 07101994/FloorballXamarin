@@ -2779,6 +2779,8 @@ containing a value of this type.
         public static final int icon=0x7f030000;
     }
     public static final class string {
+        public static final int ApplicationName=0x7f0a0018;
+        public static final int Hello=0x7f0a0017;
         public static final int abc_action_bar_home_description=0x7f0a0000;
         public static final int abc_action_bar_home_description_format=0x7f0a0001;
         public static final int abc_action_bar_home_subtitle_description_format=0x7f0a0002;
@@ -2798,34 +2800,34 @@ containing a value of this type.
         public static final int abc_shareactionprovider_share_with=0x7f0a0010;
         public static final int abc_shareactionprovider_share_with_application=0x7f0a0011;
         public static final int abc_toolbar_collapse_description=0x7f0a0012;
-        public static final int actual=0x7f0a001b;
-        public static final int app_name=0x7f0a0018;
+        public static final int actual=0x7f0a001d;
+        public static final int app_name=0x7f0a001a;
         public static final int appbar_scrolling_view_behavior=0x7f0a0014;
-        public static final int assistLabel=0x7f0a0029;
+        public static final int assistLabel=0x7f0a002b;
         public static final int bottom_sheet_behavior=0x7f0a0015;
         public static final int character_counter_pattern=0x7f0a0016;
-        public static final int defeatLabel=0x7f0a0024;
-        public static final int drawLabel=0x7f0a0023;
-        public static final int goalsLabel=0x7f0a0025;
-        public static final int hello=0x7f0a0017;
-        public static final int league=0x7f0a001a;
-        public static final int matchLabel=0x7f0a0020;
-        public static final int matchesTab=0x7f0a002e;
-        public static final int menu=0x7f0a0019;
-        public static final int penaltyLabel=0x7f0a002a;
-        public static final int playerNameLabel=0x7f0a0027;
-        public static final int players=0x7f0a001c;
-        public static final int playersTab=0x7f0a002d;
-        public static final int pointsLabel=0x7f0a0026;
-        public static final int positionLabel=0x7f0a001f;
-        public static final int referees=0x7f0a001d;
-        public static final int scoreLabel=0x7f0a0028;
-        public static final int stadionLabel=0x7f0a002c;
+        public static final int defeatLabel=0x7f0a0026;
+        public static final int drawLabel=0x7f0a0025;
+        public static final int goalsLabel=0x7f0a0027;
+        public static final int hello=0x7f0a0019;
+        public static final int league=0x7f0a001c;
+        public static final int matchLabel=0x7f0a0022;
+        public static final int matchesTab=0x7f0a0030;
+        public static final int menu=0x7f0a001b;
+        public static final int penaltyLabel=0x7f0a002c;
+        public static final int playerNameLabel=0x7f0a0029;
+        public static final int players=0x7f0a001e;
+        public static final int playersTab=0x7f0a002f;
+        public static final int pointsLabel=0x7f0a0028;
+        public static final int positionLabel=0x7f0a0021;
+        public static final int referees=0x7f0a001f;
+        public static final int scoreLabel=0x7f0a002a;
+        public static final int stadionLabel=0x7f0a002e;
         public static final int status_bar_notification_info_overflow=0x7f0a0013;
-        public static final int teamNameLabel=0x7f0a0021;
-        public static final int teams=0x7f0a001e;
-        public static final int trainerLabel=0x7f0a002b;
-        public static final int winLabel=0x7f0a0022;
+        public static final int teamNameLabel=0x7f0a0023;
+        public static final int teams=0x7f0a0020;
+        public static final int trainerLabel=0x7f0a002d;
+        public static final int winLabel=0x7f0a0024;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat=0x7f08008a;

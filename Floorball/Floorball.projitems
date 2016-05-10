@@ -9,6 +9,19 @@
     <Import_RootNamespace>Floorball</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Manager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\Event.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\EventMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\League.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\Match.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\PlayerMatch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\PlayerTeam.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\Referee.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\RefereeMatch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\Stadium.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\Statistic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\Team.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\EventMessageModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\EventModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\LeagueModel.cs" />
@@ -22,5 +35,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)PlayerStatisticsModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\FloorbalRESTClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RESTHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Updater.cs" />
   </ItemGroup>
 </Project>

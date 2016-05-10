@@ -26,6 +26,8 @@ namespace Floorball.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.ApplicationName = global::Floorball.Droid.Resource.String.ApplicationName;
+			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.Hello = global::Floorball.Droid.Resource.String.Hello;
 		}
 		
 		public partial class Animation
@@ -2751,6 +2753,12 @@ namespace Floorball.Droid
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f0a0018
+			public const int ApplicationName = 2131361816;
+			
+			// aapt resource value: 0x7f0a0017
+			public const int Hello = 2131361815;
+			
 			// aapt resource value: 0x7f0a0000
 			public const int abc_action_bar_home_description = 2131361792;
 			
@@ -2808,17 +2816,17 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0a0012
 			public const int abc_toolbar_collapse_description = 2131361810;
 			
-			// aapt resource value: 0x7f0a001b
-			public const int actual = 2131361819;
+			// aapt resource value: 0x7f0a001d
+			public const int actual = 2131361821;
 			
-			// aapt resource value: 0x7f0a0018
-			public const int app_name = 2131361816;
+			// aapt resource value: 0x7f0a001a
+			public const int app_name = 2131361818;
 			
 			// aapt resource value: 0x7f0a0014
 			public const int appbar_scrolling_view_behavior = 2131361812;
 			
-			// aapt resource value: 0x7f0a0029
-			public const int assistLabel = 2131361833;
+			// aapt resource value: 0x7f0a002b
+			public const int assistLabel = 2131361835;
 			
 			// aapt resource value: 0x7f0a0015
 			public const int bottom_sheet_behavior = 2131361813;
@@ -2826,71 +2834,71 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0a0016
 			public const int character_counter_pattern = 2131361814;
 			
-			// aapt resource value: 0x7f0a0024
-			public const int defeatLabel = 2131361828;
-			
-			// aapt resource value: 0x7f0a0023
-			public const int drawLabel = 2131361827;
+			// aapt resource value: 0x7f0a0026
+			public const int defeatLabel = 2131361830;
 			
 			// aapt resource value: 0x7f0a0025
-			public const int goalsLabel = 2131361829;
-			
-			// aapt resource value: 0x7f0a0017
-			public const int hello = 2131361815;
-			
-			// aapt resource value: 0x7f0a001a
-			public const int league = 2131361818;
-			
-			// aapt resource value: 0x7f0a0020
-			public const int matchLabel = 2131361824;
-			
-			// aapt resource value: 0x7f0a002e
-			public const int matchesTab = 2131361838;
-			
-			// aapt resource value: 0x7f0a0019
-			public const int menu = 2131361817;
-			
-			// aapt resource value: 0x7f0a002a
-			public const int penaltyLabel = 2131361834;
+			public const int drawLabel = 2131361829;
 			
 			// aapt resource value: 0x7f0a0027
-			public const int playerNameLabel = 2131361831;
+			public const int goalsLabel = 2131361831;
+			
+			// aapt resource value: 0x7f0a0019
+			public const int hello = 2131361817;
 			
 			// aapt resource value: 0x7f0a001c
-			public const int players = 2131361820;
+			public const int league = 2131361820;
 			
-			// aapt resource value: 0x7f0a002d
-			public const int playersTab = 2131361837;
+			// aapt resource value: 0x7f0a0022
+			public const int matchLabel = 2131361826;
 			
-			// aapt resource value: 0x7f0a0026
-			public const int pointsLabel = 2131361830;
+			// aapt resource value: 0x7f0a0030
+			public const int matchesTab = 2131361840;
 			
-			// aapt resource value: 0x7f0a001f
-			public const int positionLabel = 2131361823;
-			
-			// aapt resource value: 0x7f0a001d
-			public const int referees = 2131361821;
-			
-			// aapt resource value: 0x7f0a0028
-			public const int scoreLabel = 2131361832;
+			// aapt resource value: 0x7f0a001b
+			public const int menu = 2131361819;
 			
 			// aapt resource value: 0x7f0a002c
-			public const int stadionLabel = 2131361836;
+			public const int penaltyLabel = 2131361836;
+			
+			// aapt resource value: 0x7f0a0029
+			public const int playerNameLabel = 2131361833;
+			
+			// aapt resource value: 0x7f0a001e
+			public const int players = 2131361822;
+			
+			// aapt resource value: 0x7f0a002f
+			public const int playersTab = 2131361839;
+			
+			// aapt resource value: 0x7f0a0028
+			public const int pointsLabel = 2131361832;
+			
+			// aapt resource value: 0x7f0a0021
+			public const int positionLabel = 2131361825;
+			
+			// aapt resource value: 0x7f0a001f
+			public const int referees = 2131361823;
+			
+			// aapt resource value: 0x7f0a002a
+			public const int scoreLabel = 2131361834;
+			
+			// aapt resource value: 0x7f0a002e
+			public const int stadionLabel = 2131361838;
 			
 			// aapt resource value: 0x7f0a0013
 			public const int status_bar_notification_info_overflow = 2131361811;
 			
-			// aapt resource value: 0x7f0a0021
-			public const int teamNameLabel = 2131361825;
+			// aapt resource value: 0x7f0a0023
+			public const int teamNameLabel = 2131361827;
 			
-			// aapt resource value: 0x7f0a001e
-			public const int teams = 2131361822;
+			// aapt resource value: 0x7f0a0020
+			public const int teams = 2131361824;
 			
-			// aapt resource value: 0x7f0a002b
-			public const int trainerLabel = 2131361835;
+			// aapt resource value: 0x7f0a002d
+			public const int trainerLabel = 2131361837;
 			
-			// aapt resource value: 0x7f0a0022
-			public const int winLabel = 2131361826;
+			// aapt resource value: 0x7f0a0024
+			public const int winLabel = 2131361828;
 			
 			static String()
 			{
