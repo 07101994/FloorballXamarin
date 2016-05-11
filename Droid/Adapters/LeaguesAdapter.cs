@@ -10,13 +10,14 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using FloorballServer.Models.Floorball;
+using Floorball.LocalDB.Tables;
 
 namespace Floorball.Droid.Adapters
 {
-    class LeaguesAdapter : ArrayAdapter<LeagueModel>
+    class LeaguesAdapter : ArrayAdapter<League>
     {
 
-        public LeaguesAdapter(Context context , List<LeagueModel> leagues) : base(context,0,leagues)
+        public LeaguesAdapter(Context context , List<League> leagues) : base(context,0,leagues)
         {
 
         }
@@ -24,7 +25,7 @@ namespace Floorball.Droid.Adapters
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
 
-            LeagueModel model = GetItem(position);
+            League model = GetItem(position);
             if (convertView == null)
             {
                 convertView = LayoutInflater.From(Context).Inflate(Resource.Layout.LeagueItem, parent, false);

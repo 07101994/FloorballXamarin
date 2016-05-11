@@ -16,6 +16,8 @@ using Android.Support.V4.View;
 using Floorball.Droid.Activities;
 using Newtonsoft.Json;
 using Android.Support.V7.Widget;
+using Floorball.LocalDB.Tables;
+using Floorball.LocalDB;
 
 namespace Floorball.Droid.Fragments
 {
@@ -25,14 +27,14 @@ namespace Floorball.Droid.Fragments
 
         int pageCount;
 
-        public List<TeamModel> Teams { get; set; }
+        public List<Team> Teams { get; set; }
 
-        public List<LeagueModel> Leagues { get; set; }
+        public List<League> Leagues { get; set; }
 
         public LinearLayout TeamsLayout { get; set; }
 
 
-        List<TeamModel> actualTeams;
+        List<Team> actualTeams;
 
         public static TeamsPageFragment Instance(int pageCount)
         {
@@ -63,7 +65,8 @@ namespace Floorball.Droid.Fragments
             View root = inflater.Inflate(Resource.Layout.TeamsPageFragment, container, false);
 
             Button yearsButton = root.FindViewById<Button>(Resource.Id.yearsbutton);
-            years = RESTHelper.GetAllYear();
+            //years = RESTHelper.GetAllYear();
+            years = Manager.GetAllYear().Select(y => y.Year.ToString()).ToList();
 
             yearsButton.Text = years.Last();
 

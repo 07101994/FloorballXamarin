@@ -2,6 +2,8 @@
 using Floorball.REST;
 using FloorballServer.Models.Floorball;
 using SQLite;
+using SQLite.Net;
+using SQLite.Net.Interop;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,6 +15,29 @@ namespace Floorball.LocalDB
 {
     public class Manager
     {
+
+        private static ISQLitePlatform Platform
+        {
+            get
+            {
+#if __IOS__
+
+                return new SQLite.Net.Platform.XamarinIOS.SQLitePlatformIOS();
+
+#else
+
+#if __ANDROID__
+
+                return new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
+
+
+
+
+#endif
+#endif
+            }
+        }
+
         private static string DatabasePath
         {
             get
@@ -24,20 +49,20 @@ namespace Floorball.LocalDB
                 string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
                 string libraryPath = Path.Combine(documentsPath, "..", "Library"); // Library folder
                 var path = Path.Combine(libraryPath, sqliteFilename);
-
+                
 #else
 
 #if __ANDROID__
         
-                        string documentsPath = Environment.GetFolderPath (Environment.SpecialFolder.Personal); // Documents folder
+                string documentsPath = Environment.GetFolderPath (Environment.SpecialFolder.Personal); // Documents folder
         
-                        var path = Path.Combine(documentsPath, sqliteFilename);
+                var path = Path.Combine(documentsPath, sqliteFilename);
 
 #else
         
-                        // WinPhone
+                // WinPhone
         
-                        var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, sqliteFilename);
+                var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, sqliteFilename);
 
 #endif
 #endif
@@ -47,22 +72,42 @@ namespace Floorball.LocalDB
 
         public static void CreateDatabase()
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
+                DropTables(db);
+
+                db.CreateTable<PlayerTeam>();
+                db.CreateTable<PlayerTeam>();
+                db.CreateTable<RefereeMatch>();
                 db.CreateTable<EventMessage>();
                 db.CreateTable<League>();
+                db.CreateTable<Match>();
                 db.CreateTable<Player>();
                 db.CreateTable<Referee>();
                 db.CreateTable<Stadium>();
                 db.CreateTable<Team>();
-                db.CreateTable<Match>();
                 db.CreateTable<Statistic>();
                 db.CreateTable<Event>();
-                db.CreateTable<PlayerTeam>();
-                db.CreateTable<PlayerTeam>();
-                db.CreateTable<RefereeMatch>();
+                
+
             }
 
+        }
+
+        private static void DropTables(SQLiteConnection db)
+        {
+            db.DropTable<PlayerTeam>();
+            db.DropTable<PlayerTeam>();
+            db.DropTable<RefereeMatch>();
+            db.DropTable<EventMessage>();
+            db.DropTable<League>();
+            db.DropTable<Match>();
+            db.DropTable<Player>();
+            db.DropTable<Referee>();
+            db.DropTable<Stadium>();
+            db.DropTable<Team>();
+            db.DropTable<Statistic>();
+            db.DropTable<Event>();
         }
 
         public static void InitDatabaseFromServer()
@@ -84,16 +129,21 @@ namespace Floorball.LocalDB
             AddStadiums(RESTHelper.GetAllStadium());
             AddTeams(RESTHelper.GetAllTeam());
             AddMatches(RESTHelper.GetAllMatch());
+            AddPlayersAndTeams(RESTHelper.GetPlayersAndTeams());
+            AddPlayersAndMatches(RESTHelper.GetPlayersAndMatches());
+            AddRefereesAndMatches(RESTHelper.GetRefereesAndMatches());
             AddEvents(RESTHelper.GetAllEvent());
             
 
         }
 
+ 
+
         #region GET
 
         public static List<DateTime> GetAllYear()
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
 
                 return db.Table<League>().Select(l => l.Year).Distinct().OrderBy(t => t.Year).ToList();
@@ -103,7 +153,7 @@ namespace Floorball.LocalDB
 
         public static List<League> GetAllLeague()
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Table<League>().ToList();
             }
@@ -111,7 +161,7 @@ namespace Floorball.LocalDB
 
         public static List<Player> GetAllPlayer()
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Table<Player>().ToList();
             }
@@ -119,7 +169,7 @@ namespace Floorball.LocalDB
 
         public static List<Team> GetTeamsByLeague(int id)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
 
                 return db.Table<Team>().Where(t => t.LeagueId == id).ToList();
@@ -129,7 +179,7 @@ namespace Floorball.LocalDB
 
         public static List<Match> GetMatchesByLeague(int id)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Table<Match>().Where(m => m.LeagueId == id).ToList();
                 //return db.Leagues.Include("Matches").Include("Matches.HomeTeam").Include("Matches.AwayTeam").Where(l => l.Id == id).First().Matches.ToList();
@@ -139,7 +189,7 @@ namespace Floorball.LocalDB
 
         public static List<Team> GetTeamsByYear(DateTime year)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
 
                 return db.Table<Team>().Where(t => t.Year == year).ToList();
@@ -154,7 +204,7 @@ namespace Floorball.LocalDB
 
         public static List<Player> GetPlayersByTeam(int id)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
 
                 return db.Table<Player>().Where(p => p.Teams.Select(t => t.Id).Contains(id)).ToList();
@@ -169,7 +219,7 @@ namespace Floorball.LocalDB
 
         public static List<Player> GetPlayersByLeague(int leagueId)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
 
                 List<Team> teams = db.Table<Team>().Where(t => t.LeagueId == leagueId).ToList();
@@ -188,7 +238,7 @@ namespace Floorball.LocalDB
 
         public static List<Player> GetPlayersByMatch(int id)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Get<Match>(id).Players;
 
@@ -196,9 +246,9 @@ namespace Floorball.LocalDB
             }
         }
 
-        public static List<Statistic> GetStatisticsByleague(int leagueId)
+        public static List<Statistic> GetStatisticsByLeague(int leagueId)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
 
                 List<int> teams = db.Table<Team>().Where(t => t.LeagueId == leagueId).Select(t => t.Id).ToList();
@@ -211,7 +261,7 @@ namespace Floorball.LocalDB
 
         public static Match GetMatchById(int id)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
 
                 return db.Get<Match>(id);
@@ -226,7 +276,7 @@ namespace Floorball.LocalDB
 
         public static List<Match> GetActualMatches()
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 string threshold = DateTime.Now.AddDays(3).ToString();
 
@@ -238,7 +288,7 @@ namespace Floorball.LocalDB
 
         public static List<Referee> GetAllReferee()
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Table<Referee>().ToList();
                 //   return db.Referees.ToList();
@@ -247,7 +297,7 @@ namespace Floorball.LocalDB
 
         public static List<Match> GetMatchesByReferee(int refereeId)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Table<Referee>().Where(r => r.Id == refereeId).First().Matches;
 
@@ -257,7 +307,7 @@ namespace Floorball.LocalDB
 
         public static List<Stadium> GetAllStadium()
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Table<Stadium>().ToList();
             }
@@ -265,7 +315,7 @@ namespace Floorball.LocalDB
 
         public static List<Team> GetAllTeam()
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Table<Team>().ToList();
             }
@@ -273,7 +323,7 @@ namespace Floorball.LocalDB
 
         public static int GetNumberOfRoundsInLeague(int leagueId)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Table<League>().Where(l => l.Id == leagueId).First().Rounds;
             }
@@ -281,7 +331,7 @@ namespace Floorball.LocalDB
 
         public static League GetLeagueById(int leagueId)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Get<League>(leagueId);
             }
@@ -289,7 +339,7 @@ namespace Floorball.LocalDB
 
         public static List<League> GetLeaguesByYear(DateTime year)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Table<League>().Where(l => l.Year == year).ToList();
             }
@@ -298,7 +348,7 @@ namespace Floorball.LocalDB
 
         public static List<EventMessage> GetEventMessagesByCategory(char catagoryStartNumber)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Table<EventMessage>().ToList().Where(e => e.Code.ToString()[0] == catagoryStartNumber).ToList();
             }
@@ -306,7 +356,7 @@ namespace Floorball.LocalDB
 
         public static EventMessage GetEventMessageById(int id)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Get<EventMessage>(id);
             }
@@ -315,7 +365,7 @@ namespace Floorball.LocalDB
         public static List<Event> GetEventsByMatch(int matchId)
         {
 
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Table<Event>().Where(e => e.MatchId == matchId).ToList();
 
@@ -325,7 +375,7 @@ namespace Floorball.LocalDB
 
         public static Event GetEventById(int eventId)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Get<Event>(eventId);
 
@@ -335,7 +385,7 @@ namespace Floorball.LocalDB
 
         public static Team GetTeamById(int id)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Get<Team>(id);
 
@@ -345,7 +395,7 @@ namespace Floorball.LocalDB
 
         public static Referee GetRefereeById(int id)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Get<Referee>(id);
 
@@ -355,7 +405,7 @@ namespace Floorball.LocalDB
 
         public static Player GetPlayerById(int id)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 return db.Get<Player>(id);
 
@@ -370,7 +420,7 @@ namespace Floorball.LocalDB
 
         public static int AddLeague(int id, string name, DateTime year, string type, string classname, int rounds)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
 
                 League l = new League();
@@ -392,7 +442,7 @@ namespace Floorball.LocalDB
 
         public static int AddStadium(int id, string name, string address)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 Stadium s = new Stadium();
                 s.Id = id;
@@ -410,7 +460,7 @@ namespace Floorball.LocalDB
 
         public static int AddTeam(int id, string name, DateTime year, string coach, string sex, int stadiumId, int leagueId, short get = 0, short scored = 0, short points = 0, short standing = -1)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 Team t = new Team();
                 t.Id = id;
@@ -435,13 +485,14 @@ namespace Floorball.LocalDB
 
         public static int AddReferee(int id, string name, short number = 0, short penalty = 0)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 Referee r = new Referee();
                 r.Id = id;
                 r.Name = name;
                 r.Number = number;
                 r.Penalty = penalty;
+                r.Matches = new List<Match>();
 
                 db.Insert(r);
 
@@ -454,13 +505,15 @@ namespace Floorball.LocalDB
 
         public static int AddPlayer(string name, int regNum, int number, DateTime date)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 Player p = new Player();
                 p.Name = name;
                 p.RegNum = regNum;
                 p.Number = (short)number;
                 p.BirthDate = date.Date;
+                p.Teams = new List<Team>();
+
 
                 db.Insert(p);
 
@@ -473,7 +526,7 @@ namespace Floorball.LocalDB
 
         public static void AddPlayerToTeam(int playerId, int teamId)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 //var player = (from p in db.Players
                 //              where p.RegNum == playerId
@@ -500,7 +553,7 @@ namespace Floorball.LocalDB
 
         public static void AddPlayerToMatch(int playerId, int matchId)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 var player = db.Get<Player>(playerId);
 
@@ -536,6 +589,7 @@ namespace Floorball.LocalDB
                 s.Number = 0;
                 s.TeamId = team.Id;
                 s.PlayerRegNum = player.RegNum;
+                
 
                 db.Insert(s);
                 //db.Statistics.Add(s);
@@ -543,9 +597,90 @@ namespace Floorball.LocalDB
             }
         }
 
+        public static void AddPlayersAndTeams(List<List<int>> list)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                var players = db.Table<Player>().ToList();
+                var teams = db.Table<Team>().ToList();
+
+                foreach (var l in list)
+                {
+                    Player player = players.Where(p => p.RegNum == l[0]).First();
+                    Team team = teams.Where(t => t.Id == l[1]).First();
+
+                    if (player.Teams == null)
+                    {
+                        player.Teams = new List<Team>();
+                    }
+
+                    player.Teams.Add(team);
+
+                    AddStatisticsForPlayerInTeam(player, team, db);
+
+                    db.Update(player);
+                    db.Update(team);
+                }
+
+            }
+        }
+
+        public static void AddPlayersAndMatches(List<List<int>> list)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                var players = db.Table<Player>().ToList();
+                var matches = db.Table<Match>().ToList();
+
+                foreach (var l in list)
+                {
+                    Player player = players.Where(p => p.RegNum == l[0]).First();
+                    Match match = matches.Where(m => m.Id == l[1]).First();
+
+                    if (player.Matches == null)
+                    {
+                        player.Matches = new List<Match>();
+                    }
+
+                    player.Matches.Add(match);
+
+                    db.Update(player);
+                    db.Update(match);
+                }
+
+            }
+        }
+
+
+        public static void AddRefereesAndMatches(List<List<int>> list)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                var referees = db.Table<Referee>().ToList();
+                var matches = db.Table<Match>().ToList();
+
+                foreach (var l in list)
+                {
+                    Referee referee = referees.Where(r => r.Id == l[0]).First();
+                    Match match = matches.Where(m => m.Id == l[1]).First();
+
+                    if (referee.Matches == null)
+                    {
+                        referee.Matches = new List<Match>();
+                    }
+
+                    referee.Matches.Add(match);
+
+                    db.Update(referee);
+                    db.Update(match);
+                }
+
+            }
+        }
+
         public static int AddEvent(int id, int matchId, string type, TimeSpan time, int playerId, int evenetMessageId, int teamId)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 Event e = new Event();
                 e.Id = id;
@@ -572,7 +707,7 @@ namespace Floorball.LocalDB
 
         public static void AddEventMessage(int id, int code, string message)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 EventMessage e = new EventMessage();
                 e.Id = id;
@@ -585,7 +720,7 @@ namespace Floorball.LocalDB
 
         public static void AddMatch(int id, int homeTeamId, int awayTeamId, short goalsH, short goalsA, short round, string state, TimeSpan time, string date, int leagueId, int stadiumId)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 Match m = new Match();
                 m.Id = id;
@@ -599,6 +734,8 @@ namespace Floorball.LocalDB
                 m.State = state;
                 m.Time = time;
                 m.Date = date;
+                m.Referees = new List<Referee>();
+                m.Players = new List<Player>();
 
                 db.Insert(m);
             }
@@ -674,7 +811,7 @@ namespace Floorball.LocalDB
 
         public static void RemovePlayerFromTeam(int playerId, int teamId)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
 
                 var player = db.Get<Player>(playerId);
@@ -699,7 +836,7 @@ namespace Floorball.LocalDB
 
         public static void RemovePlayerFromMatch(int playerId, int matchId)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
 
                 //var player = (from p in db.Players.Include("Matches").Include("Teams")
@@ -741,7 +878,7 @@ namespace Floorball.LocalDB
 
         public static void RemoveEvent(int eventId)
         {
-            using (var db = new SQLiteConnection(DatabasePath))
+            using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 //var e = db.Events.Include("Match.HomeTeam.Players").Include("Match.AwayTeam.Players").Where(ev => ev.Id == eventId).First();
                 var e = db.Get<Event>(eventId);

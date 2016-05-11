@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,12 @@ namespace Floorball.LocalDB.Tables
 {
     public class Team
     {
-        //[PrimaryKey, AutoIncrement]
+        [PrimaryKey]//, AutoIncrement]
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public System.DateTime Year { get; set; }
+        public DateTime Year { get; set; }
 
         public string Coach { get; set; }
 

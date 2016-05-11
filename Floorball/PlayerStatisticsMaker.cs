@@ -1,4 +1,5 @@
-﻿using FloorballServer.Models.Floorball;
+﻿using Floorball.LocalDB.Tables;
+using FloorballServer.Models.Floorball;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Floorball
     public class PlayerStatisticsMaker
     {
 
-        public static List<PlayerStatisticsModel> CreatePlayerStatistics(List<StatisticModel> statistics)
+        public static List<PlayerStatisticsModel> CreatePlayerStatistics(List<Statistic> statistics)
         {
 
             List<PlayerStatisticsModel> models = new List<PlayerStatisticsModel>();
@@ -17,7 +18,7 @@ namespace Floorball
             List<int> ids = statistics.Select(s => s.PlayerRegNum).Distinct().ToList();
             foreach (var id in ids)
             {
-                IEnumerable<StatisticModel> playerStats = statistics.Where(s => s.PlayerRegNum == id);
+                IEnumerable<Statistic> playerStats = statistics.Where(s => s.PlayerRegNum == id);
 
                 PlayerStatisticsModel model = new PlayerStatisticsModel();
                 model.PlayerId = id;

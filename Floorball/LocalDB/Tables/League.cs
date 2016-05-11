@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using SQLite.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Floorball.LocalDB.Tables
     public class League
     {
 
-        //[PrimaryKey, AutoIncrement]
+        [PrimaryKey]//, AutoIncrement]
         public int Id { get; set; }
 
         public string Name { get; set; }

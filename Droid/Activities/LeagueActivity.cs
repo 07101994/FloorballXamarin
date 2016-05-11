@@ -16,6 +16,8 @@ using Java.Lang;
 using Android.Support.Design.Widget;
 using FloorballServer.Models.Floorball;
 using Floorball.REST;
+using Floorball.LocalDB;
+using Floorball.LocalDB.Tables;
 
 namespace Floorball.Droid.Activities
 {
@@ -25,17 +27,17 @@ namespace Floorball.Droid.Activities
 
         LeaguePageAdapter pagerAdapter;
 
-        public LeagueModel League { get; set; }
+        public League League { get; set; }
 
-        public List<TeamModel> Teams { get; set; }
+        public List<Team> Teams { get; set; }
 
-        public List<MatchModel> Matches { get; set; }
+        public List<Match> Matches { get; set; }
 
-        public List<StatisticModel> Statistics { get; set; }
+        public List<Statistic> Statistics { get; set; }
 
         public List<PlayerStatisticsModel> PlayerStatistics { get; set; }
 
-        public List<PlayerModel> Players { get; set; }
+        public List<Player> Players { get; set; }
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -51,7 +53,7 @@ namespace Floorball.Droid.Activities
             TabLayout tabs = FindViewById<TabLayout>(Resource.Id.leaguetabs);
             tabs.SetupWithViewPager(pager);
 
-            League = new LeagueModel();
+            League = new League();
             League.Id = Intent.GetIntExtra("leagueId",0);
             League.Rounds = Intent.GetIntExtra("leagueRounds",0);
             League.Name = Intent.GetStringExtra("leagueName");
@@ -78,7 +80,8 @@ namespace Floorball.Droid.Activities
             //Teams.Add(model);
 
 
-            Teams = RESTHelper.GetTeamsByLeague(League.Id);
+            //Teams = RESTHelper.GetTeamsByLeague(League.Id);
+            Teams = Manager.GetTeamsByLeague(League.Id);
 
             //Matches = new List<MatchModel>();
             //MatchModel matchModel = new MatchModel();
@@ -105,7 +108,8 @@ namespace Floorball.Droid.Activities
             //Matches.Add(matchModel1);
             //Matches.Add(matchModel1);
 
-            Matches = RESTHelper.GetMatchesByLeague(League.Id);
+            //Matches = RESTHelper.GetMatchesByLeague(League.Id);
+            Matches = Manager.GetMatchesByLeague(League.Id);
 
             //Statistics = new List<StatisticModel>();
             //StatisticModel statisticsModel = new StatisticModel();
@@ -155,7 +159,8 @@ namespace Floorball.Droid.Activities
             //Statistics.Add(statisticsModel3);
             //Statistics.Add(statisticsModel4);
 
-            Statistics = RESTHelper.GetStatisticsByLeague(League.Id);
+            //Statistics = RESTHelper.GetStatisticsByLeague(League.Id);
+            Statistics = Manager.GetStatisticsByLeague(League.Id);
 
             PlayerStatistics = PlayerStatisticsMaker.CreatePlayerStatistics(Statistics);
 
@@ -166,7 +171,8 @@ namespace Floorball.Droid.Activities
             //playerModel.Name = "Rési Tamás";
             //Players.Add(playerModel);
 
-            Players = RESTHelper.GetPlayersByLeague(League.Id);
+            //Players = RESTHelper.GetPlayersByLeague(League.Id);
+            Players = Manager.GetPlayersByLeague(League.Id);
         }
 
         public class LeaguePageAdapter : FragmentPagerAdapter

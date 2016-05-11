@@ -16,6 +16,7 @@ using Android.Content;
 using Android.Preferences;
 using System.Globalization;
 using Floorball.LocalDB;
+using Floorball.LocalDB.Tables;
 
 namespace Floorball.Droid
 {
@@ -27,8 +28,6 @@ namespace Floorball.Droid
 	[Activity (Label = "Floorball", MainLauncher = true, Icon = "@mipmap/icon")]
 	public class MainActivity : Android.Support.V7.App.AppCompatActivity, IListItemSelected
     {
-		//int count = 1;
-
         public string[] MenuTitles { get; set; }
         public string MenuTitle { get; set; }
 
@@ -36,19 +35,19 @@ namespace Floorball.Droid
 
         MainFragment fragment;
 
-        public string Title { get; set; }
+        public string ActivityTitle { get; set; }
 
         private DrawerLayout drawerLayout;
         private ListView listsView;
         private MyActionBarDrawerToggle ActionBarDrawerToggle { get; set; }
 
-        public List<LeagueModel> Leagues { get; set; }
+        public List<League> Leagues { get; set; }
 
-        public List<MatchModel> ActualMatches { get; set; }
+        public List<Match> ActualMatches { get; set; }
 
-        public List<TeamModel> ActualTeams { get; set; }
+        public List<Team> ActualTeams { get; set; }
 
-        public List<TeamModel> Teams { get; set; }
+        public List<Team> Teams { get; set; }
 
 
 
@@ -56,31 +55,40 @@ namespace Floorball.Droid
 		{
 			base.OnCreate (savedInstanceState);
 
+            List<EventMessageModel> model = RESTHelper.GetAllEventMessage();
+
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             ISharedPreferencesEditor editor = prefs.Edit();
             string lastSyncDate = prefs.GetString("LastSyncDate", null);
-            if (lastSyncDate == null)
-            {
-                //Első alkalmazás futás
-                lastSyncDate = DateTime.Now.ToString();
-                Manager.CreateDatabase();
-                Manager.InitDatabaseFromServer();
-            }
+            //if (lastSyncDate == null)
+            //{
+            //    //Első alkalmazás futás
+            //    lastSyncDate = DateTime.Now.ToString();
+            //    Manager.CreateDatabase();
+            //    Manager.InitDatabaseFromServer();
+            //}
 
-            Updater.Instance.LastSyncDate = DateTime.ParseExact(lastSyncDate, "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture);
-            Updater.Instance.UpdateDataList.Add(RESTHelper.GetUpdates(Updater.Instance.LastSyncDate));
+            //Updater.Instance.LastSyncDate = DateTime.Parse(lastSyncDate);// Exact(lastSyncDate, "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture);
+            //Updater.Instance.UpdateDataList.Add(RESTHelper.GetUpdates(Updater.Instance.LastSyncDate));
 
-            Updater.Instance.UpdateDatabaseFromServer();
-            editor.PutString("LastSyncDate", DateTime.Now.ToString());
-            editor.Apply();
+            //Updater.Instance.UpdateDatabaseFromServer();
+            //editor.PutString("LastSyncDate", DateTime.Now.ToString());
+            //editor.Apply();
 
-            Leagues = RESTHelper.GetAllLeague();
-            ActualMatches = RESTHelper.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
+            //Leagues = RESTHelper.GetAllLeague();
+            //ActualMatches = RESTHelper.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
+            //ActualTeams = GetActualTeams(ActualMatches);
+            //Teams = RESTHelper.GetAllTeam();
+
+            Leagues = Manager.GetAllLeague();
+            //ActualMatches = Manager.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
+            ActualMatches = new List<Match>();
             ActualTeams = GetActualTeams(ActualMatches);
-            Teams = RESTHelper.GetAllTeam();
+            Teams = Manager.GetAllTeam();
 
-			// Set our view from the "main" layout resource
-			SetContentView (Resource.Layout.Main);
+
+            // Set our view from the "main" layout resource
+            SetContentView(Resource.Layout.Main);
             
             MenuTitles = Resources.GetStringArray(Resource.Array.menu_items);
             drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
@@ -102,13 +110,6 @@ namespace Floorball.Droid
 
             MenuOpened = true;
 
-            // Get our button from the layout resource,
-            // and attach an event to it
-            //Button button = FindViewById<Button> (Resource.Id.myButton);
-
-            //button.Click += delegate {
-            //	button.Text = string.Format ("{0} clicks!", count++);
-            //};
         }
 
         private void ChangeFragments(int position)
@@ -117,7 +118,7 @@ namespace Floorball.Droid
             SupportFragmentManager.BeginTransaction().Replace(Resource.Id.content_frame,fragment).Commit();
 
             listsView.SetItemChecked(position, true);
-            Title = MenuTitles[position];
+            ActivityTitle = MenuTitles[position];
             drawerLayout.CloseDrawer(listsView);
         }
 
@@ -129,36 +130,36 @@ namespace Floorball.Droid
             {
                 case 0:
                     fragment = new ActualFragment();
-                    Title = Resources.GetString(Resource.String.actual);
-                    SupportActionBar.Title = Title;
+                    ActivityTitle = Resources.GetString(Resource.String.actual);
+                    SupportActionBar.Title = ActivityTitle;
 
                     break;
 
                 case 1:
                     fragment = new LeaguesFragment();
-                    Title = Resources.GetString(Resource.String.league);
-                    SupportActionBar.Title = Title;
+                    ActivityTitle = Resources.GetString(Resource.String.league);
+                    SupportActionBar.Title = ActivityTitle;
 
                     break;
 
                 case 2:
                     fragment = new TeamsFragment();
-                    Title = Resources.GetString(Resource.String.teams);
-                    SupportActionBar.Title = Title;
+                    ActivityTitle = Resources.GetString(Resource.String.teams);
+                    SupportActionBar.Title = ActivityTitle;
 
                     break;
 
                 case 3:
                     fragment = new PlayersFragment();
-                    Title = Resources.GetString(Resource.String.players);
-                    SupportActionBar.Title = Title;
+                    ActivityTitle = Resources.GetString(Resource.String.players);
+                    SupportActionBar.Title = ActivityTitle;
 
                     break;
 
                 case 4:
                     fragment = new RefereesFragment();
-                    Title = Resources.GetString(Resource.String.referees);
-                    SupportActionBar.Title = Title;
+                    ActivityTitle = Resources.GetString(Resource.String.referees);
+                    SupportActionBar.Title = ActivityTitle;
 
                     break;
 
@@ -221,7 +222,7 @@ namespace Floorball.Droid
         {
             if (ActionBarDrawerToggle.IsMoving)
             {
-                SupportActionBar.Title = Title;
+                SupportActionBar.Title = ActivityTitle;
                 drawerLayout.CloseDrawers();
             }
             else
@@ -247,15 +248,15 @@ namespace Floorball.Droid
 
         }
 
-        private List<TeamModel> GetActualTeams(List<MatchModel> actualMatches)
+        private List<Team> GetActualTeams(List<Match> actualMatches)
         {
-            List<TeamModel> teams = new List<TeamModel>();
+            List<Team> teams = new List<Team>();
 
             foreach (var match in actualMatches)
             {
 
-                teams.Add(RESTHelper.GetTeamById(match.HomeTeamId));
-                teams.Add(RESTHelper.GetTeamById(match.AwayTeamId));
+                teams.Add(Manager.GetTeamById(match.HomeTeamId));
+                teams.Add(Manager.GetTeamById(match.AwayTeamId));
             }
 
             return teams;

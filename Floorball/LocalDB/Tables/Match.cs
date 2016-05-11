@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Floorball.LocalDB.Tables
     public class Match
     {
 
-        //[PrimaryKey, AutoIncrement]
+        [PrimaryKey]//, AutoIncrement]
         public int Id { get; set; }
 
         public string Date { get; set; }

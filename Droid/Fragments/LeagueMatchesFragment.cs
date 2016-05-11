@@ -14,6 +14,7 @@ using Android.Support.V4.App;
 using Floorball.Droid.Activities;
 using FloorballServer.Models.Floorball;
 using Android.Support.V7.Widget;
+using Floorball.LocalDB.Tables;
 
 namespace Floorball.Droid.Fragments
 {
@@ -58,7 +59,7 @@ namespace Floorball.Droid.Fragments
 
                 Matches.AddView(round);
 
-                List<MatchModel> matchesInRound = activity.Matches.Where(m => m.Round == i + 1).OrderBy(m => m.Date).ThenBy(m => m.Time).ToList();
+                List<Match> matchesInRound = activity.Matches.Where(m => m.Round == i + 1).OrderBy(m => m.Date).ThenBy(m => m.Time).ToList();
 
                 int j = 0;
 

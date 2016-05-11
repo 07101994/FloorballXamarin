@@ -16,6 +16,8 @@ using Floorball.REST;
 using Floorball.Droid.Activities;
 using System.Globalization;
 using Java.Lang;
+using Floorball.LocalDB;
+using Floorball.LocalDB.Tables;
 
 namespace Floorball.Droid.Fragments
 {
@@ -24,9 +26,9 @@ namespace Floorball.Droid.Fragments
         ListView leaguesListView;
         List<string> years;
 
-        public List<LeagueModel> Leagues { get; set; }
+        public List<League> Leagues { get; set; }
 
-        public List<LeagueModel> ActualLeagues { get; set; }
+        public List<League> ActualLeagues { get; set; }
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -53,7 +55,8 @@ namespace Floorball.Droid.Fragments
             try
             {
                 Button button = Activity.FindViewById<Button>(Resource.Id.yearsbutton);
-                years = RESTHelper.GetAllYear();
+                //years = RESTHelper.GetAllYear();
+                years = Manager.GetAllYear().Select(y => y.Year.ToString()).ToList();
                 button.Text = years.First();
                 //years = new List<string>(new string[] { "2011","2012","2013","2014","2015"});
 
@@ -79,7 +82,8 @@ namespace Floorball.Droid.Fragments
                 //leagues.Add(model);
                 //leagues.Add(model);
 
-                Leagues = RESTHelper.GetAllLeague();
+                //Leagues = RESTHelper.GetAllLeague();
+                Leagues = Manager.GetAllLeague();
                 ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == button.Text).ToList();
                 leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues);
                 leaguesListView.ItemClick += (e, p) => {

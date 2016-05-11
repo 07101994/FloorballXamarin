@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.Support.V4.App;
 using FloorballServer.Models.Floorball;
 using Floorball.REST;
+using Floorball.LocalDB.Tables;
 
 namespace Floorball.Droid.Fragments
 {
@@ -55,7 +56,7 @@ namespace Floorball.Droid.Fragments
             {
             
                 header = Activity.LayoutInflater.Inflate(Resource.Layout.Round, null, false) as ViewGroup;
-                MatchModel actual = activity.ActualMatches.ElementAt(i);
+                Match actual = activity.ActualMatches.ElementAt(i);
                 int leagueId = actual.LeagueId;
                 header.FindViewById<TextView>(Resource.Id.round).Text = activity.Leagues.Find(l => l.Id == leagueId).Name;
 

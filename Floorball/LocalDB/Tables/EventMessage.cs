@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using SQLite.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +8,7 @@ namespace Floorball.LocalDB.Tables
 {
     public class EventMessage
     {
-        //[PrimaryKey, AutoIncrement]
+        [PrimaryKey]//, AutoIncrement]
         public int Id { get; set; }
 
         public int Code { get; set; }
