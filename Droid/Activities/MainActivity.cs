@@ -12,6 +12,10 @@ using System.Collections.Generic;
 using FloorballServer.Models.Floorball;
 using Floorball.REST;
 using System.Linq;
+using Android.Content;
+using Android.Preferences;
+using System.Globalization;
+using Floorball.LocalDB;
 
 namespace Floorball.Droid
 {
@@ -51,6 +55,24 @@ namespace Floorball.Droid
         protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
+
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            ISharedPreferencesEditor editor = prefs.Edit();
+            string lastSyncDate = prefs.GetString("LastSyncDate", null);
+            if (lastSyncDate == null)
+            {
+                //Első alkalmazás futás
+                lastSyncDate = DateTime.Now.ToString();
+                Manager.CreateDatabase();
+                Manager.InitDatabaseFromServer();
+            }
+
+            Updater.Instance.LastSyncDate = DateTime.ParseExact(lastSyncDate, "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture);
+            Updater.Instance.UpdateDataList.Add(RESTHelper.GetUpdates(Updater.Instance.LastSyncDate));
+
+            Updater.Instance.UpdateDatabaseFromServer();
+            editor.PutString("LastSyncDate", DateTime.Now.ToString());
+            editor.Apply();
 
             Leagues = RESTHelper.GetAllLeague();
             ActualMatches = RESTHelper.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();

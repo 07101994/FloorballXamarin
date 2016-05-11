@@ -9,7 +9,7 @@ namespace Floorball.LocalDB.Tables
     public class Match
     {
 
-        [PrimaryKey, AutoIncrement]
+        //[PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
         public string Date { get; set; }

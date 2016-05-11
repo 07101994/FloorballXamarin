@@ -1,19 +1,16 @@
-﻿using SQLite;
-using SQLiteNetExtensions.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
-namespace Floorball.LocalDB.Tables
+namespace FloorballServer.Models.Floorball
 {
-    public class Team
+    public class TeamModel
     {
-        //[PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public System.DateTime Year { get; set; }
+        public DateTime Year { get; set; }
 
         public string Coach { get; set; }
 
@@ -29,18 +26,11 @@ namespace Floorball.LocalDB.Tables
 
         public short Get { get; set; }
 
-        public string Sex { get; set; }
-
-        //Relationships
-
-        [ForeignKey(typeof(Stadium))]
         public int StadiumId { get; set; }
 
-        [ForeignKey(typeof(League))]
         public int LeagueId { get; set; }
 
-        [ManyToMany(typeof(PlayerTeam))]
-        public HashSet<Player> Players { get; set; }
+        public string Sex { get; set; }
 
 
     }

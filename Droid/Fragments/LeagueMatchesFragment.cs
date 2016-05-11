@@ -66,7 +66,7 @@ namespace Floorball.Droid.Fragments
                 {
 
                     matches = Activity.LayoutInflater.Inflate(Resource.Layout.Matches, null, false) as ViewGroup;
-                    matches.FindViewById<TextView>(Resource.Id.matchDate).Text = matchesInRound.ElementAt(j).Date; 
+                    matches.FindViewById<TextView>(Resource.Id.matchDate).Text = matchesInRound.ElementAt(j).Date.ToString(); 
 
                     int k = j;
                     while (k < matchesInRound.Count && matchesInRound.ElementAt(j).Date == matchesInRound.ElementAt(k).Date && matchesInRound.ElementAt(j).Time == matchesInRound.ElementAt(k).Time)

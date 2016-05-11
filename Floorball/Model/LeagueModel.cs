@@ -1,24 +1,24 @@
-﻿using SQLite;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
-namespace Floorball.LocalDB.Tables
+namespace FloorballServer.Models.Floorball
 {
-    public class League
+    public class LeagueModel
     {
 
-        //[PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        public int  Id { get; set; }
 
         public string Name { get; set; }
 
         public DateTime Year { get; set; }
 
-        public string Type { get; set; }
+        public string type { get; set; }
 
         public string ClassName { get; set; }
 
         public int Rounds { get; set; }
+
+
     }
 }

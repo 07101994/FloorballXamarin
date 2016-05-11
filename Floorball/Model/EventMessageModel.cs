@@ -1,18 +1,18 @@
-﻿using SQLite;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
-namespace Floorball.LocalDB.Tables
+namespace FloorballServer.Models.Floorball
 {
-    public class EventMessage
+    public class EventMessageModel
     {
-        //[PrimaryKey, AutoIncrement]
+
         public int Id { get; set; }
 
         public int Code { get; set; }
 
         public string Message { get; set; }
+
 
     }
 }

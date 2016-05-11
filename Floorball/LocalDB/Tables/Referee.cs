@@ -9,7 +9,7 @@ namespace Floorball.LocalDB.Tables
     public class Referee
     {
 
-        [PrimaryKey, AutoIncrement]
+        //[PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
         public string Name { get; set; }

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <string-array name="menu_items">
+    <item>Aktuális</item>
+    <item>Bajnokságok</item>
+    <item>Csapatok</item>
+    <item>Játékosok</item>
+    <item>Bírók</item>
+  </string-array>
+</resources>

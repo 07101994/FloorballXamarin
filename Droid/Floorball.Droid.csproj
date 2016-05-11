@@ -40,6 +40,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Data.Sqlite" />
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
@@ -119,73 +120,61 @@
     <Compile Include="Fragments\ListDialogFragment.cs" />
     <Compile Include="Fragments\MainFragment.cs" />
     <Compile Include="Fragments\MatchListFragment.cs" />
-    <Compile Include="Fragments\PlayerListFragment.cs" />
+    <Compile Include="Fragments\PlayerListFragment.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Fragments\PlayersFragment.cs" />
     <Compile Include="Fragments\RefereesFragment.cs" />
     <Compile Include="Fragments\TeamsFragment.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Fragments\TeamsPageFragment.cs" />
     <Compile Include="MyActionBarDrawerToggle.cs" />
-    <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="Resources\AboutResources.txt" />
-    <None Include="Properties\AndroidManifest.xml" />
-    <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\values\Style.axml">
-      <SubType>Designer</SubType>
+    <AndroidResource Include="Resources\layout-land\MatchResult.axml" />
+    <AndroidResource Include="Resources\layout-land\TeamActivity.axml" />
+    <AndroidResource Include="Resources\layout\HeaderCell.axml">
+      <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\LeaugesFragment.axml">
-      <SubType>Designer</SubType>
+    <AndroidResource Include="Resources\layout\League.axml">
+      <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\LeagueItem.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\ListDialogFragment.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\values-v11\Style.axml" />
-    <AndroidResource Include="Resources\values-v14\Style.axml" />
-    <AndroidResource Include="Resources\layout\League.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\LeagueMatchesFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\LeagueTableFragment.axml">
+    <AndroidResource Include="Resources\layout\LeagueStatisticsFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\LeagueStatisticsFragment.axml">
+    <AndroidResource Include="Resources\layout\LeagueTableFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\LeagueTableRow.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\HeaderCell.axml">
+    <AndroidResource Include="Resources\layout\LeaugesFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListDialogFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\layout\Matches.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\Round.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\MatchResult.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\Round.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\StatisticsTableRow.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout-land\MatchResult.axml" />
-    <AndroidResource Include="Resources\layout\TeamsFragment.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\TeamsPageFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Team.axml">
@@ -194,130 +183,75 @@
     <AndroidResource Include="Resources\layout\TeamActivity.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout-land\TeamActivity.axml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml" />
-    <AndroidResource Include="Resources\values\Strings.xml">
-      <SubType>Designer</SubType>
+    <AndroidResource Include="Resources\layout\TeamsFragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TeamsPageFragment.axml">
+      <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\mipmap-hdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-mdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <AndroidResource Include="Resources\values-mdpi\dimens.xml" />
+    <AndroidResource Include="Resources\values-v11\Style.axml" />
+    <AndroidResource Include="Resources\values-v14\Style.axml" />
     <AndroidResource Include="Resources\values\Arrays.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\values\colors.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
+    <AndroidResource Include="Resources\values\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\values\Style.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\AndroidManifest.xml" />
+    <None Include="Assets\AboutAssets.txt" />
+    <None Include="Resources\AboutResources.txt" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_arrow_back_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_menu_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\ic_menu_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_menu_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_menu_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_back_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_back_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_back_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_back_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_arrow_drop_down_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_drop_down_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_drop_down_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_drop_down_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_drop_down_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_drop_down_white_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_arrow_drop_down_white_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_drop_down_white_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_drop_down_white_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_drop_down_white_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_arrow_drop_up_white_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_drop_up_white_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_drop_up_white_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_drop_up_white_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_drop_up_white_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_arrow_drop_up_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_arrow_drop_up_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_menu_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_back_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_drop_down_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_drop_down_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_drop_up_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_drop_up_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_menu_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\phoenix.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_back_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_drop_down_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_drop_down_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_drop_up_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_drop_up_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_back_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_drop_down_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_drop_down_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_drop_up_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_drop_up_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_menu_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_back_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_drop_down_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_drop_down_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_drop_up_black_24dp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-mdpi\dimens.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_drop_up_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_menu_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable\shadow.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\values-hdpi\" />
     <Folder Include="Resources\values-xhdpi\" />
     <Folder Include="Resources\values-xxhdpi\" />
     <Folder Include="Resources\values-xxxhdpi\" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\phoenix.jpg" />
   </ItemGroup>
   <Import Project="..\Floorball\Floorball.projitems" Label="Shared" Condition="Exists('..\Floorball\Floorball.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

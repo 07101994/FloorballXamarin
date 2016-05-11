@@ -8,7 +8,7 @@ namespace Floorball.LocalDB.Tables
 {
     public class Player
     {
-        [PrimaryKey, AutoIncrement]
+        //[PrimaryKey, AutoIncrement]
         public int RegNum { get; set; }
 
         public string Name { get; set; }

@@ -8,7 +8,7 @@ namespace Floorball.LocalDB.Tables
 {
     public class Event
     {
-        [PrimaryKey, AutoIncrement]
+        //[PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
         public string Type { get; set; }

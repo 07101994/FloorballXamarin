@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace Floorball
@@ -12,10 +13,11 @@ namespace Floorball
 
         public List<string> UpdateDataList { get; set; }
 
+        public DateTime LastSyncDate { get; set; }
 
         private static Updater instance;
 
-        public Updater Instance
+        public static Updater Instance
         {
             get
             {
@@ -25,6 +27,11 @@ namespace Floorball
                 return instance;
                 
             }
+        }
+
+        public string GetUpdatedDataFromServer(DateTime date)
+        {
+            return "";
         }
 
         public bool UpdateDatabaseFromServer()
@@ -50,33 +57,86 @@ namespace Floorball
                     {
                         case "addPlayer":
 
-                            Manager.AddPlayer(deserializedObject[key]["name"], Convert.ToInt32(deserializedObject[key]["regNum"]), Convert.ToInt32(deserializedObject[key]["number"]),DateTime.Now);
+                            Manager.AddPlayer(deserializedObject[key]["name"], Convert.ToInt32(deserializedObject[key]["regNum"]), Convert.ToInt32(deserializedObject[key]["number"]), DateTime.Parse(deserializedObject[key]["date"].ToString()));
 
                             break;
 
                         case "addTeam":
+
+                            Manager.AddTeam(deserializedObject[key]["id"], deserializedObject[key]["name"], DateTime.ParseExact(deserializedObject[key]["year"], "yyyy", CultureInfo.InvariantCulture), deserializedObject[key]["coach"], deserializedObject[key]["sex"], deserializedObject[key]["stadiumId"], deserializedObject[key]["leagueId"]);
+
                             break;
 
                         case "addMatch":
+
+
                             break;
 
                         case "addLeague":
+
+                            Manager.AddLeague(deserializedObject[key]["id"], deserializedObject[key]["name"], DateTime.ParseExact(deserializedObject[key]["year"], "yyyy", CultureInfo.InvariantCulture), deserializedObject[key]["type"], deserializedObject[key]["classname"], deserializedObject[key]["rounds"]);
+
                             break;
 
                         case "addEvent":
+
+                            Manager.AddEvent(deserializedObject[key]["id"], deserializedObject[key]["matchId"], deserializedObject[key]["type"], TimeSpan.ParseExact(deserializedObject[key]["time"], "h\\h\\:m\\m\\:s\\s", CultureInfo.InvariantCulture), deserializedObject[key]["playerId"], deserializedObject[key]["eventMessageId"], deserializedObject[key]["teamId"]);
+
                             break;
 
                         case "addReferee":
+
+                            Manager.AddReferee(deserializedObject[key]["id"], deserializedObject[key]["name"]);
+
                             break;
 
                         case "addEventMessage":
+
                             break;
 
                         case "addStadium":
+
+                            Manager.AddStadium(deserializedObject[key]["id"], deserializedObject[key]["name"], deserializedObject[key]["address"]);
+
                             break;
 
-                        case "addStatistic":
+                        case "playerToTeam":
+
+
                             break;
+
+                        case "playerToMatch":
+
+
+                            break;
+
+                        case "refereeToMatch":
+
+                            break;
+
+                        case "removePlayerFromTeam":
+
+
+                            break;
+
+                        case "removePlayerFromMatch":
+
+
+                            break;
+
+                        case "removeRefereeFromMatch":
+
+                            break;
+
+                        //case "addStat":
+
+
+                        //    break;
+
+                        //case "removeStat":
+
+
+                        //    break;
 
                         default:
                             break;
@@ -84,10 +144,7 @@ namespace Floorball
                 }
             }
 
-
-
-
-
+            LastSyncDate = DateTime.Now;
             UpdateRequired = false;
 
             return false;

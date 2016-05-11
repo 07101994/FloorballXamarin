@@ -1971,11 +1971,14 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f020052
 			public const int ic_menu_black_24dp = 2130837586;
 			
-			// aapt resource value: 0x7f020054
-			public const int notification_template_icon_bg = 2130837588;
+			// aapt resource value: 0x7f020055
+			public const int notification_template_icon_bg = 2130837589;
 			
 			// aapt resource value: 0x7f020053
 			public const int phoenix = 2130837587;
+			
+			// aapt resource value: 0x7f020054
+			public const int shadow = 2130837588;
 			
 			static Drawable()
 			{
