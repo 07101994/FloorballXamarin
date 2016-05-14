@@ -22,11 +22,18 @@ namespace Floorball
             get
             {
                 if (instance == null)
-                    return new Updater();
+                {
+                    instance = new Updater();
+                }
 
                 return instance;
                 
             }
+        }
+
+        private Updater()
+        {
+            UpdateDataList = new List<string>();
         }
 
         public string GetUpdatedDataFromServer(DateTime date)

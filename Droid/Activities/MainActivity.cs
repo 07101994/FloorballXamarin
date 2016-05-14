@@ -55,37 +55,38 @@ namespace Floorball.Droid
 		{
 			base.OnCreate (savedInstanceState);
 
-            List<EventMessageModel> model = RESTHelper.GetAllEventMessage();
-
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             ISharedPreferencesEditor editor = prefs.Edit();
             string lastSyncDate = prefs.GetString("LastSyncDate", null);
-            //if (lastSyncDate == null)
-            //{
-            //    //Első alkalmazás futás
-            //    lastSyncDate = DateTime.Now.ToString();
-            //    Manager.CreateDatabase();
-            //    Manager.InitDatabaseFromServer();
-            //}
+            if (lastSyncDate == null)
+            {
+                //Első alkalmazás futás
+                lastSyncDate = DateTime.Now.ToString();
+                Manager.CreateDatabase();
+                Manager.InitDatabaseFromServer();
+            }
 
-            //Updater.Instance.LastSyncDate = DateTime.Parse(lastSyncDate);// Exact(lastSyncDate, "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture);
+            Updater.Instance.LastSyncDate = DateTime.Parse(lastSyncDate);// Exact(lastSyncDate, "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture);
+            //TODO:::
             //Updater.Instance.UpdateDataList.Add(RESTHelper.GetUpdates(Updater.Instance.LastSyncDate));
+            //TOdo:::
 
-            //Updater.Instance.UpdateDatabaseFromServer();
-            //editor.PutString("LastSyncDate", DateTime.Now.ToString());
-            //editor.Apply();
+            Updater.Instance.UpdateDatabaseFromServer();
+            editor.PutString("LastSyncDate", DateTime.Now.ToString());
+            editor.Apply();
 
-            //Leagues = RESTHelper.GetAllLeague();
-            //ActualMatches = RESTHelper.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
-            //ActualTeams = GetActualTeams(ActualMatches);
-            //Teams = RESTHelper.GetAllTeam();
+            //lastSyncDate = prefs.GetString("LastSyncDate", null);
+
+            ////Leagues = RESTHelper.GetAllLeague();
+            ////ActualMatches = RESTHelper.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
+            ////ActualTeams = GetActualTeams(ActualMatches);
+            ////Teams = RESTHelper.GetAllTeam();
 
             Leagues = Manager.GetAllLeague();
-            //ActualMatches = Manager.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
-            ActualMatches = new List<Match>();
+            ActualMatches = Manager.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
+            ////ActualMatches = new List<Match>();
             ActualTeams = GetActualTeams(ActualMatches);
             Teams = Manager.GetAllTeam();
-
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);

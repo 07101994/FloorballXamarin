@@ -12,6 +12,7 @@
         android:text="2015"
         android:textSize="15sp"
         android:gravity="center"
+        android:layout_gravity="center_horizontal"
         android:background="@color/accent"
         android:textColor="@color/secondary_text"
         android:layout_marginTop="20dp"
@@ -19,5 +20,6 @@
     <ListView
         android:id="@+id/leaguesList"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

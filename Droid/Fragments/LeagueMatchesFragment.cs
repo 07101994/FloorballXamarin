@@ -54,8 +54,8 @@ namespace Floorball.Droid.Fragments
 
             for (int i = 0; i < activity.League.Rounds; i++)
             {
-                round = Activity.LayoutInflater.Inflate(Resource.Layout.Round, null, false) as ViewGroup;
-                round.FindViewById<TextView>(Resource.Id.round).Text = (i + 1) + ". forduló";
+                round = Activity.LayoutInflater.Inflate(Resource.Layout.Header, null, false) as ViewGroup;
+                round.FindViewById<TextView>(Resource.Id.headerName).Text = (i + 1) + ". forduló";
 
                 Matches.AddView(round);
 

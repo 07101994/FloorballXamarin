@@ -61,6 +61,8 @@ namespace Floorball.Droid.Activities
             //League.Year = Intent.GetIntExtra("leagueYear");
 
             SupportActionBar.Title = League.Name;
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetHomeButtonEnabled(true);
 
             //Teams = new List<TeamModel>();
             //TeamModel model = new TeamModel();
@@ -173,6 +175,32 @@ namespace Floorball.Droid.Activities
 
             //Players = RESTHelper.GetPlayersByLeague(League.Id);
             Players = Manager.GetPlayersByLeague(League.Id);
+        }
+
+        //public override void OnBackPressed()
+        //{
+        //    base.OnBackPressed();
+
+        //    //FinishActivity();
+
+        //}
+
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+
+                    Finish();
+
+                    return true;
+
+                default:
+                    break;
+            }
+
+            return base.OnOptionsItemSelected(item);    
         }
 
         public class LeaguePageAdapter : FragmentPagerAdapter

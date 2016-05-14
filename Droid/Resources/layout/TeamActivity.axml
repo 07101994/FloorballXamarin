@@ -3,75 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-   
-              >
-    
-  <LinearLayout
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:weightSum="3"
         android:orientation="horizontal">
-        
-    <ImageView
+        <ImageView
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:scaleType="centerInside"
             android:layout_weight="1"
             android:src="@drawable/phoenix"
-            android:padding="5dp"
-            
-            />
-        
-    <LinearLayout
+            android:padding="5dp" />
+        <LinearLayout
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:weightSum="4"
+            android:weightSum="6"
             android:orientation="vertical"
-            >
-
-          
-          
-           <TextView
+            android:layout_marginTop="16dp">
+            <TextView
                 android:layout_height="0dp"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:text="@string/trainerLabel"
-                
-                />
-
-      <TextView
-              android:id="@+id/coachName"
-              android:layout_height="0dp"
-              android:layout_width="match_parent"
-              android:layout_weight="1"
-              />
-
-      <TextView
-               android:layout_height="0dp"
-               android:layout_width="match_parent"
-               android:layout_weight="1"
-               android:text="@string/stadionLabel" />
-
-      <TextView
-              android:id="@+id/stadiumName"
-              android:layout_height="0dp"
-              android:layout_width="match_parent"
-              android:layout_weight="1" />
-
-         
-
+                android:textStyle="bold"
+                android:text="@string/trainerLabel" />
+            <TextView
+                android:id="@+id/coachName"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1" />
+            <TextView
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:text="@string/stadionLabel" />
+            <TextView
+                android:id="@+id/stadiumName"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="3" />
         </LinearLayout>
     </LinearLayout>
-  <android.support.design.widget.TabLayout
-      android:id="@+id/teamtabs"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:tabMode="fixed"
-      app:tabMaxWidth="0dp" />
-  <android.support.v4.view.ViewPager
-      android:id="@+id/teamPager"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+    <android.support.design.widget.TabLayout
+        android:id="@+id/teamtabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="fixed"
+        app:tabMaxWidth="0dp" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/teamPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

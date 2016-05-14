@@ -55,10 +55,10 @@ namespace Floorball.Droid.Fragments
             while (i < activity.ActualMatches.Count)
             {
             
-                header = Activity.LayoutInflater.Inflate(Resource.Layout.Round, null, false) as ViewGroup;
+                header = Activity.LayoutInflater.Inflate(Resource.Layout.Header, null, false) as ViewGroup;
                 Match actual = activity.ActualMatches.ElementAt(i);
                 int leagueId = actual.LeagueId;
-                header.FindViewById<TextView>(Resource.Id.round).Text = activity.Leagues.Find(l => l.Id == leagueId).Name;
+                header.FindViewById<TextView>(Resource.Id.headerName).Text = activity.Leagues.Find(l => l.Id == leagueId).Name;
 
                 Matches.AddView(header);
 

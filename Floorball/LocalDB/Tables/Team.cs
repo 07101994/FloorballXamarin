@@ -41,7 +41,7 @@ namespace Floorball.LocalDB.Tables
         public int LeagueId { get; set; }
 
         [ManyToMany(typeof(PlayerTeam))]
-        public HashSet<Player> Players { get; set; }
+        public List<Player> Players { get; set; }
 
 
     }

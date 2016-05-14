@@ -83,13 +83,14 @@ namespace Floorball.Droid.Fragments
             return root;
         }
 
-        private void CreateTeams(View root)
+        public void CreateTeams(View root)
         {
             
             //TODO: év szűrés
             
             if (pageCount == 0)
             {
+                
                 actualTeams = Teams.Where(t => t.Sex == "férfi").OrderBy(t => t.LeagueId).ToList();
             }
             else
@@ -99,7 +100,7 @@ namespace Floorball.Droid.Fragments
 
             MainActivity activity = Activity as MainActivity;
 
-            TeamsLayout = root.FindViewById<LinearLayout>(Resource.Id.teams);
+            TeamsLayout = root.FindViewById<LinearLayout>(Resource.Id.cardlist);
             ViewGroup header;
             ViewGroup team;
 
@@ -109,8 +110,8 @@ namespace Floorball.Droid.Fragments
 
                 int leagueId = actualTeams.ElementAt(i).LeagueId;
 
-                header = Activity.LayoutInflater.Inflate(Resource.Layout.Round, null, false) as ViewGroup;
-                header.FindViewById<TextView>(Resource.Id.round).Text = Leagues.Where(l => l.Id == leagueId).First().Name;
+                header = Activity.LayoutInflater.Inflate(Resource.Layout.Header, null, false) as ViewGroup;
+                header.FindViewById<TextView>(Resource.Id.headerName).Text = Leagues.Where(l => l.Id == leagueId).First().Name;
 
                 TeamsLayout.AddView(header);
 
@@ -118,9 +119,9 @@ namespace Floorball.Droid.Fragments
                 while (j < actualTeams.Count && actualTeams.ElementAt(j).LeagueId == leagueId)
                 {
 
-                    team = Activity.LayoutInflater.Inflate(Resource.Layout.Team, null, false) as ViewGroup;
-                    team.FindViewById<TextView>(Resource.Id.teamName).Text = actualTeams.ElementAt(j).Name;
-                    team.Click += Team_Click;
+                    team = Activity.LayoutInflater.Inflate(Resource.Layout.Card, TeamsLayout, false) as ViewGroup;
+                    team.FindViewById<TextView>(Resource.Id.cardName).Text = actualTeams.ElementAt(j).Name;
+                    team.Click += TeamClick;
                     team.Tag = j.ToString();
 
                     TeamsLayout.AddView(team);
@@ -133,11 +134,10 @@ namespace Floorball.Droid.Fragments
 
         }
 
-        private void Team_Click(object sender, EventArgs e)
+        private void TeamClick(object sender, EventArgs e)
         {
             Intent intent = new Intent(Context, typeof(TeamActivity));
-            //intent.PutExtra("team", JsonConvert.SerializeObject(actualTeams.ElementAt(Convert.ToInt16((sender as CardView).Tag))));
-            intent.PutExtra("team", JsonConvert.SerializeObject(actualTeams.ElementAt(0)));
+            intent.PutExtra("team", JsonConvert.SerializeObject(actualTeams.ElementAt(Convert.ToInt32((sender as CardView).Tag.ToString()))));
             StartActivity(intent);
            
         }

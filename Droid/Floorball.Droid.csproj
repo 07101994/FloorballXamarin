@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\LeagueActivity.cs" />
+    <Compile Include="Activities\PlayerActivity.cs" />
     <Compile Include="Activities\TeamActivity.cs" />
     <Compile Include="Adapters\LeaguesAdapter.cs" />
     <Compile Include="Fragments\ActualFragment.cs" />
@@ -161,13 +162,13 @@
     <AndroidResource Include="Resources\layout\MatchResult.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\Round.axml">
+    <AndroidResource Include="Resources\layout\Header.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\StatisticsTableRow.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\Team.axml">
+    <AndroidResource Include="Resources\layout\Card.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\TeamActivity.axml">
@@ -236,6 +237,18 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_drop_up_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_menu_black_24dp.png" />
     <AndroidResource Include="Resources\drawable\shadow.axml" />
+    <AndroidResource Include="Resources\layout\ScrollableCardList.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Stat.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\StatLine.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Empty.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\values-hdpi\" />

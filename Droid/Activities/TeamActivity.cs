@@ -16,6 +16,8 @@ using Android.Support.Design.Widget;
 using Android.App;
 using FloorballServer.Models.Floorball;
 using Newtonsoft.Json;
+using Floorball.LocalDB;
+using Floorball.LocalDB.Tables;
 
 namespace Floorball.Droid.Activities
 {
@@ -25,7 +27,10 @@ namespace Floorball.Droid.Activities
 
         TeamPageAdapter pagerAdapter;
 
-        public TeamModel Team { get; set; }
+        public Team Team { get; set; }
+
+        public List<Player> Players { get; set; }
+
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -41,12 +46,37 @@ namespace Floorball.Droid.Activities
             TabLayout tabs = FindViewById<TabLayout>(Resource.Id.teamtabs);
             tabs.SetupWithViewPager(pager);
 
-            Team =  JsonConvert.DeserializeObject<TeamModel>(Intent.GetStringExtra("team"));
+            Team =  JsonConvert.DeserializeObject<Team>(Intent.GetStringExtra("team"));
+            Players = Manager.GetPlayersByTeam(Team.Id).ToList();
+
+
             SupportActionBar.Title = Team.Name;
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetHomeButtonEnabled(true);
 
             FindViewById<TextView>(Resource.Id.coachName).Text = Team.Coach;
-            FindViewById<TextView>(Resource.Id.stadiumName).Text = Team.StadiumId.ToString();
+            FindViewById<TextView>(Resource.Id.stadiumName).Text = Manager.GetStadiumById(Team.StadiumId).Name;
 
+
+        }
+
+        
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+
+                    Finish();
+
+                    return true;
+
+                default:
+                    break;
+            }
+
+            return base.OnOptionsItemSelected(item);
         }
 
 

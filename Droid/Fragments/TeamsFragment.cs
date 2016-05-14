@@ -20,7 +20,9 @@ namespace Floorball.Droid.Fragments
     {
 
         private SexPageAdapter pagerAdapter;
-           
+
+        private ViewPager pager;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -46,7 +48,7 @@ namespace Floorball.Droid.Fragments
         {
             base.OnStart();
 
-            ViewPager pager = Activity.FindViewById<ViewPager>(Resource.Id.sexPager);
+            pager = Activity.FindViewById<ViewPager>(Resource.Id.sexPager);
             pagerAdapter = new SexPageAdapter(Activity.SupportFragmentManager);
             pager.Adapter = pagerAdapter;
 
@@ -56,15 +58,23 @@ namespace Floorball.Droid.Fragments
 
         public override void listItemSelected(string s)
         {
-            throw new NotImplementedException();
-        }
+            foreach (var tag in pagerAdapter.fragmentTags)
+            {
+                TeamsPageFragment f = Activity.SupportFragmentManager.FindFragmentByTag(tag) as TeamsPageFragment;
 
+                f.CreateTeams(f.View);
+
+            }
+           
+        }
 
         public class SexPageAdapter : FragmentPagerAdapter
         {
+            public List<string> fragmentTags;
+
             public SexPageAdapter(FragmentManager manager) : base(manager)
             {
-
+                fragmentTags = new List<string>();
             }
 
             public override int Count
@@ -77,15 +87,34 @@ namespace Floorball.Droid.Fragments
 
             public override Fragment GetItem(int position)
             {
+                Fragment f;
+
                 switch (position)
                 {
                     case 0:
-                        return TeamsPageFragment.Instance(0);
+                        f = TeamsPageFragment.Instance(0);
+                        //fragmentTags.Add(f.Tag);
+                        return f;
                     case 1:
-                        return TeamsPageFragment.Instance(1);
+                        f = TeamsPageFragment.Instance(1);
+                        //fragmentTags.Add(f.Tag);
+                        return f;
                     default:
                         return null;
                 }
+            }
+
+            public override Java.Lang.Object InstantiateItem(ViewGroup container, int position)
+            {
+                Java.Lang.Object o = base.InstantiateItem(container, position);
+
+                if (o is Fragment)
+                {
+                    Fragment f = o as Fragment;
+                    fragmentTags.Add(f.Tag);
+                }
+
+                return o;
             }
 
             public override ICharSequence GetPageTitleFormatted(int position)

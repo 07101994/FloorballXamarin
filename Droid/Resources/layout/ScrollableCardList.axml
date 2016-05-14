@@ -2,34 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal">
-    <Button
-        android:id="@+id/yearsbutton"
-        android:layout_height="60dp"
-        android:layout_width="wrap_content"
-        android:text="2015"
-        android:textSize="15sp"
-        android:gravity="center"
-        android:background="@color/accent"
-        android:textColor="@color/secondary_text"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center_horizontal" />
-    <include
-        layout="@layout/ScrollableCardList" />
-<!--<ScrollView
+    android:layout_height="match_parent">
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:scrollbarStyle="insideOverlay">
         <LinearLayout
-            android:id="@+id/teams"
+            android:id="@+id/cardlist"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_gravity="center_horizontal" />
-    </ScrollView>-->
+    </ScrollView>
 </LinearLayout>
