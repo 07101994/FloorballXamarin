@@ -41,13 +41,13 @@ namespace Floorball.Droid
         private ListView listsView;
         private MyActionBarDrawerToggle ActionBarDrawerToggle { get; set; }
 
-        public List<League> Leagues { get; set; }
+        public IEnumerable<League> Leagues { get; set; }
 
-        public List<Match> ActualMatches { get; set; }
+        public IEnumerable<Match> ActualMatches { get; set; }
 
-        public List<Team> ActualTeams { get; set; }
+        public IEnumerable<Team> ActualTeams { get; set; }
 
-        public List<Team> Teams { get; set; }
+        public IEnumerable<Team> Teams { get; set; }
 
 
 
@@ -131,35 +131,35 @@ namespace Floorball.Droid
             {
                 case 0:
                     fragment = new ActualFragment();
-                    ActivityTitle = Resources.GetString(Resource.String.actual);
+                    //ActivityTitle = Resources.GetString(Resource.String.actual);
                     SupportActionBar.Title = ActivityTitle;
 
                     break;
 
                 case 1:
                     fragment = new LeaguesFragment();
-                    ActivityTitle = Resources.GetString(Resource.String.league);
+                    //ActivityTitle = Resources.GetString(Resource.String.league);
                     SupportActionBar.Title = ActivityTitle;
 
                     break;
 
                 case 2:
                     fragment = new TeamsFragment();
-                    ActivityTitle = Resources.GetString(Resource.String.teams);
+                    //ActivityTitle = Resources.GetString(Resource.String.teams);
                     SupportActionBar.Title = ActivityTitle;
 
                     break;
 
                 case 3:
                     fragment = new PlayersFragment();
-                    ActivityTitle = Resources.GetString(Resource.String.players);
+                    //ActivityTitle = Resources.GetString(Resource.String.players);
                     SupportActionBar.Title = ActivityTitle;
 
                     break;
 
                 case 4:
                     fragment = new RefereesFragment();
-                    ActivityTitle = Resources.GetString(Resource.String.referees);
+                    //ActivityTitle = Resources.GetString(Resource.String.referees);
                     SupportActionBar.Title = ActivityTitle;
 
                     break;
@@ -249,7 +249,7 @@ namespace Floorball.Droid
 
         }
 
-        private List<Team> GetActualTeams(List<Match> actualMatches)
+        private List<Team> GetActualTeams(IEnumerable<Match> actualMatches)
         {
             List<Team> teams = new List<Team>();
 

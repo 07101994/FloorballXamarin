@@ -19,8 +19,6 @@ namespace Floorball.Droid.Fragments
     public class ActualFragment : MainFragment
     {
 
-        public LinearLayout Matches { get; set; }
-
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);  
@@ -33,45 +31,45 @@ namespace Floorball.Droid.Fragments
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
-            View root = inflater.Inflate(Resource.Layout.LeagueMatchesFragment, container, false);
+            View root = inflater.Inflate(Resource.Layout.MatchesFragment, container, false);
 
-            CreateMatches(root);
+            CreateMatches(root.FindViewById<LinearLayout>(Resource.Id.matchesList));
 
             return root;
         }
 
-        private void CreateMatches(View root)
+        private void CreateMatches(LinearLayout container)
         {
 
             MainActivity activity = Activity as MainActivity;
 
-            Matches = root.FindViewById<LinearLayout>(Resource.Id.leagueMatches);
+             
             ViewGroup header;
             ViewGroup matches;
             ViewGroup matchResult;
 
             int i = 0;
 
-            while (i < activity.ActualMatches.Count)
+            while (i < activity.ActualMatches.Count())
             {
             
                 header = Activity.LayoutInflater.Inflate(Resource.Layout.Header, null, false) as ViewGroup;
                 Match actual = activity.ActualMatches.ElementAt(i);
                 int leagueId = actual.LeagueId;
-                header.FindViewById<TextView>(Resource.Id.headerName).Text = activity.Leagues.Find(l => l.Id == leagueId).Name;
+                header.FindViewById<TextView>(Resource.Id.headerName).Text = activity.Leagues.ToList().Find(l => l.Id == leagueId).Name;
 
-                Matches.AddView(header);
+                container.AddView(header);
 
                 int j = i;
 
-                while (j < activity.ActualMatches.Count)
+                while (j < activity.ActualMatches.Count())
                 {
                     matches = Activity.LayoutInflater.Inflate(Resource.Layout.Matches, null, false) as ViewGroup;
                     matches.FindViewById<TextView>(Resource.Id.matchDate).Text = actual.Date.ToString();
 
                     int k = j;
 
-                    while (k < activity.ActualMatches.Count && activity.ActualMatches.ElementAt(k).LeagueId == actual.LeagueId && activity.ActualMatches.ElementAt(k).Date == actual.Date)
+                    while (k < activity.ActualMatches.Count() && activity.ActualMatches.ElementAt(k).LeagueId == actual.LeagueId && activity.ActualMatches.ElementAt(k).Date == actual.Date)
                     {
 
                         matchResult = Activity.LayoutInflater.Inflate(Resource.Layout.MatchResult, null, false) as ViewGroup;
@@ -86,7 +84,7 @@ namespace Floorball.Droid.Fragments
                     }
 
                     j = k;
-                    Matches.AddView(matches);
+                    container.AddView(matches);
                 }
 
                 i = j;

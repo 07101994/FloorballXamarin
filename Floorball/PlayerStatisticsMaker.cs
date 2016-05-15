@@ -10,12 +10,12 @@ namespace Floorball
     public class PlayerStatisticsMaker
     {
 
-        public static List<PlayerStatisticsModel> CreatePlayerStatistics(List<Statistic> statistics)
+        public static IEnumerable<PlayerStatisticsModel> CreatePlayerStatistics(IEnumerable<Statistic> statistics)
         {
 
             List<PlayerStatisticsModel> models = new List<PlayerStatisticsModel>();
 
-            List<int> ids = statistics.Select(s => s.PlayerRegNum).Distinct().ToList();
+            IEnumerable<int> ids = statistics.Select(s => s.PlayerRegNum).Distinct();
             foreach (var id in ids)
             {
                 IEnumerable<Statistic> playerStats = statistics.Where(s => s.PlayerRegNum == id);

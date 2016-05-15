@@ -29,15 +29,15 @@ namespace Floorball.Droid.Activities
 
         public League League { get; set; }
 
-        public List<Team> Teams { get; set; }
+        public IEnumerable<Team> Teams { get; set; }
 
-        public List<Match> Matches { get; set; }
+        public IEnumerable<Match> Matches { get; set; }
 
-        public List<Statistic> Statistics { get; set; }
+        public IEnumerable<Statistic> Statistics { get; set; }
 
-        public List<PlayerStatisticsModel> PlayerStatistics { get; set; }
+        public IEnumerable<PlayerStatisticsModel> PlayerStatistics { get; set; }
 
-        public List<Player> Players { get; set; }
+        public IEnumerable<Player> Players { get; set; }
 
 
         protected override void OnCreate(Bundle savedInstanceState)

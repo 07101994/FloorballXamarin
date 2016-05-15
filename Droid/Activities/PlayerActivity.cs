@@ -24,11 +24,9 @@ namespace Floorball.Droid.Activities
 
         public Player Player { get; set; }
 
-        public List<Statistic> Statistics { get; set; }
+        public IEnumerable<Statistic> Statistics { get; set; }
 
-        //public Dictionary<int,int> TeamYear { get; set; }
-
-        private List<Team> Teams { get; set; }
+        private IEnumerable<Team> Teams { get; set; }
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -41,7 +39,7 @@ namespace Floorball.Droid.Activities
             Statistics = Manager.GetStatisticsByPlayer(Player.RegNum);
             //TeamYear = Statistics.Select(s => new { s.TeamId, Manager.GetTeamById(s.TeamId).Year.Year }).OrderByDescending(t => t.Year).ToDictionary(t => t.TeamId, t => t.Year);
             Teams = Statistics.Select(s => Manager.GetTeamById(s.TeamId)).GroupBy(t => t.Id).Select(g => g.First()).OrderByDescending(t => t.Year).ToList();
-            int matchCount = Manager.GetMatchesByPlayer(Player.RegNum).Count;
+            int matchCount = Manager.GetMatchesByPlayer(Player.RegNum).Count();
 
 
             SupportActionBar.Title = Player.Name;
@@ -52,7 +50,7 @@ namespace Floorball.Droid.Activities
 
         }
 
-        private void CreatePlayerStat(List<Team> Teams, List<Statistic> statistics, int matchCount, LinearLayout container)
+        private void CreatePlayerStat(IEnumerable<Team> Teams, IEnumerable<Statistic> statistics, int matchCount, LinearLayout container)
         {
 
             foreach (var team in Teams)
@@ -67,6 +65,7 @@ namespace Floorball.Droid.Activities
                 goals.FindViewById<TextView>(Resource.Id.statLabel).Text = "Gólok: ";
                 goals.FindViewById<TextView>(Resource.Id.statNumber).Text = statistics.Where(s => s.TeamId == team.Id && s.Name == "G").First().Number.ToString();
                 card.AddView(goals);
+
 
                 ViewGroup assists = LayoutInflater.Inflate(Resource.Layout.StatLine, card, false) as ViewGroup;
                 goals.FindViewById<TextView>(Resource.Id.statLabel).Text = "Asszisztok: ";
@@ -92,6 +91,24 @@ namespace Floorball.Droid.Activities
             }
 
         }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+
+                    Finish();
+
+                    return true;
+
+                default:
+                    break;
+            }
+
+            return base.OnOptionsItemSelected(item);
+        }
+
 
     }
 }

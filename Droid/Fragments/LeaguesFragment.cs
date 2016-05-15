@@ -26,9 +26,9 @@ namespace Floorball.Droid.Fragments
         ListView leaguesListView;
         List<string> years;
 
-        public List<League> Leagues { get; set; }
+        public IEnumerable<League> Leagues { get; set; }
 
-        public List<League> ActualLeagues { get; set; }
+        public IEnumerable<League> ActualLeagues { get; set; }
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -68,24 +68,10 @@ namespace Floorball.Droid.Fragments
 
                 };
 
-                //leagues = new List<LeagueModel>();
-                //LeagueModel model = new LeagueModel();
-                //model.Name = "Salming Férfi OB1";
-                //model.Id = 1;
-                //model.Rounds = 2;
-                //model.ClassName = "Férfi OB1";
-                //leagues.Add(model);
-                //leagues.Add(model);
-                //leagues.Add(model);
-                //leagues.Add(model);
-                //leagues.Add(model);
-                //leagues.Add(model);
-                //leagues.Add(model);
-
                 //Leagues = RESTHelper.GetAllLeague();
                 Leagues = Manager.GetAllLeague();
                 ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == button.Text).ToList();
-                leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues);
+                leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
                 leaguesListView.ItemClick += (e, p) => {
 
                     Intent intent = new Intent(Context,typeof(LeagueActivity));
@@ -94,8 +80,6 @@ namespace Floorball.Droid.Fragments
                     intent.PutExtra("leagueClass", ActualLeagues.ElementAt(p.Position).ClassName);
                     intent.PutExtra("leagueYear", ActualLeagues.ElementAt(p.Position).Year.Year);
                     intent.PutExtra("leagueRounds", ActualLeagues.ElementAt(p.Position).Rounds);
-                    //Bundle b = new Bundle();
-                    //b.PutParcelable("league", ActualLeagues.ElementAt(p.Position));
                     StartActivity(intent);
                 };
 
@@ -110,7 +94,7 @@ namespace Floorball.Droid.Fragments
         {
             Activity.FindViewById<Button>(Resource.Id.yearsbutton).Text = newYear;
             ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == newYear).ToList();
-            leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues);
+            leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
         }
 
         

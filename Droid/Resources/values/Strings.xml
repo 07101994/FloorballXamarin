@@ -29,6 +29,7 @@
   <string name="stadionLabel">Stadion</string>
   <string name="playersTab">Játékosok</string>
   <string name="matchesTab">Mérkőzések</string>
-  
+
+  <string name="playerSearchHint">Név</string>
   
 </resources>

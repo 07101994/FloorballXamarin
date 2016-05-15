@@ -31,6 +31,9 @@ namespace Floorball.Droid.Activities
 
         public List<Player> Players { get; set; }
 
+        public List<Match> Matches { get; set; }
+
+
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -48,7 +51,7 @@ namespace Floorball.Droid.Activities
 
             Team =  JsonConvert.DeserializeObject<Team>(Intent.GetStringExtra("team"));
             Players = Manager.GetPlayersByTeam(Team.Id).ToList();
-
+            Matches = Manager.GetMatchesByTeam(Team.Id).OrderBy(m => m.LeagueId).ThenBy(m => m.Date).ToList();
 
             SupportActionBar.Title = Team.Name;
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);

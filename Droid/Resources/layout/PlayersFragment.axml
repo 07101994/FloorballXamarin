@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/playerSearch"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:hint="@string/playerSearchHint"
+        android:drawableLeft="@drawable/ic_search_black_24dp"
+        android:inputType="text" />
+    <ListView
+        android:id="@+id/playersList"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp" />
+</LinearLayout>

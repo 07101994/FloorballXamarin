@@ -34,7 +34,7 @@ namespace Floorball.Droid.Fragments
         {
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-            View root = inflater.Inflate(Resource.Layout.LeagueMatchesFragment, container, false);
+            View root = inflater.Inflate(Resource.Layout.MatchesFragment, container, false);
 
 
             CreateMatches(root);
@@ -47,7 +47,7 @@ namespace Floorball.Droid.Fragments
 
             LeagueActivity activity = Activity as LeagueActivity;
 
-            Matches = root.FindViewById<LinearLayout>(Resource.Id.leagueMatches);
+            Matches = root.FindViewById<LinearLayout>(Resource.Id.matchesList);
             ViewGroup round;
             ViewGroup matches;
             ViewGroup matchResult;

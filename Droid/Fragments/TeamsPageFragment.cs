@@ -27,9 +27,9 @@ namespace Floorball.Droid.Fragments
 
         int pageCount;
 
-        public List<Team> Teams { get; set; }
+        public IEnumerable<Team> Teams { get; set; }
 
-        public List<League> Leagues { get; set; }
+        public IEnumerable<League> Leagues { get; set; }
 
         public LinearLayout TeamsLayout { get; set; }
 
