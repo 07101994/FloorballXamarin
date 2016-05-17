@@ -18,6 +18,7 @@ using System.Globalization;
 using Java.Lang;
 using Floorball.LocalDB;
 using Floorball.LocalDB.Tables;
+using Newtonsoft.Json;
 
 namespace Floorball.Droid.Fragments
 {
@@ -75,11 +76,7 @@ namespace Floorball.Droid.Fragments
                 leaguesListView.ItemClick += (e, p) => {
 
                     Intent intent = new Intent(Context,typeof(LeagueActivity));
-                    intent.PutExtra("leagueId", ActualLeagues.ElementAt(p.Position).Id);
-                    intent.PutExtra("leagueName", ActualLeagues.ElementAt(p.Position).Name);
-                    intent.PutExtra("leagueClass", ActualLeagues.ElementAt(p.Position).ClassName);
-                    intent.PutExtra("leagueYear", ActualLeagues.ElementAt(p.Position).Year.Year);
-                    intent.PutExtra("leagueRounds", ActualLeagues.ElementAt(p.Position).Rounds);
+                    intent.PutExtra("league",JsonConvert.SerializeObject(ActualLeagues.ElementAt(p.Position)));
                     StartActivity(intent);
                 };
 

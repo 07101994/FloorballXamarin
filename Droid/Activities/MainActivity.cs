@@ -107,10 +107,12 @@ namespace Floorball.Droid
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetIcon(Resource.Drawable.ic_menu_black_24dp);
 
+
             listsView.SetBackgroundResource(Resource.Color.primary_dark);
 
             MenuOpened = true;
 
+            
         }
 
         private void ChangeFragments(int position)

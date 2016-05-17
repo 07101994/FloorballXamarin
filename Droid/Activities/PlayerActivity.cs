@@ -37,7 +37,6 @@ namespace Floorball.Droid.Activities
 
             Player = JsonConvert.DeserializeObject<Player>(Intent.GetStringExtra("player"));
             Statistics = Manager.GetStatisticsByPlayer(Player.RegNum);
-            //TeamYear = Statistics.Select(s => new { s.TeamId, Manager.GetTeamById(s.TeamId).Year.Year }).OrderByDescending(t => t.Year).ToDictionary(t => t.TeamId, t => t.Year);
             Teams = Statistics.Select(s => Manager.GetTeamById(s.TeamId)).GroupBy(t => t.Id).Select(g => g.First()).OrderByDescending(t => t.Year).ToList();
             int matchCount = Manager.GetMatchesByPlayer(Player.RegNum).Count();
 
@@ -55,39 +54,38 @@ namespace Floorball.Droid.Activities
 
             foreach (var team in Teams)
             {
-                ViewGroup statView = LayoutInflater.Inflate(Resource.Layout.Stat, container, false) as ViewGroup;
+                ViewGroup stat = LayoutInflater.Inflate(Resource.Layout.Stat, container, false) as ViewGroup;
+                stat.FindViewById<TextView>(Resource.Id.headerName).Text = team.Name + " (" + team.Year.Year + "-" + (team.Year.Year+1) + ")";
 
-                statView.FindViewById<TextView>(Resource.Id.headerName).Text = team.Name + " (" + team.Year.Year + "-" + (team.Year.Year+1) + ")";
+                LinearLayout statCard = stat.FindViewById<LinearLayout>(Resource.Id.statCard);
 
-                ViewGroup card = statView.FindViewById<LinearLayout>(Resource.Id.statLinearLayout);
-
-                ViewGroup goals = LayoutInflater.Inflate(Resource.Layout.StatLine,card,false) as ViewGroup;
+                ViewGroup goals = LayoutInflater.Inflate(Resource.Layout.StatLine,statCard,false) as ViewGroup;
                 goals.FindViewById<TextView>(Resource.Id.statLabel).Text = "Gólok: ";
                 goals.FindViewById<TextView>(Resource.Id.statNumber).Text = statistics.Where(s => s.TeamId == team.Id && s.Name == "G").First().Number.ToString();
-                card.AddView(goals);
+                statCard.AddView(goals);
 
 
-                ViewGroup assists = LayoutInflater.Inflate(Resource.Layout.StatLine, card, false) as ViewGroup;
-                goals.FindViewById<TextView>(Resource.Id.statLabel).Text = "Asszisztok: ";
-                goals.FindViewById<TextView>(Resource.Id.statNumber).Text = statistics.Where(s => s.TeamId == team.Id && s.Name == "A").First().Number.ToString();
-                card.AddView(assists);
+                ViewGroup assists = LayoutInflater.Inflate(Resource.Layout.StatLine, statCard, false) as ViewGroup;
+                assists.FindViewById<TextView>(Resource.Id.statLabel).Text = "Asszisztok: ";
+                assists.FindViewById<TextView>(Resource.Id.statNumber).Text = statistics.Where(s => s.TeamId == team.Id && s.Name == "A").First().Number.ToString();
+                statCard.AddView(assists);
 
-                //ViewGroup penalties = LayoutInflater.Inflate(Resource.Layout.StatLine, null, false) as ViewGroup;
-                //goals.FindViewById<TextView>(Resource.Id.statLabel).Text = "Kiállítások: ";
-                //int penaltySum = 0;
-                //penaltySum += statistics.Where(s => s.TeamId == team.Id && s.Name == "P2").First().Number * 2;
-                //penaltySum += statistics.Where(s => s.TeamId == team.Id && s.Name == "P5").First().Number * 5;
-                //int p10 = statistics.Where(s => s.TeamId == team.Id && s.Name == "P10").First().Number * 10;
-                //penaltySum += p10;
-                //goals.FindViewById<TextView>(Resource.Id.statNumber).Text = penaltySum.ToString() + " (" + p10 + ")";
-                //card.AddView(penalties);
+                ViewGroup penalties = LayoutInflater.Inflate(Resource.Layout.StatLine, statCard, false) as ViewGroup;
+                penalties.FindViewById<TextView>(Resource.Id.statLabel).Text = "Kiállítások: ";
+                int penaltySum = 0;
+                penaltySum += statistics.Where(s => s.TeamId == team.Id && s.Name == "P2").First().Number * 2;
+                penaltySum += statistics.Where(s => s.TeamId == team.Id && s.Name == "P5").First().Number * 5;
+                int p10 = statistics.Where(s => s.TeamId == team.Id && s.Name == "P10").First().Number * 10;
+                penaltySum += p10;
+                penalties.FindViewById<TextView>(Resource.Id.statNumber).Text = penaltySum.ToString() + " (" + p10 + ")";
+                statCard.AddView(penalties);
 
-                //ViewGroup matches = LayoutInflater.Inflate(Resource.Layout.StatLine, card, false) as ViewGroup;
-                //goals.FindViewById<TextView>(Resource.Id.statLabel).Text = "Mérkőzés szám: ";
-                //goals.FindViewById<TextView>(Resource.Id.statNumber).Text = matchCount.ToString();
-                //card.AddView(matches);
+                ViewGroup matches = LayoutInflater.Inflate(Resource.Layout.StatLine, statCard, false) as ViewGroup;
+                matches.FindViewById<TextView>(Resource.Id.statLabel).Text = "Mérkőzés szám: ";
+                matches.FindViewById<TextView>(Resource.Id.statNumber).Text = matchCount.ToString();
+                statCard.AddView(matches);
 
-                container.AddView(statView);
+                container.AddView(stat);
             }
 
         }

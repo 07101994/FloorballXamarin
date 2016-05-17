@@ -146,11 +146,18 @@ namespace Floorball.LocalDB
         {
             using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
-
-                return db.Table<League>().Select(l => l.Year).Distinct().OrderBy(t => t.Year);
-
+                return db.GetAllWithChildren<League>().Select(l => l.Year).Distinct().OrderBy(t => t.Year);
             }
         }
+
+        public static IEnumerable<Statistic> GetAllStatistic()
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                return db.GetAllWithChildren<Statistic>();
+            }
+        }
+
 
         public static IEnumerable<League> GetAllLeague()
         {
@@ -233,7 +240,7 @@ namespace Floorball.LocalDB
         {
             using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
-                IEnumerable<int> teams = db.Table<Team>().Where(t => t.LeagueId == leagueId).Select(t => t.Id);
+                IEnumerable<int> teams = db.GetAllWithChildren<Team>().Where(t => t.LeagueId == leagueId).Select(t => t.Id);
 
                 return db.GetAllWithChildren<Statistic>().Where(s => teams.Contains(s.TeamId));
             }
@@ -328,7 +335,7 @@ namespace Floorball.LocalDB
         {
             using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
-                return db.Table<League>().Where(l => l.Id == leagueId).First().Rounds;
+                return db.GetAllWithChildren<League>().Where(l => l.Id == leagueId).First().Rounds;
             }
         }
 
@@ -348,6 +355,22 @@ namespace Floorball.LocalDB
             }
         }
 
+
+        public static IEnumerable<League> GetLeaguesByReferee(int refereeId)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                var leagueIds = db.GetWithChildren<Referee>(refereeId).Matches.Select(m => m.LeagueId).Distinct();
+
+                List<League> leagues = new List<League>();
+                foreach (var id in leagueIds)
+                {
+                    leagues.Add(db.Get<League>(id));
+                }
+
+                return leagues;
+            }
+        }
 
         public static IEnumerable<EventMessage> GetEventMessagesByCategory(char catagoryStartNumber)
         {
@@ -461,7 +484,7 @@ namespace Floorball.LocalDB
                 t.Points = points;
                 t.StadiumId = stadiumId;
                 t.LeagueId = leagueId;
-                t.Standing = standing != -1 ? standing : (short)(db.Table<Team>().Where(t1 => t1.LeagueId == leagueId).Count() + 1);
+                t.Standing = standing != -1 ? standing : (short)(db.GetAllWithChildren<Team>().Where(t1 => t1.LeagueId == leagueId).Count() + 1);
 
                 db.Insert(t);
 
@@ -798,7 +821,7 @@ namespace Floorball.LocalDB
         private static void RemoveStatisticsForPlayerInTeam(Player player, Team team, SQLiteConnection db)
         {
 
-            var statisctics = db.Table<Statistic>().Where(s => s.PlayerRegNum == player.RegNum && s.TeamId == team.Id);
+            var statisctics = db.GetAllWithChildren<Statistic>().Where(s => s.PlayerRegNum == player.RegNum && s.TeamId == team.Id);
 
             foreach (var s in statisctics)
             {
@@ -863,7 +886,7 @@ namespace Floorball.LocalDB
         private static void ChangeStatisticFromPlayer(int playerId, int teamId, string type, SQLiteConnection db, string direction)
         {
 
-            Statistic stat = db.Table<Statistic>().Where(s => s.PlayerRegNum == playerId && s.TeamId == teamId && s.Name == type).First();
+            Statistic stat = db.GetAllWithChildren<Statistic>().Where(s => s.PlayerRegNum == playerId && s.TeamId == teamId && s.Name == type).First();
 
             if (direction == "increase")
             {
@@ -874,8 +897,8 @@ namespace Floorball.LocalDB
                 stat.Number--;
             }
 
-            db.Insert(stat);
-
+            //db.Insert(stat);
+            db.Update(stat);
             //db.Statistics.Attach(stat);
 
             //var entry = db.Entry(stat);

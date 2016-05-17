@@ -39,7 +39,7 @@ namespace Floorball.Droid.Fragments
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
-            View root = inflater.Inflate(Resource.Layout.PlayersFragment,container,false);
+            View root = inflater.Inflate(Resource.Layout.SearchListFragment,container,false);
 
             return root;
         }

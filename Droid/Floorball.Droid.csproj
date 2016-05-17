@@ -103,9 +103,11 @@
   <ItemGroup>
     <Compile Include="Activities\LeagueActivity.cs" />
     <Compile Include="Activities\PlayerActivity.cs" />
+    <Compile Include="Activities\RefereeActivity.cs" />
     <Compile Include="Activities\TeamActivity.cs" />
     <Compile Include="Adapters\LeaguesAdapter.cs" />
     <Compile Include="Adapters\PlayersAdapter.cs" />
+    <Compile Include="Adapters\RefereesAdapter.cs" />
     <Compile Include="Fragments\ActualFragment.cs" />
     <Compile Include="Fragments\LeagueMatchesFragment.cs" />
     <Compile Include="Fragments\LeaguesFragment.cs" />
@@ -250,10 +252,13 @@
     <AndroidResource Include="Resources\layout\Empty.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\PlayersFragment.axml">
+    <AndroidResource Include="Resources\layout\SearchListFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\PlayerItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\RefereeItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -13,9 +13,10 @@ using Floorball.LocalDB.Tables;
 
 namespace Floorball.Droid.Adapters
 {
-    class PlayersAdapter : ArrayAdapter<Player>
+    class RefereesAdapter : ArrayAdapter<Referee>
     {
-        public PlayersAdapter(Context context, List<Player> players) : base(context,0,players)
+
+        public RefereesAdapter(Context context, List<Referee> referees) : base(context,0,referees)
         {
 
         }
@@ -23,17 +24,14 @@ namespace Floorball.Droid.Adapters
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
 
-            Player model = GetItem(position);
+            Referee model = GetItem(position);
             if (convertView == null)
             {
-                convertView = LayoutInflater.From(Context).Inflate(Resource.Layout.PlayerItem, parent, false);
+                convertView = LayoutInflater.From(Context).Inflate(Resource.Layout.RefereeItem, parent, false);
             }
 
-            TextView name = convertView.FindViewById<TextView>(Resource.Id.playerName);
+            TextView name = convertView.FindViewById<TextView>(Resource.Id.refereeName);
             name.Text = model.Name;
-
-            ImageView image = convertView.FindViewById<ImageView>(Resource.Id.playerTeamImage);
-            image.SetBackgroundResource(Resource.Drawable.phoenix);
 
             return convertView;
         }
