@@ -19,6 +19,7 @@ using Java.Lang;
 using Floorball.LocalDB;
 using Floorball.LocalDB.Tables;
 using Newtonsoft.Json;
+using Android.Support.V4.View;
 
 namespace Floorball.Droid.Fragments
 {
@@ -26,6 +27,12 @@ namespace Floorball.Droid.Fragments
     {
         ListView leaguesListView;
         List<string> years;
+
+        public int ActualFragmentIndex { get; set; }
+
+        public ViewPager YearViewPager { get; set; }
+
+        private YearFragmentStatePageAdapter YearViewPagerAdapter { get; set; }
 
         public IEnumerable<League> Leagues { get; set; }
 
@@ -39,6 +46,9 @@ namespace Floorball.Droid.Fragments
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            years = Manager.GetAllYear().Select(y => y.Year.ToString()).ToList();
+            ActualFragmentIndex = 0;
+            
 
         }
 
@@ -48,8 +58,32 @@ namespace Floorball.Droid.Fragments
             View root = inflater.Inflate(Resource.Layout.LeaugesFragment, container, false);
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
+            YearViewPager = root.FindViewById<ViewPager>(Resource.Id.yearPager);
+            YearViewPager.Adapter = new YearFragmentStatePageAdapter(Activity.SupportFragmentManager, years);
+
+            root.FindViewById<ImageView>(Resource.Id.rightArrow).Click += RightArrowClicked;
+            root.FindViewById<ImageView>(Resource.Id.leftArrow).Click += LeftArrowClicked;
+
             return root;
             //return base.OnCreateView(inflater, container, savedInstanceState);
+        }
+
+        private void LeftArrowClicked(object sender, EventArgs e)
+        {
+            if (ActualFragmentIndex > 0)
+            {
+                ActualFragmentIndex--;
+                YearViewPager.CurrentItem = ActualFragmentIndex;
+            }
+        }
+
+        private void RightArrowClicked(object sender, EventArgs e)
+        {
+            if (ActualFragmentIndex < years.Count - 1)
+            {
+                ActualFragmentIndex++;
+                YearViewPager.CurrentItem = ActualFragmentIndex;
+            }
         }
 
         public override void OnStart()
@@ -60,23 +94,8 @@ namespace Floorball.Droid.Fragments
 
             try
             {
-                Button button = Activity.FindViewById<Button>(Resource.Id.yearsbutton);
-                //years = RESTHelper.GetAllYear();
-                years = Manager.GetAllYear().Select(y => y.Year.ToString()).ToList();
-                button.Text = years.First();
-                //years = new List<string>(new string[] { "2011","2012","2013","2014","2015"});
-
-                button.Click += delegate
-                {
-
-                    ListDialogFragment listDialogFragment = new ListDialogFragment(years);
-                    listDialogFragment.Show(Activity.SupportFragmentManager, "listdialog");
-
-                };
-
-                //Leagues = RESTHelper.GetAllLeague();
                 Leagues = Manager.GetAllLeague();
-                ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == button.Text).ToList();
+                ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
                 leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
                 leaguesListView.ItemClick += (e, p) => {
 
@@ -94,10 +113,11 @@ namespace Floorball.Droid.Fragments
 
         public override void listItemSelected(string newYear)
         {
-            Activity.FindViewById<Button>(Resource.Id.yearsbutton).Text = newYear;
-            ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == newYear).ToList();
-            leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
+            //Activity.FindViewById<Button>(Resource.Id.yearsbutton).Text = newYear;
+            //ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == newYear).ToList();
+            //leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
         }
+
 
         
 

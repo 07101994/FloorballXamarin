@@ -108,6 +108,7 @@
     <Compile Include="Adapters\LeaguesAdapter.cs" />
     <Compile Include="Adapters\PlayersAdapter.cs" />
     <Compile Include="Adapters\RefereesAdapter.cs" />
+    <Compile Include="Adapters\YearFragmentStatePageAdapter.cs" />
     <Compile Include="Fragments\ActualFragment.cs" />
     <Compile Include="Fragments\LeagueMatchesFragment.cs" />
     <Compile Include="Fragments\LeaguesFragment.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Fragments\TeamsFragment.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Fragments\TeamsPageFragment.cs" />
+    <Compile Include="Fragments\YearPageFragment.cs" />
     <Compile Include="MyActionBarDrawerToggle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -158,7 +160,9 @@
     <AndroidResource Include="Resources\layout\ListDialogFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\Main.axml" />
+    <AndroidResource Include="Resources\layout\Main.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\Matches.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -267,6 +271,9 @@
     <AndroidResource Include="Resources\layout\Toolbar.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\YearViewPagerContent.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\values-hdpi\" />
@@ -354,6 +361,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_list_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_arrow_forward_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_forward_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_forward_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_forward_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_forward_black_24dp.png" />
   </ItemGroup>
   <Import Project="..\Floorball\Floorball.projitems" Label="Shared" Condition="Exists('..\Floorball\Floorball.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

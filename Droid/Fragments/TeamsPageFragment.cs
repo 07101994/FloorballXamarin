@@ -64,19 +64,19 @@ namespace Floorball.Droid.Fragments
             // Use this to return your custom view for this Fragment
             View root = inflater.Inflate(Resource.Layout.TeamsPageFragment, container, false);
 
-            Button yearsButton = root.FindViewById<Button>(Resource.Id.yearsbutton);
-            //years = RESTHelper.GetAllYear();
-            years = Manager.GetAllYear().Select(y => y.Year.ToString()).ToList();
+            //Button yearsButton = root.FindViewById<Button>(Resource.Id.yearsbutton);
+            ////years = RESTHelper.GetAllYear();
+            //years = Manager.GetAllYear().Select(y => y.Year.ToString()).ToList();
 
-            yearsButton.Text = years.Last();
+            //yearsButton.Text = years.Last();
 
-            yearsButton.Click += delegate
-            {
+            //yearsButton.Click += delegate
+            //{
 
-                ListDialogFragment listDialogFragment = new ListDialogFragment(years);
-                listDialogFragment.Show(Activity.SupportFragmentManager, "listdialog");
+            //    ListDialogFragment listDialogFragment = new ListDialogFragment(years);
+            //    listDialogFragment.Show(Activity.SupportFragmentManager, "listdialog");
 
-            };
+            //};
 
             CreateTeams(root);
 

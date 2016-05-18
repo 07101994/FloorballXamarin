@@ -13,11 +13,21 @@ using Android.Support.V4.App;
 using Java.Lang;
 using Android.Support.V4.View;
 using Android.Support.Design.Widget;
+using Floorball.Droid.Adapters;
+using Floorball.LocalDB;
 
 namespace Floorball.Droid.Fragments
 {
     public class TeamsFragment : MainFragment
     {
+
+        public int ActualFragmentIndex { get; set; }
+
+        public ViewPager YearViewPager { get; set; }
+
+        private YearFragmentStatePageAdapter YearViewPagerAdapter { get; set; }
+
+        List<string> years;
 
         private SexPageAdapter pagerAdapter;
 
@@ -32,7 +42,8 @@ namespace Floorball.Droid.Fragments
         {
             base.OnCreate(savedInstanceState);
 
-
+            years = Manager.GetAllYear().Select(y => y.Year.ToString()).ToList();
+            ActualFragmentIndex = 0;
 
             // Create your fragment here
         }
@@ -44,9 +55,34 @@ namespace Floorball.Droid.Fragments
 
             View root = inflater.Inflate(Resource.Layout.TeamsFragment, container, false);
 
+            YearViewPager = root.FindViewById<ViewPager>(Resource.Id.yearPager);
+            YearViewPager.Adapter = new YearFragmentStatePageAdapter(Activity.SupportFragmentManager, years);
+
+            root.FindViewById<ImageView>(Resource.Id.rightArrow).Click += RightArrowClicked;
+            root.FindViewById<ImageView>(Resource.Id.leftArrow).Click += LeftArrowClicked;
+
+
             return root;
 
             //return base.OnCreateView(inflater, container, savedInstanceState);
+        }
+
+        private void LeftArrowClicked(object sender, EventArgs e)
+        {
+            if (ActualFragmentIndex > 0)
+            {
+                ActualFragmentIndex--;
+                YearViewPager.CurrentItem = ActualFragmentIndex;
+            }
+        }
+
+        private void RightArrowClicked(object sender, EventArgs e)
+        {
+            if (ActualFragmentIndex < years.Count - 1)
+            {
+                ActualFragmentIndex++;
+                YearViewPager.CurrentItem = ActualFragmentIndex;
+            }
         }
 
         public override void OnStart()
