@@ -23,6 +23,11 @@ namespace Floorball.Droid.Fragments
 
         private ViewPager pager;
 
+        public static TeamsFragment Instance()
+        {
+            return new TeamsFragment();
+        }
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

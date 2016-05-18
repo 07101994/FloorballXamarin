@@ -56,9 +56,13 @@ namespace Floorball.Droid.Activities
 
             League = JsonConvert.DeserializeObject<League>(Intent.GetStringExtra("league"));
 
-            SupportActionBar.Title = League.Name;
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+
+            SupportActionBar.Title = "";
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            SupportActionBar.SetHomeButtonEnabled(true);
+            FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
+            //SupportActionBar.SetHomeButtonEnabled(true);
 
             Teams = Manager.GetTeamsByLeague(League.Id);
 

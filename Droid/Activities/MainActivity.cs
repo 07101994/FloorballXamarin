@@ -1,5 +1,4 @@
 ﻿using Android.App;
-using Android.Widget;
 using Android.OS;
 using Android.Support.V4.Widget;
 using Android.Support.V4.App;
@@ -17,6 +16,9 @@ using Android.Preferences;
 using System.Globalization;
 using Floorball.LocalDB;
 using Floorball.LocalDB.Tables;
+using Android.Support.V7.Widget;
+using Android.Widget;
+using Android.Support.Design.Widget;
 
 namespace Floorball.Droid
 {
@@ -38,7 +40,7 @@ namespace Floorball.Droid
         public string ActivityTitle { get; set; }
 
         private DrawerLayout drawerLayout;
-        private ListView listsView;
+
         private MyActionBarDrawerToggle ActionBarDrawerToggle { get; set; }
 
         public IEnumerable<League> Leagues { get; set; }
@@ -67,52 +69,81 @@ namespace Floorball.Droid
             }
 
             Updater.Instance.LastSyncDate = DateTime.Parse(lastSyncDate);// Exact(lastSyncDate, "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture);
-            //TODO:::
-            //Updater.Instance.UpdateDataList.Add(RESTHelper.GetUpdates(Updater.Instance.LastSyncDate));
-            //TOdo:::
 
             Updater.Instance.UpdateDatabaseFromServer();
             editor.PutString("LastSyncDate", DateTime.Now.ToString());
             editor.Apply();
 
-            //lastSyncDate = prefs.GetString("LastSyncDate", null);
-
-            ////Leagues = RESTHelper.GetAllLeague();
-            ////ActualMatches = RESTHelper.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
-            ////ActualTeams = GetActualTeams(ActualMatches);
-            ////Teams = RESTHelper.GetAllTeam();
-
             Leagues = Manager.GetAllLeague();
             ActualMatches = Manager.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
-            ////ActualMatches = new List<Match>();
             ActualTeams = GetActualTeams(ActualMatches);
             Teams = Manager.GetAllTeam();
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
-            
+
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+
             MenuTitles = Resources.GetStringArray(Resource.Array.menu_items);
             drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            listsView = FindViewById<ListView>(Resource.Id.left_drawer);
-
-            listsView.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1,MenuTitles);
-            listsView.ItemClick += (sender, args) => { ChangeFragments(args.Position); drawerLayout.CloseDrawers(); ActionBarDrawerToggle.SyncState(); };
-            listsView.SetItemChecked(0, true);
-
+            
             ActionBarDrawerToggle = new MyActionBarDrawerToggle(this, drawerLayout, Resource.String.menu, Resource.String.league);
             drawerLayout.SetDrawerListener(ActionBarDrawerToggle);
+            drawerLayout.SetStatusBarBackgroundColor(Resource.Color.primary_dark);
             ActionBarDrawerToggle.SyncState();
 
-            SupportActionBar.SetHomeButtonEnabled(true);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            SupportActionBar.SetIcon(Resource.Drawable.ic_menu_black_24dp);
+            SupportActionBar.Title = "";
+            FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
 
+            FindViewById<NavigationView>(Resource.Id.drawerNavigationView).NavigationItemSelected += NavigationDrawerItemSelected;
 
-            listsView.SetBackgroundResource(Resource.Color.primary_dark);
+            ChangeFragments(0);
 
             MenuOpened = true;
 
             
+        }
+
+        private void NavigationDrawerItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
+        {
+            switch (e.MenuItem.ItemId)
+            {
+
+                case Resource.Id.actualmenuitem:
+
+                    ChangeFragments(0);
+                    drawerLayout.CloseDrawers();
+                    break;
+
+                case Resource.Id.leaguemenuitem:
+
+                    ChangeFragments(1);
+                    drawerLayout.CloseDrawers();
+                    break;
+
+                case Resource.Id.teamsmenuitem:
+
+                    ChangeFragments(2);
+                    drawerLayout.CloseDrawers();
+                    break;
+
+                case Resource.Id.playersmenuitem:
+
+                    ChangeFragments(3);
+                    drawerLayout.CloseDrawers();
+                    break;
+
+                case Resource.Id.refereesmenuitem:
+
+                    ChangeFragments(4);
+                    drawerLayout.CloseDrawers();
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         private void ChangeFragments(int position)
@@ -120,9 +151,6 @@ namespace Floorball.Droid
             fragment = CreateNewFragment(position);
             SupportFragmentManager.BeginTransaction().Replace(Resource.Id.content_frame,fragment).Commit();
 
-            listsView.SetItemChecked(position, true);
-            ActivityTitle = MenuTitles[position];
-            drawerLayout.CloseDrawer(listsView);
         }
 
         private MainFragment CreateNewFragment(int position)
@@ -132,43 +160,27 @@ namespace Floorball.Droid
             switch (position)
             {
                 case 0:
-                    fragment = new ActualFragment();
-                    //ActivityTitle = Resources.GetString(Resource.String.actual);
-                    SupportActionBar.Title = ActivityTitle;
-
+                    fragment = ActualFragment.Instance();
                     break;
 
                 case 1:
-                    fragment = new LeaguesFragment();
-                    //ActivityTitle = Resources.GetString(Resource.String.league);
-                    SupportActionBar.Title = ActivityTitle;
-
+                    fragment = LeaguesFragment.Instance();
                     break;
 
                 case 2:
-                    fragment = new TeamsFragment();
-                    //ActivityTitle = Resources.GetString(Resource.String.teams);
-                    SupportActionBar.Title = ActivityTitle;
-
+                    fragment = TeamsFragment.Instance();
                     break;
 
                 case 3:
-                    fragment = new PlayersFragment();
-                    //ActivityTitle = Resources.GetString(Resource.String.players);
-                    SupportActionBar.Title = ActivityTitle;
-
+                    fragment = PlayersFragment.Instance();
                     break;
 
                 case 4:
-                    fragment = new RefereesFragment();
-                    //ActivityTitle = Resources.GetString(Resource.String.referees);
-                    SupportActionBar.Title = ActivityTitle;
-
+                    fragment = RefereesFragment.Instance();
                     break;
 
                 default:
                     fragment = null;
-
                     break;
             }
 
@@ -190,7 +202,6 @@ namespace Floorball.Droid
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-
             if (ActionBarDrawerToggle.OnOptionsItemSelected(item))
             {
                 //Console.WriteLine("Klikk.");
@@ -225,7 +236,8 @@ namespace Floorball.Droid
         {
             if (ActionBarDrawerToggle.IsMoving)
             {
-                SupportActionBar.Title = ActivityTitle;
+                //SupportActionBar.Title = ActivityTitle;
+                FindViewById<TextView>(Resource.Id.toolbarTitle).Text = ActivityTitle;
                 drawerLayout.CloseDrawers();
             }
             else

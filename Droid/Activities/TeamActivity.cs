@@ -53,13 +53,16 @@ namespace Floorball.Droid.Activities
             Players = Manager.GetPlayersByTeam(Team.Id).ToList();
             Matches = Manager.GetMatchesByTeam(Team.Id).OrderBy(m => m.LeagueId).ThenBy(m => m.Date).ToList();
 
-            SupportActionBar.Title = Team.Name;
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+
+            SupportActionBar.Title = "";
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            SupportActionBar.SetHomeButtonEnabled(true);
+            FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
+            //SupportActionBar.SetHomeButtonEnabled(true);
 
             FindViewById<TextView>(Resource.Id.coachName).Text = Team.Coach;
             FindViewById<TextView>(Resource.Id.stadiumName).Text = Manager.GetStadiumById(Team.StadiumId).Name;
-
 
         }
 

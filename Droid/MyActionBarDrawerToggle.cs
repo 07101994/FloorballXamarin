@@ -43,7 +43,7 @@ namespace Floorball.Droid
             {
                 base.OnDrawerOpened(drawerView);
                 IsMoving = false;
-                activity.SupportActionBar.SetTitle(mOpenedResource);
+                //activity.SupportActionBar.SetTitle(mOpenedResource);
                 //drawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedOpen);
                 //(activity as MainActivity).HomeEnabled = true;
             }
@@ -58,7 +58,7 @@ namespace Floorball.Droid
                 base.OnDrawerClosed(drawerView);
                 IsMoving = false;
                 //Console.WriteLine("Bezárult.");
-                activity.SupportActionBar.SetTitle(mClosedResource);
+                //activity.SupportActionBar.SetTitle(mClosedResource);
                 //drawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedOpen);
 
                 //(activity as MainActivity).HomeEnabled = true;

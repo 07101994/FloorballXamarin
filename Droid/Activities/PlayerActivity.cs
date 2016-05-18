@@ -40,10 +40,13 @@ namespace Floorball.Droid.Activities
             Teams = Statistics.Select(s => Manager.GetTeamById(s.TeamId)).GroupBy(t => t.Id).Select(g => g.First()).OrderByDescending(t => t.Year).ToList();
             int matchCount = Manager.GetMatchesByPlayer(Player.RegNum).Count();
 
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
 
-            SupportActionBar.Title = Player.Name;
+            SupportActionBar.Title = "";
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            SupportActionBar.SetHomeButtonEnabled(true);
+            FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
+            //SupportActionBar.SetHomeButtonEnabled(true);
 
             CreatePlayerStat(Teams, Statistics,matchCount, FindViewById<LinearLayout>(Resource.Id.linearlayout));
 

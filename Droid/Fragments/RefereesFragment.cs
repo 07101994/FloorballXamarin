@@ -28,6 +28,11 @@ namespace Floorball.Droid.Fragments
 
         public IEnumerable<Referee> ActualReferees { get; set; }
 
+        public static RefereesFragment Instance()
+        {
+            return new RefereesFragment();
+        }
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

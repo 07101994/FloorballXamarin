@@ -41,9 +41,13 @@ namespace Floorball.Droid.Activities
             Events = events;
             Leagues = Manager.GetLeaguesByReferee(Referee.Id).OrderByDescending(l => l.Year);
 
-            SupportActionBar.Title = Referee.Name;
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+
+            SupportActionBar.Title = "";
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            SupportActionBar.SetHomeButtonEnabled(true);
+            FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
+            //SupportActionBar.SetHomeButtonEnabled(true);
 
             CreateRefereeStat(Leagues, Events, Matches, FindViewById<LinearLayout>(Resource.Id.linearlayout));
 

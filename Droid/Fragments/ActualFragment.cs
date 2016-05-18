@@ -19,6 +19,12 @@ namespace Floorball.Droid.Fragments
     public class ActualFragment : MainFragment
     {
 
+        public static ActualFragment Instance()
+        {
+            return new ActualFragment();
+        }
+
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);  

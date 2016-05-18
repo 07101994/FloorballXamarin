@@ -31,6 +31,11 @@ namespace Floorball.Droid.Fragments
 
         public IEnumerable<League> ActualLeagues { get; set; }
 
+        public static LeaguesFragment Instance()
+        {
+            return new LeaguesFragment();
+        }
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
