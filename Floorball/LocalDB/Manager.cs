@@ -150,6 +150,14 @@ namespace Floorball.LocalDB
             }
         }
 
+        public static IEnumerable<EventMessage> GetAllEventMessage()
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                return db.GetAllWithChildren<EventMessage>();
+            }
+        }
+
         public static IEnumerable<Statistic> GetAllStatistic()
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))

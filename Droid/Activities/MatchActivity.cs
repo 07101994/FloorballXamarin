@@ -1,0 +1,150 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
+using Floorball.LocalDB.Tables;
+using Newtonsoft.Json;
+using Floorball.LocalDB;
+using Android.Support.V7.App;
+
+namespace Floorball.Droid.Activities
+{
+    [Activity(Label = "MatchActivity", MainLauncher = true, Icon = "@mipmap/ball")]
+    public class MatchActivity : AppCompatActivity
+    {
+
+        public Match Match { get; set; }
+
+        public Team HomeTeam { get; set; }
+
+        public Team AwayTeam { get; set; }
+
+        public IEnumerable<Player> HomeTeamPlayers { get; set; }
+
+        public IEnumerable<Player> AwayTeamPlayers { get; set; }
+
+        public League League { get; set; }
+
+        public IEnumerable<Event> Events { get; set; }
+
+        public IEnumerable<EventMessage> EventMessages { get; set; }
+
+        public IEnumerable<Referee> Referees { get; set; }
+
+        public Stadium Stadium { get; set; }
+
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            //Match = JsonConvert.DeserializeObject<Match>(Intent.GetStringExtra("match"));
+            Match = Manager.GetMatchById(1);
+            HomeTeam = Manager.GetTeamById(Match.HomeTeamId);
+            AwayTeam = Manager.GetTeamById(Match.AwayTeamId);
+            HomeTeamPlayers = HomeTeam.Players;
+            AwayTeamPlayers = AwayTeam.Players;
+            League = Manager.GetLeagueById(Match.LeagueId);
+            Stadium = Manager.GetStadiumById(Match.StadiumId);
+            Referees = Match.Referees;
+            EventMessages = Manager.GetAllEventMessage();
+            Events = Manager.GetEventsByMatch(Match.Id).OrderByDescending(e => e.Time);
+
+            // Create your application here
+            SetContentView(Resource.Layout.MatchActivity);
+
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.Title = "";
+            FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
+
+            FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name + " " + Match.Round.ToString() + ". forduló";
+            //FindViewById<TextView>(Resource.Id.round).Text = Match.Round.ToString() + ". forduló";
+            FindViewById<TextView>(Resource.Id.date).Text = Match.Date;
+            FindViewById<TextView>(Resource.Id.stadium).Text = Stadium.Name;
+
+            FindViewById<TextView>(Resource.Id.homeTeamName).Text = HomeTeam.Name;
+            FindViewById<TextView>(Resource.Id.awayTeamName).Text = AwayTeam.Name;
+
+            FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
+            FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
+
+            FindViewById<TextView>(Resource.Id.actualTime).Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes.ToString() + ":" + Match.Time.Seconds.ToString();
+
+            CreateEvents();
+            CreateReferees();
+
+            ChangeTimelineHeight();
+
+        }
+
+        private void ChangeTimelineHeight()
+        {
+            LinearLayout layout = FindViewById<LinearLayout>(Resource.Id.timeLine);
+            ViewGroup.LayoutParams parameters = layout.LayoutParameters;
+            parameters.Height = Events.Count() * 50;
+
+            layout.LayoutParameters = parameters;
+
+        }
+
+        private void CreateEvents()
+        {
+
+            ViewGroup eventLayout = FindViewById<LinearLayout>(Resource.Id.eventContainer);
+
+            foreach (var e in Events)
+            {
+
+                ViewGroup eventItem = LayoutInflater.Inflate(Resource.Layout.EventItem, eventLayout, false) as ViewGroup;
+
+                ViewGroup eventCard;
+                ViewGroup relativeLayout;
+
+                if (e.TeamId == HomeTeam.Id)
+                {
+                    relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.homeTeamEventId);
+                    eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
+                    eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = HomeTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().Name;
+                }
+                else
+                {
+                    relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.awayTeamEventId);
+                    eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
+                    eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = AwayTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().Name;
+                }
+
+                eventItem.FindViewById<TextView>(Resource.Id.time).Text = e.Time.Split(':')[1] + ":" + e.Time.Split(':')[2];
+
+                relativeLayout.AddView(eventCard);
+
+                eventLayout.AddView(eventItem);
+            }
+
+
+        }
+
+        private void CreateReferees()
+        {
+            ViewGroup refereeLayout = FindViewById<LinearLayout>(Resource.Id.refereesLayout);
+
+            foreach (var referee in Referees)
+            {
+                ViewGroup refereeItem = LayoutInflater.Inflate(Resource.Layout.RefereeItem, refereeLayout, false) as ViewGroup;
+                refereeItem.FindViewById<TextView>(Resource.Id.refereeName).Text = referee.Name;
+
+                refereeLayout.AddView(refereeItem);
+            }
+
+        }
+
+    }
+}
