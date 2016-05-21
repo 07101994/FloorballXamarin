@@ -37,15 +37,17 @@ namespace Floorball.Droid.Fragments
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
-            View root = inflater.Inflate(Resource.Layout.MatchesFragment, container, false);
-
-            CreateMatches(root.FindViewById<LinearLayout>(Resource.Id.matchesList));
+            View root = inflater.Inflate(Resource.Layout.ActualFragment, container, false);
+            
+            CreateMatches(root);
 
             return root;
         }
 
-        private void CreateMatches(LinearLayout container)
+        private void CreateMatches(View root)
         {
+
+            LinearLayout container = root.FindViewById<LinearLayout>(Resource.Id.matchesList);
 
             MainActivity activity = Activity as MainActivity;
 
@@ -96,6 +98,11 @@ namespace Floorball.Droid.Fragments
                 i = j;
             }
 
+            if (i == 0)
+            {
+                //TextView t = View.FindViewById<TextView>(Resource.Id.noActualMatches);
+                root.FindViewById<TextView>(Resource.Id.noActualMatches).Visibility = ViewStates.Visible;
+            }
 
         }
 

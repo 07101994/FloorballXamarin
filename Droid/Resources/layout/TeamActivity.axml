@@ -7,6 +7,12 @@
     android:fitsSystemWindows="true">
     <include
         layout="@layout/toolbar" />
+    <TextView
+        android:id="@+id/teamName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="30sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"

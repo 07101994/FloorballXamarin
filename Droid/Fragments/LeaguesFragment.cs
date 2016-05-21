@@ -56,7 +56,6 @@ namespace Floorball.Droid.Fragments
         {
             // Use this to return your custom view for this Fragment
             View root = inflater.Inflate(Resource.Layout.LeaugesFragment, container, false);
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
             YearViewPager = root.FindViewById<ViewPager>(Resource.Id.yearPager);
             YearViewPager.Adapter = new YearFragmentStatePageAdapter(Activity.SupportFragmentManager, years);
@@ -65,7 +64,6 @@ namespace Floorball.Droid.Fragments
             root.FindViewById<ImageView>(Resource.Id.leftArrow).Click += LeftArrowClicked;
 
             return root;
-            //return base.OnCreateView(inflater, container, savedInstanceState);
         }
 
         private void LeftArrowClicked(object sender, EventArgs e)
@@ -74,6 +72,9 @@ namespace Floorball.Droid.Fragments
             {
                 ActualFragmentIndex--;
                 YearViewPager.CurrentItem = ActualFragmentIndex;
+
+                ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
+                leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
             }
         }
 
@@ -83,6 +84,9 @@ namespace Floorball.Droid.Fragments
             {
                 ActualFragmentIndex++;
                 YearViewPager.CurrentItem = ActualFragmentIndex;
+
+                ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
+                leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
             }
         }
 

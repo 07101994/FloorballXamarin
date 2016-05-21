@@ -23,8 +23,6 @@ namespace Floorball.Droid.Fragments
 {
     public class TeamsPageFragment : Fragment
     {
-        List<string> years;
-
         int pageCount;
 
         public IEnumerable<Team> Teams { get; set; }
@@ -33,15 +31,17 @@ namespace Floorball.Droid.Fragments
 
         public LinearLayout TeamsLayout { get; set; }
 
+        public int Year { get; set; }
 
         List<Team> actualTeams;
 
-        public static TeamsPageFragment Instance(int pageCount)
+        public static TeamsPageFragment Instance(int pageCount, int year)
         {
             TeamsPageFragment fragment = new TeamsPageFragment();
 
             Bundle args = new Bundle();
             args.PutInt("pageCount",pageCount);
+            args.PutInt("year", year);
             fragment.Arguments = args;
 
             return fragment;
@@ -54,29 +54,16 @@ namespace Floorball.Droid.Fragments
             // Create your fragment here
 
             pageCount = Arguments.GetInt("pageCount",0);
+            Year = Arguments.GetInt("year", 2015);
 
-            Teams = (Activity as MainActivity).Teams;
-            Leagues = (Activity as MainActivity).Leagues;
+            Teams = (Activity as MainActivity).Teams.Where(t => t.Year.Year == Year);
+            Leagues = (Activity as MainActivity).Leagues.Where(l => l.Year.Year == Year);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
             View root = inflater.Inflate(Resource.Layout.TeamsPageFragment, container, false);
-
-            //Button yearsButton = root.FindViewById<Button>(Resource.Id.yearsbutton);
-            ////years = RESTHelper.GetAllYear();
-            //years = Manager.GetAllYear().Select(y => y.Year.ToString()).ToList();
-
-            //yearsButton.Text = years.Last();
-
-            //yearsButton.Click += delegate
-            //{
-
-            //    ListDialogFragment listDialogFragment = new ListDialogFragment(years);
-            //    listDialogFragment.Show(Activity.SupportFragmentManager, "listdialog");
-
-            //};
 
             CreateTeams(root);
 
@@ -86,7 +73,6 @@ namespace Floorball.Droid.Fragments
         public void CreateTeams(View root)
         {
             
-            //TODO: év szűrés
             
             if (pageCount == 0)
             {
@@ -132,6 +118,19 @@ namespace Floorball.Droid.Fragments
                 i = j;
             }
 
+        }
+
+        private void RemoveTeams(View root)
+        {
+            root.FindViewById<LinearLayout>(Resource.Id.cardlist).RemoveAllViews();
+        }
+
+        public void UpdateTeams(int year)
+        {
+            Teams = (Activity as MainActivity).Teams.Where(t => t.Year.Year == year);
+            Leagues = (Activity as MainActivity).Leagues.Where(l => l.Year.Year == year);
+            RemoveTeams(View);
+            CreateTeams(View);
         }
 
         private void TeamClick(object sender, EventArgs e)

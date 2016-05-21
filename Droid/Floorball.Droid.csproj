@@ -225,7 +225,7 @@
     <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_drop_up_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_drop_up_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_menu_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\phoenix.jpg" />
+    <AndroidResource Include="Resources\drawable\phoenix.jpg" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_back_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_drop_down_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_drop_down_white_24dp.png" />
@@ -282,6 +282,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\EventCard.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ActualFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -395,6 +398,24 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ball.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_numeric_2_box_grey600_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_numeric_2_box_grey600_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_numeric_2_box_grey600_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_numeric_2_box_grey600_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_numeric_2_box_grey600_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\CH.png" />
   </ItemGroup>
   <Import Project="..\Floorball\Floorball.projitems" Label="Shared" Condition="Exists('..\Floorball\Floorball.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

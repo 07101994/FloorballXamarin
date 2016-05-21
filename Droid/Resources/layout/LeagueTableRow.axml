@@ -9,48 +9,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="3dip"
-        android:background="@color/primary"
-        android:textColor="@color/icons" />
+        android:background="@color/primary_material_light" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="3dip"
-        android:background="@color/primary"
-        android:textColor="@color/icons" />
+        android:background="@color/primary_material_light" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="3dip"
-        android:background="@color/primary"
-        android:textColor="@color/icons" />
+        android:background="@color/primary_material_light" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="3dip"
-        android:background="@color/primary"
-        android:textColor="@color/icons" />
+        android:background="@color/primary_material_light" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="3dip"
-        android:background="@color/primary"
-        android:textColor="@color/icons" />
+        android:background="@color/primary_material_light" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="3dip"
-        android:background="@color/primary"
-        android:textColor="@color/icons" />
+        android:background="@color/primary_material_light" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="3dip"
-        android:background="@color/primary"
-        android:textColor="@color/icons" />
+        android:background="@color/primary_material_light" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="3dip"
-        android:background="@color/primary"
-        android:textColor="@color/icons" />
+        android:background="@color/primary_material_light" />
 </TableRow>

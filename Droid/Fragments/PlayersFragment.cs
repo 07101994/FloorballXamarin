@@ -46,6 +46,8 @@ namespace Floorball.Droid.Fragments
 
             View root = inflater.Inflate(Resource.Layout.SearchListFragment,container,false);
 
+            root.FindViewById<TextView>(Resource.Id.fragmentName).Text = Resources.GetString(Resource.String.players);
+
             return root;
         }
 

@@ -27,8 +27,8 @@ namespace Floorball.Droid
        void ListItemSelected(string s);
     }
 
-    //[Activity (Label = "Floorball", MainLauncher = true, Icon = "@mipmap/ball")]
-    [Activity(Label = "Floorball")]
+    [Activity(Label = "Floorball", MainLauncher = true, Icon = "@mipmap/ball")]
+    //[Activity(Label = "Floorball")]
     public class MainActivity : Android.Support.V7.App.AppCompatActivity, IListItemSelected
     {
         public string[] MenuTitles { get; set; }

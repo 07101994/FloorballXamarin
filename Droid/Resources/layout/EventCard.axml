@@ -12,13 +12,13 @@
         android:layout_width="match_parent"
         android:weightSum="4">
         <ImageView
-            android:id="@+id/homeTeamImage"
+            android:id="@+id/eventImage"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:scaleType="centerInside"
-            android:src="@drawable/ball"
-            android:padding="5dp" />
+            android:padding="5dp" 
+            />
         <TextView
             android:id="@+id/playerName"
             android:layout_height="match_parent"

@@ -16,7 +16,7 @@ using Android.Support.V7.App;
 
 namespace Floorball.Droid.Activities
 {
-    [Activity(Label = "MatchActivity", MainLauncher = true, Icon = "@mipmap/ball")]
+    [Activity(Label = "MatchActivity")]//, MainLauncher = true, Icon = "@mipmap/ball")]
     public class MatchActivity : AppCompatActivity
     {
 
@@ -40,9 +40,15 @@ namespace Floorball.Droid.Activities
 
         public Stadium Stadium { get; set; }
 
+        public int RealEventCount { get; set; }
+
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            //Manager.CreateDatabase();
+            //Manager.InitDatabaseFromServer();
 
             //Match = JsonConvert.DeserializeObject<Match>(Intent.GetStringExtra("match"));
             Match = Manager.GetMatchById(1);
@@ -67,7 +73,6 @@ namespace Floorball.Droid.Activities
             FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
 
             FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name + " " + Match.Round.ToString() + ". forduló";
-            //FindViewById<TextView>(Resource.Id.round).Text = Match.Round.ToString() + ". forduló";
             FindViewById<TextView>(Resource.Id.date).Text = Match.Date;
             FindViewById<TextView>(Resource.Id.stadium).Text = Stadium.Name;
 
@@ -78,6 +83,9 @@ namespace Floorball.Droid.Activities
             FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
 
             FindViewById<TextView>(Resource.Id.actualTime).Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes.ToString() + ":" + Match.Time.Seconds.ToString();
+
+            FindViewById<ImageView>(Resource.Id.homeTeamImage).SetImageResource(Resource.Drawable.CH);
+            FindViewById<ImageView>(Resource.Id.awayTeamImage).SetImageResource(Resource.Drawable.phoenix);
 
             CreateEvents();
             CreateReferees();
@@ -90,7 +98,7 @@ namespace Floorball.Droid.Activities
         {
             LinearLayout layout = FindViewById<LinearLayout>(Resource.Id.timeLine);
             ViewGroup.LayoutParams parameters = layout.LayoutParameters;
-            parameters.Height = Events.Count() * 50;
+            parameters.Height = RealEventCount * 100; //50*2
 
             layout.LayoutParameters = parameters;
 
@@ -98,35 +106,62 @@ namespace Floorball.Droid.Activities
 
         private void CreateEvents()
         {
+            RealEventCount = 0;
 
             ViewGroup eventLayout = FindViewById<LinearLayout>(Resource.Id.eventContainer);
+          
 
             foreach (var e in Events)
             {
 
-                ViewGroup eventItem = LayoutInflater.Inflate(Resource.Layout.EventItem, eventLayout, false) as ViewGroup;
-
-                ViewGroup eventCard;
-                ViewGroup relativeLayout;
-
-                if (e.TeamId == HomeTeam.Id)
+                if (e.Type != "A")
                 {
-                    relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.homeTeamEventId);
-                    eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
-                    eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = HomeTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().Name;
+                    ViewGroup eventItem = LayoutInflater.Inflate(Resource.Layout.EventItem, eventLayout, false) as ViewGroup;
+
+                    ViewGroup eventCard;
+                    ViewGroup relativeLayout;
+
+                    if (e.TeamId == HomeTeam.Id)
+                    {
+                        relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.homeTeamEventId);
+                        eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
+                        eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = HomeTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().Name;
+                    }
+                    else
+                    {
+                        relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.awayTeamEventId);
+                        eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
+                        eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = AwayTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().Name;
+                    }
+
+
+                    if (e.Type == "P2" || e.Type == "P10")
+                    {
+                        eventCard.FindViewById<ImageView>(Resource.Id.eventImage).SetImageResource(Resource.Drawable.ic_numeric_2_box_grey600_24dp);
+                    }
+                    else
+                    {
+                        if (e.Type == "P5")
+                        {
+                            eventCard.FindViewById<ImageView>(Resource.Id.eventImage).SetImageResource(Resource.Drawable.ic_numeric_2_box_grey600_24dp);
+                        }
+                        else
+                        {
+                            if (e.Type == "G")
+                            {
+                                eventCard.FindViewById<ImageView>(Resource.Id.eventImage).SetImageResource(Resource.Drawable.ball);
+                            }
+                        }
+                    }
+
+
+                    eventItem.FindViewById<TextView>(Resource.Id.time).Text = e.Time.Split(':')[1] + ":" + e.Time.Split(':')[2];
+
+                    relativeLayout.AddView(eventCard);
+
+                    eventLayout.AddView(eventItem);
+                    RealEventCount++;
                 }
-                else
-                {
-                    relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.awayTeamEventId);
-                    eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
-                    eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = AwayTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().Name;
-                }
-
-                eventItem.FindViewById<TextView>(Resource.Id.time).Text = e.Time.Split(':')[1] + ":" + e.Time.Split(':')[2];
-
-                relativeLayout.AddView(eventCard);
-
-                eventLayout.AddView(eventItem);
             }
 
 

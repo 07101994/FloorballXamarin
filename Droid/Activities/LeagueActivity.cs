@@ -73,6 +73,8 @@ namespace Floorball.Droid.Activities
             PlayerStatistics = PlayerStatisticsMaker.CreatePlayerStatistics(Statistics);
 
             Players = Manager.GetPlayersByLeague(League.Id);
+
+            FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name;
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

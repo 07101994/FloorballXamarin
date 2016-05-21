@@ -20,10 +20,9 @@ namespace Floorball.Droid.Fragments
 {
     public class TeamsFragment : MainFragment
     {
+        private int ActualFragmentIndex { get; set; }
 
-        public int ActualFragmentIndex { get; set; }
-
-        public ViewPager YearViewPager { get; set; }
+        private ViewPager YearViewPager { get; set; }
 
         private YearFragmentStatePageAdapter YearViewPagerAdapter { get; set; }
 
@@ -31,7 +30,7 @@ namespace Floorball.Droid.Fragments
 
         private SexPageAdapter pagerAdapter;
 
-        private ViewPager pager;
+        private ViewPager Pager { get; set; }
 
         public static TeamsFragment Instance()
         {
@@ -63,8 +62,6 @@ namespace Floorball.Droid.Fragments
 
 
             return root;
-
-            //return base.OnCreateView(inflater, container, savedInstanceState);
         }
 
         private void LeftArrowClicked(object sender, EventArgs e)
@@ -73,6 +70,13 @@ namespace Floorball.Droid.Fragments
             {
                 ActualFragmentIndex--;
                 YearViewPager.CurrentItem = ActualFragmentIndex;
+
+                foreach (var value in pagerAdapter.Fragments.Values)
+                {
+                    value.UpdateTeams(Convert.ToInt32(years[ActualFragmentIndex]));
+                }
+
+                //pagerAdapter.Fragments[Pager.CurrentItem].UpdateTeams(Convert.ToInt32(years[ActualFragmentIndex]));
             }
         }
 
@@ -82,6 +86,14 @@ namespace Floorball.Droid.Fragments
             {
                 ActualFragmentIndex++;
                 YearViewPager.CurrentItem = ActualFragmentIndex;
+
+                foreach (var value in pagerAdapter.Fragments.Values)
+                {
+                    value.UpdateTeams(Convert.ToInt32(years[ActualFragmentIndex]));
+                }
+
+                //pagerAdapter.Fragments[Pager.CurrentItem].UpdateTeams(Convert.ToInt32(years[ActualFragmentIndex]));
+
             }
         }
 
@@ -89,12 +101,12 @@ namespace Floorball.Droid.Fragments
         {
             base.OnStart();
 
-            pager = Activity.FindViewById<ViewPager>(Resource.Id.sexPager);
-            pagerAdapter = new SexPageAdapter(Activity.SupportFragmentManager);
-            pager.Adapter = pagerAdapter;
+            Pager = Activity.FindViewById<ViewPager>(Resource.Id.sexPager);
+            pagerAdapter = new SexPageAdapter(Activity.SupportFragmentManager,years);
+            Pager.Adapter = pagerAdapter;
 
             TabLayout tabs = Activity.FindViewById<TabLayout>(Resource.Id.sexTabs);
-            tabs.SetupWithViewPager(pager);
+            tabs.SetupWithViewPager(Pager);
         }
 
         public override void listItemSelected(string s)
@@ -109,13 +121,19 @@ namespace Floorball.Droid.Fragments
            
         }
 
-        public class SexPageAdapter : FragmentPagerAdapter
+        private class SexPageAdapter : FragmentPagerAdapter
         {
             public List<string> fragmentTags;
 
-            public SexPageAdapter(FragmentManager manager) : base(manager)
+            public List<string> Years { get; set; }
+
+            public Dictionary<int,TeamsPageFragment> Fragments { get; set; }
+
+            public SexPageAdapter(FragmentManager manager, List<string> years) : base(manager)
             {
                 fragmentTags = new List<string>();
+                Years = years;
+                Fragments = new Dictionary<int, TeamsPageFragment>();
             }
 
             public override int Count
@@ -128,16 +146,18 @@ namespace Floorball.Droid.Fragments
 
             public override Fragment GetItem(int position)
             {
-                Fragment f;
+                TeamsPageFragment f;
 
                 switch (position)
                 {
                     case 0:
-                        f = TeamsPageFragment.Instance(0);
+                        f = TeamsPageFragment.Instance(0,Convert.ToInt32(Years[0]));
+                        Fragments.Add(position, f);
                         //fragmentTags.Add(f.Tag);
                         return f;
                     case 1:
-                        f = TeamsPageFragment.Instance(1);
+                        f = TeamsPageFragment.Instance(1, Convert.ToInt32(Years[0]));
+                        Fragments.Add(position, f);
                         //fragmentTags.Add(f.Tag);
                         return f;
                     default:

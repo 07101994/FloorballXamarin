@@ -79,7 +79,8 @@ namespace Floorball.Droid.Fragments
                         matchResult.FindViewById<TextView>(Resource.Id.awayScore).Text = matchesInRound.ElementAt(j).GoalsA.ToString();
                         matchResult.FindViewById<TextView>(Resource.Id.awayTeam).Text = " " + activity.Teams.Where(t => t.Id == matchesInRound.ElementAt(k).AwayTeamId).First().Name;
 
-                        matches/*.FindViewById<CardView>(Resource.Id.matches)*/.AddView(matchResult);
+                        matches.AddView(matchResult);
+                        matchResult.Click += OpenMatch;
                         k++;
                     }
                     Matches.AddView(matches);
@@ -93,5 +94,10 @@ namespace Floorball.Droid.Fragments
 
         }
 
+        private void OpenMatch(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(Context, typeof(MatchActivity));
+            StartActivity(intent);
+        }
     }
 }

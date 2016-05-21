@@ -33,8 +33,6 @@ namespace Floorball.Droid.Activities
 
         public List<Match> Matches { get; set; }
 
-
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -63,6 +61,7 @@ namespace Floorball.Droid.Activities
 
             FindViewById<TextView>(Resource.Id.coachName).Text = Team.Coach;
             FindViewById<TextView>(Resource.Id.stadiumName).Text = Manager.GetStadiumById(Team.StadiumId).Name;
+            FindViewById<TextView>(Resource.Id.teamName).Text = Team.Name;
 
         }
 

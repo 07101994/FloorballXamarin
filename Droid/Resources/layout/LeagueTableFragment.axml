@@ -4,11 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginRight="2dp"
-    android:layout_marginLeft="2dp"
-    android:background="@color/primary_light">
+    android:layout_marginLeft="2dp">
     <TableLayout
         android:id="@+id/leaguetable"
-        android:background="@color/divider"
+        android:background="@color/accent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -24,7 +23,6 @@
                 android:layout_height="match_parent"
                 android:text="@string/positionLabel"
                 android:padding="3dip"
-                android:background="@color/primary"
                 android:textColor="@color/primary_text"
                 android:textStyle="bold" />
         <!--<include layout="@layout/headercell"
@@ -35,7 +33,6 @@
                 android:layout_height="match_parent"
                 android:text="@string/teamNameLabel"
                 android:padding="3dip"
-                android:background="@color/primary"
                 android:textColor="@color/primary_text"
                 android:textStyle="bold" />
             <TextView
@@ -43,7 +40,6 @@
                 android:layout_height="match_parent"
                 android:text="@string/matchLabel"
                 android:padding="3dip"
-                android:background="@color/primary"
                 android:textColor="@color/primary_text"
                 android:textStyle="bold" />
             <TextView
@@ -51,7 +47,6 @@
                 android:layout_height="match_parent"
                 android:text="@string/winLabel"
                 android:padding="3dip"
-                android:background="@color/primary"
                 android:textColor="@color/primary_text"
                 android:textStyle="bold" />
             <TextView
@@ -59,7 +54,6 @@
                 android:layout_height="match_parent"
                 android:text="@string/drawLabel"
                 android:padding="3dip"
-                android:background="@color/primary"
                 android:textColor="@color/primary_text"
                 android:textStyle="bold" />
             <TextView
@@ -67,7 +61,6 @@
                 android:layout_height="match_parent"
                 android:text="@string/defeatLabel"
                 android:padding="3dip"
-                android:background="@color/primary"
                 android:textColor="@color/primary_text"
                 android:textStyle="bold" />
             <TextView
@@ -75,7 +68,6 @@
                 android:layout_height="match_parent"
                 android:text="@string/goalsLabel"
                 android:padding="3dip"
-                android:background="@color/primary"
                 android:textColor="@color/primary_text"
                 android:textStyle="bold" />
             <TextView
@@ -83,7 +75,6 @@
                 android:layout_height="match_parent"
                 android:text="@string/pointsLabel"
                 android:padding="3dip"
-                android:background="@color/primary"
                 android:textColor="@color/primary_text"
                 android:textStyle="bold" />
         </TableRow>
