@@ -19,6 +19,7 @@ using Floorball.LocalDB.Tables;
 using Android.Support.V7.Widget;
 using Android.Widget;
 using Android.Support.Design.Widget;
+using Android.Support.V7.App;
 
 namespace Floorball.Droid
 {
@@ -29,14 +30,14 @@ namespace Floorball.Droid
 
     [Activity(Label = "Floorball", MainLauncher = true, Icon = "@mipmap/ball")]
     //[Activity(Label = "Floorball")]
-    public class MainActivity : Android.Support.V7.App.AppCompatActivity, IListItemSelected
+    public class MainActivity : AppCompatActivity, IListItemSelected
     {
         public string[] MenuTitles { get; set; }
         public string MenuTitle { get; set; }
 
         public bool MenuOpened { get; set; }
 
-        MainFragment fragment;
+        Android.Support.V4.App.Fragment fragment;
 
         public string ActivityTitle { get; set; }
 
@@ -51,8 +52,6 @@ namespace Floorball.Droid
         public IEnumerable<Team> ActualTeams { get; set; }
 
         public IEnumerable<Team> Teams { get; set; }
-
-
 
         protected override void OnCreate (Bundle savedInstanceState)
 		{
@@ -88,9 +87,9 @@ namespace Floorball.Droid
 
             MenuTitles = Resources.GetStringArray(Resource.Array.menu_items);
             drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            
+
             ActionBarDrawerToggle = new MyActionBarDrawerToggle(this, drawerLayout, Resource.String.menu, Resource.String.league);
-            drawerLayout.SetDrawerListener(ActionBarDrawerToggle);
+            drawerLayout.AddDrawerListener(ActionBarDrawerToggle);
             drawerLayout.SetStatusBarBackgroundColor(Resource.Color.primary_dark);
             ActionBarDrawerToggle.SyncState();
 
@@ -104,7 +103,7 @@ namespace Floorball.Droid
 
             MenuOpened = true;
 
-            
+
         }
 
         private void NavigationDrawerItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
@@ -142,6 +141,12 @@ namespace Floorball.Droid
                     drawerLayout.CloseDrawers();
                     break;
 
+                case Resource.Id.settingsmenuitem:
+
+                    ChangeFragments(5);
+                    drawerLayout.CloseDrawers();
+                    break;
+
                 default:
                     break;
             }
@@ -150,13 +155,13 @@ namespace Floorball.Droid
         private void ChangeFragments(int position)
         {
             fragment = CreateNewFragment(position);
-            SupportFragmentManager.BeginTransaction().Replace(Resource.Id.content_frame,fragment).Commit();
-
+            //SupportFragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, fragment).Commit();
+            SupportFragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, fragment).Commit();
         }
 
-        private MainFragment CreateNewFragment(int position)
+        private Android.Support.V4.App.Fragment CreateNewFragment(int position)
         {
-            MainFragment fragment;
+            Android.Support.V4.App.Fragment fragment;
 
             switch (position)
             {
@@ -178,6 +183,11 @@ namespace Floorball.Droid
 
                 case 4:
                     fragment = RefereesFragment.Instance();
+                    break;
+
+                case 5:
+                    fragment = SettingsFragment.Instance();
+
                     break;
 
                 default:
@@ -256,10 +266,11 @@ namespace Floorball.Droid
 
 
         }
+
         public void ListItemSelected(string s)
         {
 
-            fragment.listItemSelected(s);
+            //fragment.listItemSelected(s);
 
 
         }

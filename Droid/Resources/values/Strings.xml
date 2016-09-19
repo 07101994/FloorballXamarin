@@ -9,6 +9,7 @@
   <string name="players">Játékosok</string>
   <string name="referees">Bírók</string>
   <string name="teams">Csapatok</string>
+  <string name="settings">Beállítások</string>
 
 
   <string name="positionLabel">H</string>
@@ -34,5 +35,11 @@
 
   <string name="noActualMatches">Nincs</string>
 
-
+  <string name="countries">Országok</string>
+  <string name="hungary">Magyarország</string>
+  <string name="sweden">Svédország</string>
+  <string name="finnland">Finnország</string>
+  <string name="switzerland">Svájc</string>
+  <string name="czech">Csehország</string>
+  
 </resources>

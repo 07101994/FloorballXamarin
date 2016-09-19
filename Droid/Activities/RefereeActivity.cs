@@ -32,7 +32,7 @@ namespace Floorball.Droid.Activities
         {
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.Empty);
+            SetContentView(Resource.Layout.RefereeStat);
 
             Referee = JsonConvert.DeserializeObject<Referee>(Intent.GetStringExtra("referee"));
             Matches = Manager.GetMatchesByReferee(Referee.Id);
@@ -48,6 +48,8 @@ namespace Floorball.Droid.Activities
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
             //SupportActionBar.SetHomeButtonEnabled(true);
+
+            FindViewById<TextView>(Resource.Id.refereeName).Text = Referee.Name;
 
             CreateRefereeStat(Leagues, Events, Matches, FindViewById<LinearLayout>(Resource.Id.linearlayout));
 
@@ -85,7 +87,7 @@ namespace Floorball.Droid.Activities
                 IEnumerable<int> leagueMatchIds = matches.Where(m => m.LeagueId == league.Id).Select(m => m.Id);
                 foreach (var e in events)
                 {
-                    if (leagueMatchIds.Contains(e.Id))
+                    if (leagueMatchIds.Contains(e.MatchId))
                     {
                         leagueEvents.Add(e);
                     }
@@ -98,7 +100,8 @@ namespace Floorball.Droid.Activities
                 finalPenalties = leagueEvents.Where(e => e.Type == "PV").Count();
                 
                 ViewGroup stat = LayoutInflater.Inflate(Resource.Layout.Stat, container, false) as ViewGroup;
-                stat.FindViewById<TextView>(Resource.Id.headerName).Text = league.Name + " (" + league.Year.Year + "-" + (league.Year.Year + 1) + ")";
+                stat.FindViewById<TextView>(Resource.Id.leagueName).Text = league.Name;// + " (" + league.Year.Year + "-" + (league.Year.Year + 1) + ")";
+                stat.FindViewById<TextView>(Resource.Id.leagueYear).Text = " (" + league.Year.Year + "-" + (league.Year.Year + 1) + ")";
 
                 LinearLayout statCard = stat.FindViewById<LinearLayout>(Resource.Id.statCard);
 

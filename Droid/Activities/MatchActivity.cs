@@ -73,7 +73,7 @@ namespace Floorball.Droid.Activities
             FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
 
             FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name + " " + Match.Round.ToString() + ". forduló";
-            FindViewById<TextView>(Resource.Id.date).Text = Match.Date;
+            FindViewById<TextView>(Resource.Id.date).Text = Match.Date.ToShortDateString();
             FindViewById<TextView>(Resource.Id.stadium).Text = Stadium.Name;
 
             FindViewById<TextView>(Resource.Id.homeTeamName).Text = HomeTeam.Name;

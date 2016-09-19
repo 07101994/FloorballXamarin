@@ -51,7 +51,6 @@ namespace Floorball.Droid.Fragments
 
             MainActivity activity = Activity as MainActivity;
 
-             
             ViewGroup header;
             ViewGroup matches;
             ViewGroup matchResult;
@@ -90,6 +89,8 @@ namespace Floorball.Droid.Fragments
                         
                         k++;
                     }
+
+                    actual = activity.ActualMatches.ElementAt(k);
 
                     j = k;
                     container.AddView(matches);

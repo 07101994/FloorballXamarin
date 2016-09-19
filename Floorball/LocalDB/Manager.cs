@@ -282,9 +282,9 @@ namespace Floorball.LocalDB
         {
             using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
-                string threshold = DateTime.Now.AddDays(3).ToString();
+                DateTime threshold = DateTime.Now.AddDays(3).AddYears(-1);
 
-                return db.GetAllWithChildren<Match>().Where(m => string.Compare(threshold, m.Date, false) > 0 && string.Compare(m.Date, DateTime.Now.ToString(), false) > 0);
+                return db.GetAllWithChildren<Match>().Where(m => DateTime.Compare(DateTime.Now, m.Date) < 0 && DateTime.Compare(m.Date, threshold) < 0);
             }
         }
 
@@ -699,7 +699,7 @@ namespace Floorball.LocalDB
             }
         }
 
-        public static void AddMatch(int id, int homeTeamId, int awayTeamId, short goalsH, short goalsA, short round, string state, TimeSpan time, string date, int leagueId, int stadiumId)
+        public static void AddMatch(int id, int homeTeamId, int awayTeamId, short goalsH, short goalsA, short round, string state, TimeSpan time, DateTime date, int leagueId, int stadiumId)
         {
             using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
@@ -750,7 +750,7 @@ namespace Floorball.LocalDB
         {
             foreach (var m in model)
             {
-                AddMatch(m.Id, m.HomeTeamId, m.AwayTeamId, m.GoalsH, m.GoalsA, m.Round, m.State, m.Time, m.Date.ToString(), m.LeagueId, m.StadiumId);
+                AddMatch(m.Id, m.HomeTeamId, m.AwayTeamId, m.GoalsH, m.GoalsA, m.Round, m.State, m.Time, m.Date, m.LeagueId, m.StadiumId);
             }
         }
 

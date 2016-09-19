@@ -31,5 +31,10 @@
         android:icon="@drawable/ic_person_black_24dp"
         android:title="@string/referees"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/settingsmenuitem"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/settings"
+        app:showAsAction="always"/>
   </group>
 </menu>

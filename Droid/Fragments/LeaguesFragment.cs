@@ -108,7 +108,7 @@ namespace Floorball.Droid.Fragments
                     StartActivity(intent);
                 };
 
-            } catch (Java.Lang.Exception e)
+            } catch (Java.Lang.Exception)
             {
 
             }

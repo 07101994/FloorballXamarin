@@ -13,7 +13,8 @@ namespace Floorball.LocalDB.Tables
         [PrimaryKey]//, AutoIncrement]
         public int Id { get; set; }
 
-        public string Date { get; set; }
+        //public string Date { get; set; }
+        public DateTime Date { get; set; }
 
         public short Round { get; set; }
 

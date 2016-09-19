@@ -2,4 +2,9 @@
 <resources>
   <dimen name="listHeaderSize">28sp</dimen>
   <dimen name="listDateSize">16sp</dimen>
+
+  <dimen name="statHeaderSizeBig">24sp</dimen>
+  <dimen name="statHeaderSizeSmall">12sp</dimen>
+
+
 </resources>

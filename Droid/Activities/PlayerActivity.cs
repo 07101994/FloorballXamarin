@@ -33,7 +33,7 @@ namespace Floorball.Droid.Activities
         {
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.Empty);
+            SetContentView(Resource.Layout.PlayerStat);
 
             Player = JsonConvert.DeserializeObject<Player>(Intent.GetStringExtra("player"));
             Statistics = Manager.GetStatisticsByPlayer(Player.RegNum);
@@ -48,6 +48,10 @@ namespace Floorball.Droid.Activities
             FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
             //SupportActionBar.SetHomeButtonEnabled(true);
 
+            FindViewById<TextView>(Resource.Id.playerName).Text = Player.Name;
+            FindViewById<TextView>(Resource.Id.birthDate).Text = Player.BirthDate.ToShortDateString();
+            FindViewById<TextView>(Resource.Id.regNum).Text = Player.RegNum.ToString();
+
             CreatePlayerStat(Teams, Statistics,matchCount, FindViewById<LinearLayout>(Resource.Id.linearlayout));
 
         }
@@ -58,7 +62,8 @@ namespace Floorball.Droid.Activities
             foreach (var team in Teams)
             {
                 ViewGroup stat = LayoutInflater.Inflate(Resource.Layout.Stat, container, false) as ViewGroup;
-                stat.FindViewById<TextView>(Resource.Id.headerName).Text = team.Name + " (" + team.Year.Year + "-" + (team.Year.Year+1) + ")";
+                stat.FindViewById<TextView>(Resource.Id.leagueName).Text = team.Name;// + " (" + team.Year.Year + "-" + (team.Year.Year+1) + ")";
+                stat.FindViewById<TextView>(Resource.Id.leagueYear).Text = "(" + team.Year.Year + "-" + (team.Year.Year + 1) + ")";
 
                 LinearLayout statCard = stat.FindViewById<LinearLayout>(Resource.Id.statCard);
 
@@ -80,7 +85,7 @@ namespace Floorball.Droid.Activities
                 penaltySum += statistics.Where(s => s.TeamId == team.Id && s.Name == "P5").First().Number * 5;
                 int p10 = statistics.Where(s => s.TeamId == team.Id && s.Name == "P10").First().Number * 10;
                 penaltySum += p10;
-                penalties.FindViewById<TextView>(Resource.Id.statNumber).Text = penaltySum.ToString() + " (" + p10 + ")";
+                penalties.FindViewById<TextView>(Resource.Id.statNumber).Text = penaltySum.ToString() + " (" + p10 + ") perc" ;
                 statCard.AddView(penalties);
 
                 ViewGroup matches = LayoutInflater.Inflate(Resource.Layout.StatLine, statCard, false) as ViewGroup;
