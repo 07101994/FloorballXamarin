@@ -15,5 +15,6 @@ namespace Floorball.LocalDB.Tables
         public string Name { get; set; }
 
         public string Address { get; set; }
+
     }
 }

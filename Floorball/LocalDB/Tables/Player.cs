@@ -12,7 +12,17 @@ namespace Floorball.LocalDB.Tables
         [PrimaryKey]//, AutoIncrement]
         public int RegNum { get; set; }
 
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+
+        public string SecondName { get; set; }
+
+        public string Name
+        {
+            get
+            {
+                return FirstName + " " + SecondName;
+            }
+        }
 
         public short Number { get; set; }
 

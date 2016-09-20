@@ -19,6 +19,8 @@ namespace FloorballServer.Models.Floorball
 
         public int Rounds { get; set; }
 
+        public CountriesEnum Country { get; set; }
+
 
     }
 }

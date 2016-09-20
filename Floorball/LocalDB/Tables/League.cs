@@ -21,5 +21,8 @@ namespace Floorball.LocalDB.Tables
         public string ClassName { get; set; }
 
         public int Rounds { get; set; }
+
+        public CountriesEnum Country { get; set; }
+
     }
 }

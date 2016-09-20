@@ -32,6 +32,7 @@ namespace FloorballServer.Models.Floorball
 
         public string Sex { get; set; }
 
+        public CountriesEnum Country { get; set; }
 
     }
 }

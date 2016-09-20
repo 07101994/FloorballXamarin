@@ -30,7 +30,7 @@ namespace Floorball.Droid
 
     [Activity(Label = "Floorball", MainLauncher = true, Icon = "@mipmap/ball")]
     //[Activity(Label = "Floorball")]
-    public class MainActivity : AppCompatActivity, IListItemSelected
+    public class MainActivity : AppCompatActivity, IListItemSelected, ISharedPreferencesOnSharedPreferenceChangeListener
     {
         public string[] MenuTitles { get; set; }
         public string MenuTitle { get; set; }
@@ -53,11 +53,16 @@ namespace Floorball.Droid
 
         public IEnumerable<Team> Teams { get; set; }
 
+        public SortedSet<CountriesEnum> Countries { get; set; }
+
         protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
 
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+
+            Countries = GetCountriesFromSharedPreference(prefs);
+
             ISharedPreferencesEditor editor = prefs.Edit();
             string lastSyncDate = prefs.GetString("LastSyncDate", null);
             if (lastSyncDate == null)
@@ -74,10 +79,10 @@ namespace Floorball.Droid
             editor.PutString("LastSyncDate", DateTime.Now.ToString());
             editor.Apply();
 
-            Leagues = Manager.GetAllLeague();
+            Leagues = Manager.GetAllLeague().Where(l => Countries.Contains(l.Country));
             ActualMatches = Manager.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
             ActualTeams = GetActualTeams(ActualMatches);
-            Teams = Manager.GetAllTeam();
+            Teams = Manager.GetAllTeam().Where(t => Countries.Contains(t.Country));
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
@@ -104,6 +109,38 @@ namespace Floorball.Droid
             MenuOpened = true;
 
 
+        }
+
+        private SortedSet<CountriesEnum> GetCountriesFromSharedPreference(ISharedPreferences prefs)
+        {
+            SortedSet<CountriesEnum> countries = new SortedSet<CountriesEnum>();
+            
+            if (prefs.GetBoolean(Resources.GetString(Resource.String.hungary),false))
+            {
+                countries.Add(CountriesEnum.HU);
+            }
+
+            if (prefs.GetBoolean(Resources.GetString(Resource.String.sweden), false))
+            {
+                countries.Add(CountriesEnum.SE);
+            }
+
+            if (prefs.GetBoolean(Resources.GetString(Resource.String.finnland), false))
+            {
+                countries.Add(CountriesEnum.FL);
+            }
+
+            if (prefs.GetBoolean(Resources.GetString(Resource.String.switzerland), false))
+            {
+                countries.Add(CountriesEnum.SW);
+            }
+
+            if (prefs.GetBoolean(Resources.GetString(Resource.String.czech), false))
+            {
+                countries.Add(CountriesEnum.CZ);
+            }
+
+            return countries;
         }
 
         private void NavigationDrawerItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
@@ -289,6 +326,16 @@ namespace Floorball.Droid
             return teams;
         }
 
+        public void OnSharedPreferenceChanged(ISharedPreferences sharedPreferences, string key)
+        {
+            if (Countries.Select(c => c.ToFriendlyString()).Contains(key))
+            {
+                if (sharedPreferences.GetBoolean(key,false))
+                {
+                    Countries.Add(key.ToEnum<CountriesEnum>());
+                }
+            }
+        }
     }
 }
 

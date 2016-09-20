@@ -1228,32 +1228,32 @@ namespace Floorball.Droid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f0b0050
-			public const int abc_background_cache_hint_selector_material_dark = 2131427408;
+			// aapt resource value: 0x7f0b0056
+			public const int abc_background_cache_hint_selector_material_dark = 2131427414;
 			
-			// aapt resource value: 0x7f0b0051
-			public const int abc_background_cache_hint_selector_material_light = 2131427409;
+			// aapt resource value: 0x7f0b0057
+			public const int abc_background_cache_hint_selector_material_light = 2131427415;
 			
-			// aapt resource value: 0x7f0b0052
-			public const int abc_color_highlight_material = 2131427410;
+			// aapt resource value: 0x7f0b0058
+			public const int abc_color_highlight_material = 2131427416;
 			
 			// aapt resource value: 0x7f0b0004
 			public const int abc_input_method_navigation_guard = 2131427332;
 			
-			// aapt resource value: 0x7f0b0053
-			public const int abc_primary_text_disable_only_material_dark = 2131427411;
+			// aapt resource value: 0x7f0b0059
+			public const int abc_primary_text_disable_only_material_dark = 2131427417;
 			
-			// aapt resource value: 0x7f0b0054
-			public const int abc_primary_text_disable_only_material_light = 2131427412;
+			// aapt resource value: 0x7f0b005a
+			public const int abc_primary_text_disable_only_material_light = 2131427418;
 			
-			// aapt resource value: 0x7f0b0055
-			public const int abc_primary_text_material_dark = 2131427413;
+			// aapt resource value: 0x7f0b005b
+			public const int abc_primary_text_material_dark = 2131427419;
 			
-			// aapt resource value: 0x7f0b0056
-			public const int abc_primary_text_material_light = 2131427414;
+			// aapt resource value: 0x7f0b005c
+			public const int abc_primary_text_material_light = 2131427420;
 			
-			// aapt resource value: 0x7f0b0057
-			public const int abc_search_url_text = 2131427415;
+			// aapt resource value: 0x7f0b005d
+			public const int abc_search_url_text = 2131427421;
 			
 			// aapt resource value: 0x7f0b0005
 			public const int abc_search_url_text_normal = 2131427333;
@@ -1264,11 +1264,11 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0b0007
 			public const int abc_search_url_text_selected = 2131427335;
 			
-			// aapt resource value: 0x7f0b0058
-			public const int abc_secondary_text_material_dark = 2131427416;
+			// aapt resource value: 0x7f0b005e
+			public const int abc_secondary_text_material_dark = 2131427422;
 			
-			// aapt resource value: 0x7f0b0059
-			public const int abc_secondary_text_material_light = 2131427417;
+			// aapt resource value: 0x7f0b005f
+			public const int abc_secondary_text_material_light = 2131427423;
 			
 			// aapt resource value: 0x7f0b004b
 			public const int accent = 2131427403;
@@ -1291,6 +1291,9 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0b000d
 			public const int background_material_light = 2131427341;
 			
+			// aapt resource value: 0x7f0b0051
+			public const int blue = 2131427409;
+			
 			// aapt resource value: 0x7f0b000e
 			public const int bright_foreground_disabled_material_dark = 2131427342;
 			
@@ -1308,6 +1311,9 @@ namespace Floorball.Droid
 			
 			// aapt resource value: 0x7f0b0013
 			public const int bright_foreground_material_light = 2131427347;
+			
+			// aapt resource value: 0x7f0b0053
+			public const int brown = 2131427411;
 			
 			// aapt resource value: 0x7f0b0014
 			public const int button_material_dark = 2131427348;
@@ -1377,6 +1383,9 @@ namespace Floorball.Droid
 			
 			// aapt resource value: 0x7f0b001b
 			public const int foreground_material_light = 2131427355;
+			
+			// aapt resource value: 0x7f0b0050
+			public const int green = 2131427408;
 			
 			// aapt resource value: 0x7f0b001c
 			public const int highlighted_text_material_dark = 2131427356;
@@ -1465,6 +1474,12 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0b0033
 			public const int primary_text_disabled_material_light = 2131427379;
 			
+			// aapt resource value: 0x7f0b0054
+			public const int purple = 2131427412;
+			
+			// aapt resource value: 0x7f0b0052
+			public const int red = 2131427410;
+			
 			// aapt resource value: 0x7f0b0034
 			public const int ripple_material_dark = 2131427380;
 			
@@ -1492,17 +1507,20 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0b003b
 			public const int switch_thumb_disabled_material_light = 2131427387;
 			
-			// aapt resource value: 0x7f0b005a
-			public const int switch_thumb_material_dark = 2131427418;
+			// aapt resource value: 0x7f0b0060
+			public const int switch_thumb_material_dark = 2131427424;
 			
-			// aapt resource value: 0x7f0b005b
-			public const int switch_thumb_material_light = 2131427419;
+			// aapt resource value: 0x7f0b0061
+			public const int switch_thumb_material_light = 2131427425;
 			
 			// aapt resource value: 0x7f0b003c
 			public const int switch_thumb_normal_material_dark = 2131427388;
 			
 			// aapt resource value: 0x7f0b003d
 			public const int switch_thumb_normal_material_light = 2131427389;
+			
+			// aapt resource value: 0x7f0b0055
+			public const int yellow = 2131427413;
 			
 			static Color()
 			{
@@ -2107,67 +2125,82 @@ namespace Floorball.Droid
 			public const int CH = 2130837580;
 			
 			// aapt resource value: 0x7f02004d
-			public const int design_fab_background = 2130837581;
+			public const int cz = 2130837581;
 			
 			// aapt resource value: 0x7f02004e
-			public const int design_snackbar_background = 2130837582;
+			public const int design_fab_background = 2130837582;
 			
 			// aapt resource value: 0x7f02004f
-			public const int divider = 2130837583;
+			public const int design_snackbar_background = 2130837583;
 			
 			// aapt resource value: 0x7f020050
-			public const int ic_access_time_black_24dp = 2130837584;
+			public const int divider = 2130837584;
 			
 			// aapt resource value: 0x7f020051
-			public const int ic_arrow_back_black_24dp = 2130837585;
+			public const int fi = 2130837585;
 			
 			// aapt resource value: 0x7f020052
-			public const int ic_arrow_drop_down_black_24dp = 2130837586;
+			public const int hu = 2130837586;
 			
 			// aapt resource value: 0x7f020053
-			public const int ic_arrow_drop_down_white_24dp = 2130837587;
+			public const int ic_access_time_black_24dp = 2130837587;
 			
 			// aapt resource value: 0x7f020054
-			public const int ic_arrow_drop_up_black_24dp = 2130837588;
+			public const int ic_arrow_back_black_24dp = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int ic_arrow_drop_up_white_24dp = 2130837589;
+			public const int ic_arrow_drop_down_black_24dp = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int ic_arrow_forward_black_24dp = 2130837590;
+			public const int ic_arrow_drop_down_white_24dp = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int ic_list_black_24dp = 2130837591;
+			public const int ic_arrow_drop_up_black_24dp = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int ic_menu_black_24dp = 2130837592;
+			public const int ic_arrow_drop_up_white_24dp = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int ic_numeric_2_box_grey600_24dp = 2130837593;
+			public const int ic_arrow_forward_black_24dp = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int ic_people_black_24dp = 2130837594;
+			public const int ic_list_black_24dp = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int ic_person_black_24dp = 2130837595;
+			public const int ic_menu_black_24dp = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int ic_search_black_24dp = 2130837596;
+			public const int ic_numeric_2_box_grey600_24dp = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int ic_settings_black_24dp = 2130837597;
+			public const int ic_people_black_24dp = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int mfsz = 2130837598;
-			
-			// aapt resource value: 0x7f020061
-			public const int notification_template_icon_bg = 2130837601;
+			public const int ic_person_black_24dp = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int phoenix = 2130837599;
+			public const int ic_search_black_24dp = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int shadow = 2130837600;
+			public const int ic_settings_black_24dp = 2130837600;
+			
+			// aapt resource value: 0x7f020061
+			public const int mfsz = 2130837601;
+			
+			// aapt resource value: 0x7f020066
+			public const int notification_template_icon_bg = 2130837606;
+			
+			// aapt resource value: 0x7f020062
+			public const int phoenix = 2130837602;
+			
+			// aapt resource value: 0x7f020063
+			public const int se = 2130837603;
+			
+			// aapt resource value: 0x7f020064
+			public const int shadow = 2130837604;
+			
+			// aapt resource value: 0x7f020065
+			public const int sw = 2130837605;
 			
 			static Drawable()
 			{

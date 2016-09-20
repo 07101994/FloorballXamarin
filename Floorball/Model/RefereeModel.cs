@@ -14,5 +14,7 @@ namespace FloorballServer.Models.Floorball
         public short Number { get; set; }
 
         public short Penalty { get; set; }
+
+        public CountriesEnum Country { get; set; }
     }
 }

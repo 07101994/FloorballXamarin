@@ -6,23 +6,23 @@
     >
 
     <CheckBoxPreference
-             android:key="countryHungary"
+             android:key="HU"
              android:title="@string/hungary"/>
 
     <CheckBoxPreference
-             android:key="countrySweden"
+             android:key="SE"
              android:title="@string/sweden"/>
 
     <CheckBoxPreference
-             android:key="countryFinnland"
+             android:key="FL"
              android:title="@string/finnland"/>
 
     <CheckBoxPreference
-                 android:key="countrySwitzerland"
+                 android:key="SW"
                  android:title="@string/switzerland"/>
 
     <CheckBoxPreference
-                 android:key="countryCzech"
+                 android:key="CZ"
                  android:title="@string/czech"/>
 
 

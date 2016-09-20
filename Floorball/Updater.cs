@@ -64,13 +64,13 @@ namespace Floorball
                     {
                         case "addPlayer":
 
-                            Manager.AddPlayer(deserializedObject[key]["name"], Convert.ToInt32(deserializedObject[key]["regNum"]), Convert.ToInt32(deserializedObject[key]["number"]), DateTime.Parse(deserializedObject[key]["date"].ToString()));
+                            Manager.AddPlayer(deserializedObject[key]["firstName"], deserializedObject[key]["secondName"], Convert.ToInt32(deserializedObject[key]["regNum"]), Convert.ToInt32(deserializedObject[key]["number"]), DateTime.Parse(deserializedObject[key]["date"].ToString()));
 
                             break;
 
                         case "addTeam":
 
-                            Manager.AddTeam(deserializedObject[key]["id"], deserializedObject[key]["name"], DateTime.ParseExact(deserializedObject[key]["year"], "yyyy", CultureInfo.InvariantCulture), deserializedObject[key]["coach"], deserializedObject[key]["sex"], deserializedObject[key]["stadiumId"], deserializedObject[key]["leagueId"]);
+                            Manager.AddTeam(deserializedObject[key]["id"], deserializedObject[key]["name"], DateTime.ParseExact(deserializedObject[key]["year"], "yyyy", CultureInfo.InvariantCulture), deserializedObject[key]["coach"], deserializedObject[key]["sex"], deserializedObject[key]["country"], deserializedObject[key]["stadiumId"], deserializedObject[key]["leagueId"]);
 
                             break;
 
@@ -81,7 +81,7 @@ namespace Floorball
 
                         case "addLeague":
 
-                            Manager.AddLeague(deserializedObject[key]["id"], deserializedObject[key]["name"], DateTime.ParseExact(deserializedObject[key]["year"], "yyyy", CultureInfo.InvariantCulture), deserializedObject[key]["type"], deserializedObject[key]["classname"], deserializedObject[key]["rounds"]);
+                            Manager.AddLeague(deserializedObject[key]["id"], deserializedObject[key]["name"], DateTime.ParseExact(deserializedObject[key]["year"], "yyyy", CultureInfo.InvariantCulture), deserializedObject[key]["type"], deserializedObject[key]["classname"], deserializedObject[key]["rounds"], deserializedObject[key]["country"]);
 
                             break;
 
@@ -93,7 +93,7 @@ namespace Floorball
 
                         case "addReferee":
 
-                            Manager.AddReferee(deserializedObject[key]["id"], deserializedObject[key]["name"]);
+                            Manager.AddReferee(deserializedObject[key]["id"], deserializedObject[key]["name"], deserializedObject[key]["country"]);
 
                             break;
 

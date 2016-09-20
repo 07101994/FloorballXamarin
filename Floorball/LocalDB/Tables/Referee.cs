@@ -19,6 +19,8 @@ namespace Floorball.LocalDB.Tables
 
         public short Penalty { get; set; }
 
+        public CountriesEnum Country { get; set; }
+
         //Relationship
         [ManyToMany(typeof(RefereeMatch))]
         public List<Match> Matches { get; set; }

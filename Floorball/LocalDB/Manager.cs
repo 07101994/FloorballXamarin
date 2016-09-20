@@ -443,7 +443,7 @@ namespace Floorball.LocalDB
 
         #region POST
 
-        public static int AddLeague(int id, string name, DateTime year, string type, string classname, int rounds)
+        public static int AddLeague(int id, string name, DateTime year, string type, string classname, int rounds, CountriesEnum country)
         {
             using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
@@ -455,6 +455,7 @@ namespace Floorball.LocalDB
                 l.Type = type;
                 l.ClassName = classname;
                 l.Rounds = rounds;
+                l.Country = country;
 
                 db.Insert(l);
 
@@ -477,7 +478,7 @@ namespace Floorball.LocalDB
             }
         }
 
-        public static int AddTeam(int id, string name, DateTime year, string coach, string sex, int stadiumId, int leagueId, short get = 0, short scored = 0, short points = 0, short standing = -1)
+        public static int AddTeam(int id, string name, DateTime year, string coach, string sex, CountriesEnum country, int stadiumId, int leagueId, short get = 0, short scored = 0, short points = 0, short standing = -1)
         {
             using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
@@ -487,6 +488,7 @@ namespace Floorball.LocalDB
                 t.Year = year;
                 t.Coach = coach;
                 t.Sex = sex;
+                t.Country = country;
                 t.Get = get;
                 t.Scored = scored;
                 t.Points = points;
@@ -500,7 +502,7 @@ namespace Floorball.LocalDB
             }
         }
 
-        public static int AddReferee(int id, string name, short number = 0, short penalty = 0)
+        public static int AddReferee(int id, string name, CountriesEnum country, short number = 0, short penalty = 0)
         {
             using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
@@ -510,6 +512,7 @@ namespace Floorball.LocalDB
                 r.Number = number;
                 r.Penalty = penalty;
                 r.Matches = new List<Match>();
+                r.Country = country;
 
                 db.Insert(r);
 
@@ -517,12 +520,13 @@ namespace Floorball.LocalDB
             }
         }
 
-        public static int AddPlayer(string name, int regNum, int number, DateTime date)
+        public static int AddPlayer(string firstName, string secondName, int regNum, int number, DateTime date)
         {
             using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 Player p = new Player();
-                p.Name = name;
+                p.FirstName = firstName;
+                p.SecondName = secondName;
                 p.RegNum = regNum;
                 p.Number = (short)number;
                 p.BirthDate = date.Date;
@@ -742,7 +746,7 @@ namespace Floorball.LocalDB
         {
             foreach (var m in model)
             {
-                AddPlayer(m.Name, m.RegNum, m.Number, m.BirthDate);
+                AddPlayer(m.FirstName, m.SecondName, m.RegNum, m.Number, m.BirthDate);
             }
         }
 
@@ -758,7 +762,7 @@ namespace Floorball.LocalDB
         {
             foreach (var m in model)
             {
-                AddLeague(m.Id, m.Name, m.Year, m.type, m.ClassName, m.Rounds);
+                AddLeague(m.Id, m.Name, m.Year, m.type, m.ClassName, m.Rounds, m.Country);
             }
         }
 
@@ -774,7 +778,7 @@ namespace Floorball.LocalDB
         {
             foreach (var m in model)
             {
-                AddReferee(m.Id, m.Name,m.Number,m.Penalty);
+                AddReferee(m.Id, m.Name, m.Country, m.Number,m.Penalty);
             }
         }
 
@@ -782,7 +786,7 @@ namespace Floorball.LocalDB
         {
             foreach (var m in model)
             {
-                AddTeam(m.Id, m.Name, m.Year, m.Coach, m.Sex, m.StadiumId, m.LeagueId,m.Get, m.Scored, m.Points, m.Standing);
+                AddTeam(m.Id, m.Name, m.Year, m.Coach, m.Sex, m.Country, m.StadiumId, m.LeagueId,m.Get, m.Scored, m.Points, m.Standing);
             }
         }
 
