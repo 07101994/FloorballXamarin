@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Floorball;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,7 +13,7 @@ namespace FloorballServer.Models.Floorball
 
         public short Round { get; set; }
 
-        public string State { get; set; }
+        public StateEnum State { get; set; }
 
         public short GoalsH { get; set; }
 

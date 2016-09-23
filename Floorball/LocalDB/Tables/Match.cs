@@ -18,7 +18,7 @@ namespace Floorball.LocalDB.Tables
 
         public short Round { get; set; }
 
-        public string State { get; set; }
+        public StateEnum State { get; set; }
 
         public short GoalsH { get; set; }
 

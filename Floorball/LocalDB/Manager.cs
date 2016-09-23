@@ -703,7 +703,7 @@ namespace Floorball.LocalDB
             }
         }
 
-        public static void AddMatch(int id, int homeTeamId, int awayTeamId, short goalsH, short goalsA, short round, string state, TimeSpan time, DateTime date, int leagueId, int stadiumId)
+        public static void AddMatch(int id, int homeTeamId, int awayTeamId, short goalsH, short goalsA, short round, StateEnum state, TimeSpan time, DateTime date, int leagueId, int stadiumId)
         {
             using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
@@ -916,6 +916,17 @@ namespace Floorball.LocalDB
             //var entry = db.Entry(stat);
             //entry.Property(e => e.Number).IsModified = true;
 
+        }
+
+        public static void UpdateMatchState(int matchId, StateEnum newState)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                Match match = db.Get<Match>(matchId);
+                match.State = newState;
+                db.Update(match);
+                
+            }
         }
 
         #endregion

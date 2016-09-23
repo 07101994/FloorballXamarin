@@ -13,6 +13,8 @@ using Android.Support.V4.App;
 using FloorballServer.Models.Floorball;
 using Floorball.REST;
 using Floorball.LocalDB.Tables;
+using Floorball.Signalr;
+using Microsoft.AspNet.SignalR.Client;
 
 namespace Floorball.Droid.Fragments
 {
@@ -27,10 +29,16 @@ namespace Floorball.Droid.Fragments
 
         public override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);  
+            base.OnCreate(savedInstanceState);
 
             // Create your fragment here
+            FloorballClient.Instance.MatchStarted += MatchStarted;
+            FloorballClient.Instance.MatchEnded += MatchEnded;
+            FloorballClient.Instance.NewEventAdded += NewEventAdded;
+
         }
+
+      
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -105,11 +113,34 @@ namespace Floorball.Droid.Fragments
                 root.FindViewById<TextView>(Resource.Id.noActualMatches).Visibility = ViewStates.Visible;
             }
 
+            //Connect to siqnalr server
+            if (activity.ActualMatches.Where(m => m.State == StateEnum.Playing).Count() > 0 &&  FloorballClient.Instance.ConnectionState == ConnectionState.Disconnected)
+            {
+                FloorballClient.Instance.Connect(activity.Countries);
+            }
+
+
         }
 
         public override void listItemSelected(string s)
         {
             throw new NotImplementedException();
         }
+
+        private void MatchStarted(int matchId)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void MatchEnded(int matchId)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void NewEventAdded(int eventId)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
