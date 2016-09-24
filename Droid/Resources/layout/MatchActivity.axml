@@ -34,7 +34,7 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:scaleType="centerInside"
-            android:src="@drawable/ch"
+            android:src="@drawable/phoenix"
             android:padding="5dp"
             />
         <LinearLayout

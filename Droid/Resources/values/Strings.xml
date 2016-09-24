@@ -41,5 +41,8 @@
   <string name="finnland">Finnország</string>
   <string name="switzerland">Svájc</string>
   <string name="czech">Csehország</string>
-  
+
+  <string name="live">Élő</string>
+  <string name="soon">Hamarosan</string>
+
 </resources>

@@ -20,6 +20,7 @@ using Android.Support.V7.Widget;
 using Android.Widget;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
+using Android.Util;
 
 namespace Floorball.Droid
 {
@@ -80,8 +81,17 @@ namespace Floorball.Droid
             editor.Apply();
 
             Leagues = Manager.GetAllLeague().Where(l => Countries.Contains(l.Country));
-            ActualMatches = Manager.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
-            ActualTeams = GetActualTeams(ActualMatches);
+            if (Countries.Count > 0)
+            {
+                ActualMatches = Manager.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
+                //ActualMatches = Manager.GetAllMatch();
+                ActualTeams = GetActualTeams(ActualMatches);
+            }
+            else
+            {
+                ActualMatches = new List<Match>();
+                ActualTeams = new List<Team>();
+            }
             Teams = Manager.GetAllTeam().Where(t => Countries.Contains(t.Country));
 
             // Set our view from the "main" layout resource

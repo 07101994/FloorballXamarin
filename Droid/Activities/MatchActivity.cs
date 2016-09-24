@@ -84,14 +84,14 @@ namespace Floorball.Droid.Activities
 
             FindViewById<TextView>(Resource.Id.actualTime).Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes.ToString() + ":" + Match.Time.Seconds.ToString();
 
-            FindViewById<ImageView>(Resource.Id.homeTeamImage).SetImageResource(Resource.Drawable.CH);
+            FindViewById<ImageView>(Resource.Id.homeTeamImage).SetImageResource(Resource.Drawable.phoenix);
             FindViewById<ImageView>(Resource.Id.awayTeamImage).SetImageResource(Resource.Drawable.phoenix);
 
             CreateEvents();
             CreateReferees();
 
             ChangeTimelineHeight();
-
+            
         }
 
         private void ChangeTimelineHeight()

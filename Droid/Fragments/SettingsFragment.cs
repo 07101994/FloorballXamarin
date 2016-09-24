@@ -43,6 +43,7 @@ namespace Floorball.Droid.Fragments
             return base.OnCreateView(inflater, container, savedInstanceState);
         }
 
+
         //public bool OnPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen)
         //{
         //    preferenceFragmentCompat.PreferenceScreen = preferenceScreen;
