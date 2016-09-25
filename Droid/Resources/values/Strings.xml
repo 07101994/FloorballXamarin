@@ -33,7 +33,8 @@
 
   <string name="playerSearchHint">Név</string>
 
-  <string name="noActualMatches">Nincs</string>
+  <string name="noActualLiveMatches">Nincs élő meccs</string>
+  <string name="noActualMatches">3 napon belül nincs meccs</string>
 
   <string name="countries">Országok</string>
   <string name="hungary">Magyarország</string>

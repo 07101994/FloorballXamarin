@@ -2449,9 +2449,6 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080018
 			public const int fill_vertical = 2131230744;
 			
-			// aapt resource value: 0x7f08006e
-			public const int first = 2131230830;
-			
 			// aapt resource value: 0x7f08003c
 			public const int @fixed = 2131230780;
 			
@@ -2571,6 +2568,12 @@ namespace Floorball.Droid
 			
 			// aapt resource value: 0x7f0800a7
 			public const int matchesList = 2131230887;
+			
+			// aapt resource value: 0x7f08006e
+			public const int matchesList1 = 2131230830;
+			
+			// aapt resource value: 0x7f080070
+			public const int matchesList2 = 2131230832;
 			
 			// aapt resource value: 0x7f0800b0
 			public const int media_actions = 2131230896;
@@ -2703,9 +2706,6 @@ namespace Floorball.Droid
 			
 			// aapt resource value: 0x7f08006b
 			public const int search_voice_btn = 2131230827;
-			
-			// aapt resource value: 0x7f080070
-			public const int second = 2131230832;
 			
 			// aapt resource value: 0x7f08006c
 			public const int select_dialog_listview = 2131230828;
@@ -3324,11 +3324,11 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0a0018
 			public const int character_counter_pattern = 2131361816;
 			
-			// aapt resource value: 0x7f0a0036
-			public const int countries = 2131361846;
+			// aapt resource value: 0x7f0a0037
+			public const int countries = 2131361847;
 			
-			// aapt resource value: 0x7f0a003b
-			public const int czech = 2131361851;
+			// aapt resource value: 0x7f0a003c
+			public const int czech = 2131361852;
 			
 			// aapt resource value: 0x7f0a0029
 			public const int defeatLabel = 2131361833;
@@ -3336,8 +3336,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0a0028
 			public const int drawLabel = 2131361832;
 			
-			// aapt resource value: 0x7f0a0039
-			public const int finnland = 2131361849;
+			// aapt resource value: 0x7f0a003a
+			public const int finnland = 2131361850;
 			
 			// aapt resource value: 0x7f0a002a
 			public const int goalsLabel = 2131361834;
@@ -3345,14 +3345,14 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0a001b
 			public const int hello = 2131361819;
 			
-			// aapt resource value: 0x7f0a0037
-			public const int hungary = 2131361847;
+			// aapt resource value: 0x7f0a0038
+			public const int hungary = 2131361848;
 			
 			// aapt resource value: 0x7f0a001e
 			public const int league = 2131361822;
 			
-			// aapt resource value: 0x7f0a003c
-			public const int live = 2131361852;
+			// aapt resource value: 0x7f0a003d
+			public const int live = 2131361853;
 			
 			// aapt resource value: 0x7f0a0025
 			public const int matchLabel = 2131361829;
@@ -3364,7 +3364,10 @@ namespace Floorball.Droid
 			public const int menu = 2131361821;
 			
 			// aapt resource value: 0x7f0a0035
-			public const int noActualMatches = 2131361845;
+			public const int noActualLiveMatches = 2131361845;
+			
+			// aapt resource value: 0x7f0a0036
+			public const int noActualMatches = 2131361846;
 			
 			// aapt resource value: 0x7f0a002f
 			public const int penaltyLabel = 2131361839;
@@ -3396,8 +3399,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0a0023
 			public const int settings = 2131361827;
 			
-			// aapt resource value: 0x7f0a003d
-			public const int soon = 2131361853;
+			// aapt resource value: 0x7f0a003e
+			public const int soon = 2131361854;
 			
 			// aapt resource value: 0x7f0a0031
 			public const int stadionLabel = 2131361841;
@@ -3405,11 +3408,11 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0a0015
 			public const int status_bar_notification_info_overflow = 2131361813;
 			
-			// aapt resource value: 0x7f0a0038
-			public const int sweden = 2131361848;
+			// aapt resource value: 0x7f0a0039
+			public const int sweden = 2131361849;
 			
-			// aapt resource value: 0x7f0a003a
-			public const int switzerland = 2131361850;
+			// aapt resource value: 0x7f0a003b
+			public const int switzerland = 2131361851;
 			
 			// aapt resource value: 0x7f0a0026
 			public const int teamNameLabel = 2131361830;

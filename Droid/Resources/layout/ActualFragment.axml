@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbarStyle="insideOverlay">
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:text="@string/live"
-        android:visibility="visible" />
-    <TextView
-        android:id="@+id/noActualLiveMatches"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/noActualMatches"
-        android:visibility="invisible" />
-    <include
-        android:id="@+id/first"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/matchesfragment" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:text="@string/soon"
-        android:visibility="visible" />
-    <TextView
-        android:id="@+id/noActualMatches"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/noActualMatches"
-        android:visibility="invisible" />
-    <include
-        android:id="@+id/second"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/matchesfragment" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:text="@string/live"
+            android:visibility="visible" />
+        <TextView
+            android:id="@+id/noActualLiveMatches"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/noActualLiveMatches"
+            android:visibility="invisible" />
+        <LinearLayout
+            android:id="@+id/matchesList1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:text="@string/soon"
+            android:visibility="visible" />
+        <TextView
+            android:id="@+id/noActualMatches"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/noActualMatches"
+            android:visibility="invisible" />
+        <LinearLayout
+            android:id="@+id/matchesList2"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>

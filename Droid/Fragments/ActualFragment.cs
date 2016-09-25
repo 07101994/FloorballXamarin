@@ -16,6 +16,8 @@ using Floorball.LocalDB.Tables;
 using Floorball.Signalr;
 using Microsoft.AspNet.SignalR.Client;
 using Android.Support.V7.Widget;
+using Android.Animation;
+using Android.Graphics.Drawables;
 
 namespace Floorball.Droid.Fragments
 {
@@ -48,15 +50,59 @@ namespace Floorball.Droid.Fragments
 
             View root = inflater.Inflate(Resource.Layout.ActualFragment, container, false);
             
-            CreateMatches(root);
-
+            CreateLiveMatches(root);
+            CreateSoonMatches(root);
+            
             return root;
         }
 
-        private void CreateMatches(View root)
+        private void CreateSoonMatches(View root)
+        {
+            LinearLayout container = root.FindViewById<LinearLayout>(Resource.Id.matchesList2);
+
+            MainActivity activity = Activity as MainActivity;
+
+            int i = 0;
+
+
+            while (i < activity.ActualMatches.Count())
+            {
+
+                Match actualMatch = activity.ActualMatches.ElementAt(i);
+                League actualLeague = activity.Leagues.ToList().Find(l => l.Id == actualMatch.LeagueId);
+
+                //Create league name and country flag
+                CreateLeagueNameAndFlag(actualMatch, actualLeague, container);
+
+                int j = i;
+
+                //While int the same league
+                while (j < activity.ActualMatches.Count() && activity.ActualMatches.ElementAt(j).LeagueId == actualMatch.LeagueId)
+                {
+
+                    CreateMatchTile(activity.ActualMatches.ElementAt(j), container);
+
+                    actualMatch = activity.ActualMatches.ElementAt(j);
+
+                    j++;
+                }
+
+
+                i = j;
+
+            }
+
+            if (i == 0)
+            {
+                root.FindViewById<TextView>(Resource.Id.noActualMatches).Visibility = ViewStates.Visible;
+            }
+
+        }
+
+        private void CreateLiveMatches(View root)
         {
 
-            LinearLayout container = root.FindViewById(Resource.Id.first).FindViewById<LinearLayout>(Resource.Id.matchesList);
+            LinearLayout container = root.FindViewById<LinearLayout>(Resource.Id.matchesList1);
 
             MainActivity activity = Activity as MainActivity;
 
@@ -78,7 +124,7 @@ namespace Floorball.Droid.Fragments
                 while (j < activity.ActualMatches.Count() && activity.ActualMatches.ElementAt(j).LeagueId ==  actualMatch.LeagueId)
                 {
 
-                    CreateMatchTile(actualMatch, container);
+                    CreateMatchTile(activity.ActualMatches.ElementAt(j), container);
 
                     actualMatch = activity.ActualMatches.ElementAt(j);
 
@@ -90,56 +136,9 @@ namespace Floorball.Droid.Fragments
 
             }
 
-            //ViewGroup header;
-            //ViewGroup matches;
-            //ViewGroup matchResult;
-
-            //while (i < activity.ActualMatches.Count())
-            //{
-
-            //    header = Activity.LayoutInflater.Inflate(Resource.Layout.Header, null, false) as ViewGroup;
-            //    Match actual = activity.ActualMatches.ElementAt(i);
-            //    int leagueId = actual.LeagueId;
-            //    header.FindViewById<TextView>(Resource.Id.headerName).Text = activity.Leagues.ToList().Find(l => l.Id == leagueId).Name;
-
-            //    container.AddView(header);
-
-            //    int j = i;
-
-            //    while (j < activity.ActualMatches.Count())
-            //    {
-            //        matches = Activity.LayoutInflater.Inflate(Resource.Layout.Matches, null, false) as ViewGroup;
-            //        matches.FindViewById<TextView>(Resource.Id.matchDate).Text = actual.Date.ToString();
-
-            //        int k = j;
-
-            //        while (k < activity.ActualMatches.Count() && activity.ActualMatches.ElementAt(k).LeagueId == actual.LeagueId && activity.ActualMatches.ElementAt(k).Date == actual.Date)
-            //        {
-
-            //            matchResult = Activity.LayoutInflater.Inflate(Resource.Layout.MatchResult, null, false) as ViewGroup;
-            //            matchResult.FindViewById<TextView>(Resource.Id.homeTeam).Text = activity.ActualTeams.Where(t => t.Id == activity.ActualMatches.ElementAt(k).HomeTeamId).First().Name + " ";
-            //            matchResult.FindViewById<TextView>(Resource.Id.homeScore).Text = activity.ActualMatches.ElementAt(k).GoalsH.ToString();
-            //            matchResult.FindViewById<TextView>(Resource.Id.awayScore).Text = activity.ActualMatches.ElementAt(k).GoalsA.ToString();
-            //            matchResult.FindViewById<TextView>(Resource.Id.awayTeam).Text = " " + activity.ActualTeams.Where(t => t.Id == activity.ActualMatches.ElementAt(k).AwayTeamId).First().Name;
-
-            //            matches.AddView(matchResult);
-
-            //            k++;
-            //        }
-
-            //        actual = activity.ActualMatches.ElementAt(k);
-
-            //        j = k;
-            //        container.AddView(matches);
-            //    }
-
-            //    i = j;
-            //}
-
             if (i == 0)
             {
-                //TextView t = View.FindViewById<TextView>(Resource.Id.noActualMatches);
-                root.FindViewById<TextView>(Resource.Id.noActualMatches).Visibility = ViewStates.Visible;
+                root.FindViewById<TextView>(Resource.Id.noActualLiveMatches).Visibility = ViewStates.Visible;
             }
             
             //Connect to siqnalr server
@@ -167,20 +166,75 @@ namespace Floorball.Droid.Fragments
             matchTile.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = actualMatch.GoalsH.ToString();
             matchTile.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = actualMatch.GoalsA.ToString();
 
+            if (actualMatch.State == StateEnum.Playing)
+            {
+                MakeAnimation(matchTile.FindViewById<View>(Resource.Id.actualProgress));
+            }
+
             container.AddView(matchTile);
 
         }
 
+        private void MakeAnimation(View view)
+        {
+            int colorFrom = Resources.GetColor(Resource.Color.green);
+            int colotTo = Resources.GetColor(Resource.Color.red);
+            ValueAnimator colorAnimation = ValueAnimator.OfObject(new ArgbEvaluator(), colorFrom, colotTo);
+            colorAnimation.SetDuration(1000);
+            colorAnimation.RepeatCount = ValueAnimator.Infinite;
+            colorAnimation.RepeatMode = ValueAnimatorRepeatMode.Reverse;
+            colorAnimation.Update += delegate
+            {
+                view.SetBackgroundColor(new Android.Graphics.Color(Convert.ToInt32(colorAnimation.AnimatedValue)));
+            };
+            colorAnimation.Start();
+        }
+
         private string GetMatchTime(TimeSpan time, StateEnum state)
         {
-
             if (state == StateEnum.Ended || state == StateEnum.Playing)
             {
-                return time.Hours == 1 ? "60:00" : time.Minutes + ":" + time.Seconds;
+                if (time.Hours == 1)
+                {
+                    return "3.\n60:00";
+                }
+
+                return GetPeriod(time)+".\n"+GetTimeInPeriod(time);
             }
 
             return "";
+        }
 
+        private string GetTimeInPeriod(TimeSpan time)
+        {
+            string str = "";
+
+            int minutes = time.Minutes % 20;
+            if (minutes < 10)
+            {
+                str += "0" + minutes;
+            }
+            else
+            {
+                str += minutes;
+            }
+
+            int seconds = time.Seconds;
+            if (seconds < 10)
+            {
+                str += "0" + seconds;
+            }
+            else
+            {
+                str += seconds;
+            }
+
+            return str;
+        }
+
+        private string GetPeriod(TimeSpan time)
+        {
+            return (time.Minutes / 20 + 1).ToString();
         }
 
         private void CreateLeagueNameAndFlag(Match actualMatch, League actualLeague, ViewGroup container)
