@@ -21,7 +21,7 @@ namespace Floorball.Signalr
         public event ChangedEventHandler MatchStarted;
         public event ChangedEventHandler MatchEnded;
         public event ChangedEventHandler NewEventAdded;
-
+        public event ChangedEventHandler MatchTimeUpdated;
 
         private static FloorballClient instance;
 
@@ -67,7 +67,7 @@ namespace Floorball.Signalr
 
         private void HubConnectionError(Exception exception)
         {
-            // TODO
+            string msg = exception.Message;
         }
 
         private Dictionary<string,string> CreateQueryStringData(SortedSet<CountriesEnum> countries)
@@ -82,7 +82,7 @@ namespace Floorball.Signalr
 
             if (countriesQueryString.Length > 0)
             {
-                countriesQueryString.Remove(countriesQueryString.Length - 1);
+                countriesQueryString = countriesQueryString.Remove(countriesQueryString.Length - 1);
             }
 
             quersStringData.Add("countries", countriesQueryString);
@@ -95,22 +95,36 @@ namespace Floorball.Signalr
 
             hubProxy.On<EventModel>("AddEventToMatch", AddEventToMatch);
             hubProxy.On<int,StateEnum>("ChangeMatchState", ChangeMatchState);
+            hubProxy.On<int,TimeSpan>("UpdateMatchTime", UpdateMatchTime);
+
+        }
+
+        private void UpdateMatchTime(int matchId, TimeSpan newTime)
+        {
+            //db
+            Manager.UpdateMatchTime(matchId, newTime);
+
+            //ui
+            MatchTimeUpdated(matchId);
 
         }
 
         private void AddEventToMatch(EventModel e)
         {
+            //db
             Manager.AddEvent(e.Id,e.MatchId,e.Type,e.Time,e.PlayerId,e.EventMessageId,e.TeamId);
 
+            //ui
             NewEventAdded(e.Id);
 
         }
 
         private void ChangeMatchState(int matchId, StateEnum state)
         {
-
+            //db
             Manager.UpdateMatchState(matchId, state);
 
+            //ui
             switch (state)
             {
                 case StateEnum.Confirmed:

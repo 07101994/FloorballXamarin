@@ -18,6 +18,7 @@ using Microsoft.AspNet.SignalR.Client;
 using Android.Support.V7.Widget;
 using Android.Animation;
 using Android.Graphics.Drawables;
+using Floorball.LocalDB;
 
 namespace Floorball.Droid.Fragments
 {
@@ -38,10 +39,11 @@ namespace Floorball.Droid.Fragments
             FloorballClient.Instance.MatchStarted += MatchStarted;
             FloorballClient.Instance.MatchEnded += MatchEnded;
             FloorballClient.Instance.NewEventAdded += NewEventAdded;
+            FloorballClient.Instance.MatchTimeUpdated += MatchTimeUpdated;
 
         }
 
-      
+        
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -144,7 +146,16 @@ namespace Floorball.Droid.Fragments
             //Connect to siqnalr server
             if (activity.ActualMatches.Where(m => m.State == StateEnum.Playing).Count() > 0 &&  FloorballClient.Instance.ConnectionState == ConnectionState.Disconnected)
             {
-                //FloorballClient.Instance.Connect(activity.Countries);
+                try
+                {
+                    FloorballClient.Instance.Connect(activity.Countries);
+                }
+                catch (Exception ex)
+                {
+
+                    int o = 0;
+                }
+
             }
 
 
@@ -161,6 +172,7 @@ namespace Floorball.Droid.Fragments
 
             matchTile.FindViewById<TextView>(Resource.Id.actualDate).Text = actualMatch.Date.ToString();
             matchTile.FindViewById<TextView>(Resource.Id.time).Text = GetMatchTime(actualMatch.Time, actualMatch.State);
+            matchTile.FindViewById<TextView>(Resource.Id.time).Tag = actualMatch.Id+"time";
             matchTile.FindViewById<TextView>(Resource.Id.homeTeamName).Text = homeTeam.Name;
             matchTile.FindViewById<TextView>(Resource.Id.awayTeamName).Text = awayTeam.Name;
             matchTile.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = actualMatch.GoalsH.ToString();
@@ -218,6 +230,8 @@ namespace Floorball.Droid.Fragments
             {
                 str += minutes;
             }
+
+            str += ":";
 
             int seconds = time.Seconds;
             if (seconds < 10)
@@ -280,6 +294,17 @@ namespace Floorball.Droid.Fragments
         private void NewEventAdded(int eventId)
         {
             throw new NotImplementedException();
+        }
+
+        private void MatchTimeUpdated(int matchId)
+        {
+
+            Match m = Manager.GetMatchById(matchId);
+
+            string newTime = GetMatchTime(m.Time,m.State);
+
+            (Activity.FindViewById(Resource.Id.matchesList1).FindViewWithTag(matchId.ToString() + "time") as TextView).Text = newTime;
+
         }
 
     }

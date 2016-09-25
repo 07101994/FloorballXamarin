@@ -937,6 +937,17 @@ namespace Floorball.LocalDB
             }
         }
 
+        public static void UpdateMatchTime(int matchId, TimeSpan newTime)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                Match match = db.Get<Match>(matchId);
+                match.Time = newTime;
+                db.Update(match);
+
+            }
+        }
+
         #endregion
     }
 }
