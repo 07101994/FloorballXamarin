@@ -19,6 +19,7 @@ using Android.Support.V7.Widget;
 using Android.Animation;
 using Android.Graphics.Drawables;
 using Floorball.LocalDB;
+using Floorball.Droid.Activities;
 
 namespace Floorball.Droid.Fragments
 {
@@ -148,7 +149,7 @@ namespace Floorball.Droid.Fragments
             {
                 try
                 {
-                    FloorballClient.Instance.Connect(activity.Countries);
+                    //FloorballClient.Instance.Connect(activity.Countries);
                 }
                 catch (Exception ex)
                 {
@@ -172,11 +173,14 @@ namespace Floorball.Droid.Fragments
 
             matchTile.FindViewById<TextView>(Resource.Id.actualDate).Text = actualMatch.Date.ToString();
             matchTile.FindViewById<TextView>(Resource.Id.time).Text = GetMatchTime(actualMatch.Time, actualMatch.State);
-            matchTile.FindViewById<TextView>(Resource.Id.time).Tag = actualMatch.Id+"time";
+            matchTile.FindViewById<TextView>(Resource.Id.time).Tag = actualMatch.Id + "time";
             matchTile.FindViewById<TextView>(Resource.Id.homeTeamName).Text = homeTeam.Name;
             matchTile.FindViewById<TextView>(Resource.Id.awayTeamName).Text = awayTeam.Name;
             matchTile.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = actualMatch.GoalsH.ToString();
             matchTile.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = actualMatch.GoalsA.ToString();
+
+            matchTile.Tag = actualMatch.Id;
+            matchTile.Click += MatchTileClick;
 
             if (actualMatch.State == StateEnum.Playing)
             {
@@ -184,6 +188,16 @@ namespace Floorball.Droid.Fragments
             }
 
             container.AddView(matchTile);
+
+        }
+
+        private void MatchTileClick(object sender, EventArgs e)
+        {
+            
+            Intent intent = new Intent(Context, typeof(MatchActivity));
+            intent.PutExtra("id", Convert.ToInt32((sender as CardView).Tag));
+            StartActivity(intent);
+
 
         }
 

@@ -13,6 +13,7 @@ using Floorball.LocalDB.Tables;
 using Newtonsoft.Json;
 using Floorball.LocalDB;
 using Android.Support.V7.App;
+using Android.Support.V4.App;
 
 namespace Floorball.Droid.Activities
 {
@@ -25,7 +26,7 @@ namespace Floorball.Droid.Activities
         public Team HomeTeam { get; set; }
 
         public Team AwayTeam { get; set; }
-
+        
         public IEnumerable<Player> HomeTeamPlayers { get; set; }
 
         public IEnumerable<Player> AwayTeamPlayers { get; set; }
@@ -51,7 +52,7 @@ namespace Floorball.Droid.Activities
             //Manager.InitDatabaseFromServer();
 
             //Match = JsonConvert.DeserializeObject<Match>(Intent.GetStringExtra("match"));
-            Match = Manager.GetMatchById(1);
+            Match = Manager.GetMatchById(Intent.GetIntExtra("id",2));
             HomeTeam = Manager.GetTeamById(Match.HomeTeamId);
             AwayTeam = Manager.GetTeamById(Match.AwayTeamId);
             HomeTeamPlayers = HomeTeam.Players;
@@ -69,6 +70,7 @@ namespace Floorball.Droid.Activities
             SetSupportActionBar(toolbar);
 
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            //SupportActionBar.SetHomeButtonEnabled(true);
             SupportActionBar.Title = "";
             FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
 
@@ -179,6 +181,24 @@ namespace Floorball.Droid.Activities
                 refereeLayout.AddView(refereeItem);
             }
 
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+
+                    //NavUtils.NavigateUpFromSameTask(this);
+                    Finish();
+                    return true;
+
+                default:
+                    break;
+            }
+
+            return base.OnOptionsItemSelected(item);
         }
 
     }
