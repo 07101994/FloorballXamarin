@@ -63,6 +63,26 @@ namespace Floorball.Droid.Fragments
             root.FindViewById<ImageView>(Resource.Id.rightArrow).Click += RightArrowClicked;
             root.FindViewById<ImageView>(Resource.Id.leftArrow).Click += LeftArrowClicked;
 
+            leaguesListView = root.FindViewById<ListView>(Resource.Id.leaguesList);
+
+            try
+            {
+                Leagues = Manager.GetAllLeague();
+                ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
+                leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
+                leaguesListView.ItemClick += (e, p) => {
+
+                    Intent intent = new Intent(Context, typeof(LeagueActivity));
+                    intent.PutExtra("league", JsonConvert.SerializeObject(ActualLeagues.ElementAt(p.Position)));
+                    StartActivity(intent);
+                };
+
+            }
+            catch (Java.Lang.Exception)
+            {
+
+            }
+
             return root;
         }
 
@@ -94,24 +114,7 @@ namespace Floorball.Droid.Fragments
         {
             base.OnStart();
 
-            leaguesListView = Activity.FindViewById<ListView>(Resource.Id.leaguesList);
-
-            try
-            {
-                Leagues = Manager.GetAllLeague();
-                ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
-                leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
-                leaguesListView.ItemClick += (e, p) => {
-
-                    Intent intent = new Intent(Context,typeof(LeagueActivity));
-                    intent.PutExtra("league",JsonConvert.SerializeObject(ActualLeagues.ElementAt(p.Position)));
-                    StartActivity(intent);
-                };
-
-            } catch (Java.Lang.Exception)
-            {
-
-            }
+            
             
         }
 
