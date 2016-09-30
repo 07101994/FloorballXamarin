@@ -40,11 +40,11 @@ namespace Floorball.Droid.Activities
             // Create your application here
             SetContentView(Resource.Layout.TeamActivity);
 
-            ViewPager pager = FindViewById<ViewPager>(Resource.Id.teamPager);
+            ViewPager pager = FindViewById<ViewPager>(Resource.Id.pager);
             pagerAdapter = new TeamPageAdapter(SupportFragmentManager);
             pager.Adapter = pagerAdapter;
 
-            TabLayout tabs = FindViewById<TabLayout>(Resource.Id.teamtabs);
+            TabLayout tabs = FindViewById<TabLayout>(Resource.Id.tabs);
             tabs.SetupWithViewPager(pager);
 
             Team =  JsonConvert.DeserializeObject<Team>(Intent.GetStringExtra("team"));

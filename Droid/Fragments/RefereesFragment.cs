@@ -50,25 +50,19 @@ namespace Floorball.Droid.Fragments
             root.FindViewById<TextView>(Resource.Id.fragmentName).Text = Resources.GetString(Resource.String.referees);
 
 
-            return root;
-        }
-
-        public override void OnStart()
-        {
-            base.OnStart();
-
             Referees = Manager.GetAllReferee().OrderBy(p => p.Name).ToList();
             ActualReferees = Referees;
 
-            refereeListView = Activity.FindViewById<ListView>(Resource.Id.playersList);
+            refereeListView = root.FindViewById<ListView>(Resource.Id.playersList);
             refereeListView.Adapter = new RefereesAdapter(Context, ActualReferees.ToList());
             refereeListView.ItemClick += RefereeListViewItemClick;
 
-            EditText searchBox = Activity.FindViewById<EditText>(Resource.Id.playerSearch);
+            EditText searchBox = root.FindViewById<EditText>(Resource.Id.playerSearch);
             searchBox.TextChanged += SearchBoxTextChanged;
 
-
+            return root;
         }
+
 
         private void SearchBoxTextChanged(object sender, TextChangedEventArgs e)
         {

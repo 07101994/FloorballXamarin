@@ -47,11 +47,11 @@ namespace Floorball.Droid.Activities
 
             SetContentView(Resource.Layout.League);
 
-            ViewPager pager = FindViewById<ViewPager>(Resource.Id.leaguePager);
+            ViewPager pager = FindViewById<ViewPager>(Resource.Id.pager);
             pagerAdapter = new LeaguePageAdapter(SupportFragmentManager);
             pager.Adapter = pagerAdapter;
 
-            TabLayout tabs = FindViewById<TabLayout>(Resource.Id.leaguetabs);
+            TabLayout tabs = FindViewById<TabLayout>(Resource.Id.tabs);
             tabs.SetupWithViewPager(pager);
 
             League = JsonConvert.DeserializeObject<League>(Intent.GetStringExtra("league"));

@@ -57,6 +57,9 @@ namespace Floorball.Droid.Fragments
             YearViewPager = root.FindViewById<ViewPager>(Resource.Id.yearPager);
             YearViewPager.Adapter = new YearFragmentStatePageAdapter(Activity.SupportFragmentManager, years);
 
+            TabLayout tabs = root.FindViewById<TabLayout>(Resource.Id.tabs);
+            tabs.SetupWithViewPager(YearViewPager);
+
             root.FindViewById<ImageView>(Resource.Id.rightArrow).Click += RightArrowClicked;
             root.FindViewById<ImageView>(Resource.Id.leftArrow).Click += LeftArrowClicked;
 
@@ -101,11 +104,11 @@ namespace Floorball.Droid.Fragments
         {
             base.OnStart();
 
-            Pager = Activity.FindViewById<ViewPager>(Resource.Id.sexPager);
+            Pager = Activity.FindViewById<ViewPager>(Resource.Id.pager);
             pagerAdapter = new SexPageAdapter(Activity.SupportFragmentManager,years);
             Pager.Adapter = pagerAdapter;
 
-            TabLayout tabs = Activity.FindViewById<TabLayout>(Resource.Id.sexTabs);
+            TabLayout tabs = Activity.FindViewById<TabLayout>(Resource.Id.tabs);
             tabs.SetupWithViewPager(Pager);
         }
 

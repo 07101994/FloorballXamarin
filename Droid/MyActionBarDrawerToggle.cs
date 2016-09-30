@@ -8,9 +8,9 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 using Android.Support.V7.App;
 using Android.Support.V4.Widget;
+using Android.Support.V7.Widget;
 
 namespace Floorball.Droid
 {
@@ -25,14 +25,15 @@ namespace Floorball.Droid
         private float last = 0;
         public bool IsMoving { get; set; }
 
-        public MyActionBarDrawerToggle(Activity host, DrawerLayout drawerLayout, int openedResource, int closedResource)
-        : base(host, drawerLayout, openedResource, closedResource)
+        public MyActionBarDrawerToggle(Activity host, DrawerLayout drawerLayout, Toolbar toolbar, int openedResource, int closedResource)
+        : base(host, drawerLayout, toolbar, openedResource, closedResource)
         {
             activity = host;
             mOpenedResource = openedResource;
             mClosedResource = closedResource;
             this.drawerLayout = drawerLayout;
             IsMoving = false;
+            
         }
 
         public override void OnDrawerOpened(View drawerView)
@@ -119,7 +120,6 @@ namespace Floorball.Droid
 
 
         }
-
 
     }
 }

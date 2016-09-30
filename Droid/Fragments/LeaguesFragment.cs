@@ -59,6 +59,7 @@ namespace Floorball.Droid.Fragments
 
             YearViewPager = root.FindViewById<ViewPager>(Resource.Id.yearPager);
             YearViewPager.Adapter = new YearFragmentStatePageAdapter(Activity.SupportFragmentManager, years);
+            YearViewPager.PageSelected += YearViewPager_PageSelected;
 
             root.FindViewById<ImageView>(Resource.Id.rightArrow).Click += RightArrowClicked;
             root.FindViewById<ImageView>(Resource.Id.leftArrow).Click += LeftArrowClicked;
@@ -86,15 +87,22 @@ namespace Floorball.Droid.Fragments
             return root;
         }
 
+        private void YearViewPager_PageSelected(object sender, ViewPager.PageSelectedEventArgs e)
+        {
+            ActualFragmentIndex = e.Position;
+            ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
+            leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
+        }
+
         private void LeftArrowClicked(object sender, EventArgs e)
         {
             if (ActualFragmentIndex > 0)
             {
-                ActualFragmentIndex--;
-                YearViewPager.CurrentItem = ActualFragmentIndex;
+                //ActualFragmentIndex--;
+                YearViewPager.CurrentItem = ActualFragmentIndex - 1;
 
-                ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
-                leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
+                //ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
+                //leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
             }
         }
 
@@ -102,20 +110,12 @@ namespace Floorball.Droid.Fragments
         {
             if (ActualFragmentIndex < years.Count - 1)
             {
-                ActualFragmentIndex++;
-                YearViewPager.CurrentItem = ActualFragmentIndex;
+                //ActualFragmentIndex++;
+                YearViewPager.CurrentItem = ActualFragmentIndex + 1;
 
-                ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
-                leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
+                //ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
+                //leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
             }
-        }
-
-        public override void OnStart()
-        {
-            base.OnStart();
-
-            
-            
         }
 
         public override void listItemSelected(string newYear)
@@ -124,9 +124,6 @@ namespace Floorball.Droid.Fragments
             //ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == newYear).ToList();
             //leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
         }
-
-
-        
 
     }
 }
