@@ -25,8 +25,8 @@ namespace Floorball.Droid
         private float last = 0;
         public bool IsMoving { get; set; }
 
-        public MyActionBarDrawerToggle(Activity host, DrawerLayout drawerLayout, Toolbar toolbar, int openedResource, int closedResource)
-        : base(host, drawerLayout, toolbar, openedResource, closedResource)
+        public MyActionBarDrawerToggle(Activity host, DrawerLayout drawerLayout, int openedResource, int closedResource)
+        : base(host, drawerLayout, openedResource, closedResource)
         {
             activity = host;
             mOpenedResource = openedResource;

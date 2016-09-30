@@ -23,16 +23,9 @@ using Android.Support.V4.View;
 
 namespace Floorball.Droid.Fragments
 {
-    public class LeaguesFragment : MainFragment
+    public class LeaguesFragment : ViewPagerWithTabs
     {
         ListView leaguesListView;
-        List<string> years;
-
-        public int ActualFragmentIndex { get; set; }
-
-        public ViewPager YearViewPager { get; set; }
-
-        private YearFragmentStatePageAdapter YearViewPagerAdapter { get; set; }
 
         public IEnumerable<League> Leagues { get; set; }
 
@@ -46,76 +39,46 @@ namespace Floorball.Droid.Fragments
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            years = Manager.GetAllYear().Select(y => y.Year.ToString()).ToList();
-            ActualFragmentIndex = 0;
-            
 
+            PagerType = PagerFragmentType.Leagues;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            View root = inflater.Inflate(Resource.Layout.LeaugesFragment, container, false);
+            View root = base.OnCreateView(inflater, container, savedInstanceState);
 
-            YearViewPager = root.FindViewById<ViewPager>(Resource.Id.yearPager);
-            YearViewPager.Adapter = new YearFragmentStatePageAdapter(Activity.SupportFragmentManager, years);
-            YearViewPager.PageSelected += YearViewPager_PageSelected;
+            root.FindViewById<TextView>(Resource.Id.title).Text = Resources.GetString(Resource.String.league);
 
-            root.FindViewById<ImageView>(Resource.Id.rightArrow).Click += RightArrowClicked;
-            root.FindViewById<ImageView>(Resource.Id.leftArrow).Click += LeftArrowClicked;
+            //leaguesListView = root.FindViewById<ListView>(Resource.Id.leaguesList);
 
-            leaguesListView = root.FindViewById<ListView>(Resource.Id.leaguesList);
+            //try
+            //{
+            //    Leagues = Manager.GetAllLeague();
+            //    ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
+            //    leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
+            //    leaguesListView.ItemClick += (e, p) => {
 
-            try
-            {
-                Leagues = Manager.GetAllLeague();
-                ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
-                leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
-                leaguesListView.ItemClick += (e, p) => {
+            //        Intent intent = new Intent(Context, typeof(LeagueActivity));
+            //        intent.PutExtra("league", JsonConvert.SerializeObject(ActualLeagues.ElementAt(p.Position)));
+            //        StartActivity(intent);
+            //    };
 
-                    Intent intent = new Intent(Context, typeof(LeagueActivity));
-                    intent.PutExtra("league", JsonConvert.SerializeObject(ActualLeagues.ElementAt(p.Position)));
-                    StartActivity(intent);
-                };
+            //}
+            //catch (Java.Lang.Exception)
+            //{
 
-            }
-            catch (Java.Lang.Exception)
-            {
-
-            }
+            //}
 
             return root;
         }
 
-        private void YearViewPager_PageSelected(object sender, ViewPager.PageSelectedEventArgs e)
+        public override void YearViewPager_PageSelected(object sender, ViewPager.PageSelectedEventArgs e)
         {
-            ActualFragmentIndex = e.Position;
+            base.YearViewPager_PageSelected(sender, e);
+
             ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
             leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
-        }
 
-        private void LeftArrowClicked(object sender, EventArgs e)
-        {
-            if (ActualFragmentIndex > 0)
-            {
-                //ActualFragmentIndex--;
-                YearViewPager.CurrentItem = ActualFragmentIndex - 1;
-
-                //ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
-                //leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
-            }
-        }
-
-        private void RightArrowClicked(object sender, EventArgs e)
-        {
-            if (ActualFragmentIndex < years.Count - 1)
-            {
-                //ActualFragmentIndex++;
-                YearViewPager.CurrentItem = ActualFragmentIndex + 1;
-
-                //ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
-                //leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
-            }
         }
 
         public override void listItemSelected(string newYear)

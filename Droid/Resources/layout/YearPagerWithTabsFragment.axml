@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
     <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="30sp"
-        android:text="@string/league" />
+        android:textSize="30sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -36,9 +36,11 @@
             android:src="@drawable/ic_arrow_forward_black_24dp"
             android:padding="5dp" />
     </LinearLayout>
-    <ListView
+    <include
+        layout="@layout/viewpagerwithtabs" />
+<!--<ListView
         android:id="@+id/leaguesList"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal" />-->
 </LinearLayout>

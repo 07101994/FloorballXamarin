@@ -21,9 +21,8 @@ using Floorball.LocalDB;
 
 namespace Floorball.Droid.Fragments
 {
-    public class TeamsPageFragment : Fragment
+    public class TeamsPageFragment : PagerFragment
     {
-        int pageCount;
 
         public IEnumerable<Team> Teams { get; set; }
 
@@ -31,30 +30,13 @@ namespace Floorball.Droid.Fragments
 
         public LinearLayout TeamsLayout { get; set; }
 
-        public int Year { get; set; }
-
         List<Team> actualTeams;
-
-        public static TeamsPageFragment Instance(int pageCount, int year)
-        {
-            TeamsPageFragment fragment = new TeamsPageFragment();
-
-            Bundle args = new Bundle();
-            args.PutInt("pageCount",pageCount);
-            args.PutInt("year", year);
-            fragment.Arguments = args;
-
-            return fragment;
-        }
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
-
-            pageCount = Arguments.GetInt("pageCount",0);
-            Year = Arguments.GetInt("year", 2015);
 
             Teams = (Activity as MainActivity).Teams.Where(t => t.Year.Year == Year);
             Leagues = (Activity as MainActivity).Leagues.Where(l => l.Year.Year == Year);
@@ -73,8 +55,7 @@ namespace Floorball.Droid.Fragments
         public void CreateTeams(View root)
         {
             
-            
-            if (pageCount == 0)
+            if (PageCount == 0)
             {
                 
                 actualTeams = Teams.Where(t => t.Sex == "férfi").OrderBy(t => t.LeagueId).ToList();
@@ -125,8 +106,10 @@ namespace Floorball.Droid.Fragments
             root.FindViewById<LinearLayout>(Resource.Id.cardlist).RemoveAllViews();
         }
 
-        public void UpdateTeams(int year)
+        public override void YearUpdated(int year)
         {
+            base.YearUpdated(year);
+
             Teams = (Activity as MainActivity).Teams.Where(t => t.Year.Year == year);
             Leagues = (Activity as MainActivity).Leagues.Where(l => l.Year.Year == year);
             RemoveTeams(View);

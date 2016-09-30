@@ -31,7 +31,6 @@ namespace Floorball.Droid.Fragments
             return new ActualFragment();
         }
 
-
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -44,7 +43,6 @@ namespace Floorball.Droid.Fragments
 
         }
 
-        
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

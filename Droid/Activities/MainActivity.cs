@@ -103,7 +103,7 @@ namespace Floorball.Droid
             MenuTitles = Resources.GetStringArray(Resource.Array.menu_items);
             drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 
-            ActionBarDrawerToggle = new MyActionBarDrawerToggle(this, drawerLayout, toolbar, Resource.String.menu, Resource.String.league);
+            ActionBarDrawerToggle = new MyActionBarDrawerToggle(this, drawerLayout, Resource.String.menu, Resource.String.league);
             drawerLayout.AddDrawerListener(ActionBarDrawerToggle);
             drawerLayout.SetStatusBarBackgroundColor(Resource.Color.primary_dark);
 
