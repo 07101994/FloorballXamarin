@@ -38,9 +38,4 @@
     </LinearLayout>
     <include
         layout="@layout/viewpagerwithtabs" />
-<!--<ListView
-        android:id="@+id/leaguesList"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_gravity="center_horizontal" />-->
 </LinearLayout>

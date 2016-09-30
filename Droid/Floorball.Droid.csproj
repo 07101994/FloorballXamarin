@@ -337,6 +337,9 @@
     <AndroidResource Include="Resources\layout\ViewPagerWithTabs.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\LeaguesPageFragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\values-hdpi\" />

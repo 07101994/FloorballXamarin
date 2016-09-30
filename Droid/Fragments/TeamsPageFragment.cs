@@ -30,7 +30,7 @@ namespace Floorball.Droid.Fragments
 
         public LinearLayout TeamsLayout { get; set; }
 
-        List<Team> actualTeams;
+        //List<Team> actualTeams;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -38,8 +38,24 @@ namespace Floorball.Droid.Fragments
 
             // Create your fragment here
 
-            Teams = (Activity as MainActivity).Teams.Where(t => t.Year.Year == Year);
+            Teams = GetTeams();
+
+            
+
             Leagues = (Activity as MainActivity).Leagues.Where(l => l.Year.Year == Year);
+        }
+
+        private IEnumerable<Team> GetTeams()
+        {
+            if (PageCount == 0)
+            {
+                return (Activity as MainActivity).Teams.Where(t => t.Year.Year == Year && t.Sex == "férfi").OrderBy(t => t.LeagueId).ToList();
+            }
+            else
+            {
+                return (Activity as MainActivity).Teams.Where(t => t.Year.Year == Year && t.Sex == "női").OrderBy(t => t.LeagueId).ToList(); ;
+            }
+
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -55,27 +71,15 @@ namespace Floorball.Droid.Fragments
         public void CreateTeams(View root)
         {
             
-            if (PageCount == 0)
-            {
-                
-                actualTeams = Teams.Where(t => t.Sex == "férfi").OrderBy(t => t.LeagueId).ToList();
-            }
-            else
-            {
-                actualTeams = Teams.Where(t => t.Sex == "női").OrderBy(t => t.LeagueId).ToList();
-            }
-
-            MainActivity activity = Activity as MainActivity;
-
             TeamsLayout = root.FindViewById<LinearLayout>(Resource.Id.cardlist);
             ViewGroup header;
             ViewGroup team;
 
             int i = 0;
-            while (i < actualTeams.Count)
+            while (i < Teams.Count())
             {
 
-                int leagueId = actualTeams.ElementAt(i).LeagueId;
+                int leagueId = Teams.ElementAt(i).LeagueId;
 
                 header = Activity.LayoutInflater.Inflate(Resource.Layout.Header, null, false) as ViewGroup;
                 header.FindViewById<TextView>(Resource.Id.headerName).Text = Leagues.Where(l => l.Id == leagueId).First().Name;
@@ -83,11 +87,11 @@ namespace Floorball.Droid.Fragments
                 TeamsLayout.AddView(header);
 
                 int j = i;
-                while (j < actualTeams.Count && actualTeams.ElementAt(j).LeagueId == leagueId)
+                while (j < Teams.Count() && Teams.ElementAt(j).LeagueId == leagueId)
                 {
 
                     team = Activity.LayoutInflater.Inflate(Resource.Layout.Card, TeamsLayout, false) as ViewGroup;
-                    team.FindViewById<TextView>(Resource.Id.cardName).Text = actualTeams.ElementAt(j).Name;
+                    team.FindViewById<TextView>(Resource.Id.cardName).Text = Teams.ElementAt(j).Name;
                     team.Click += TeamClick;
                     team.Tag = j.ToString();
 
@@ -110,7 +114,7 @@ namespace Floorball.Droid.Fragments
         {
             base.YearUpdated(year);
 
-            Teams = (Activity as MainActivity).Teams.Where(t => t.Year.Year == year);
+            Teams = GetTeams();
             Leagues = (Activity as MainActivity).Leagues.Where(l => l.Year.Year == year);
             RemoveTeams(View);
             CreateTeams(View);
@@ -119,7 +123,7 @@ namespace Floorball.Droid.Fragments
         private void TeamClick(object sender, EventArgs e)
         {
             Intent intent = new Intent(Context, typeof(TeamActivity));
-            intent.PutExtra("team", JsonConvert.SerializeObject(actualTeams.ElementAt(Convert.ToInt32((sender as CardView).Tag.ToString()))));
+            intent.PutExtra("team", JsonConvert.SerializeObject(Teams.ElementAt(Convert.ToInt32((sender as CardView).Tag.ToString()))));
             StartActivity(intent);
            
         }

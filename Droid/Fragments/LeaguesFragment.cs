@@ -25,7 +25,6 @@ namespace Floorball.Droid.Fragments
 {
     public class LeaguesFragment : ViewPagerWithTabs
     {
-        ListView leaguesListView;
 
         public IEnumerable<League> Leagues { get; set; }
 
@@ -72,14 +71,14 @@ namespace Floorball.Droid.Fragments
             return root;
         }
 
-        public override void YearViewPager_PageSelected(object sender, ViewPager.PageSelectedEventArgs e)
-        {
-            base.YearViewPager_PageSelected(sender, e);
+        //public override void YearViewPager_PageSelected(object sender, ViewPager.PageSelectedEventArgs e)
+        //{
+        //    base.YearViewPager_PageSelected(sender, e);
 
-            ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
-            leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
+        //    ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
+        //    leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
 
-        }
+        //}
 
         public override void listItemSelected(string newYear)
         {
