@@ -61,7 +61,7 @@ namespace Floorball
         {
             try
             {
-                UpdateDataList = RESTHelper.GetUpdates(date);
+                UpdateDataList = RESTHelper.GetUpdates(date.AddYears(-1));
             }
             catch (Exception)
             {
@@ -69,7 +69,7 @@ namespace Floorball
                 return false;
             }
 
-            return false;
+            return true;
         }
 
         private bool UpdateDatabase()

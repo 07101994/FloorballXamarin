@@ -127,13 +127,13 @@ namespace Floorball.Droid.Activities
                     {
                         relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.homeTeamEventId);
                         eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
-                        eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = HomeTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().Name;
+                        eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = HomeTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().ShortName;
                     }
                     else
                     {
                         relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.awayTeamEventId);
                         eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
-                        eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = AwayTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().Name;
+                        eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = AwayTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().ShortName;
                     }
 
 

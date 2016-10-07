@@ -88,7 +88,7 @@ namespace Floorball.Droid
                 //Save to sharedpreference
                 SaveSyncDate(prefs, lastSyncDate);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -155,7 +155,7 @@ namespace Floorball.Droid
 
         private bool IsFirstLaunch(string lastSyncDate)
         {
-            return lastSyncDate != null;
+            return lastSyncDate == null;
         }
 
         private SortedSet<CountriesEnum> GetCountriesFromSharedPreference(ISharedPreferences prefs)

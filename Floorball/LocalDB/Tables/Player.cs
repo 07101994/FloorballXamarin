@@ -24,6 +24,14 @@ namespace Floorball.LocalDB.Tables
             }
         }
 
+        public string ShortName
+        {
+            get
+            {
+                return FirstName + ". " + SecondName[0];
+            }
+        }
+
         public short Number { get; set; }
 
         public DateTime BirthDate { get; set; }
