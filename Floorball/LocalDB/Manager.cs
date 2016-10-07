@@ -575,13 +575,32 @@ namespace Floorball.LocalDB
                 var match = db.GetWithChildren<Match>(matchId);
 
                 if (!(player.Teams.Select(t => t.Id).Contains(match.HomeTeamId) || player.Teams.Select(t => t.Id).Contains(match.AwayTeamId)))
+                {
                     throw new Exception("Player cannot be added to match!");
+                }
 
                 match.Players.Add(player);
                 player.Matches.Add(match);
 
                 db.UpdateWithChildren(match);
                 db.UpdateWithChildren(player);
+
+            }
+        }
+
+        public static void AddRefereeToMatch(int refereeId, int matchId)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                var referee = db.GetWithChildren<Referee>(refereeId);
+
+                var match = db.GetWithChildren<Match>(matchId);
+
+                match.Referees.Add(referee);
+                referee.Matches.Add(match);
+
+                db.UpdateWithChildren(match);
+                db.UpdateWithChildren(referee);
 
             }
         }

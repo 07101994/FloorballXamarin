@@ -40,5 +40,11 @@ namespace Floorball
             return (T)Enum.Parse(typeof(T), value, true);
         }
     }
+
+    public enum UpdateEnum
+    {
+        League, Team, Match, Player, Stadium, Referee, Event, EventMessage,
+        PlayerTeam, PlayerMatch, RefereeMatch
+    }
 }
 

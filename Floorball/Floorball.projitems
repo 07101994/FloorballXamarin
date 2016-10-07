@@ -37,6 +37,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)REST\FloorbalRESTClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RESTHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Signalr\FloorballClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UpdateData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updater.cs" />
   </ItemGroup>
 </Project>
