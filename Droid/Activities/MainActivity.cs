@@ -34,6 +34,7 @@ namespace Floorball.Droid
     public class MainActivity : AppCompatActivity, IListItemSelected, ISharedPreferencesOnSharedPreferenceChangeListener
     {
         public string[] MenuTitles { get; set; }
+
         public string MenuTitle { get; set; }
 
         public bool MenuOpened { get; set; }
@@ -61,30 +62,46 @@ namespace Floorball.Droid
 			base.OnCreate (savedInstanceState);
 
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            string lastSyncDate = prefs.GetString("LastSyncDate", null);
+
+            try
+            {
+                //Check weather it is the first launch
+                if (IsFirstLaunch(lastSyncDate))
+                {
+                    //Init the whole local DB
+                    lastSyncDate = InitLocalDatabase();
+                    Updater.Instance.LastSyncDate = DateTime.Parse(lastSyncDate);
+                }
+                else
+                {
+                    //Check is there any remote database updates and update local DB
+                    if (Updater.Instance.UpdateDatabaseFromServer(DateTime.Parse(lastSyncDate)))
+                    {
+                        lastSyncDate = Updater.Instance.LastSyncDate.ToString();
+                    }
+                    else
+                    {
+                        throw new Exception("Error during updating from database!");
+                    }
+                }
+                //Save to sharedpreference
+                SaveSyncDate(prefs, lastSyncDate);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
 
             Countries = GetCountriesFromSharedPreference(prefs);
-
-            ISharedPreferencesEditor editor = prefs.Edit();
-            string lastSyncDate = prefs.GetString("LastSyncDate", null);
-            if (lastSyncDate == null)
-            {
-                //Első alkalmazás futás
-                lastSyncDate = DateTime.Now.ToString();
-                Manager.CreateDatabase();
-                Manager.InitDatabaseFromServer();
-            }
-
-            Updater.Instance.LastSyncDate = DateTime.Parse(lastSyncDate);// Exact(lastSyncDate, "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture);
-
-            Updater.Instance.UpdateDatabaseFromServer();
-            editor.PutString("LastSyncDate", DateTime.Now.ToString());
-            editor.Apply();
-
             Leagues = Manager.GetAllLeague().Where(l => Countries.Contains(l.Country));
+            Teams = Manager.GetAllTeam().Where(t => Countries.Contains(t.Country));
+
             if (Countries.Count > 0)
             {
                 ActualMatches = Manager.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
-                //ActualMatches = Manager.GetAllMatch();
                 ActualTeams = GetActualTeams(ActualMatches);
             }
             else
@@ -92,7 +109,6 @@ namespace Floorball.Droid
                 ActualMatches = new List<Match>();
                 ActualTeams = new List<Team>();
             }
-            Teams = Manager.GetAllTeam().Where(t => Countries.Contains(t.Country));
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
@@ -123,13 +139,24 @@ namespace Floorball.Droid
 
         }
 
-        //public override bool OnPrepareOptionsMenu(IMenu menu)
-        //{
-        //    return base.OnPrepareOptionsMenu(menu);
-        //}
+        private void SaveSyncDate(ISharedPreferences prefs, string lastSyncDate)
+        {
+            ISharedPreferencesEditor editor = prefs.Edit();
+            editor.PutString("LastSyncDate", DateTime.Now.ToString());
+            editor.Apply();
+        }
 
-       
+        private string InitLocalDatabase()
+        {
+            Manager.CreateDatabase();
+            Manager.InitDatabaseFromServer();
+            return DateTime.Now.ToString();
+        }
 
+        private bool IsFirstLaunch(string lastSyncDate)
+        {
+            return lastSyncDate != null;
+        }
 
         private SortedSet<CountriesEnum> GetCountriesFromSharedPreference(ISharedPreferences prefs)
         {

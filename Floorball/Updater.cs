@@ -1,4 +1,5 @@
 ﻿using Floorball.LocalDB;
+using Floorball.REST;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,6 @@ namespace Floorball
 {
     public class Updater
     {
-        public bool UpdateRequired { get; set; }
 
         public List<string> UpdateDataList { get; set; }
 
@@ -36,23 +36,43 @@ namespace Floorball
             UpdateDataList = new List<string>();
         }
 
-        public string GetUpdatedDataFromServer(DateTime date)
+        /// <summary>
+        /// Get updates from server
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public bool UpdateDatabaseFromServer(DateTime date)
         {
-            return "";
+            if (GetUpdates(date))
+            {
+                UpdateDatabase();
+                return true;
+            }
+            return false;
         }
 
-        public bool UpdateDatabaseFromServer()
+        /// <summary>
+        /// Get updates from server
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        private bool GetUpdates(DateTime date)
         {
+            try
+            {
+                UpdateDataList = RESTHelper.GetUpdates(date);
+            }
+            catch (Exception)
+            {
 
-            //foreach (var updateData in UpdateDataList)
-            //{
-            //    dynamic deserializedObject = JsonConvert.DeserializeObject(updateData);
+                return false;
+            }
 
-            //    foreach (var type in deserializedObject.updateList)
-            //    {
+            return false;
+        }
 
-            //    }
-            //}
+        private bool UpdateDatabase()
+        {
 
             foreach (var updateData in UpdateDataList)
             {
@@ -152,7 +172,6 @@ namespace Floorball
             }
 
             LastSyncDate = DateTime.Now;
-            UpdateRequired = false;
 
             return false;
         }
