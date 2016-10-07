@@ -2,10 +2,12 @@
 using Floorball.REST;
 using FloorballServer.Models.Floorball;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+
 
 namespace Floorball
 {
@@ -115,90 +117,6 @@ namespace Floorball
                     default:
                         break;
                 }
-
-                //var deserializedObject = JsonConvert.DeserializeObject<Dictionary<string,dynamic>>(updateData);
-
-                //foreach (var key in deserializedObject.Keys)
-                //{
-                //    switch (key)
-                //    {
-                //        case "addPlayer":
-
-                //            Manager.AddPlayer(deserializedObject[key]["firstName"], deserializedObject[key]["secondName"], Convert.ToInt32(deserializedObject[key]["regNum"]), Convert.ToInt32(deserializedObject[key]["number"]), DateTime.Parse(deserializedObject[key]["date"].ToString()));
-
-                //            break;
-
-                //        case "addTeam":
-
-                //            Manager.AddTeam(deserializedObject[key]["id"], deserializedObject[key]["name"], DateTime.ParseExact(deserializedObject[key]["year"], "yyyy", CultureInfo.InvariantCulture), deserializedObject[key]["coach"], deserializedObject[key]["sex"], deserializedObject[key]["country"], deserializedObject[key]["stadiumId"], deserializedObject[key]["leagueId"]);
-
-                //            break;
-
-                //        case "addMatch":
-
-
-                //            break;
-
-                //        case "addLeague":
-
-                //            Manager.AddLeague(deserializedObject[key]["id"], deserializedObject[key]["name"], DateTime.ParseExact(deserializedObject[key]["year"], "yyyy", CultureInfo.InvariantCulture), deserializedObject[key]["type"], deserializedObject[key]["classname"], deserializedObject[key]["rounds"], deserializedObject[key]["country"]);
-
-                //            break;
-
-                //        case "addEvent":
-
-                //            Manager.AddEvent(deserializedObject[key]["id"], deserializedObject[key]["matchId"], deserializedObject[key]["type"], TimeSpan.ParseExact(deserializedObject[key]["time"], "h\\h\\:m\\m\\:s\\s", CultureInfo.InvariantCulture), deserializedObject[key]["playerId"], deserializedObject[key]["eventMessageId"], deserializedObject[key]["teamId"]);
-
-                //            break;
-
-                //        case "addReferee":
-
-                //            Manager.AddReferee(deserializedObject[key]["id"], deserializedObject[key]["name"], deserializedObject[key]["country"]);
-
-                //            break;
-
-                //        case "addEventMessage":
-
-                //            break;
-
-                //        case "addStadium":
-
-                //            Manager.AddStadium(deserializedObject[key]["id"], deserializedObject[key]["name"], deserializedObject[key]["address"]);
-
-                //            break;
-
-                //        case "playerToTeam":
-
-
-                //            break;
-
-                //        case "playerToMatch":
-
-
-                //            break;
-
-                //        case "refereeToMatch":
-
-                //            break;
-
-                //        case "removePlayerFromTeam":
-
-
-                //            break;
-
-                //        case "removePlayerFromMatch":
-
-
-                //            break;
-
-                //        case "removeRefereeFromMatch":
-
-                //            break;
-
-                //        default:
-                //            break;
-                //    }
-                //}
             }
 
             LastSyncDate = DateTime.Now;
@@ -210,8 +128,8 @@ namespace Floorball
         {
             if (u.IsAdding)
             {
-                Dictionary<string, int> dict = u.Entity as Dictionary<string, int>;
-                Manager.AddRefereeToMatch(dict["refereeId"], dict["matchId"]);
+                JObject c = u.Entity as JObject;
+                Manager.AddRefereeToMatch(c.Value<int>("refereeId"), c.Value<int>("matchId"));
             }
             else
             {
@@ -223,8 +141,8 @@ namespace Floorball
         {
             if (u.IsAdding)
             {
-                Dictionary<string, int> dict = u.Entity as Dictionary<string, int>;
-                Manager.AddPlayerToMatch(dict["playerId"], dict["matchId"]);
+                JObject c = u.Entity as JObject;
+                Manager.AddPlayerToMatch(c.Value<int>("playerId"), c.Value<int>("matchId"));
             }
             else
             {
@@ -236,8 +154,8 @@ namespace Floorball
         {
             if (u.IsAdding)
             {
-                Dictionary<string, int> dict = u.Entity as Dictionary<string, int>;
-                Manager.AddPlayerToTeam(dict["playerId"], dict["teamId"]);
+                JObject c = u.Entity as JObject;
+                Manager.AddPlayerToTeam(c.Value<int>("playerId"), c.Value<int>("teamId"));
             }
             else
             {
@@ -249,8 +167,8 @@ namespace Floorball
         {
             if (u.IsAdding)
             {
-                EventMessageModel message = u.Entity as EventMessageModel;
-                Manager.AddEventMessage(message.Id, message.Code, message.Message);
+                JObject c = u.Entity as JObject;
+                Manager.AddEventMessage(c.Value<int>("Id"), c.Value<int>("Code"), c.Value<string>("Message"));
             }
             else
             {
@@ -262,8 +180,8 @@ namespace Floorball
         {
             if (u.IsAdding)
             {
-                EventModel eventm = u.Entity as EventModel;
-                Manager.AddEvent(eventm.Id, eventm.MatchId, eventm.Type, eventm.Time, eventm.PlayerId, eventm.EventMessageId, eventm.TeamId);
+                JObject c = u.Entity as JObject;
+                Manager.AddEvent(c.Value<int>("Id"), c.Value<int>("MatchId"), c.Value<string>("Type"), c.Value<TimeSpan>("Time"), c.Value<int>("PlayerId"), c.Value<int>("EventMessageId"), c.Value<int>("TeamId"));
             }
             else
             {
@@ -275,8 +193,8 @@ namespace Floorball
         {
             if (u.IsAdding)
             {
-                RefereeModel referee = u.Entity as RefereeModel;
-                Manager.AddReferee(referee.Id, referee.Name, referee.Country);
+                JObject c = u.Entity as JObject;
+                Manager.AddReferee(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<CountriesEnum>("Country"));
             }
             else
             {
@@ -288,8 +206,8 @@ namespace Floorball
         {
             if (u.IsAdding)
             {
-                StadiumModel stadium = u.Entity as StadiumModel;
-                Manager.AddStadium(stadium.Id, stadium.Name, stadium.Address);
+                JObject c = u.Entity as JObject;
+                Manager.AddStadium(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<string>("Address"));
             }
             else
             {
@@ -301,8 +219,8 @@ namespace Floorball
         {
             if (u.IsAdding)
             {
-                PlayerModel player = u.Entity as PlayerModel;
-                Manager.AddPlayer(player.FirstName, player.SecondName, player.RegNum, player.Number, player.BirthDate);
+                JObject c = u.Entity as JObject;
+                Manager.AddPlayer(c.Value<string>("FirstName"), c.Value<string>("SecondName"), c.Value<int>("RegNum"), c.Value<int>("Number"), c.Value<DateTime>("BirthDate"));
             }
             else
             {
@@ -314,8 +232,8 @@ namespace Floorball
         {
             if (u.IsAdding)
             {
-                MatchModel match = u.Entity as MatchModel;
-                Manager.AddMatch(match.Id, match.HomeTeamId, match.AwayTeamId, match.GoalsH, match.GoalsA, match.Round, match.State, match.Time, match.Date, match.LeagueId, match.StadiumId);
+                JObject c = u.Entity as JObject;
+                Manager.AddMatch(c.Value<int>("Id"), c.Value<int>("HomeTeamId"), c.Value<int>("AwayTeamId"), c.Value<short>("GoalsH"), c.Value<short>("GoalsA"), c.Value<short>("Round"), c.Value<StateEnum>("State"), c.Value<TimeSpan>("Time"), c.Value<DateTime>("Date"), c.Value<int>("LeagueId"), c.Value<int>("StadiumId"));
             }
             else
             {
@@ -327,8 +245,8 @@ namespace Floorball
         {
             if (u.IsAdding)
             {
-                TeamModel team = u.Entity as TeamModel;
-                Manager.AddTeam(team.Id, team.Name, team.Year, team.Coach, team.Sex, team.Country, team.StadiumId, team.LeagueId);
+                JObject c = u.Entity as JObject;
+                Manager.AddTeam(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<DateTime>("Year"), c.Value<string>("Coach"), c.Value<string>("Sex"), c.Value<CountriesEnum>("Country"), c.Value<int>("StadiumId"), c.Value<int>("LeagueId"));
             }
             else
             {
@@ -340,8 +258,8 @@ namespace Floorball
         {
             if (u.IsAdding)
             {
-                LeagueModel league = u.Entity as LeagueModel;
-                Manager.AddLeague(league.Id, league.Name, league.Year, league.type, league.ClassName, league.Rounds, league.Country);
+                JObject c = u.Entity as JObject;
+                Manager.AddLeague(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<DateTime>("Year"), c.Value<string>("Type"), c.Value<string>("ClassName"), c.Value<int>("Rounds"), c.Value<CountriesEnum>("Country"));
             }
             else
             {
