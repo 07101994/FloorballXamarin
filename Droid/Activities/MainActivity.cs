@@ -63,7 +63,7 @@ namespace Floorball.Droid
 
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             string lastSyncDate = prefs.GetString("LastSyncDate", null);
-
+            //lastSyncDate = null;
             try
             {
                 //Check weather it is the first launch

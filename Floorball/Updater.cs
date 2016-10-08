@@ -63,7 +63,7 @@ namespace Floorball
         {
             try
             {
-                UpdateDataList = RESTHelper.GetUpdates(date.AddYears(-1));
+                UpdateDataList = RESTHelper.GetUpdates(date);
             }
             catch (Exception)
             {
@@ -181,7 +181,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddEvent(c.Value<int>("Id"), c.Value<int>("MatchId"), c.Value<string>("Type"), c.Value<TimeSpan>("Time"), c.Value<int>("PlayerId"), c.Value<int>("EventMessageId"), c.Value<int>("TeamId"));
+                Manager.AddEvent(c.Value<int>("Id"), c.Value<int>("MatchId"), c.Value<string>("Type"), TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture), c.Value<int>("PlayerId"), c.Value<int>("EventMessageId"), c.Value<int>("TeamId"));
             }
             else
             {
@@ -220,7 +220,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddPlayer(c.Value<string>("FirstName"), c.Value<string>("SecondName"), c.Value<int>("RegNum"), c.Value<int>("Number"), c.Value<DateTime>("BirthDate"));
+                Manager.AddPlayer(c.Value<string>("FirstName"), c.Value<string>("SecondName"), c.Value<int>("RegNum"), c.Value<int>("Number"), DateTime.ParseExact(c.Value<string>("BirthDate"), "yyyy-MM-dd", CultureInfo.InvariantCulture));
             }
             else
             {
@@ -233,7 +233,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddMatch(c.Value<int>("Id"), c.Value<int>("HomeTeamId"), c.Value<int>("AwayTeamId"), c.Value<short>("GoalsH"), c.Value<short>("GoalsA"), c.Value<short>("Round"), c.Value<StateEnum>("State"), c.Value<TimeSpan>("Time"), c.Value<DateTime>("Date"), c.Value<int>("LeagueId"), c.Value<int>("StadiumId"));
+                Manager.AddMatch(c.Value<int>("Id"), c.Value<int>("HomeTeamId"), c.Value<int>("AwayTeamId"), c.Value<short>("GoalsH"), c.Value<short>("GoalsA"), c.Value<short>("Round"), c.Value<StateEnum>("State"), TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture), DateTime.ParseExact(c.Value<string>("Date"), "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture), c.Value<int>("LeagueId"), c.Value<int>("StadiumId"));
             }
             else
             {
@@ -246,7 +246,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddTeam(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<DateTime>("Year"), c.Value<string>("Coach"), c.Value<string>("Sex"), c.Value<CountriesEnum>("Country"), c.Value<int>("StadiumId"), c.Value<int>("LeagueId"));
+                Manager.AddTeam(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Coach"), c.Value<string>("Sex"), c.Value<CountriesEnum>("Country"), c.Value<int>("StadiumId"), c.Value<int>("LeagueId"));
             }
             else
             {
@@ -259,7 +259,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddLeague(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<DateTime>("Year"), c.Value<string>("Type"), c.Value<string>("ClassName"), c.Value<int>("Rounds"), c.Value<CountriesEnum>("Country"));
+                Manager.AddLeague(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Type"), c.Value<string>("ClassName"), c.Value<int>("Rounds"), c.Value<CountriesEnum>("Country"));
             }
             else
             {

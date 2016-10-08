@@ -28,7 +28,11 @@ namespace Floorball.LocalDB.Tables
         {
             get
             {
-                return FirstName + ". " + SecondName[0];
+                if (SecondName != null)
+                {
+                    return FirstName + ". " + SecondName[0];
+                }
+                return FirstName;
             }
         }
 
