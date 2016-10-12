@@ -10,6 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Enums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\CommunicationException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\FloorballException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Manager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\Event.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\EventMessage.cs" />
