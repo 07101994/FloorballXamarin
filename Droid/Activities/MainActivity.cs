@@ -82,28 +82,32 @@ namespace Floorball.Droid
 
                 throw;
             }
-           
+
+            //Init country from preference
             Countries = GetCountriesFromSharedPreference(prefs);
-            Leagues = Manager.GetAllLeague().Where(l => Countries.Contains(l.Country));
-            Teams = Manager.GetAllTeam().Where(t => Countries.Contains(t.Country));
 
-            if (Countries.Count > 0)
-            {
-                ActualMatches = Manager.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList();
-                ActualTeams = GetActualTeams(ActualMatches);
-            }
-            else
-            {
-                ActualMatches = new List<Match>();
-                ActualTeams = new List<Team>();
-            }
+            //Initialize properties from database
+            Leagues = Manager.GetAllLeague().Where(l => Countries.Contains(l.Country)) ?? new List<League>();
+            Teams = Manager.GetAllTeam().Where(t => Countries.Contains(t.Country)) ?? new List<Team>();
+            ActualMatches = Manager.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date) ?? new List<Match>().OrderBy( a => a.LeagueId);
+            ActualTeams = GetActualTeams(ActualMatches) ?? new List<Team>();
 
-            // Set our view from the "main" layout resource
+            //Set content view
             SetContentView(Resource.Layout.Main);
 
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
+            //Initialize the toolbar
+            InitToolbar();
 
+            //Initialize the drawerlayout
+            InitDrawerlayout();
+
+            //Change to frist (actual fragment)
+            ChangeFragments(0);
+
+        }
+
+        private void InitDrawerlayout()
+        {
             MenuTitles = Resources.GetStringArray(Resource.Array.menu_items);
             drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 
@@ -113,17 +117,21 @@ namespace Floorball.Droid
 
             ActionBarDrawerToggle.SyncState();
 
+            FindViewById<NavigationView>(Resource.Id.drawerNavigationView).NavigationItemSelected += NavigationDrawerItemSelected;
+
+            MenuOpened = true;
+        }
+
+        private void InitToolbar()
+        {
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             //SupportActionBar.SetHomeButtonEnabled(true);
             SupportActionBar.Title = "";
+
             FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
-
-            FindViewById<NavigationView>(Resource.Id.drawerNavigationView).NavigationItemSelected += NavigationDrawerItemSelected;
-
-            ChangeFragments(0);
-
-            MenuOpened = true;
-
 
         }
 
@@ -255,7 +263,6 @@ namespace Floorball.Droid
         private void ChangeFragments(int position)
         {
             fragment = CreateNewFragment(position);
-            //SupportFragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, fragment).Commit();
             SupportFragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, fragment).Commit();
         }
 
