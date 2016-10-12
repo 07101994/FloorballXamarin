@@ -11,6 +11,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Floorball.LocalDB
 {
@@ -111,30 +112,46 @@ namespace Floorball.LocalDB
             db.DropTable<Event>();
         }
 
-        public static void InitDatabaseFromServer()
+        public async static Task InitDatabaseFromServerAsync()
         {
-            //List<LeagueModel> leagues = RESTHelper.GetAllLeague();
-            //List<MatchModel> matches = RESTHelper.GetAllMatch();
-            //List<TeamModel> teams = RESTHelper.GetAllTeam();
-            //List<EventModel> events = RESTHelper.GetAllEvent();
-            //List<EventMessageModel> eventMessages = RESTHelper.GetAllEventMessage();
-            //List<PlayerModel> players = RESTHelper.GetAllPlayer();
-            //List<RefereeModel> referees = RESTHelper.GetAllReferee();
-            //List<StadiumModel> stadiums = RESTHelper.GetAllStadium();
-            //List<StatisticModel> statistics = RESTHelper.GetAllStatistic();
+            List<Task> tasks = new List<Task>();
 
-            AddEventMessages(RESTHelper.GetAllEventMessage());
-            AddLeagues(RESTHelper.GetAllLeague());
-            AddReferees(RESTHelper.GetAllReferee());
-            AddPlayers(RESTHelper.GetAllPlayer());
-            AddStadiums(RESTHelper.GetAllStadium());
-            AddTeams(RESTHelper.GetAllTeam());
-            AddMatches(RESTHelper.GetAllMatch());
-            AddPlayersAndTeams(RESTHelper.GetPlayersAndTeams());
-            AddPlayersAndMatches(RESTHelper.GetPlayersAndMatches());
-            AddRefereesAndMatches(RESTHelper.GetRefereesAndMatches());
-            AddEvents(RESTHelper.GetAllEvent());
-            
+            Task<List<EventMessageModel>> eventMessagesTask = RESTHelper.GetEventMessagesAsync();
+            tasks.Add(eventMessagesTask);
+            Task<List<LeagueModel>> leaguesTask = RESTHelper.GetLeaguesAsync();
+            tasks.Add(leaguesTask);
+            Task<List<RefereeModel>> refereesTask = RESTHelper.GetRefereesAsync();
+            tasks.Add(refereesTask);
+            Task<List<PlayerModel>> playersTask = RESTHelper.GetPlayersAsync();
+            tasks.Add(playersTask);
+            Task<List<StadiumModel>> stadiumsTask = RESTHelper.GetStadiumsAsync();
+            tasks.Add(stadiumsTask);
+            Task<List<TeamModel>> teamsTask = RESTHelper.GetTeamsAsync();
+            tasks.Add(teamsTask);
+            Task<List<MatchModel>> matchesTask = RESTHelper.GetMatchesAsync();
+            tasks.Add(matchesTask);
+            Task<List<List<int>>> playersAndTeamsTask = RESTHelper.GetPlayersAndTeamsAsync();
+            tasks.Add(playersAndTeamsTask);
+            Task<List<List<int>>> playersAndMatchesTask = RESTHelper.GetPlayersAndMatchesAsync();
+            tasks.Add(playersAndMatchesTask);
+            Task<List<List<int>>> refereesAndMatchesTask = RESTHelper.GetRefereesAndMatchesAsync();
+            tasks.Add(refereesAndMatchesTask);
+            Task<List<EventModel>> eventsTask = RESTHelper.GetEventsAsync();
+            tasks.Add(eventsTask);
+
+            await Task.WhenAll(tasks);
+
+            AddEventMessages(eventMessagesTask.Result);
+            AddLeagues(leaguesTask.Result);
+            AddReferees(refereesTask.Result);
+            AddPlayers(playersTask.Result);
+            AddStadiums(stadiumsTask.Result);
+            AddTeams(teamsTask.Result);
+            AddMatches(matchesTask.Result);
+            AddPlayersAndTeams(playersAndTeamsTask.Result);
+            AddPlayersAndMatches(playersAndMatchesTask.Result);
+            AddRefereesAndMatches(refereesAndMatchesTask.Result);
+            AddEvents(eventsTask.Result);
 
         }
 

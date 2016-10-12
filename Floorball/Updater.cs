@@ -63,7 +63,7 @@ namespace Floorball
         {
             try
             {
-                UpdateDataList = RESTHelper.GetUpdates(date);
+                UpdateDataList = RESTHelper.GetUpdatesAsync(date).Result;
             }
             catch (Exception)
             {

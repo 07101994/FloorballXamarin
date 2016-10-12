@@ -21,6 +21,7 @@ using Android.Widget;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Util;
+using System.Threading.Tasks;
 
 namespace Floorball.Droid
 {
@@ -57,7 +58,7 @@ namespace Floorball.Droid
 
         public SortedSet<CountriesEnum> Countries { get; set; }
 
-        protected override void OnCreate (Bundle savedInstanceState)
+        protected override async void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
 
@@ -67,24 +68,12 @@ namespace Floorball.Droid
             try
             {
                 //Check weather it is the first launch
-                if (IsFirstLaunch(lastSyncDate))
-                {
-                    //Init the whole local DB
-                    lastSyncDate = InitLocalDatabase();
-                    Updater.Instance.LastSyncDate = DateTime.Parse(lastSyncDate);
-                }
-                else
-                {
-                    //Check is there any remote database updates and update local DB
-                    if (Updater.Instance.UpdateDatabaseFromServer(DateTime.Parse(lastSyncDate)))
-                    {
-                        lastSyncDate = Updater.Instance.LastSyncDate.ToString();
-                    }
-                    else
-                    {
-                        throw new Exception("Error during updating from database!");
-                    }
-                }
+                Task<string> lastSyncDateTask = Initialize(lastSyncDate);
+
+                ShowInitializing();
+
+                lastSyncDate = await lastSyncDateTask;
+
                 //Save to sharedpreference
                 SaveSyncDate(prefs, lastSyncDate);
             }
@@ -94,7 +83,6 @@ namespace Floorball.Droid
                 throw;
             }
            
-
             Countries = GetCountriesFromSharedPreference(prefs);
             Leagues = Manager.GetAllLeague().Where(l => Countries.Contains(l.Country));
             Teams = Manager.GetAllTeam().Where(t => Countries.Contains(t.Country));
@@ -139,6 +127,11 @@ namespace Floorball.Droid
 
         }
 
+        private void ShowInitializing()
+        {
+            throw new NotImplementedException();
+        }
+
         private void SaveSyncDate(ISharedPreferences prefs, string lastSyncDate)
         {
             ISharedPreferencesEditor editor = prefs.Edit();
@@ -146,11 +139,34 @@ namespace Floorball.Droid
             editor.Apply();
         }
 
-        private string InitLocalDatabase()
+        private async Task<string> InitLocalDatabase()
         {
             Manager.CreateDatabase();
-            Manager.InitDatabaseFromServer();
+            await Manager.InitDatabaseFromServerAsync();
             return DateTime.Now.ToString();
+        }
+
+        private async Task<string> Initialize(string lastSyncDate)
+        {
+            if (IsFirstLaunch(lastSyncDate))
+            {
+                //Init the whole local DB
+                lastSyncDate = await InitLocalDatabase();
+                Updater.Instance.LastSyncDate = DateTime.Parse(lastSyncDate);
+            }
+            else
+            {
+                //Check is there any remote database updates and update local DB
+                if (Updater.Instance.UpdateDatabaseFromServer(DateTime.Parse(lastSyncDate)))
+                {
+                    lastSyncDate = Updater.Instance.LastSyncDate.ToString();
+                }
+                else
+                {
+                    throw new Exception("Error during updating from database!");
+                }
+            }
+            return lastSyncDate;
         }
 
         private bool IsFirstLaunch(string lastSyncDate)
