@@ -118,7 +118,7 @@ namespace Floorball.Droid
                         lastSyncDate = Updater.Instance.LastSyncDate.ToString();
                         FindViewById<TextView>(Resource.Id.notification).Text = "Frissítve";
                         await Task.Delay(3000);
-                        FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Invisible;
+                        FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Gone;
                     }
                     else
                     {

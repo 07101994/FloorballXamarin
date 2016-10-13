@@ -130,11 +130,11 @@ namespace Floorball.LocalDB
             tasks.Add(teamsTask);
             Task<List<MatchModel>> matchesTask = RESTHelper.GetMatchesAsync();
             tasks.Add(matchesTask);
-            Task<List<List<int>>> playersAndTeamsTask = RESTHelper.GetPlayersAndTeamsAsync();
+            Task<Dictionary<int, List<int>>> playersAndTeamsTask = RESTHelper.GetPlayersAndTeamsAsync();
             tasks.Add(playersAndTeamsTask);
-            Task<List<List<int>>> playersAndMatchesTask = RESTHelper.GetPlayersAndMatchesAsync();
+            Task<Dictionary<int, List<int>>> playersAndMatchesTask = RESTHelper.GetPlayersAndMatchesAsync();
             tasks.Add(playersAndMatchesTask);
-            Task<List<List<int>>> refereesAndMatchesTask = RESTHelper.GetRefereesAndMatchesAsync();
+            Task<Dictionary<int, List<int>>> refereesAndMatchesTask = RESTHelper.GetRefereesAndMatchesAsync();
             tasks.Add(refereesAndMatchesTask);
             Task<List<EventModel>> eventsTask = RESTHelper.GetEventsAsync();
             tasks.Add(eventsTask);
@@ -641,72 +641,85 @@ namespace Floorball.LocalDB
             }
         }
 
-        public static void AddPlayersAndTeams(List<List<int>> list)
+        public static void AddPlayersAndTeams(Dictionary<int, List<int>> dict)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
                 var players = db.GetAllWithChildren<Player>();
                 var teams = db.GetAllWithChildren<Team>();
 
-                foreach (var l in list)
+                foreach (var d in dict)
                 {
-                    Player player = players.Where(p => p.RegNum == l[0]).First();
-                    Team team = teams.Where(t => t.Id == l[1]).First();
+                    Team team = teams.SingleOrDefault( t => t.Id == d.Key);
 
-                    player.Teams.Add(team);
-                    team.Players.Add(player);
+                    foreach (var palyerId in d.Value)
+                    {
+                        Player player = players.SingleOrDefault( p => p.RegNum == palyerId);
 
-                    AddStatisticsForPlayerInTeam(player, team, db);
+                        player.Teams.Add(team);
+                        team.Players.Add(player);
 
-                    db.UpdateWithChildren(player);
-                    db.UpdateWithChildren(team);
+                        AddStatisticsForPlayerInTeam(player, team, db);
+
+                        db.UpdateWithChildren(player);
+                        db.UpdateWithChildren(team);
+                    }
+
                 }
 
             }
         }
 
-        public static void AddPlayersAndMatches(List<List<int>> list)
+        public static void AddPlayersAndMatches(Dictionary<int, List<int>> dict)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
                 var players = db.GetAllWithChildren<Player>();
                 var matches = db.GetAllWithChildren<Match>();
 
-                foreach (var l in list)
+                foreach (var d in dict)
                 {
-                    Player player = players.Where(p => p.RegNum == l[0]).First();
-                    Match match = matches.Where(m => m.Id == l[1]).First();
+                    Match match = matches.SingleOrDefault(m => m.Id == d.Key);
 
-                    player.Matches.Add(match);
-                    match.Players.Add(player);
+                    foreach (var playerId in d.Value)
+                    {
+                        Player player = players.SingleOrDefault(p => p.RegNum== playerId);
 
-                    db.UpdateWithChildren(player);
-                    db.UpdateWithChildren(match);
+                        player.Matches.Add(match);
+                        match.Players.Add(player);
+
+                        db.UpdateWithChildren(player);
+                        db.UpdateWithChildren(match);
+                    }
+                   
                 }
 
             }
         }
 
 
-        public static void AddRefereesAndMatches(List<List<int>> list)
+        public static void AddRefereesAndMatches(Dictionary<int, List<int>> dict)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
                 var referees = db.GetAllWithChildren<Referee>();
                 var matches = db.GetAllWithChildren<Match>();
 
-                foreach (var l in list)
+                foreach (var d in dict)
                 {
-                    Referee referee = referees.Where(r => r.Id == l[0]).First();
-                    Match match = matches.Where(m => m.Id == l[1]).First();
+                    Match match = matches.SingleOrDefault(m => m.Id == d.Key);
 
-                    referee.Matches.Add(match);
-                    match.Referees.Add(referee);
+                    foreach (var refereeId in d.Value)
+                    {
+                        Referee referee = referees.SingleOrDefault(r => r.Id == refereeId);
 
-                    db.UpdateWithChildren(referee);
-                    db.UpdateWithChildren(match);
+                        referee.Matches.Add(match);
+                        match.Referees.Add(referee);
+
+                        db.UpdateWithChildren(referee);
+                        db.UpdateWithChildren(match);
+                    }
                 }
-
             }
         }
 

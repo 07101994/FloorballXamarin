@@ -141,26 +141,24 @@ namespace Floorball.Droid.Fragments
             {
                 root.FindViewById<TextView>(Resource.Id.noActualLiveMatches).Visibility = ViewStates.Visible;
             }
-            
+
             //Connect to siqnalr server
-            if (activity.ActualMatches.Where(m => m.State == StateEnum.Playing).Count() > 0 &&  FloorballClient.Instance.ConnectionState == ConnectionState.Disconnected)
+            if (activity.ActualMatches.Where(m => m.State == StateEnum.Playing).Count() > 0 && FloorballClient.Instance.ConnectionState == ConnectionState.Disconnected)
             {
                 try
                 {
-                    root.FindViewById<TextView>(Resource.Id.notification).Text = "Csatlakozás szerverhez..";
-                    root.FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Visible;
+                    activity.FindViewById<TextView>(Resource.Id.notification).Text = "Csatlakozás szerverhez..";
+                    activity.FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Visible;
                     await FloorballClient.Instance.Connect(activity.Countries);
-                    root.FindViewById<TextView>(Resource.Id.notification).Text = "Csatlakozva";
+                    activity.FindViewById<TextView>(Resource.Id.notification).Text = "Csatlakozva";
                     await Task.Delay(3000);
-                    root.FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Invisible;
+                    activity.FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Gone;
                 }
                 catch (Exception ex)
                 {
-                    root.FindViewById<TextView>(Resource.Id.notification).Text = "Nem sikerült csatlakozni";
+                    activity.FindViewById<TextView>(Resource.Id.notification).Text = "Nem sikerült csatlakozni";
                 }
             }
-
-
         }
 
         private void CreateMatchTile(Match actualMatch, LinearLayout container)

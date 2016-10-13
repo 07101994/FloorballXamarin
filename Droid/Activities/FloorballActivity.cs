@@ -35,8 +35,8 @@ namespace Floorball.Droid.Activities
 
         protected void ShowUpdating()
         {
+            FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Visible;
             FindViewById<TextView>(Resource.Id.notification).Text = "Frissítés folyamatban..";
-
         }
 
         protected void ShowAlertDialog(Exception ex)
