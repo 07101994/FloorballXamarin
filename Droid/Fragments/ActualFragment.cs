@@ -20,6 +20,7 @@ using Android.Animation;
 using Android.Graphics.Drawables;
 using Floorball.LocalDB;
 using Floorball.Droid.Activities;
+using System.Threading.Tasks;
 
 namespace Floorball.Droid.Fragments
 {
@@ -100,7 +101,7 @@ namespace Floorball.Droid.Fragments
 
         }
 
-        private void CreateLiveMatches(View root)
+        private async void CreateLiveMatches(View root)
         {
 
             LinearLayout container = root.FindViewById<LinearLayout>(Resource.Id.matchesList1);
@@ -132,7 +133,6 @@ namespace Floorball.Droid.Fragments
                     j++;
                 }
 
-
                 i = j;
 
             }
@@ -147,14 +147,17 @@ namespace Floorball.Droid.Fragments
             {
                 try
                 {
-                    //FloorballClient.Instance.Connect(activity.Countries);
+                    root.FindViewById<TextView>(Resource.Id.notification).Text = "Csatlakozás szerverhez..";
+                    root.FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Visible;
+                    await FloorballClient.Instance.Connect(activity.Countries);
+                    root.FindViewById<TextView>(Resource.Id.notification).Text = "Csatlakozva";
+                    await Task.Delay(3000);
+                    root.FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Invisible;
                 }
                 catch (Exception ex)
                 {
-
-                    int o = 0;
+                    root.FindViewById<TextView>(Resource.Id.notification).Text = "Nem sikerült csatlakozni";
                 }
-
             }
 
 
@@ -191,12 +194,9 @@ namespace Floorball.Droid.Fragments
 
         private void MatchTileClick(object sender, EventArgs e)
         {
-            
             Intent intent = new Intent(Context, typeof(MatchActivity));
             intent.PutExtra("id", Convert.ToInt32((sender as CardView).Tag));
             StartActivity(intent);
-
-
         }
 
         private void MakeAnimation(View view)

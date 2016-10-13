@@ -67,6 +67,21 @@ namespace Floorball.Droid
             string lastSyncDate = prefs.GetString("LastSyncDate", null);
             //lastSyncDate = null;
 
+            //Init country from preference
+            Countries = GetCountriesFromSharedPreference(prefs);
+
+            //Set content view
+            SetContentView(Resource.Layout.Main);
+
+            //Initialize the toolbar
+            InitToolbar();
+
+            //Initialize the drawerlayout
+            InitDrawerlayout();
+
+            //Change to first (actual fragment)
+            ChangeFragments(0);
+
             try
             {
                 Task<string> lastSyncDateTask;
@@ -83,11 +98,17 @@ namespace Floorball.Droid
                     lastSyncDate = await lastSyncDateTask;
                     Updater.Instance.LastSyncDate = DateTime.Parse(lastSyncDate);
 
+                    //Initialize properties
+                    InitProperties();
+
                 }
                 else
                 {
                     //Check is there any remote database updates and update local DB
                     Task<bool> isUpdated = Updater.Instance.UpdateDatabaseFromServer(DateTime.Parse(lastSyncDate));
+
+                    //Initialize properties from database
+                    InitProperties();
 
                     //Show app updating
                     ShowUpdating();
@@ -95,6 +116,9 @@ namespace Floorball.Droid
                     if (await isUpdated)
                     {
                         lastSyncDate = Updater.Instance.LastSyncDate.ToString();
+                        FindViewById<TextView>(Resource.Id.notification).Text = "Frissítve";
+                        await Task.Delay(3000);
+                        FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Invisible;
                     }
                     else
                     {
@@ -109,27 +133,6 @@ namespace Floorball.Droid
             {
                 ShowAlertDialog(ex);
             }
-
-            //Init country from preference
-            Countries = GetCountriesFromSharedPreference(prefs);
-
-            //Initialize properties from database
-            Leagues = Manager.GetAllLeague().Where(l => Countries.Contains(l.Country)) ?? new List<League>();
-            Teams = Manager.GetAllTeam().Where(t => Countries.Contains(t.Country)) ?? new List<Team>();
-            ActualMatches = Manager.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date) ?? new List<Match>().OrderBy( a => a.LeagueId);
-            ActualTeams = GetActualTeams(ActualMatches) ?? new List<Team>();
-
-            //Set content view
-            SetContentView(Resource.Layout.Main);
-
-            //Initialize the toolbar
-            InitToolbar();
-
-            //Initialize the drawerlayout
-            InitDrawerlayout();
-
-            //Change to frist (actual fragment)
-            ChangeFragments(0);
 
         }
 
@@ -149,28 +152,6 @@ namespace Floorball.Droid
             MenuOpened = true;
         }
 
-        private void InitToolbar()
-        {
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
-
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            //SupportActionBar.SetHomeButtonEnabled(true);
-            SupportActionBar.Title = "";
-
-            FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
-
-        }
-
-       
-
-        private void SaveSyncDate(ISharedPreferences prefs, string lastSyncDate)
-        {
-            ISharedPreferencesEditor editor = prefs.Edit();
-            editor.PutString("LastSyncDate", DateTime.Now.ToString());
-            editor.Apply();
-        }
-
         private async Task<string> InitLocalDatabase()
         {
             Manager.CreateDatabase();
@@ -181,38 +162,6 @@ namespace Floorball.Droid
         private bool IsFirstLaunch(string lastSyncDate)
         {
             return lastSyncDate == null;
-        }
-
-        private SortedSet<CountriesEnum> GetCountriesFromSharedPreference(ISharedPreferences prefs)
-        {
-            SortedSet<CountriesEnum> countries = new SortedSet<CountriesEnum>();
-            
-            if (prefs.GetBoolean(Resources.GetString(Resource.String.hungary),false))
-            {
-                countries.Add(CountriesEnum.HU);
-            }
-
-            if (prefs.GetBoolean(Resources.GetString(Resource.String.sweden), false))
-            {
-                countries.Add(CountriesEnum.SE);
-            }
-
-            if (prefs.GetBoolean(Resources.GetString(Resource.String.finnland), false))
-            {
-                countries.Add(CountriesEnum.FL);
-            }
-
-            if (prefs.GetBoolean(Resources.GetString(Resource.String.switzerland), false))
-            {
-                countries.Add(CountriesEnum.SW);
-            }
-
-            if (prefs.GetBoolean(Resources.GetString(Resource.String.czech), false))
-            {
-                countries.Add(CountriesEnum.CZ);
-            }
-
-            return countries;
         }
 
         private void NavigationDrawerItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
@@ -379,8 +328,6 @@ namespace Floorball.Droid
         {
 
             //fragment.listItemSelected(s);
-
-
         }
 
         private List<Team> GetActualTeams(IEnumerable<Match> actualMatches)
@@ -407,7 +354,20 @@ namespace Floorball.Droid
                 }
             }
         }
-       
+
+        protected override void InitProperties()
+        {
+            //Initialize properties from database
+            Leagues = Manager.GetAllLeague().Where(l => Countries.Contains(l.Country)) ?? new List<League>();
+            Teams = Manager.GetAllTeam().Where(t => Countries.Contains(t.Country)) ?? new List<Team>();
+            ActualMatches = Manager.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date) ?? new List<Match>().OrderBy(a => a.LeagueId);
+            ActualTeams = GetActualTeams(ActualMatches) ?? new List<Team>();
+        }
+
+        protected override void InitActivityProperties()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

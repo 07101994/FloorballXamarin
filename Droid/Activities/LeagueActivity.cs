@@ -47,32 +47,14 @@ namespace Floorball.Droid.Activities
 
             SetContentView(Resource.Layout.League);
 
-            ViewPager pager = FindViewById<ViewPager>(Resource.Id.pager);
-            pagerAdapter = new LeaguePageAdapter(SupportFragmentManager);
-            pager.Adapter = pagerAdapter;
+            //Initialize the toolbar
+            InitToolbar();
 
-            TabLayout tabs = FindViewById<TabLayout>(Resource.Id.tabs);
-            tabs.SetupWithViewPager(pager);
+            //Init activity properties
+            InitActivityProperties();
 
-            League = JsonConvert.DeserializeObject<League>(Intent.GetStringExtra("league"));
-
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
-
-            SupportActionBar.Title = "";
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
-            //SupportActionBar.SetHomeButtonEnabled(true);
-
-            Teams = Manager.GetTeamsByLeague(League.Id);
-
-            Matches = Manager.GetMatchesByLeague(League.Id);
-
-            Statistics = Manager.GetStatisticsByLeague(League.Id);
-
-            PlayerStatistics = PlayerStatisticsMaker.CreatePlayerStatistics(Statistics);
-
-            Players = Manager.GetPlayersByLeague(League.Id);
+            //Initialize properties
+            InitProperties();
 
             FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name;
         }
@@ -92,6 +74,25 @@ namespace Floorball.Droid.Activities
             }
 
             return base.OnOptionsItemSelected(item);    
+        }
+
+        protected override void InitProperties()
+        {
+            League = JsonConvert.DeserializeObject<League>(Intent.GetStringExtra("league"));
+            Teams = Manager.GetTeamsByLeague(League.Id);
+            Matches = Manager.GetMatchesByLeague(League.Id);
+            Statistics = Manager.GetStatisticsByLeague(League.Id);
+            PlayerStatistics = PlayerStatisticsMaker.CreatePlayerStatistics(Statistics);
+            Players = Manager.GetPlayersByLeague(League.Id);
+        }
+
+        protected override void InitActivityProperties()
+        {
+            ViewPager pager = FindViewById<ViewPager>(Resource.Id.pager);
+            pagerAdapter = new LeaguePageAdapter(SupportFragmentManager);
+            pager.Adapter = pagerAdapter;
+
+            FindViewById<TabLayout>(Resource.Id.tabs).SetupWithViewPager(pager);
         }
 
         public class LeaguePageAdapter : FragmentPagerAdapter

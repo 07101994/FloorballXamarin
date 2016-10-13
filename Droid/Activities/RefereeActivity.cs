@@ -34,20 +34,11 @@ namespace Floorball.Droid.Activities
 
             SetContentView(Resource.Layout.RefereeStat);
 
-            Referee = JsonConvert.DeserializeObject<Referee>(Intent.GetStringExtra("referee"));
-            Matches = Manager.GetMatchesByReferee(Referee.Id);
-            List<Event> events = new List<Event>();
-            Matches.Select(m => Manager.GetEventsByMatch(m.Id)).ToList().ForEach(e => events.AddRange(e));
-            Events = events;
-            Leagues = Manager.GetLeaguesByReferee(Referee.Id).OrderByDescending(l => l.Year);
+            //Initialize toolbar
+            InitToolbar();
 
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
-
-            SupportActionBar.Title = "";
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
-            //SupportActionBar.SetHomeButtonEnabled(true);
+            //Initialize properties
+            InitProperties();
 
             FindViewById<TextView>(Resource.Id.refereeName).Text = Referee.Name;
 
@@ -134,6 +125,21 @@ namespace Floorball.Droid.Activities
 
             }
 
+        }
+
+        protected override void InitProperties()
+        {
+            Referee = JsonConvert.DeserializeObject<Referee>(Intent.GetStringExtra("referee"));
+            Matches = Manager.GetMatchesByReferee(Referee.Id);
+            List<Event> events = new List<Event>();
+            Matches.Select(m => Manager.GetEventsByMatch(m.Id)).ToList().ForEach(e => events.AddRange(e));
+            Events = events;
+            Leagues = Manager.GetLeaguesByReferee(Referee.Id).OrderByDescending(l => l.Year);
+        }
+
+        protected override void InitActivityProperties()
+        {
+            throw new NotImplementedException();
         }
     }
 }

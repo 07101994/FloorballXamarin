@@ -14,7 +14,7 @@ using Android.App;
 namespace Floorball.Droid.Activities
 {
     [Activity(Label = "FloorballActivity")]
-    public class FloorballActivity : AppCompatActivity, IDialogInterfaceOnClickListener
+    public abstract class FloorballActivity : AppCompatActivity, IDialogInterfaceOnClickListener
     {
         
         protected override void OnCreate(Bundle savedInstanceState)
@@ -35,7 +35,8 @@ namespace Floorball.Droid.Activities
 
         protected void ShowUpdating()
         {
-            throw new NotImplementedException();
+            FindViewById<TextView>(Resource.Id.notification).Text = "Frissítés folyamatban..";
+
         }
 
         protected void ShowAlertDialog(Exception ex)
@@ -48,5 +49,61 @@ namespace Floorball.Droid.Activities
 
             Android.Support.V7.App.AlertDialog dialog = builder.Create();
         }
+
+        protected virtual void InitToolbar()
+        {
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            //SupportActionBar.SetHomeButtonEnabled(true);
+            SupportActionBar.Title = "";
+
+            FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
+        }
+
+        protected void SaveSyncDate(ISharedPreferences prefs, string lastSyncDate)
+        {
+            ISharedPreferencesEditor editor = prefs.Edit();
+            editor.PutString("LastSyncDate", DateTime.Now.ToString());
+            editor.Apply();
+        }
+
+        protected SortedSet<CountriesEnum> GetCountriesFromSharedPreference(ISharedPreferences prefs)
+        {
+            SortedSet<CountriesEnum> countries = new SortedSet<CountriesEnum>();
+
+            if (prefs.GetBoolean(Resources.GetString(Resource.String.hungary), false))
+            {
+                countries.Add(CountriesEnum.HU);
+            }
+
+            if (prefs.GetBoolean(Resources.GetString(Resource.String.sweden), false))
+            {
+                countries.Add(CountriesEnum.SE);
+            }
+
+            if (prefs.GetBoolean(Resources.GetString(Resource.String.finnland), false))
+            {
+                countries.Add(CountriesEnum.FL);
+            }
+
+            if (prefs.GetBoolean(Resources.GetString(Resource.String.switzerland), false))
+            {
+                countries.Add(CountriesEnum.SW);
+            }
+
+            if (prefs.GetBoolean(Resources.GetString(Resource.String.czech), false))
+            {
+                countries.Add(CountriesEnum.CZ);
+            }
+
+            return countries;
+        }
+
+        protected abstract void InitProperties();
+
+        protected abstract void InitActivityProperties();
+
     }
 }

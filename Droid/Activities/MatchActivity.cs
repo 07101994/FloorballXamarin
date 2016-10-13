@@ -47,32 +47,15 @@ namespace Floorball.Droid.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            //Manager.CreateDatabase();
-            //Manager.InitDatabaseFromServer();
-
-            //Match = JsonConvert.DeserializeObject<Match>(Intent.GetStringExtra("match"));
-            Match = Manager.GetMatchById(Intent.GetIntExtra("id",2));
-            HomeTeam = Manager.GetTeamById(Match.HomeTeamId);
-            AwayTeam = Manager.GetTeamById(Match.AwayTeamId);
-            HomeTeamPlayers = HomeTeam.Players;
-            AwayTeamPlayers = AwayTeam.Players;
-            League = Manager.GetLeagueById(Match.LeagueId);
-            Stadium = Manager.GetStadiumById(Match.StadiumId);
-            Referees = Match.Referees;
-            EventMessages = Manager.GetAllEventMessage();
-            Events = Manager.GetEventsByMatch(Match.Id).OrderByDescending(e => e.Time);
-
+           
             // Create your application here
             SetContentView(Resource.Layout.MatchActivity);
 
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
+            //Initilalize toolbar
+            InitToolbar();
 
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            //SupportActionBar.SetHomeButtonEnabled(true);
-            SupportActionBar.Title = "";
-            FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
+            //Initialize properties
+            InitProperties();
 
             FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name + " " + Match.Round.ToString() + ". forduló";
             FindViewById<TextView>(Resource.Id.date).Text = Match.Date.ToShortDateString();
@@ -100,7 +83,7 @@ namespace Floorball.Droid.Activities
         {
             LinearLayout layout = FindViewById<LinearLayout>(Resource.Id.timeLine);
             ViewGroup.LayoutParams parameters = layout.LayoutParameters;
-            parameters.Height = RealEventCount * 100; //50*2
+            parameters.Height = RealEventCount * 100;
 
             layout.LayoutParameters = parameters;
 
@@ -201,5 +184,23 @@ namespace Floorball.Droid.Activities
             return base.OnOptionsItemSelected(item);
         }
 
+        protected override void InitProperties()
+        {
+            Match = Manager.GetMatchById(Intent.GetIntExtra("id", 2));
+            HomeTeam = Manager.GetTeamById(Match.HomeTeamId);
+            AwayTeam = Manager.GetTeamById(Match.AwayTeamId);
+            HomeTeamPlayers = HomeTeam.Players;
+            AwayTeamPlayers = AwayTeam.Players;
+            League = Manager.GetLeagueById(Match.LeagueId);
+            Stadium = Manager.GetStadiumById(Match.StadiumId);
+            Referees = Match.Referees;
+            EventMessages = Manager.GetAllEventMessage();
+            Events = Manager.GetEventsByMatch(Match.Id).OrderByDescending(e => e.Time);
+        }
+
+        protected override void InitActivityProperties()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

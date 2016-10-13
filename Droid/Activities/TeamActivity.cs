@@ -40,24 +40,14 @@ namespace Floorball.Droid.Activities
             // Create your application here
             SetContentView(Resource.Layout.TeamActivity);
 
-            ViewPager pager = FindViewById<ViewPager>(Resource.Id.pager);
-            pagerAdapter = new TeamPageAdapter(SupportFragmentManager);
-            pager.Adapter = pagerAdapter;
+            //Initialize toolbar
+            InitToolbar();
 
-            TabLayout tabs = FindViewById<TabLayout>(Resource.Id.tabs);
-            tabs.SetupWithViewPager(pager);
+            //Init activity properties
+            InitActivityProperties();
 
-            Team =  JsonConvert.DeserializeObject<Team>(Intent.GetStringExtra("team"));
-            Players = Manager.GetPlayersByTeam(Team.Id).ToList();
-            Matches = Manager.GetMatchesByTeam(Team.Id).OrderBy(m => m.LeagueId).ThenBy(m => m.Date).ToList();
-
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
-
-            SupportActionBar.Title = "";
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
-            //SupportActionBar.SetHomeButtonEnabled(true);
+            //Initialize properties
+            InitProperties();
 
             FindViewById<TextView>(Resource.Id.coachName).Text = Team.Coach;
             FindViewById<TextView>(Resource.Id.stadiumName).Text = Manager.GetStadiumById(Team.StadiumId).Name;
@@ -84,6 +74,21 @@ namespace Floorball.Droid.Activities
             return base.OnOptionsItemSelected(item);
         }
 
+        protected override void InitProperties()
+        {
+            Team = JsonConvert.DeserializeObject<Team>(Intent.GetStringExtra("team"));
+            Players = Manager.GetPlayersByTeam(Team.Id).ToList();
+            Matches = Manager.GetMatchesByTeam(Team.Id).OrderBy(m => m.LeagueId).ThenBy(m => m.Date).ToList();
+        }
+
+        protected override void InitActivityProperties()
+        {
+            ViewPager pager = FindViewById<ViewPager>(Resource.Id.pager);
+            pagerAdapter = new TeamPageAdapter(SupportFragmentManager);
+            pager.Adapter = pagerAdapter;
+
+            FindViewById<TabLayout>(Resource.Id.tabs).SetupWithViewPager(pager);
+        }
 
         public class TeamPageAdapter : Android.Support.V4.App.FragmentPagerAdapter
         {

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Floorball.Signalr
 {
@@ -44,7 +45,7 @@ namespace Floorball.Signalr
             OldConnectionState = ConnectionState.Disconnected;
         }
 
-        public async void Connect(SortedSet<CountriesEnum> countries)
+        public async Task Connect(SortedSet<CountriesEnum> countries)
         {
 
             var hubConnection = new HubConnection(connectionString, CreateQueryStringData(countries));
