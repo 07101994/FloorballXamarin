@@ -19,7 +19,7 @@ using Floorball.Droid.Activities;
 namespace Floorball.Droid.Activities
 {
     [Activity(Label = "PlayerActivity")]
-    public class PlayerActivity : AppCompatActivity
+    public class PlayerActivity : FloorballActivity
     {
 
         public Player Player { get; set; }

@@ -22,6 +22,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Util;
 using System.Threading.Tasks;
+using Floorball.Droid.Activities;
 
 namespace Floorball.Droid
 {
@@ -32,7 +33,7 @@ namespace Floorball.Droid
 
     [Activity(Label = "Floorball", MainLauncher = true, Icon = "@mipmap/ball")]
     //[Activity(Label = "Floorball")]
-    public class MainActivity : AppCompatActivity, IListItemSelected, ISharedPreferencesOnSharedPreferenceChangeListener
+    public class MainActivity : FloorballActivity, IListItemSelected, ISharedPreferencesOnSharedPreferenceChangeListener
     {
         public string[] MenuTitles { get; set; }
 
@@ -65,22 +66,48 @@ namespace Floorball.Droid
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             string lastSyncDate = prefs.GetString("LastSyncDate", null);
             //lastSyncDate = null;
+
             try
             {
-                //Check weather it is the first launch
-                Task<string> lastSyncDateTask = Initialize(lastSyncDate);
+                Task<string> lastSyncDateTask;
 
-                ShowInitializing();
+                if (IsFirstLaunch(lastSyncDate))
+                {
+                    //Init the whole local DB
+                    lastSyncDateTask = InitLocalDatabase();
 
-                lastSyncDate = await lastSyncDateTask;
+                    //Show app initializing
+                    ShowInitializing();
+
+                    //Initializing finished
+                    lastSyncDate = await lastSyncDateTask;
+                    Updater.Instance.LastSyncDate = DateTime.Parse(lastSyncDate);
+
+                }
+                else
+                {
+                    //Check is there any remote database updates and update local DB
+                    Task<bool> isUpdated = Updater.Instance.UpdateDatabaseFromServer(DateTime.Parse(lastSyncDate));
+
+                    //Show app updating
+                    ShowUpdating();
+
+                    if (await isUpdated)
+                    {
+                        lastSyncDate = Updater.Instance.LastSyncDate.ToString();
+                    }
+                    else
+                    {
+                        throw new Exception("Error during updating from database!");
+                    }
+                }
 
                 //Save to sharedpreference
                 SaveSyncDate(prefs, lastSyncDate);
             }
             catch (Exception ex)
             {
-
-                throw;
+                ShowAlertDialog(ex);
             }
 
             //Init country from preference
@@ -135,10 +162,7 @@ namespace Floorball.Droid
 
         }
 
-        private void ShowInitializing()
-        {
-            throw new NotImplementedException();
-        }
+       
 
         private void SaveSyncDate(ISharedPreferences prefs, string lastSyncDate)
         {
@@ -152,29 +176,6 @@ namespace Floorball.Droid
             Manager.CreateDatabase();
             await Manager.InitDatabaseFromServerAsync();
             return DateTime.Now.ToString();
-        }
-
-        private async Task<string> Initialize(string lastSyncDate)
-        {
-            if (IsFirstLaunch(lastSyncDate))
-            {
-                //Init the whole local DB
-                lastSyncDate = await InitLocalDatabase();
-                Updater.Instance.LastSyncDate = DateTime.Parse(lastSyncDate);
-            }
-            else
-            {
-                //Check is there any remote database updates and update local DB
-                if (Updater.Instance.UpdateDatabaseFromServer(DateTime.Parse(lastSyncDate)))
-                {
-                    lastSyncDate = Updater.Instance.LastSyncDate.ToString();
-                }
-                else
-                {
-                    throw new Exception("Error during updating from database!");
-                }
-            }
-            return lastSyncDate;
         }
 
         private bool IsFirstLaunch(string lastSyncDate)
@@ -406,6 +407,7 @@ namespace Floorball.Droid
                 }
             }
         }
+       
     }
 }
 

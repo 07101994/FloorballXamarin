@@ -3330,6 +3330,12 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0a0028
 			public const int drawLabel = 2131361832;
 			
+			// aapt resource value: 0x7f0a0040
+			public const int errorDialogButton = 2131361856;
+			
+			// aapt resource value: 0x7f0a003f
+			public const int errorDialogTitle = 2131361855;
+			
 			// aapt resource value: 0x7f0a003a
 			public const int finnland = 2131361850;
 			

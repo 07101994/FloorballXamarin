@@ -23,7 +23,7 @@ using Newtonsoft.Json;
 namespace Floorball.Droid.Activities
 {
     [Activity(Label = "LeagueActivity")]
-    public class LeagueActivity : Android.Support.V7.App.AppCompatActivity
+    public class LeagueActivity : FloorballActivity
     {
 
         LeaguePageAdapter pagerAdapter;

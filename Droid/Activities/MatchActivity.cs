@@ -18,7 +18,7 @@ using Android.Support.V4.App;
 namespace Floorball.Droid.Activities
 {
     [Activity(Label = "MatchActivity")]//, MainLauncher = true, Icon = "@mipmap/ball")]
-    public class MatchActivity : AppCompatActivity
+    public class MatchActivity : FloorballActivity
     {
 
         public Match Match { get; set; }

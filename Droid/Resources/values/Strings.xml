@@ -46,4 +46,7 @@
   <string name="live">Élő</string>
   <string name="soon">Hamarosan</string>
 
+  <string name="errorDialogTitle">Hiba történt</string>
+  <string name="errorDialogButton">Ok</string>
+
 </resources>

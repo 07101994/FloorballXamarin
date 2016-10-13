@@ -22,7 +22,7 @@ using Floorball.LocalDB.Tables;
 namespace Floorball.Droid.Activities
 {
     [Activity(Label = "TeamActivity")]
-    public class TeamActivity : AppCompatActivity
+    public class TeamActivity : FloorballActivity
     {
 
         TeamPageAdapter pagerAdapter;

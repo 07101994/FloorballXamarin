@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-
+using System.Threading.Tasks;
 
 namespace Floorball
 {
@@ -44,9 +44,9 @@ namespace Floorball
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public bool UpdateDatabaseFromServer(DateTime date)
+        public async Task<bool> UpdateDatabaseFromServer(DateTime date)
         {
-            if (GetUpdates(date))
+            if (await GetUpdates(date))
             {
                 UpdateDatabase();
                 return true;
@@ -59,15 +59,14 @@ namespace Floorball
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        private bool GetUpdates(DateTime date)
+        private async Task<bool> GetUpdates(DateTime date)
         {
             try
             {
-                UpdateDataList = RESTHelper.GetUpdatesAsync(date).Result;
+                UpdateDataList = await RESTHelper.GetUpdatesAsync(date);
             }
             catch (Exception)
             {
-
                 return false;
             }
 

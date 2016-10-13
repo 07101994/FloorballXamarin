@@ -17,7 +17,7 @@ using Android.Support.V7.App;
 namespace Floorball.Droid.Activities
 {
     [Activity(Label = "RefereeActivity")]
-    public class RefereeActivity : AppCompatActivity
+    public class RefereeActivity : FloorballActivity
     {
         public Referee Referee { get; set; }
 
