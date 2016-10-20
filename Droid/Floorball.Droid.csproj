@@ -165,6 +165,8 @@
     <Compile Include="Resources\Resource.designer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\fl.png" />
+    <AndroidResource Include="Resources\drawable\phoenix.jpg" />
     <AndroidResource Include="Resources\layout-land\MatchResult.axml" />
     <AndroidResource Include="Resources\layout-land\TeamActivity.axml" />
     <AndroidResource Include="Resources\layout\HeaderCell.axml">
@@ -186,6 +188,12 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\LeagueTableRow.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PlayerStat.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\StatHeader.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\YearPagerWithTabsFragment.axml">
@@ -258,7 +266,6 @@
     <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_drop_up_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_drop_up_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_menu_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable\phoenix.jpg" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_back_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_drop_down_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_drop_down_white_24dp.png" />
@@ -318,12 +325,6 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ActualFragment.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\PlayerStat.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\StatHeader.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\RefereeStat.axml">
@@ -491,9 +492,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\cz.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\fl.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\hu.png" />
