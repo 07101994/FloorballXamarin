@@ -1,1 +1,13 @@
-﻿<Properties StartupItem="iOS/Floorball.iOS.csproj" />
+﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Floorball/LocalDB/Manager.cs">
+    <Files>
+      <File FileName="Floorball/LocalDB/Manager.cs" Line="17" Column="2" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Floorball.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.65BBAEAA-3A93-4DF4-8A55-62456CEA48B4" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
