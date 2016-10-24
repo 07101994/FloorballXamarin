@@ -588,7 +588,7 @@ namespace Floorball.LocalDB
             using (var db = new SQLiteConnection(Platform,DatabasePath))
             {
                 var player = db.GetWithChildren<Player>(playerId);
-                var matches = db.GetAllWithChildren<Match>();
+                //var matches = db.GetAllWithChildren<Match>();
                 var match = db.GetWithChildren<Match>(matchId);
 
                 if (!(player.Teams.Select(t => t.Id).Contains(match.HomeTeamId) || player.Teams.Select(t => t.Id).Contains(match.AwayTeamId)))

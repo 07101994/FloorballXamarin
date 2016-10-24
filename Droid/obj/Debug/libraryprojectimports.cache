@@ -2,16 +2,16 @@
 <Paths>
   <Jars></Jars>
   <ResolvedResourceDirectories>
-    <ResolvedResourceDirectory>C:\Users\Resi Tamas\Source\Repos\FloorballXamarin\Droid\obj\Debug\__library_projects__\RestSharp\library_project_imports\res</ResolvedResourceDirectory>
-    <ResolvedResourceDirectory>C:\Users\Resi Tamas\Source\Repos\FloorballXamarin\Droid\obj\Debug\__library_projects__\SQLite.Net.Platform.XamarinAndroid\library_project_imports\res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/resitamas/Documents/Xamarin/FloorballXamarin/Droid/obj/Debug/__library_projects__/RestSharp/library_project_imports/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/resitamas/Documents/Xamarin/FloorballXamarin/Droid/obj/Debug/__library_projects__/SQLite.Net.Platform.XamarinAndroid/library_project_imports/res</ResolvedResourceDirectory>
   </ResolvedResourceDirectories>
   <ResolvedAssetDirectories>
-    <ResolvedAssetDirectory>C:\Users\Resi Tamas\Source\Repos\FloorballXamarin\Droid\obj\Debug\__library_projects__\RestSharp\library_project_imports\assets</ResolvedAssetDirectory>
-    <ResolvedAssetDirectory>C:\Users\Resi Tamas\Source\Repos\FloorballXamarin\Droid\obj\Debug\__library_projects__\SQLite.Net.Platform.XamarinAndroid\library_project_imports\assets</ResolvedAssetDirectory>
+    <ResolvedAssetDirectory>obj/Debug/__library_projects__/RestSharp/library_project_imports/assets</ResolvedAssetDirectory>
+    <ResolvedAssetDirectory>obj/Debug/__library_projects__/SQLite.Net.Platform.XamarinAndroid/library_project_imports/assets</ResolvedAssetDirectory>
   </ResolvedAssetDirectories>
   <ResolvedEnvironmentFiles />
   <ResolvedResourceDirectoryStamps>
-    <ResolvedResourceDirectoryStamp>C:\Users\Resi Tamas\Source\Repos\FloorballXamarin\Droid\obj\Debug\__library_projects__\RestSharp.stamp</ResolvedResourceDirectoryStamp>
-    <ResolvedResourceDirectoryStamp>C:\Users\Resi Tamas\Source\Repos\FloorballXamarin\Droid\obj\Debug\__library_projects__\SQLite.Net.Platform.XamarinAndroid.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/resitamas/Documents/Xamarin/FloorballXamarin/Droid/obj/Debug/__library_projects__/RestSharp.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/resitamas/Documents/Xamarin/FloorballXamarin/Droid/obj/Debug/__library_projects__/SQLite.Net.Platform.XamarinAndroid.stamp</ResolvedResourceDirectoryStamp>
   </ResolvedResourceDirectoryStamps>
 </Paths>
