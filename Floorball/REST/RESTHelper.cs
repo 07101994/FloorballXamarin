@@ -840,7 +840,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", eventId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/events/{id}", Method.DELETE, urlParams) as RestResponse;
+                await client.ExecuteRequest("/api/floorball/events/{id}", Method.DELETE, urlParams);
 
             }
             catch (Exception)
@@ -863,7 +863,7 @@ namespace Floorball.REST
             }
             catch (Exception)
             {
-
+				
                 throw;
             }
 
