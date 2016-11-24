@@ -186,16 +186,18 @@ namespace Floorball.Droid.Activities
 
         protected override void InitProperties()
         {
-            Match = Manager.GetMatchById(Intent.GetIntExtra("id", 2));
-            HomeTeam = Manager.GetTeamById(Match.HomeTeamId);
-            AwayTeam = Manager.GetTeamById(Match.AwayTeamId);
+            base.InitProperties();
+
+            Match = UoW.MatchRepo.GetMatchById(Intent.GetIntExtra("id", 2));
+            HomeTeam = UoW.TeamRepo.GetTeamById(Match.HomeTeamId);
+            AwayTeam = UoW.TeamRepo.GetTeamById(Match.AwayTeamId);
             HomeTeamPlayers = HomeTeam.Players;
             AwayTeamPlayers = AwayTeam.Players;
-            League = Manager.GetLeagueById(Match.LeagueId);
-            Stadium = Manager.GetStadiumById(Match.StadiumId);
+            League = UoW.LeagueRepo.GetLeagueById(Match.LeagueId);
+            Stadium = UoW.StadiumRepo.GetStadiumById(Match.StadiumId);
             Referees = Match.Referees;
-            EventMessages = Manager.GetAllEventMessage();
-            Events = Manager.GetEventsByMatch(Match.Id).OrderByDescending(e => e.Time);
+            EventMessages = UoW.EventMessageRepo.GetAllEventMessage();
+            Events = UoW.EventRepo.GetEventsByMatch(Match.Id).OrderByDescending(e => e.Time);
         }
 
         protected override void InitActivityProperties()

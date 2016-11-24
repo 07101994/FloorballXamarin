@@ -45,7 +45,7 @@ namespace Floorball.iOS
 
 		void InitProperties()
 		{
-			Players = Manager.GetAllPlayer().OrderBy(p => p.Name).ToList();
+			//Players = Manager.GetAllPlayer().OrderBy(p => p.Name).ToList();
 			ActualPlayers = Players;
 		}
 

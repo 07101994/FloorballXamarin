@@ -89,7 +89,7 @@ namespace Floorball.Droid
                 if (IsFirstLaunch(lastSyncDate))
                 {
                     //Init the whole local DB
-                    lastSyncDateTask = InitLocalDatabase();
+                    lastSyncDateTask = Manager.InitLocalDatabase();
 
                     //Show app initializing
                     ShowInitializing();
@@ -152,12 +152,7 @@ namespace Floorball.Droid
             MenuOpened = true;
         }
 
-        private async Task<string> InitLocalDatabase()
-        {
-            Manager.CreateDatabase();
-            await Manager.InitDatabaseFromServerAsync();
-            return DateTime.Now.ToString();
-        }
+        
 
         private bool IsFirstLaunch(string lastSyncDate)
         {
@@ -337,8 +332,8 @@ namespace Floorball.Droid
             foreach (var match in actualMatches)
             {
 
-                teams.Add(Manager.GetTeamById(match.HomeTeamId));
-                teams.Add(Manager.GetTeamById(match.AwayTeamId));
+                teams.Add(UoW.TeamRepo.GetTeamById(match.HomeTeamId));
+                teams.Add(UoW.TeamRepo.GetTeamById(match.AwayTeamId));
             }
 
             return teams;
@@ -357,10 +352,12 @@ namespace Floorball.Droid
 
         protected override void InitProperties()
         {
+            base.InitProperties();
+
             //Initialize properties from database
-            Leagues = Manager.GetAllLeague().Where(l => Countries.Contains(l.Country)) ?? new List<League>();
-            Teams = Manager.GetAllTeam().Where(t => Countries.Contains(t.Country)) ?? new List<Team>();
-            ActualMatches = Manager.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date) ?? new List<Match>().OrderBy(a => a.LeagueId);
+            Leagues = UoW.LeagueRepo.GetAllLeague().Where(l => Countries.Contains(l.Country)) ?? new List<League>();
+            Teams = UoW.TeamRepo.GetAllTeam().Where(t => Countries.Contains(t.Country)) ?? new List<Team>();
+            ActualMatches = UoW.MatchRepo.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date) ?? new List<Match>().OrderBy(a => a.LeagueId);
             ActualTeams = GetActualTeams(ActualMatches) ?? new List<Team>();
         }
 

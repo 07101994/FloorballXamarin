@@ -27,7 +27,6 @@ namespace Floorball.Droid.Activities
 
         public IEnumerable<Match> Matches { get; set; }
 
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -129,12 +128,14 @@ namespace Floorball.Droid.Activities
 
         protected override void InitProperties()
         {
+            base.InitProperties();
+
             Referee = JsonConvert.DeserializeObject<Referee>(Intent.GetStringExtra("referee"));
-            Matches = Manager.GetMatchesByReferee(Referee.Id);
+            Matches = UoW.MatchRepo.GetMatchesByReferee(Referee.Id);
             List<Event> events = new List<Event>();
-            Matches.Select(m => Manager.GetEventsByMatch(m.Id)).ToList().ForEach(e => events.AddRange(e));
+            Matches.Select(m => UoW.EventRepo.GetEventsByMatch(m.Id)).ToList().ForEach(e => events.AddRange(e));
             Events = events;
-            Leagues = Manager.GetLeaguesByReferee(Referee.Id).OrderByDescending(l => l.Year);
+            Leagues = UoW.LeagueRepo.GetLeaguesByReferee(Referee.Id).OrderByDescending(l => l.Year);
         }
 
         protected override void InitActivityProperties()

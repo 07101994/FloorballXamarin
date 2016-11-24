@@ -13,6 +13,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\CommunicationException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\FloorballException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Manager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Repository\EventMessageRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Repository\EventRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Repository\LeagueRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Repository\MatchRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Repository\PlayerRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Repository\RefereeRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Repository\Repository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Repository\StadiumRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Repository\StatisticRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Repository\TeamRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\Event.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\EventMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Tables\League.cs" />
@@ -39,6 +49,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)REST\FloorbalRESTClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RESTHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Signalr\FloorballClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitOfWork.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UpdateData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updater.cs" />
   </ItemGroup>

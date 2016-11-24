@@ -26,6 +26,8 @@ namespace Floorball.Signalr
 
         private static FloorballClient instance;
 
+        public UnitOfWork UoW { get; set; }
+
         public static FloorballClient Instance
         {
             get
@@ -43,6 +45,7 @@ namespace Floorball.Signalr
         {
             ConnectionState = ConnectionState.Disconnected;
             OldConnectionState = ConnectionState.Disconnected;
+            UoW = new UnitOfWork();
         }
 
         public async Task Connect(SortedSet<CountriesEnum> countries)
@@ -103,7 +106,7 @@ namespace Floorball.Signalr
         private void UpdateMatchTime(int matchId, TimeSpan newTime)
         {
             //db
-            Manager.UpdateMatchTime(matchId, newTime);
+            UoW.MatchRepo.UpdateMatchTime(matchId, newTime);
 
             //ui
             MatchTimeUpdated(matchId);
@@ -113,7 +116,7 @@ namespace Floorball.Signalr
         private void AddEventToMatch(EventModel e)
         {
             //db
-            Manager.AddEvent(e.Id,e.MatchId,e.Type,e.Time,e.PlayerId,e.EventMessageId,e.TeamId);
+            UoW.EventRepo.AddEvent(e.Id,e.MatchId,e.Type,e.Time,e.PlayerId,e.EventMessageId,e.TeamId);
 
             //ui
             NewEventAdded(e.Id);
@@ -123,7 +126,7 @@ namespace Floorball.Signalr
         private void ChangeMatchState(int matchId, StateEnum state)
         {
             //db
-            Manager.UpdateMatchState(matchId, state);
+            UoW.MatchRepo.UpdateMatchState(matchId, state);
 
             //ui
             switch (state)

@@ -33,7 +33,7 @@ namespace Floorball.iOS
 
 		void InitProperties()
 		{
-			Referees = Manager.GetAllReferee().OrderBy(p => p.Name).ToList();
+			//Referees = Manager.GetAllReferee().OrderBy(p => p.Name).ToList();
 			ActualReferees = Referees;
 		}
 

@@ -16,6 +16,8 @@ namespace Floorball
 
         public List<UpdateData> UpdateDataList { get; set; }
 
+        public UnitOfWork UoW { get; set; }
+
         public DateTime LastSyncDate { get; set; }
 
         private static Updater instance;
@@ -37,6 +39,7 @@ namespace Floorball
         private Updater()
         {
             UpdateDataList = new List<UpdateData>();
+            UoW = new UnitOfWork();
         }
 
         /// <summary>
@@ -128,7 +131,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddRefereeToMatch(c.Value<int>("refereeId"), c.Value<int>("matchId"));
+                UoW.RefereeRepo.AddRefereeToMatch(c.Value<int>("refereeId"), c.Value<int>("matchId"));
             }
             else
             {
@@ -141,7 +144,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddPlayerToMatch(c.Value<int>("playerId"), c.Value<int>("matchId"));
+                UoW.PlayerRepo.AddPlayerToMatch(c.Value<int>("playerId"), c.Value<int>("matchId"));
             }
             else
             {
@@ -154,7 +157,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddPlayerToTeam(c.Value<int>("playerId"), c.Value<int>("teamId"));
+                UoW.PlayerRepo.AddPlayerToTeam(c.Value<int>("playerId"), c.Value<int>("teamId"));
             }
             else
             {
@@ -167,7 +170,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddEventMessage(c.Value<int>("Id"), c.Value<int>("Code"), c.Value<string>("Message"));
+                UoW.EventMessageRepo.AddEventMessage(c.Value<int>("Id"), c.Value<int>("Code"), c.Value<string>("Message"));
             }
             else
             {
@@ -180,7 +183,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddEvent(c.Value<int>("Id"), c.Value<int>("MatchId"), c.Value<string>("Type"), TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture), c.Value<int>("PlayerId"), c.Value<int>("EventMessageId"), c.Value<int>("TeamId"));
+                UoW.EventRepo.AddEvent(c.Value<int>("Id"), c.Value<int>("MatchId"), c.Value<string>("Type"), TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture), c.Value<int>("PlayerId"), c.Value<int>("EventMessageId"), c.Value<int>("TeamId"));
             }
             else
             {
@@ -193,7 +196,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddReferee(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<CountriesEnum>("Country"));
+                UoW.RefereeRepo.AddReferee(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<CountriesEnum>("Country"));
             }
             else
             {
@@ -206,7 +209,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddStadium(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<string>("Address"));
+                UoW.StadiumRepo.AddStadium(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<string>("Address"));
             }
             else
             {
@@ -219,7 +222,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddPlayer(c.Value<string>("FirstName"), c.Value<string>("SecondName"), c.Value<int>("RegNum"), c.Value<int>("Number"), DateTime.ParseExact(c.Value<string>("BirthDate"), "yyyy-MM-dd", CultureInfo.InvariantCulture));
+                UoW.PlayerRepo.AddPlayer(c.Value<string>("FirstName"), c.Value<string>("SecondName"), c.Value<int>("RegNum"), c.Value<int>("Number"), DateTime.ParseExact(c.Value<string>("BirthDate"), "yyyy-MM-dd", CultureInfo.InvariantCulture));
             }
             else
             {
@@ -232,7 +235,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddMatch(c.Value<int>("Id"), c.Value<int>("HomeTeamId"), c.Value<int>("AwayTeamId"), c.Value<short>("GoalsH"), c.Value<short>("GoalsA"), c.Value<short>("Round"), c.Value<StateEnum>("State"), TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture), DateTime.ParseExact(c.Value<string>("Date"), "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture), c.Value<int>("LeagueId"), c.Value<int>("StadiumId"));
+                UoW.MatchRepo.AddMatch(c.Value<int>("Id"), c.Value<int>("HomeTeamId"), c.Value<int>("AwayTeamId"), c.Value<short>("GoalsH"), c.Value<short>("GoalsA"), c.Value<short>("Round"), c.Value<StateEnum>("State"), TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture), DateTime.ParseExact(c.Value<string>("Date"), "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture), c.Value<int>("LeagueId"), c.Value<int>("StadiumId"));
             }
             else
             {
@@ -245,7 +248,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddTeam(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Coach"), c.Value<string>("Sex"), c.Value<CountriesEnum>("Country"), c.Value<int>("StadiumId"), c.Value<int>("LeagueId"));
+                UoW.TeamRepo.AddTeam(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Coach"), c.Value<string>("Sex"), c.Value<CountriesEnum>("Country"), c.Value<int>("StadiumId"), c.Value<int>("LeagueId"));
             }
             else
             {
@@ -258,7 +261,7 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                Manager.AddLeague(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Type"), c.Value<string>("ClassName"), c.Value<int>("Rounds"), c.Value<CountriesEnum>("Country"));
+                UoW.LeagueRepo.AddLeague(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Type"), c.Value<string>("ClassName"), c.Value<int>("Rounds"), c.Value<CountriesEnum>("Country"));
             }
             else
             {

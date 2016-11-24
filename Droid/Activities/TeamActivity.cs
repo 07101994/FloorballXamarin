@@ -50,7 +50,7 @@ namespace Floorball.Droid.Activities
             InitProperties();
 
             FindViewById<TextView>(Resource.Id.coachName).Text = Team.Coach;
-            FindViewById<TextView>(Resource.Id.stadiumName).Text = Manager.GetStadiumById(Team.StadiumId).Name;
+            FindViewById<TextView>(Resource.Id.stadiumName).Text = UoW.StadiumRepo.GetStadiumById(Team.StadiumId).Name;
             FindViewById<TextView>(Resource.Id.teamName).Text = Team.Name;
 
         }
@@ -76,9 +76,11 @@ namespace Floorball.Droid.Activities
 
         protected override void InitProperties()
         {
+            base.InitProperties();
+
             Team = JsonConvert.DeserializeObject<Team>(Intent.GetStringExtra("team"));
-            Players = Manager.GetPlayersByTeam(Team.Id).ToList();
-            Matches = Manager.GetMatchesByTeam(Team.Id).OrderBy(m => m.LeagueId).ThenBy(m => m.Date).ToList();
+            Players = UoW.PlayerRepo.GetPlayersByTeam(Team.Id).ToList();
+            Matches = UoW.MatchRepo.GetMatchesByTeam(Team.Id).OrderBy(m => m.LeagueId).ThenBy(m => m.Date).ToList();
         }
 
         protected override void InitActivityProperties()

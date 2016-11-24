@@ -18,11 +18,11 @@ namespace Floorball.Droid.Adapters
     class LeaguesAdapter : ArrayAdapter<League>
     {
 
-        private Context Context { get; set; }
+        //private Context Context { get; set; }
 
         public LeaguesAdapter(Context context , List<League> leagues) : base(context,0,leagues)
         {
-            Context = context;
+            //Context = context;
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
@@ -45,7 +45,7 @@ namespace Floorball.Droid.Adapters
             }
             else
             {
-                convertView.FindViewById<ImageView>(Resource.Id.countryFlag).SetImageDrawable(Context.Resources.GetDrawable(resourceId));
+                convertView.FindViewById<ImageView>(Resource.Id.countryFlag).SetImageDrawable(Context.GetDrawable(resourceId));
             }
 
             return convertView;

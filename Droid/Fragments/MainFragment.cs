@@ -14,13 +14,17 @@ using Android.Support.V4.App;
 
 namespace Floorball.Droid.Fragments
 {
-    abstract public class MainFragment : Android.Support.V4.App.Fragment
+    public abstract class MainFragment : Android.Support.V4.App.Fragment
     {
+
+        public UnitOfWork UoW { get; set; }
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
+            UoW = new UnitOfWork();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

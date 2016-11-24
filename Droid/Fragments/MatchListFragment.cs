@@ -18,11 +18,16 @@ namespace Floorball.Droid.Fragments
 {
     public class MatchListFragment : Fragment
     {
+
+        public UnitOfWork UoW { get; set; }
+
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
+            UoW = new UnitOfWork();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -53,7 +58,7 @@ namespace Floorball.Droid.Fragments
 
                 header = Activity.LayoutInflater.Inflate(Resource.Layout.Header, null, false) as ViewGroup;
                 Match actual = activity.Matches.ElementAt(i);
-                League league = Manager.GetLeagueById(actual.LeagueId);
+                League league = UoW.LeagueRepo.GetLeagueById(actual.LeagueId);
                 header.FindViewById<TextView>(Resource.Id.headerName).Text = league.Name;
 
                 container.AddView(header);
@@ -71,12 +76,12 @@ namespace Floorball.Droid.Fragments
                         matchResult.FindViewById<TextView>(Resource.Id.homeTeam).Text = activity.Team.Name + " ";
                         matchResult.FindViewById<TextView>(Resource.Id.homeScore).Text = activity.Matches.ElementAt(j).GoalsH.ToString();
                         matchResult.FindViewById<TextView>(Resource.Id.awayScore).Text = activity.Matches.ElementAt(j).GoalsA.ToString();
-                        matchResult.FindViewById<TextView>(Resource.Id.awayTeam).Text = " " + Manager.GetTeamById(activity.Matches.ElementAt(j).AwayTeamId).Name;
+                        matchResult.FindViewById<TextView>(Resource.Id.awayTeam).Text = " " + UoW.TeamRepo.GetTeamById(activity.Matches.ElementAt(j).AwayTeamId).Name;
 
                     }
                     else
                     {
-                        matchResult.FindViewById<TextView>(Resource.Id.homeTeam).Text = Manager.GetTeamById(activity.Matches.ElementAt(j).HomeTeamId).Name + " ";
+                        matchResult.FindViewById<TextView>(Resource.Id.homeTeam).Text = UoW.TeamRepo.GetTeamById(activity.Matches.ElementAt(j).HomeTeamId).Name + " ";
                         matchResult.FindViewById<TextView>(Resource.Id.homeScore).Text = activity.Matches.ElementAt(j).GoalsH.ToString();
                         matchResult.FindViewById<TextView>(Resource.Id.awayScore).Text = activity.Matches.ElementAt(j).GoalsA.ToString();
                         matchResult.FindViewById<TextView>(Resource.Id.awayTeam).Text = " " + activity.Team.Name;

@@ -154,7 +154,7 @@ namespace Floorball.Droid.Fragments
                     await Task.Delay(3000);
                     activity.FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Gone;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     activity.FindViewById<TextView>(Resource.Id.notification).Text = "Nem sikerült csatlakozni";
                 }
@@ -199,8 +199,8 @@ namespace Floorball.Droid.Fragments
 
         private void MakeAnimation(View view)
         {
-            int colorFrom = Resources.GetColor(Resource.Color.green);
-            int colotTo = Resources.GetColor(Resource.Color.red);
+            int colorFrom = Context.GetColor(Resource.Color.green);
+            int colotTo = Context.GetColor(Resource.Color.red);
             ValueAnimator colorAnimation = ValueAnimator.OfObject(new ArgbEvaluator(), colorFrom, colotTo);
             colorAnimation.SetDuration(1000);
             colorAnimation.RepeatCount = ValueAnimator.Infinite;
@@ -277,7 +277,7 @@ namespace Floorball.Droid.Fragments
             }
             else
             {
-                leagueNameView.FindViewById<ImageView>(Resource.Id.countryFlag).SetImageDrawable(Resources.GetDrawable(resourceId));
+                leagueNameView.FindViewById<ImageView>(Resource.Id.countryFlag).SetImageDrawable(Context.GetDrawable(resourceId));
             }
 
             leagueNameView.FindViewById<TextView>(Resource.Id.leagueName).Text = actualLeague.Name + " " + actualMatch.Round + ". forduló";
@@ -309,7 +309,7 @@ namespace Floorball.Droid.Fragments
         private void MatchTimeUpdated(int matchId)
         {
 
-            Match m = Manager.GetMatchById(matchId);
+            Match m = UoW.MatchRepo.GetMatchById(matchId);
 
             string newTime = GetMatchTime(m.Time,m.State);
 

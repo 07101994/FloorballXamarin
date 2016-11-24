@@ -50,7 +50,7 @@ namespace Floorball.Droid.Fragments
             root.FindViewById<TextView>(Resource.Id.fragmentName).Text = Resources.GetString(Resource.String.referees);
 
 
-            Referees = Manager.GetAllReferee().OrderBy(p => p.Name).ToList();
+            Referees = UoW.RefereeRepo.GetAllReferee().OrderBy(p => p.Name).ToList();
             ActualReferees = Referees;
 
             refereeListView = root.FindViewById<ListView>(Resource.Id.playersList);

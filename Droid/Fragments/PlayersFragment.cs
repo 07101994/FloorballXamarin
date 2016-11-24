@@ -55,7 +55,7 @@ namespace Floorball.Droid.Fragments
         {
             base.OnStart();
 
-            Players = Manager.GetAllPlayer().OrderBy(p => p.Name).ToList();
+            Players = UoW.PlayerRepo.GetAllPlayer().OrderBy(p => p.Name).ToList();
             ActualPlayers = Players;
 
             playerListView = Activity.FindViewById<ListView>(Resource.Id.playersList);

@@ -40,7 +40,6 @@ namespace Floorball.Droid.Activities
 
         public IEnumerable<Player> Players { get; set; }
 
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -78,12 +77,14 @@ namespace Floorball.Droid.Activities
 
         protected override void InitProperties()
         {
+            base.InitProperties();
+
             League = JsonConvert.DeserializeObject<League>(Intent.GetStringExtra("league"));
-            Teams = Manager.GetTeamsByLeague(League.Id);
-            Matches = Manager.GetMatchesByLeague(League.Id);
-            Statistics = Manager.GetStatisticsByLeague(League.Id);
+            Teams = UoW.TeamRepo.GetTeamsByLeague(League.Id);
+            Matches = UoW.MatchRepo.GetMatchesByLeague(League.Id);
+            Statistics = UoW.StatiscticRepo.GetStatisticsByLeague(League.Id);
             PlayerStatistics = PlayerStatisticsMaker.CreatePlayerStatistics(Statistics);
-            Players = Manager.GetPlayersByLeague(League.Id);
+            Players = UoW.PlayerRepo.GetPlayersByLeague(League.Id);
         }
 
         protected override void InitActivityProperties()

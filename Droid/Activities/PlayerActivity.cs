@@ -45,7 +45,7 @@ namespace Floorball.Droid.Activities
             FindViewById<TextView>(Resource.Id.birthDate).Text = Player.BirthDate.ToShortDateString();
             FindViewById<TextView>(Resource.Id.regNum).Text = Player.RegNum.ToString();
 
-            CreatePlayerStat(Teams, Statistics, Manager.GetMatchesByPlayer(Player.RegNum).Count(), FindViewById<LinearLayout>(Resource.Id.linearlayout));
+            CreatePlayerStat(Teams, Statistics, UoW.MatchRepo.GetMatchesByPlayer(Player.RegNum).Count(), FindViewById<LinearLayout>(Resource.Id.linearlayout));
 
         }
 
@@ -110,9 +110,11 @@ namespace Floorball.Droid.Activities
 
         protected override void InitProperties()
         {
+            base.InitProperties();
+
             Player = JsonConvert.DeserializeObject<Player>(Intent.GetStringExtra("player"));
-            Statistics = Manager.GetStatisticsByPlayer(Player.RegNum);
-            Teams = Statistics.Select(s => Manager.GetTeamById(s.TeamId)).GroupBy(t => t.Id).Select(g => g.First()).OrderByDescending(t => t.Year).ToList();
+            Statistics = UoW.StatiscticRepo.GetStatisticsByPlayer(Player.RegNum);
+            Teams = Statistics.Select(s => UoW.TeamRepo.GetTeamById(s.TeamId)).GroupBy(t => t.Id).Select(g => g.First()).OrderByDescending(t => t.Year).ToList();
         }
 
         protected override void InitActivityProperties()

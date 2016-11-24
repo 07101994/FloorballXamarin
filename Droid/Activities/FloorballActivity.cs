@@ -16,7 +16,9 @@ namespace Floorball.Droid.Activities
     [Activity(Label = "FloorballActivity")]
     public abstract class FloorballActivity : AppCompatActivity, IDialogInterfaceOnClickListener
     {
-        
+
+        public UnitOfWork UoW { get; set; }
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -101,7 +103,10 @@ namespace Floorball.Droid.Activities
             return countries;
         }
 
-        protected abstract void InitProperties();
+        protected virtual void InitProperties()
+        {
+            UoW = new UnitOfWork();
+        }
 
         protected abstract void InitActivityProperties();
 
