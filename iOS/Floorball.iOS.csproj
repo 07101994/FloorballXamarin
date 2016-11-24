@@ -159,10 +159,12 @@
     <Folder Include="Controller\" />
     <Folder Include="Resources\" />
     <Folder Include="Resources\Images.xcassets\Phx.imageset\" />
+    <Folder Include="Settings.bundle\en.lproj\" />
+    <Folder Include="Settings.bundle\hu.lproj\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
-    <InterfaceDefinition Include="Controller\Main.storyboard" />
+    <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\Contents.json">
@@ -174,6 +176,14 @@
     <ImageAsset Include="Resources\Images.xcassets\Phx.imageset\phoenix.jpg">
       <InProject>false</InProject>
     </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Settings.bundle\Root.plist" />
+    <BundleResource Include="Settings.bundle\Countries.plist" />
+    <BundleResource Include="Settings.bundle\en.lproj\Root.strings" />
+    <BundleResource Include="Settings.bundle\hu.lproj\Root.strings" />
+    <BundleResource Include="Settings.bundle\en.lproj\Countries.strings" />
+    <BundleResource Include="Settings.bundle\hu.lproj\Countries.strings" />
   </ItemGroup>
   <Import Project="..\Floorball\Floorball.projitems" Label="Shared" Condition="Exists('..\Floorball\Floorball.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

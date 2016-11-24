@@ -1,4 +1,6 @@
-﻿using Foundation;
+﻿using System;
+using System.Collections.Generic;
+using Foundation;
 using SidebarNavigation;
 using UIKit;
 
@@ -9,28 +11,26 @@ namespace Floorball.iOS
 	[Register("AppDelegate")]
 	public class AppDelegate : UIApplicationDelegate
 	{
-		// class-level declarations
-		//SidebarController sideBarController; 
+		
+		public SortedSet<CountriesEnum> Countries { get; set; }
 
-		public override UIWindow Window
-		{
-			get;
-			set;
-		}
+		public DateTime LastSyncDate { get; set; }
+
+		public override UIWindow Window { get; set; }
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 
-			//var storyboard = UIStoryboard.FromName("Main", null);
+			var settings = NSUserDefaults.StandardUserDefaults;
+
+			//Get countries
+			Countries = GetCountriesFromSettings(settings);
 
 
-			//var actualViewController = storyboard.InstantiateViewController("Actual");
-			//var menuViewController = storyboard.InstantiateViewController("SideMenu");
-
-			//sideBarController = CreateSideMenuController(actualViewController, menuViewController);
-
+			//Get Last Sync Date
+			LastSyncDate = GetLastSyncDate(settings);
 
 			return true;
 		}
@@ -66,17 +66,6 @@ namespace Floorball.iOS
 			// Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
 		}
 
-		/*SidebarController CreateSideMenuController(UIViewController actualViewController, UIViewController menuViewController)
-		{
-			var sidebarController = new SidebarController(this, actualViewController, menuViewController);
-
-			sidebarController.HasShadowing = true;
-			sidebarController.MenuWidth = 220;
-			sidebarController.MenuLocation = MenuLocations.Left;
-
-			return sidebarController;
-		}*/
-
 		public static AppDelegate SharedAppDelegate()
 		{
 
@@ -84,6 +73,37 @@ namespace Floorball.iOS
 
 		}
 
+		private SortedSet<CountriesEnum> GetCountriesFromSettings(NSUserDefaults settings)
+		{
+			var countries = new SortedSet<CountriesEnum> ();
+
+			var possibleCountires = new List<string>() { "HU", "SW", "SE", "FL", "CZ"};
+
+
+			foreach (var c in possibleCountires)
+			{
+				if (settings.BoolForKey(c))
+				{
+					countries.Add(c.ToEnum<CountriesEnum>());
+				}
+			}
+
+
+			return countries;
+		}
+
+		private DateTime GetLastSyncDate(NSUserDefaults settings)
+		{
+			var lastSyncDate = settings.StringForKey("lastSyncDate");
+
+
+			if (lastSyncDate != "") 
+			{
+				return DateTime.Parse(lastSyncDate);
+			}
+
+			return DateTime.Now.AddYears(-10);
+		}
 	}
 }
 
