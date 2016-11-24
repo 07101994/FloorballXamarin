@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Floorball.LocalDB;
 using Foundation;
 using SidebarNavigation;
 using UIKit;
@@ -13,8 +15,8 @@ namespace Floorball.iOS
 	{
 		
 		public SortedSet<CountriesEnum> Countries { get; set; }
-
 		public DateTime LastSyncDate { get; set; }
+		public UnitOfWork UoW { get; set; }
 
 		public override UIWindow Window { get; set; }
 
@@ -28,11 +30,95 @@ namespace Floorball.iOS
 			//Get countries
 			Countries = GetCountriesFromSettings(settings);
 
-
 			//Get Last Sync Date
 			LastSyncDate = GetLastSyncDate(settings);
 
+			Window = new UIWindow(UIScreen.MainScreen.Bounds);
+
+			//Check first launch
+			if (LastSyncDate.CompareTo(new DateTime(2000, 12, 12)) == 0)
+			{
+				InitAppAsync(settings);
+			}
+			else
+			{
+				UpdateAppAsync(settings);
+			}
+
 			return true;
+		}
+
+		private async void UpdateAppAsync(NSUserDefaults settings)
+		{
+			try
+			{
+
+				//Check is there any remote database updates and update local DB
+				Task<bool> isUpdated = Updater.Instance.UpdateDatabaseFromServer(LastSyncDate);
+
+				ShowControllerFromSoryBoard("Root");
+				Window.MakeKeyAndVisible();
+
+				if (await isUpdated) 
+				{
+					LastSyncDate = Updater.Instance.LastSyncDate;
+					//update last sync date
+					settings.SetString(LastSyncDate.ToString(), "lastSyncDate");
+				
+				} 
+				else
+				{
+					throw new Exception("Error during updating from database!");
+				}
+
+			}
+			catch (Exception)
+			{
+
+			}
+		}
+
+		private void ShowControllerFromSoryBoard(string controllerID)
+		{
+
+			var storyBoard = UIStoryboard.FromName("Main", null);
+			var viewController = storyBoard.InstantiateViewController(controllerID);
+
+			Window.RootViewController = viewController;
+
+		}
+
+		private async void InitAppAsync(NSUserDefaults settings)
+		{
+
+			try
+			{
+				Task<DateTime> lastSyncDateTask;
+
+				//Init the whole local DB
+				lastSyncDateTask = Manager.InitLocalDatabase();
+
+				//Show app initializing
+				ShowControllerFromSoryBoard("Init");
+				Window.MakeKeyAndVisible();
+				
+
+				//Initializing finished
+				LastSyncDate = await lastSyncDateTask;
+				Updater.Instance.LastSyncDate = LastSyncDate;
+
+				//update last sync date
+				settings.SetString(LastSyncDate.ToString(), "lastSyncDate");
+
+				//Set the root view controller
+				ShowControllerFromSoryBoard("Root");
+				
+			}
+			catch (Exception)
+			{
+
+			}
+
 		}
 
 		public override void OnResignActivation(UIApplication application)
@@ -102,7 +188,7 @@ namespace Floorball.iOS
 				return DateTime.Parse(lastSyncDate);
 			}
 
-			return DateTime.Now.AddYears(-10);
+			return new DateTime(2000,12,12);
 		}
 	}
 }

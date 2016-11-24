@@ -7,11 +7,7 @@ namespace Floorball.iOS
 	public partial class ActualViewController : UITableViewController
 	{
 
-		public RootViewController Root
-		{
-			get;
-			set;
-		}
+		public RootViewController Root { get; set; }
 
 
 		public ActualViewController() : base("ActualViewController", null)
