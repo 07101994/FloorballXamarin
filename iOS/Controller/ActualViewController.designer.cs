@@ -1,4 +1,4 @@
-﻿// WARNING
+// WARNING
 //
 // This file has been generated automatically by Xamarin Studio from the outlets and
 // actions declared in your storyboard file.
@@ -11,11 +11,15 @@ using UIKit;
 
 namespace Floorball.iOS
 {
-	[Register("ActualViewController")]
-	partial class ActualViewController
-	{
-		void ReleaseDesignerOutlets()
-		{
-		}
-	}
+    [Register ("ActualViewController")]
+    partial class ActualViewController
+    {
+        [Action ("MenuPressed:")]
+        partial void MenuPressed (UIKit.UIBarButtonItem sender);
+
+        void ReleaseDesignerOutlets ()
+        {
+			
+        }
+    }
 }
