@@ -1,7 +1,6 @@
 ﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="FloorballXamarin Status">
     <Files>
-      <File FileName="iOS/Controller/PlayersViewController.cs" Line="44" Column="4" />
       <File FileName="iOS/Controller/MenuViewController.cs" Line="74" Column="37" />
       <File FileName="iOS/AppDelegate.cs" Line="161" Column="1" />
       <File FileName="iOS/Controller/TeamsViewController.designer.cs" Line="23" Column="10" />
@@ -15,10 +14,7 @@
         <State name="__root__">
           <Node name="Floorball" expanded="True" selected="True">
             <Node name="Floorball.iOS" expanded="True">
-              <Node name="Controller" expanded="True">
-                <Node name="TeamsViewController.cs" expanded="True" />
-                <Node name="YearsViewController.cs" expanded="True" />
-              </Node>
+              <Node name="Controller" expanded="True" />
             </Node>
           </Node>
         </State>
