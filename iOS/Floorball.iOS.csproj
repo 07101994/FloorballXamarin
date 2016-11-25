@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
@@ -138,7 +137,6 @@
     <Compile Include="Controller\ActualViewController.designer.cs">
       <DependentUpon>ActualViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controller\TeamsViewController.cs" />
     <Compile Include="Controller\TeamsViewController.designer.cs">
       <DependentUpon>TeamsViewController.cs</DependentUpon>
     </Compile>
@@ -151,8 +149,17 @@
       <DependentUpon>RefereesViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller\YearsViewController.cs" />
+    <Compile Include="Controller\TeamsViewController.cs" />
     <Compile Include="Controller\YearsViewController.designer.cs">
       <DependentUpon>YearsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\LeaguesViewController.cs" />
+    <Compile Include="Controller\LeaguesViewController.designer.cs">
+      <DependentUpon>LeaguesViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\SexChooserViewController.cs" />
+    <Compile Include="Controller\SexChooserViewController.designer.cs">
+      <DependentUpon>SexChooserViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

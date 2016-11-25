@@ -5,33 +5,19 @@ using UIKit;
 
 namespace Floorball.iOS
 {
-	public partial class TeamsViewController : UITableViewController
+	public partial class LeaguesViewController : UITableViewController
 	{
 
-		public IEnumerable<Team> Teams { get; set; }
+		public IEnumerable<League> Leagues { get; set; }
 
-		public TeamsViewController() : base("TeamsViewController", null)
+		public LeaguesViewController() : base("LeaguesViewController", null)
 		{
-		}
-
-		public TeamsViewController(IntPtr handle) : base(handle)
-		{
-
 		}
 
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
-
-
-			InitProperties();
-
-		}
-
-		private void InitProperties()
-		{
-			
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -39,7 +25,6 @@ namespace Floorball.iOS
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.
 		}
-
 	}
 }
 

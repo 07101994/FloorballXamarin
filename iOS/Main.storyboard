@@ -221,7 +221,9 @@
                             <outlet property="delegate" destination="jNw-NG-qGG" id="mMF-eH-Ibu"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Leagues" id="yh9-yI-I9H"/>
+                    <navigationItem key="navigationItem" title="Years" id="yh9-yI-I9H">
+                        <barButtonItem key="leftBarButtonItem" id="505" title="Menu"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kVR-D3-s3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -230,7 +232,7 @@
         <!--View Controller-->
         <scene sceneID="mYz-P5-fhl">
             <objects>
-                <viewController id="ACx-6z-oFR" sceneMemberID="viewController">
+                <viewController id="ACx-6z-oFR" sceneMemberID="viewController" customClass="SexChooserViewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jkk-E9-QYg"/>
                         <viewControllerLayoutGuide type="bottom" id="y7K-Is-oTv"/>
@@ -264,7 +266,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="fjh-fI-Lli"/>
+                    <navigationItem key="navigationItem" id="fjh-fI-Lli" title="Leagues"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pgo-EN-xO6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -296,7 +298,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="338" kind="push" id="CHc-m8-aRe"/>
+                                    <segue destination="338" kind="push" id="CHc-m8-aRe" identifier="TeamsSeque"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -305,7 +307,9 @@
                             <outlet property="delegate" destination="3Fd-W2-gsv" id="bla-yA-VAb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Teams" id="J9E-7o-ejd"/>
+                    <navigationItem key="navigationItem" id="J9E-7o-ejd" title="Years">
+                        <barButtonItem key="leftBarButtonItem" id="506" title="Menu"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZH0-k7-rdb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -534,7 +538,7 @@
         <!--View Controller-->
         <scene sceneID="337">
             <objects>
-                <viewController id="338" sceneMemberID="viewController">
+                <viewController id="338" sceneMemberID="viewController" customClass="SexChooserViewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="335"/>
                         <viewControllerLayoutGuide type="bottom" id="336"/>
@@ -568,7 +572,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="OI9-pz-z8u"/>
+                    <navigationItem key="navigationItem" id="OI9-pz-z8u" title="Teams"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="340" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -577,7 +581,7 @@
         <!--Table View Controller-->
         <scene sceneID="342">
             <objects>
-                <tableViewController id="343" sceneMemberID="viewController">
+                <tableViewController id="343" sceneMemberID="viewController" customClass="LeaguesViewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="344">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="545"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
