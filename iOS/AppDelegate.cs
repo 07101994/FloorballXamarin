@@ -152,11 +152,12 @@ namespace Floorball.iOS
 			// Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
 		}
 
-		public static AppDelegate SharedAppDelegate()
+		public static AppDelegate SharedAppDelegate
 		{
-
-			return UIApplication.SharedApplication.Delegate as AppDelegate;
-
+			get 
+			{
+				return UIApplication.SharedApplication.Delegate as AppDelegate;
+			}
 		}
 
 		private SortedSet<CountriesEnum> GetCountriesFromSettings(NSUserDefaults settings)

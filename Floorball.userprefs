@@ -1,22 +1,29 @@
 ﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="FloorballXamarin Status">
     <Files>
-      <File FileName="Floorball/LocalDB/Manager.cs" Line="1" Column="1" />
-      <File FileName="iOS/packages.config" Line="1" Column="1" />
-      <File FileName="Floorball/REST/RESTHelper.cs" Line="847" Column="14" />
-      <File FileName="iOS/Main.cs" Line="21" Column="1" />
-      <File FileName="iOS/AppDelegate.cs" Line="100" Column="27" />
-      <File FileName="iOS/Controller/ActualViewController.cs" Line="1" Column="1" />
-      <File FileName="iOS/Controller/PlayersViewController.cs" Line="45" Column="3" />
-      <File FileName="iOS/Settings.bundle/Root.plist" />
-      <File FileName="iOS/Settings.bundle/en.lproj/Root.strings" Line="2" Column="31" />
-      <File FileName="iOS/Settings.bundle/hu.lproj/Root.strings" Line="2" Column="32" />
-      <File FileName="iOS/Settings.bundle/Countries.plist" />
-      <File FileName="../../../../../Library/Frameworks/Xamarin.iOS.framework/Versions/10.2.1.5/lib/mono/2.1/Xamarin.iOS.Common.targets" Line="1" Column="1" />
-      <File FileName="iOS/Settings.bundle/en.lproj/Countries.strings" Line="2" Column="15" />
-      <File FileName="iOS/Settings.bundle/hu.lproj/Countries.strings" Line="2" Column="4" />
+      <File FileName="iOS/Controller/PlayersViewController.cs" Line="44" Column="4" />
+      <File FileName="iOS/Controller/MenuViewController.cs" Line="74" Column="37" />
+      <File FileName="iOS/AppDelegate.cs" Line="161" Column="1" />
+      <File FileName="iOS/Controller/TeamsViewController.designer.cs" Line="23" Column="10" />
+      <File FileName="iOS/Controller/TeamsViewController.cs" Line="1" Column="1" />
+      <File FileName="iOS/Controller/YearsViewController.cs" Line="73" Column="3" />
+      <File FileName="iOS/Controller/YearsViewController.designer.cs" Line="1" Column="1" />
       <File FileName="FloorballXamarin Status" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Floorball" expanded="True" selected="True">
+            <Node name="Floorball.iOS" expanded="True">
+              <Node name="Controller" expanded="True">
+                <Node name="TeamsViewController.cs" expanded="True" />
+                <Node name="YearsViewController.cs" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.Floorball.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.C2F02235-5AFD-4068-9AFA-21507A93B532" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

@@ -138,10 +138,6 @@
     <Compile Include="Controller\ActualViewController.designer.cs">
       <DependentUpon>ActualViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controller\LeaguesViewController.cs" />
-    <Compile Include="Controller\LeaguesViewController.designer.cs">
-      <DependentUpon>LeaguesViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controller\TeamsViewController.cs" />
     <Compile Include="Controller\TeamsViewController.designer.cs">
       <DependentUpon>TeamsViewController.cs</DependentUpon>
@@ -153,6 +149,10 @@
     <Compile Include="Controller\RefereesViewController.cs" />
     <Compile Include="Controller\RefereesViewController.designer.cs">
       <DependentUpon>RefereesViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\YearsViewController.cs" />
+    <Compile Include="Controller\YearsViewController.designer.cs">
+      <DependentUpon>YearsViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

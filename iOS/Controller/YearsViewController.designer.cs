@@ -11,8 +11,8 @@ using UIKit;
 
 namespace Floorball.iOS
 {
-    [Register ("LeaguesViewController")]
-    partial class LeaguesViewController
+    [Register ("YearsViewController")]
+    partial class YearsViewController
     {
         [Action ("MenuPressed:")]
         [GeneratedCode ("iOS Designer", "1.0")]
