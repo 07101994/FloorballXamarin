@@ -1,22 +1,22 @@
 ﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="FloorballXamarin Status">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="iOS/Controller/LeaguesViewController.cs" Line="76" Column="75" />
+      <File FileName="iOS/Controller/LeaguesViewController.cs" Line="37" Column="95" />
       <File FileName="iOS/Controller/TeamsViewController.cs" Line="87" Column="4" />
       <File FileName="iOS/Controller/LeagueViewController.cs" Line="10" Column="3" />
-      <File FileName="iOS/Controller/TeamViewController.cs" Line="16" Column="21" />
+      <File FileName="iOS/Controller/TeamViewController.cs" Line="62" Column="4" />
       <File FileName="FloorballXamarin Status" />
+      <File FileName="iOS/Controller/PlayersViewController.cs" Line="76" Column="4" />
+      <File FileName="iOS/Controller/TeamPlayersViewController.cs" Line="30" Column="3" />
+      <File FileName="iOS/Controller/TeamMatchesViewController.cs" Line="43" Column="51" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Floorball" expanded="True" selected="True">
+          <Node name="Floorball" expanded="True">
             <Node name="Floorball.iOS" expanded="True">
               <Node name="Controller" expanded="True">
-                <Node name="LeaguesViewController.cs" expanded="True" />
-                <Node name="SexChooserViewController.cs" expanded="True" />
-                <Node name="TeamsViewController.cs" expanded="True" />
-                <Node name="YearsViewController.cs" expanded="True" />
+                <Node name="Main.storyboard" selected="True" />
               </Node>
             </Node>
           </Node>

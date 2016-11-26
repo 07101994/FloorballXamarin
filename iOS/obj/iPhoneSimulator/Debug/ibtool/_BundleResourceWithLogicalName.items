@@ -121,9 +121,5 @@
       <LogicalName>Main.storyboardc/v2g-tB-FC4-view-xMG-r3-CVo.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
-    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/TeamViewController.nib">
-      <LogicalName>TeamViewController.nib</LogicalName>
-      <Optimize>false</Optimize>
-    </_BundleResourceWithLogicalName>
   </ItemGroup>
 </Project>
