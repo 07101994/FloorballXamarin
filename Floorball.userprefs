@@ -1,25 +1,22 @@
 ﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="iOS/Controller/SexChooserViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="FloorballXamarin Status">
     <Files>
-      <File FileName="iOS/Controller/MenuViewController.cs" Line="74" Column="37" />
-      <File FileName="iOS/AppDelegate.cs" Line="161" Column="1" />
-      <File FileName="iOS/Controller/TeamsViewController.designer.cs" Line="23" Column="10" />
-      <File FileName="iOS/Controller/TeamsViewController.cs" Line="42" Column="3" />
-      <File FileName="iOS/Controller/YearsViewController.cs" Line="91" Column="4" />
-      <File FileName="iOS/Controller/YearsViewController.designer.cs" Line="1" Column="1" />
+      <File FileName="iOS/Controller/LeaguesViewController.cs" Line="76" Column="75" />
+      <File FileName="iOS/Controller/TeamsViewController.cs" Line="87" Column="4" />
+      <File FileName="iOS/Controller/LeagueViewController.cs" Line="10" Column="3" />
+      <File FileName="iOS/Controller/TeamViewController.cs" Line="16" Column="21" />
       <File FileName="FloorballXamarin Status" />
-      <File FileName="iOS/Controller/LeaguesViewController.cs" Line="8" Column="54" />
-      <File FileName="iOS/Controller/LeaguesViewController.designer.cs" Line="1" Column="1" />
-      <File FileName="iOS/Controller/SexChooserViewController.cs" Line="10" Column="16" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Floorball" expanded="True">
+          <Node name="Floorball" expanded="True" selected="True">
             <Node name="Floorball.iOS" expanded="True">
               <Node name="Controller" expanded="True">
                 <Node name="LeaguesViewController.cs" expanded="True" />
-                <Node name="SexChooserViewController.cs" selected="True" />
+                <Node name="SexChooserViewController.cs" expanded="True" />
+                <Node name="TeamsViewController.cs" expanded="True" />
+                <Node name="YearsViewController.cs" expanded="True" />
               </Node>
             </Node>
           </Node>

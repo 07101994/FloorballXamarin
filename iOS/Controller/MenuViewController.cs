@@ -78,7 +78,7 @@ namespace Floorball.iOS
 				case 2:
 
 					newContent = Storyboard.InstantiateViewController("TeamsNav") as UINavigationController;
-					(newContent.ViewControllers[0] as TeamsViewController).Root = Root;
+					(newContent.ViewControllers[0] as YearsViewController).Root = Root;
 
 					break;
 

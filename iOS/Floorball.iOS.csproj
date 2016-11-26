@@ -161,6 +161,14 @@
     <Compile Include="Controller\SexChooserViewController.designer.cs">
       <DependentUpon>SexChooserViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\LeagueViewController.cs" />
+    <Compile Include="Controller\LeagueViewController.designer.cs">
+      <DependentUpon>LeagueViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\TeamViewController.cs" />
+    <Compile Include="Controller\TeamViewController.designer.cs">
+      <DependentUpon>TeamViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controller\" />
@@ -171,7 +179,9 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
-    <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="Controller\Main.storyboard" />
+    <InterfaceDefinition Include="Controller\LeagueViewController.xib" />
+    <InterfaceDefinition Include="Controller\TeamViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\Contents.json">
