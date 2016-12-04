@@ -6,24 +6,16 @@ using UIKit;
 
 namespace Floorball.iOS
 {
-	public partial class LeagueViewController : UIViewController
+	public partial class LeagueStatContainerViewController : UIViewController
 	{
 
 
-		public League League { get; set; }
-
-		public IEnumerable<Team> Teams { get; set; }
-
-		public IEnumerable<Match> Matches { get; set; }
-
-		public IEnumerable<Statistic> Statistics { get; set; }
-
 		public IEnumerable<PlayerStatisticsModel> PlayerStatistics { get; set; }
-
 		public IEnumerable<Player> Players { get; set; }
+		public IEnumerable<Team> Teams { get; set; }
+		
 
-
-		public LeagueViewController() : base("LeagueViewController", null)
+		public LeagueStatContainerViewController() : base("LeagueStatContainerViewController", null)
 		{
 		}
 
@@ -46,32 +38,17 @@ namespace Floorball.iOS
 
 				case "LeagueStat":
 
-					var vc = segue.DestinationViewController as LeagueStatContainerViewController;
+					var vc = segue.DestinationViewController as LeagueStatTableViewController;
 					vc.Players = Players;
 					vc.Teams = Teams;
-					vc.PlayerStatistics = PlayerStatisticsMaker.CreatePlayerStatistics(Statistics).OrderByDescending(s => s.Points);
+					vc.PlayerStatistics = PlayerStatistics;
 
 					break;
 
-				case "LeagueMatches":
-
-
-					break;
-
-				case "LeagueTable":
-
-					var vc1 = segue.DestinationViewController as LeagueTableContainerViewController;
-					vc1.Teams = Teams;
-
-					break;
-
-				
 				default:
 					break;
 			}
-
 		}
-
 
 	}
 }

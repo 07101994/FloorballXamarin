@@ -177,6 +177,22 @@
     <Compile Include="Controller\TeamMatchesViewController.designer.cs">
       <DependentUpon>TeamMatchesViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\LeagueStatTableViewController.cs" />
+    <Compile Include="Controller\LeagueStatTableViewController.designer.cs">
+      <DependentUpon>LeagueStatTableViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\LeagueTableViewController.cs" />
+    <Compile Include="Controller\LeagueTableViewController.designer.cs">
+      <DependentUpon>LeagueTableViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\LeagueStatContainerViewController.cs" />
+    <Compile Include="Controller\LeagueStatContainerViewController.designer.cs">
+      <DependentUpon>LeagueStatContainerViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\LeagueTableContainerViewController.cs" />
+    <Compile Include="Controller\LeagueTableContainerViewController.designer.cs">
+      <DependentUpon>LeagueTableContainerViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controller\" />
