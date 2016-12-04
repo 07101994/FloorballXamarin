@@ -1,18 +1,8 @@
 ﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="FloorballXamarin Status">
     <Files>
-      <File FileName="iOS/Controller/LeaguesViewController.cs" Line="40" Column="3" />
-      <File FileName="iOS/Controller/TeamsViewController.cs" Line="87" Column="4" />
-      <File FileName="iOS/Controller/LeagueViewController.cs" Line="56" Column="26" />
-      <File FileName="iOS/Controller/TeamViewController.cs" Line="62" Column="4" />
-      <File FileName="iOS/Controller/PlayersViewController.cs" Line="76" Column="4" />
-      <File FileName="iOS/Controller/TeamPlayersViewController.cs" Line="30" Column="3" />
-      <File FileName="iOS/Controller/TeamMatchesViewController.cs" Line="48" Column="4" />
-      <File FileName="iOS/Controller/LeagueStatTableViewController.cs" Line="20" Column="3" />
-      <File FileName="iOS/Controller/YearsViewController.cs" Line="1" Column="1" />
-      <File FileName="iOS/Controller/LeagueTableViewController.cs" Line="12" Column="47" />
-      <File FileName="iOS/Controller/LeagueStatContainerViewController.cs" Line="41" Column="80" />
-      <File FileName="iOS/Controller/LeagueTableContainerViewController.cs" Line="39" Column="76" />
+      <File FileName="iOS/Controller/LeagueViewController.cs" Line="44" Column="29" />
+      <File FileName="iOS/Controller/TeamMatchesViewController.cs" Line="16" Column="4" />
       <File FileName="FloorballXamarin Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>

@@ -55,6 +55,9 @@ namespace Floorball.iOS
 
 				case "LeagueMatches":
 
+					var vc2 = segue.DestinationViewController as LeagueMatchesViewController;
+					vc2.Teams = Teams;
+					vc2.MatchesByRound = Matches.GroupBy(m => m.Round).Select(m => m.OrderBy(m1 => m1.Date).ToList()).ToList();
 
 					break;
 

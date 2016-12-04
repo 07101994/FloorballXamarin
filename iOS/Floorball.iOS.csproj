@@ -149,6 +149,7 @@
       <DependentUpon>RefereesViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller\YearsViewController.cs" />
+    <Compile Include="Controller\LeagueMatchesViewController.cs" />
     <Compile Include="Controller\TeamsViewController.cs" />
     <Compile Include="Controller\YearsViewController.designer.cs">
       <DependentUpon>YearsViewController.cs</DependentUpon>
@@ -158,10 +159,10 @@
       <DependentUpon>LeaguesViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller\SexChooserViewController.cs" />
+    <Compile Include="Controller\LeagueViewController.cs" />
     <Compile Include="Controller\SexChooserViewController.designer.cs">
       <DependentUpon>SexChooserViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controller\LeagueViewController.cs" />
     <Compile Include="Controller\LeagueViewController.designer.cs">
       <DependentUpon>LeagueViewController.cs</DependentUpon>
     </Compile>
@@ -192,6 +193,9 @@
     <Compile Include="Controller\LeagueTableContainerViewController.cs" />
     <Compile Include="Controller\LeagueTableContainerViewController.designer.cs">
       <DependentUpon>LeagueTableContainerViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\LeagueMatchesViewController.designer.cs">
+      <DependentUpon>LeagueMatchesViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
