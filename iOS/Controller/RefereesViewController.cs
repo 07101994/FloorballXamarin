@@ -12,9 +12,7 @@ namespace Floorball.iOS
 
 		public IEnumerable<Referee> Referees { get; set; }
 
-		public IEnumerable<Referee> ActualReferees { get; set; }
-
-		public RootViewController Root { get; set; }
+		public UnitOfWork UoW { get; set; }
 
 		public RefereesViewController() : base("RefereesViewController", null)
 		{
@@ -22,20 +20,16 @@ namespace Floorball.iOS
 
 		public RefereesViewController(IntPtr handle) : base(handle)
 		{
-			InitProperties();
 		}
 
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
+
+			UoW = new UnitOfWork();
 		}
 
-		void InitProperties()
-		{
-			//Referees = Manager.GetAllReferee().OrderBy(p => p.Name).ToList();
-			ActualReferees = Referees;
-		}
 
 		public override void DidReceiveMemoryWarning()
 		{
@@ -50,22 +44,56 @@ namespace Floorball.iOS
 
 		public override nint RowsInSection(UITableView tableView, nint section)
 		{
-			return ActualReferees.Count();
+			return Referees.Count();
 		}
 
 		public override UITableViewCell GetCell(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
-			var cell = tableView.DequeueReusableCell("playercell", indexPath);
+			var cell = tableView.DequeueReusableCell("RefereeCell", indexPath);
 
-			cell.TextLabel.Text = ActualReferees.ElementAt(indexPath.Row).Name;
+			cell.TextLabel.Text = Referees.ElementAt(indexPath.Row).Name;
 
 			return cell;
 		}
 
-		partial void MenuPressed(UIBarButtonItem sender)
+
+		public override void RowSelected(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
-			Root.SideBarController.ToggleMenu();
+			var referee = Referees.ElementAt(indexPath.Row);
+			var leagues = UoW.LeagueRepo.GetLeaguesByReferee(referee.Id);
+
+			var vc = Storyboard.InstantiateViewController("RefereeViewController") as RefereeViewController;
+			vc.Referee = referee;
+			vc.Leagues = leagues;
+			vc.StatsByLeague = CreateStatsByLeague(leagues);
+
+			ParentViewController.NavigationController.PushViewController(vc, true);
 		}
+
+
+		private List<RefereeStatModel> CreateStatsByLeague(IEnumerable<League> leagues)
+		{
+
+			List<RefereeStatModel> stats = new List<RefereeStatModel>();
+
+
+			foreach (var league in leagues)
+			{
+				List<Event> events = UoW.EventRepo.GetEventsByLeague(league.Id).ToList();
+				stats.Add(new RefereeStatModel() { 
+					NumberOfMatches = events.Count,
+					TwoMinutesPenalties = events.Where(e => e.Type == "P2").Count(),
+					FiveMinutesPenalties = events.Where(e => e.Type == "P5").Count(),
+					TenMinutesPenalties = events.Where(e => e.Type == "P10").Count(),
+					FinalPenalties = events.Where(e => e.Type == "PV").Count()
+				
+				});
+
+			}
+
+			return stats;
+		}
+	
 	}
 }
 

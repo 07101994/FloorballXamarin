@@ -197,6 +197,22 @@
     <Compile Include="Controller\LeagueMatchesViewController.designer.cs">
       <DependentUpon>LeagueMatchesViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\PlayersContainerViewController.cs" />
+    <Compile Include="Controller\PlayersContainerViewController.designer.cs">
+      <DependentUpon>PlayersContainerViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\PlayerViewController.cs" />
+    <Compile Include="Controller\PlayerViewController.designer.cs">
+      <DependentUpon>PlayerViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\RefereesContainerViewController.cs" />
+    <Compile Include="Controller\RefereesContainerViewController.designer.cs">
+      <DependentUpon>RefereesContainerViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\RefereeViewController.cs" />
+    <Compile Include="Controller\RefereeViewController.designer.cs">
+      <DependentUpon>RefereeViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controller\" />

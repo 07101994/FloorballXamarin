@@ -41,8 +41,16 @@
       <LogicalName>Main.storyboardc/3Fd-W2-gsv-view-2lO-Qm-Tu1.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/841-view-842.nib">
+      <LogicalName>Main.storyboardc/841-view-842.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/85-view-87.nib">
       <LogicalName>Main.storyboardc/85-view-87.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/970-view-971.nib">
+      <LogicalName>Main.storyboardc/970-view-971.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/ACx-6z-oFR-view-tG0-69-QLU.nib">
