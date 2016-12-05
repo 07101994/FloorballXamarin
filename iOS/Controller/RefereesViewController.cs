@@ -12,7 +12,6 @@ namespace Floorball.iOS
 
 		public IEnumerable<Referee> Referees { get; set; }
 
-		public UnitOfWork UoW { get; set; }
 
 		public RefereesViewController() : base("RefereesViewController", null)
 		{
@@ -27,7 +26,6 @@ namespace Floorball.iOS
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
-			UoW = new UnitOfWork();
 		}
 
 
@@ -60,7 +58,7 @@ namespace Floorball.iOS
 		public override void RowSelected(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
 			var referee = Referees.ElementAt(indexPath.Row);
-			var leagues = UoW.LeagueRepo.GetLeaguesByReferee(referee.Id);
+			var leagues = AppDelegate.SharedAppDelegate.UoW.LeagueRepo.GetLeaguesByReferee(referee.Id);
 
 			var vc = Storyboard.InstantiateViewController("RefereeViewController") as RefereeViewController;
 			vc.Referee = referee;
@@ -79,7 +77,7 @@ namespace Floorball.iOS
 
 			foreach (var league in leagues)
 			{
-				List<Event> events = UoW.EventRepo.GetEventsByLeague(league.Id).ToList();
+				List<Event> events = AppDelegate.SharedAppDelegate.UoW.EventRepo.GetEventsByLeague(league.Id).ToList();
 				stats.Add(new RefereeStatModel() { 
 					NumberOfMatches = events.Count,
 					TwoMinutesPenalties = events.Where(e => e.Type == "P2").Count(),

@@ -2,14 +2,12 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="FloorballXamarin Status">
     <Files>
       <File FileName="iOS/Controller/PlayersContainerViewController.cs" Line="42" Column="4" />
-      <File FileName="iOS/Controller/PlayersViewController.cs" Line="65" Column="4" />
+      <File FileName="iOS/Controller/PlayersViewController.cs" Line="33" Column="1" />
       <File FileName="iOS/Controller/TeamViewController.cs" Line="68" Column="12" />
       <File FileName="iOS/Controller/PlayerViewController.cs" Line="56" Column="3" />
-      <File FileName="iOS/Controller/RefereesContainerViewController.cs" Line="48" Column="43" />
-      <File FileName="iOS/Controller/RefereesViewController.cs" Line="62" Column="52" />
-      <File FileName="iOS/Controller/RefereeViewController.cs" Line="27" Column="40" />
-      <File FileName="Floorball/RefereeStatModel.cs" Line="15" Column="42" />
-      <File FileName="Floorball/LocalDB/Repository/EventRepository.cs" Line="42" Column="84" />
+      <File FileName="iOS/Controller/RefereesContainerViewController.cs" Line="39" Column="45" />
+      <File FileName="iOS/Controller/MatchViewController.cs" Line="87" Column="26" />
+      <File FileName="iOS/Controller/MatchEventsViewController.cs" Line="63" Column="29" />
       <File FileName="FloorballXamarin Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>

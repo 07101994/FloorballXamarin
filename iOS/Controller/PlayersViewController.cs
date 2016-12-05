@@ -13,7 +13,6 @@ namespace Floorball.iOS
 
 		public IEnumerable<Player> ActualPlayers { get; set; }
 
-		public UnitOfWork UoW { get; set; }
 
 
 		public PlayersViewController() : base("PlayersViewController", null)
@@ -29,8 +28,6 @@ namespace Floorball.iOS
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
-
-			UoW = new UnitOfWork();
 
 		}
 
@@ -66,8 +63,8 @@ namespace Floorball.iOS
 
 			var vc = Storyboard.InstantiateViewController("PlayerViewController") as PlayerViewController;
 			vc.Player = player;
-			vc.Teams = UoW.TeamRepo.GetTeamsByPlayer(player.RegNum);
-			vc.StatisticsByTeam = UoW.StatiscticRepo.GetStatisticsByPlayer(player.RegNum).GroupBy(s => s.TeamId).Select(s => s.ToList()).ToList();
+			vc.Teams = AppDelegate.SharedAppDelegate.UoW.TeamRepo.GetTeamsByPlayer(player.RegNum);
+			vc.StatisticsByTeam = AppDelegate.SharedAppDelegate.UoW.StatiscticRepo.GetStatisticsByPlayer(player.RegNum).GroupBy(s => s.TeamId).Select(s => s.ToList()).ToList();
 
 
 			ParentViewController.NavigationController.PushViewController(vc, true);

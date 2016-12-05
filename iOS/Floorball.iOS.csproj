@@ -213,6 +213,14 @@
     <Compile Include="Controller\RefereeViewController.designer.cs">
       <DependentUpon>RefereeViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\MatchViewController.cs" />
+    <Compile Include="Controller\MatchViewController.designer.cs">
+      <DependentUpon>MatchViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\MatchEventsViewController.cs" />
+    <Compile Include="Controller\MatchEventsViewController.designer.cs">
+      <DependentUpon>MatchEventsViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controller\" />
@@ -220,11 +228,15 @@
     <Folder Include="Resources\Images.xcassets\Phx.imageset\" />
     <Folder Include="Settings.bundle\en.lproj\" />
     <Folder Include="Settings.bundle\hu.lproj\" />
+    <Folder Include="Resources\Images.xcassets\redcard.imageset\" />
+    <Folder Include="Resources\Images.xcassets\2minutes.imageset\" />
+    <Folder Include="Resources\Images.xcassets\5minutes.imageset\" />
+    <Folder Include="Resources\Images.xcassets\10minutes.imageset\" />
+    <Folder Include="Resources\Images.xcassets\goal.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Controller\Main.storyboard" />
-    <InterfaceDefinition Include="Resources\Controller\LeagueViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\Contents.json">
@@ -236,6 +248,16 @@
     <ImageAsset Include="Resources\Images.xcassets\Phx.imageset\phoenix.jpg">
       <InProject>false</InProject>
     </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\redcard.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\redcard.imageset\Soccer Yellow Card Filled-50.png" />
+    <ImageAsset Include="Resources\Images.xcassets\2minutes.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\5minutes.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\10minutes.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\goal.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\2minutes.imageset\2-50.png" />
+    <ImageAsset Include="Resources\Images.xcassets\5minutes.imageset\5-50.png" />
+    <ImageAsset Include="Resources\Images.xcassets\10minutes.imageset\10-50.png" />
+    <ImageAsset Include="Resources\Images.xcassets\goal.imageset\ball.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Settings.bundle\Root.plist" />
