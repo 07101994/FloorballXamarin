@@ -54,5 +54,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Updater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RefereeStatModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UIHelper.cs" />
   </ItemGroup>
 </Project>

@@ -56,6 +56,20 @@ namespace Floorball.LocalDB.Repository
 			}
 		}
 
+		public List<Team> GetTeamsByMatches(IEnumerable<Match> matches)
+		{
+			List<Team> teams = new List<Team>();
+
+			foreach (var match in matches)
+			{
+
+				teams.Add(GetTeamById(match.HomeTeamId));
+				teams.Add(GetTeamById(match.AwayTeamId));
+			}
+
+			return teams;
+		}
+
         #endregion
 
 
