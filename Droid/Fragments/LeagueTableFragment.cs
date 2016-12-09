@@ -42,23 +42,6 @@ namespace Floorball.Droid.Fragments
         {
             TableLayout table = root.FindViewById<TableLayout>(Resource.Id.leaguetable);
             ViewGroup newRow = Activity.LayoutInflater.Inflate(Resource.Layout.LeagueTableRow, table, false) as ViewGroup;
-            /*(newRow.GetChildAt(0) as TextView).Text = Resources.GetString(Resource.String.positionLabel);
-            (newRow.GetChildAt(0) as TextView).SetTextColor(new Android.Graphics.Color(ContextCompat.GetColor(Context, Resource.Color.primary_text)));
-            (newRow.GetChildAt(1) as TextView).Text = Resources.GetString(Resource.String.teamNameLabel);
-            (newRow.GetChildAt(1) as TextView).SetTextColor(new Android.Graphics.Color(ContextCompat.GetColor(Context, Resource.Color.primary_text)));
-            (newRow.GetChildAt(2) as TextView).Text = Resources.GetString(Resource.String.matchLabel);
-            (newRow.GetChildAt(2) as TextView).SetTextColor(new Android.Graphics.Color(ContextCompat.GetColor(Context, Resource.Color.primary_text)));
-            (newRow.GetChildAt(3) as TextView).Text = Resources.GetString(Resource.String.winLabel);
-            (newRow.GetChildAt(3) as TextView).SetTextColor(new Android.Graphics.Color(ContextCompat.GetColor(Context, Resource.Color.primary_text)));
-            (newRow.GetChildAt(4) as TextView).Text = Resources.GetString(Resource.String.drawLabel);
-            (newRow.GetChildAt(4) as TextView).SetTextColor(new Android.Graphics.Color(ContextCompat.GetColor(Context, Resource.Color.primary_text)));
-            (newRow.GetChildAt(5) as TextView).Text = Resources.GetString(Resource.String.defeatLabel);
-            (newRow.GetChildAt(5) as TextView).SetTextColor(new Android.Graphics.Color(ContextCompat.GetColor(Context, Resource.Color.primary_text)));
-            (newRow.GetChildAt(6) as TextView).Text = Resources.GetString(Resource.String.goalsLabel);
-            (newRow.GetChildAt(6) as TextView).SetTextColor(new Android.Graphics.Color(ContextCompat.GetColor(Context, Resource.Color.primary_text)));
-            (newRow.GetChildAt(7) as TextView).Text = Resources.GetString(Resource.String.pointsLabel);
-            (newRow.GetChildAt(7) as TextView).SetTextColor(new Android.Graphics.Color(ContextCompat.GetColor(Context, Resource.Color.primary_text)));
-            table.AddView(newRow);*/
 
             foreach (var team in (Activity as LeagueActivity).Teams.OrderBy(t => t.Points))
             {

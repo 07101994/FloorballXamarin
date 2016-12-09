@@ -39,9 +39,8 @@ namespace Floorball.Droid.Fragments
             TableLayout table = root.FindViewById<TableLayout>(Resource.Id.statisticstable);
             ViewGroup newRow = Activity.LayoutInflater.Inflate(Resource.Layout.StatisticsTableRow, table, false) as ViewGroup;
             LeagueActivity activity = Activity as LeagueActivity;
-            var n = activity.Players;
             int i = 1;
-            foreach (var stat in (Activity as LeagueActivity).PlayerStatistics.OrderByDescending(s => s.Points))
+            foreach (var stat in activity.PlayerStatistics.OrderByDescending(s => s.Points))
             {
                 newRow = Activity.LayoutInflater.Inflate(Resource.Layout.StatisticsTableRow, table, false) as ViewGroup;
                 (newRow.GetChildAt(0) as TextView).Text = (i++).ToString();

@@ -83,7 +83,7 @@ namespace Floorball.Droid.Fragments
 
                         matchResult.Tag = matchesInRound.ElementAt(j).Id;
                         matchResult.Click += OpenMatch;
-
+                        
                         k++;
                     }
                     Matches.AddView(matches);

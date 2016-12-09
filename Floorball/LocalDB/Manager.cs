@@ -88,7 +88,7 @@ namespace Floorball.LocalDB
                 db.CreateTable<Statistic>();
                 db.CreateTable<Event>();
                 
-
+                
             }
 
         }
