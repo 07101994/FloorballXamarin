@@ -93,11 +93,11 @@ namespace Floorball.LocalDB
 
         }
 
-        public static async Task<string> InitLocalDatabase()
+        public static async Task<DateTime> InitLocalDatabase()
         {
             CreateDatabase();
             await InitDatabaseFromServerAsync();
-            return DateTime.Now.ToString();
+            return DateTime.Now;
         }
 
         private static void DropTables(SQLiteConnection db)

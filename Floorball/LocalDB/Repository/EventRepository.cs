@@ -33,6 +33,16 @@ namespace Floorball.LocalDB.Repository
             }
         }
 
+		public IEnumerable<Event> GetEventsByLeague(int leagueId)
+		{ 
+
+			using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+				var matchIds = db.GetAllWithChildren<Match>().Where(m => m.LeagueId == leagueId).Select(m => m.Id);
+				return db.GetAllWithChildren<Event>().Where(m => matchIds.Contains(m.MatchId));
+            }
+
+		}
 
         #endregion
 

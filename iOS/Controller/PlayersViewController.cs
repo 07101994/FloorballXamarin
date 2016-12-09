@@ -10,11 +10,10 @@ namespace Floorball.iOS
 	public partial class PlayersViewController : UITableViewController
 	{
 
-        public IEnumerable<Player> Players { get; set; }
 
 		public IEnumerable<Player> ActualPlayers { get; set; }
 
-		public RootViewController Root { get; set; }
+
 
 		public PlayersViewController() : base("PlayersViewController", null)
 		{
@@ -30,23 +29,6 @@ namespace Floorball.iOS
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
-			//Init properties
-			InitProperties();
-
-			//Setup header view
-			UIView headerView = new UIView();
-			headerView.BackgroundColor = UIColor.Red;
-
-
-			TableView.TableHeaderView = headerView;
-
-
-		}
-
-		void InitProperties()
-		{
-			//Players = Manager.GetAllPlayer().OrderBy(p => p.Name).ToList();
-			ActualPlayers = Players;
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -54,7 +36,6 @@ namespace Floorball.iOS
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.
 		}
-
 
 		public override nint NumberOfSections(UITableView tableView)
 		{
@@ -75,10 +56,21 @@ namespace Floorball.iOS
 			return cell;
 		}
 
-		partial void MenuPressed(UIBarButtonItem sender)
+		public override void RowSelected(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
-			Root.SideBarController.ToggleMenu();
+
+			var player = ActualPlayers.ElementAt(indexPath.Row);
+
+			var vc = Storyboard.InstantiateViewController("PlayerViewController") as PlayerViewController;
+			vc.Player = player;
+			vc.Teams = AppDelegate.SharedAppDelegate.UoW.TeamRepo.GetTeamsByPlayer(player.RegNum);
+			vc.StatisticsByTeam = AppDelegate.SharedAppDelegate.UoW.StatiscticRepo.GetStatisticsByPlayer(player.RegNum).GroupBy(s => s.TeamId).Select(s => s.ToList()).ToList();
+
+
+			ParentViewController.NavigationController.PushViewController(vc, true);
+
 		}
+
 	}
 }
 

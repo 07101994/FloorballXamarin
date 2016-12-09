@@ -71,21 +71,21 @@ namespace Floorball.iOS
 				case 1:
 
 					newContent = Storyboard.InstantiateViewController("LeaguesNav") as UINavigationController;
-					(newContent.ViewControllers[0] as LeaguesViewController).Root = Root;
+					(newContent.ViewControllers[0] as YearsViewController).Root = Root;
 
 					break;
 	
 				case 2:
 
 					newContent = Storyboard.InstantiateViewController("TeamsNav") as UINavigationController;
-					(newContent.ViewControllers[0] as TeamsViewController).Root = Root;
+					(newContent.ViewControllers[0] as YearsViewController).Root = Root;
 
 					break;
 
 				case 3:
 
 					newContent = Storyboard.InstantiateViewController("PlayersNav") as UINavigationController;
-					(newContent.ViewControllers[0] as PlayersViewController).Root = Root;
+					(newContent.ViewControllers[0] as PlayersContainerViewController).Root = Root;
 
 					break;
 
@@ -93,7 +93,7 @@ namespace Floorball.iOS
 				case 4:
 
 					newContent = Storyboard.InstantiateViewController("RefereesNav") as UINavigationController;
-					(newContent.ViewControllers[0] as RefereesViewController).Root = Root;
+					(newContent.ViewControllers[0] as RefereesContainerViewController).Root = Root;
 
 					break;
 

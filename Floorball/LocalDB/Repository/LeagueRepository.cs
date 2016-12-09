@@ -76,7 +76,7 @@ namespace Floorball.LocalDB.Repository
 
         #region POST
 
-        public int AddLeague(int id, string name, DateTime year, string type, string classname, int rounds, CountriesEnum country)
+        public int AddLeague(int id, string name, DateTime year, string type, string classname, int rounds, CountriesEnum country, string sex)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
@@ -89,6 +89,7 @@ namespace Floorball.LocalDB.Repository
                 l.ClassName = classname;
                 l.Rounds = rounds;
                 l.Country = country;
+				l.Sex = sex;
 
                 db.Insert(l);
 
@@ -100,7 +101,7 @@ namespace Floorball.LocalDB.Repository
         {
             foreach (var m in model)
             {
-                AddLeague(m.Id, m.Name, m.Year, m.type, m.ClassName, m.Rounds, m.Country);
+                AddLeague(m.Id, m.Name, m.Year, m.type, m.ClassName, m.Rounds, m.Country, m.Sex);
             }
         }
 

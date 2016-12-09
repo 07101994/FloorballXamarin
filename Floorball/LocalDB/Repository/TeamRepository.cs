@@ -48,6 +48,28 @@ namespace Floorball.LocalDB.Repository
             }
         }
 
+		public IEnumerable<Team> GetTeamsByPlayer(int playerId)
+		{
+			using (var db = new SQLiteConnection(Platform, DatabasePath))
+			{
+				return db.GetWithChildren<Player>(playerId).Teams;
+			}
+		}
+
+		public List<Team> GetTeamsByMatches(IEnumerable<Match> matches)
+		{
+			List<Team> teams = new List<Team>();
+
+			foreach (var match in matches)
+			{
+
+				teams.Add(GetTeamById(match.HomeTeamId));
+				teams.Add(GetTeamById(match.AwayTeamId));
+			}
+
+			return teams;
+		}
+
         #endregion
 
 

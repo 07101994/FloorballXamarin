@@ -1,5 +1,7 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using System.Linq;
+using Floorball.LocalDB.Tables;
 using UIKit;
 
 namespace Floorball.iOS
@@ -7,19 +9,14 @@ namespace Floorball.iOS
 	public partial class LeaguesViewController : UITableViewController
 	{
 
-		public RootViewController Root
-		{
-			get;
-			set;
-		}
+		public IEnumerable<League> Leagues { get; set; }
+
+		public IEnumerable<League> ActualLeagues { get; set; }
+
+		public List<List<League>> LeaguesByCountry { get; set; }
 
 		public LeaguesViewController() : base("LeaguesViewController", null)
 		{
-		}
-
-		public LeaguesViewController(IntPtr handle) : base(handle)
-		{
-
 		}
 
 		public override void ViewDidLoad()
@@ -34,10 +31,52 @@ namespace Floorball.iOS
 			// Release any cached data, images, etc that aren't in use.
 		}
 
-		partial void MenuPressed(UIBarButtonItem sender)
+		public override nint NumberOfSections(UITableView tableView)
 		{
-			Root.SideBarController.ToggleMenu();
+			//ActualLeagues.GroupBy(l => l.Country).ToDictionary(l => l.Key, l => l.ToList());
+			LeaguesByCountry = ActualLeagues.GroupBy(l => l.Country).Select( l => l.ToList()).ToList();
+			return LeaguesByCountry.Count;
 		}
+
+		public override string TitleForHeader(UITableView tableView, nint section)
+		{
+			return LeaguesByCountry.ElementAt(Convert.ToInt16(section)).First().Country.ToFriendlyString();
+		}
+
+		public override nint RowsInSection(UITableView tableView, nint section)
+		{
+			return LeaguesByCountry.ElementAt(Convert.ToInt16(section)).Count;
+		}
+
+		public override UITableViewCell GetCell(UITableView tableView, Foundation.NSIndexPath indexPath)
+		{
+			var cell = tableView.DequeueReusableCell("LeagueCell", indexPath);
+
+			var league = LeaguesByCountry.ElementAt(indexPath.Section).ElementAt(indexPath.Row);
+
+			cell.TextLabel.Text = league.Name;
+
+			return cell;
+
+		}
+
+		public override void RowSelected(UITableView tableView, Foundation.NSIndexPath indexPath)
+		{
+
+			var league = LeaguesByCountry.ElementAt(indexPath.Section).ElementAt(indexPath.Row);
+
+			var vc = Storyboard.InstantiateViewController("LeagueViewController") as LeagueViewController;
+			vc.League = league;
+			vc.Teams = AppDelegate.SharedAppDelegate.UoW.TeamRepo.GetTeamsByLeague(league.Id);
+			vc.Matches = AppDelegate.SharedAppDelegate.UoW.MatchRepo.GetMatchesByLeague(league.Id);
+			vc.Statistics = AppDelegate.SharedAppDelegate.UoW.StatiscticRepo.GetStatisticsByLeague(league.Id);
+			vc.PlayerStatistics = PlayerStatisticsMaker.CreatePlayerStatistics(vc.Statistics);
+			vc.Players = AppDelegate.SharedAppDelegate.UoW.PlayerRepo.GetPlayersByLeague(league.Id);
+
+			ParentViewController.NavigationController.PushViewController(vc, true);
+
+		}
+
 	}
 }
 

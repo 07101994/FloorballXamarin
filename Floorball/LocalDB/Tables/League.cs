@@ -24,5 +24,7 @@ namespace Floorball.LocalDB.Tables
 
         public CountriesEnum Country { get; set; }
 
+		public string Sex { get; set; }
+
     }
 }

@@ -1,4 +1,4 @@
-// WARNING
+﻿// WARNING
 //
 // This file has been generated automatically by Xamarin Studio from the outlets and
 // actions declared in your storyboard file.
@@ -11,15 +11,11 @@ using UIKit;
 
 namespace Floorball.iOS
 {
-    [Register ("LeaguesViewController")]
-    partial class LeaguesViewController
-    {
-        [Action ("MenuPressed:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void MenuPressed (UIKit.UIBarButtonItem sender);
-
-        void ReleaseDesignerOutlets ()
-        {
-        }
-    }
+	[Register("LeaguesViewController")]
+	partial class LeaguesViewController
+	{
+		void ReleaseDesignerOutlets()
+		{
+		}
+	}
 }

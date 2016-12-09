@@ -1,4 +1,8 @@
-﻿using Foundation;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Floorball.LocalDB;
+using Foundation;
 using SidebarNavigation;
 using UIKit;
 
@@ -9,30 +13,112 @@ namespace Floorball.iOS
 	[Register("AppDelegate")]
 	public class AppDelegate : UIApplicationDelegate
 	{
-		// class-level declarations
-		//SidebarController sideBarController; 
+		
+		public SortedSet<CountriesEnum> Countries { get; set; }
+		public DateTime LastSyncDate { get; set; }
+		public UnitOfWork UoW { get; set; }
 
-		public override UIWindow Window
-		{
-			get;
-			set;
-		}
+		public override UIWindow Window { get; set; }
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 
-			//var storyboard = UIStoryboard.FromName("Main", null);
+			var settings = NSUserDefaults.StandardUserDefaults;
 
+			//Get countries
+			Countries = GetCountriesFromSettings(settings);
 
-			//var actualViewController = storyboard.InstantiateViewController("Actual");
-			//var menuViewController = storyboard.InstantiateViewController("SideMenu");
+			//Get Last Sync Date
+			LastSyncDate = GetLastSyncDate(settings);
 
-			//sideBarController = CreateSideMenuController(actualViewController, menuViewController);
+			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
+			//Check first launch
+			if (LastSyncDate.CompareTo(new DateTime(2000, 12, 12)) == 0)
+			{
+				InitAppAsync(settings);
+			}
+			else
+			{
+				UpdateAppAsync(settings);
+			}
 
 			return true;
+		}
+
+		private async void UpdateAppAsync(NSUserDefaults settings)
+		{
+			try
+			{
+
+				//Check is there any remote database updates and update local DB
+				Task<bool> isUpdated = Updater.Instance.UpdateDatabaseFromServer(LastSyncDate);
+
+				ShowControllerFromSoryBoard("Root");
+				Window.MakeKeyAndVisible();
+
+				if (await isUpdated) 
+				{
+					LastSyncDate = Updater.Instance.LastSyncDate;
+					//update last sync date
+					settings.SetString(LastSyncDate.ToString(), "lastSyncDate");
+				
+				} 
+				else
+				{
+					throw new Exception("Error during updating from database!");
+				}
+
+			}
+			catch (Exception)
+			{
+
+			}
+		}
+
+		private void ShowControllerFromSoryBoard(string controllerID)
+		{
+
+			var storyBoard = UIStoryboard.FromName("Main", null);
+			var viewController = storyBoard.InstantiateViewController(controllerID);
+
+			Window.RootViewController = viewController;
+
+		}
+
+		private async void InitAppAsync(NSUserDefaults settings)
+		{
+
+			try
+			{
+				Task<DateTime> lastSyncDateTask;
+
+				//Init the whole local DB
+				lastSyncDateTask = Manager.InitLocalDatabase();
+
+				//Show app initializing
+				ShowControllerFromSoryBoard("Init");
+				Window.MakeKeyAndVisible();
+				
+
+				//Initializing finished
+				LastSyncDate = await lastSyncDateTask;
+				Updater.Instance.LastSyncDate = LastSyncDate;
+
+				//update last sync date
+				settings.SetString(LastSyncDate.ToString(), "lastSyncDate");
+
+				//Set the root view controller
+				ShowControllerFromSoryBoard("Root");
+				
+			}
+			catch (Exception)
+			{
+
+			}
+
 		}
 
 		public override void OnResignActivation(UIApplication application)
@@ -66,24 +152,45 @@ namespace Floorball.iOS
 			// Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
 		}
 
-		/*SidebarController CreateSideMenuController(UIViewController actualViewController, UIViewController menuViewController)
+		public static AppDelegate SharedAppDelegate
 		{
-			var sidebarController = new SidebarController(this, actualViewController, menuViewController);
-
-			sidebarController.HasShadowing = true;
-			sidebarController.MenuWidth = 220;
-			sidebarController.MenuLocation = MenuLocations.Left;
-
-			return sidebarController;
-		}*/
-
-		public static AppDelegate SharedAppDelegate()
-		{
-
-			return UIApplication.SharedApplication.Delegate as AppDelegate;
-
+			get 
+			{
+				return UIApplication.SharedApplication.Delegate as AppDelegate;
+			}
 		}
 
+		private SortedSet<CountriesEnum> GetCountriesFromSettings(NSUserDefaults settings)
+		{
+			var countries = new SortedSet<CountriesEnum> ();
+
+			var possibleCountires = new List<string>() { "HU", "SW", "SE", "FL", "CZ"};
+
+
+			foreach (var c in possibleCountires)
+			{
+				if (settings.BoolForKey(c))
+				{
+					countries.Add(c.ToEnum<CountriesEnum>());
+				}
+			}
+
+
+			return countries;
+		}
+
+		private DateTime GetLastSyncDate(NSUserDefaults settings)
+		{
+			var lastSyncDate = settings.StringForKey("lastSyncDate");
+
+
+			if (lastSyncDate != "") 
+			{
+				return DateTime.Parse(lastSyncDate);
+			}
+
+			return new DateTime(2000,12,12);
+		}
 	}
 }
 

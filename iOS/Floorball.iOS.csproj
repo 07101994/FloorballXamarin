@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
@@ -138,11 +137,6 @@
     <Compile Include="Controller\ActualViewController.designer.cs">
       <DependentUpon>ActualViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controller\LeaguesViewController.cs" />
-    <Compile Include="Controller\LeaguesViewController.designer.cs">
-      <DependentUpon>LeaguesViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controller\TeamsViewController.cs" />
     <Compile Include="Controller\TeamsViewController.designer.cs">
       <DependentUpon>TeamsViewController.cs</DependentUpon>
     </Compile>
@@ -154,11 +148,91 @@
     <Compile Include="Controller\RefereesViewController.designer.cs">
       <DependentUpon>RefereesViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\YearsViewController.cs" />
+    <Compile Include="Controller\LeagueMatchesViewController.cs" />
+    <Compile Include="Controller\TeamsViewController.cs" />
+    <Compile Include="Controller\YearsViewController.designer.cs">
+      <DependentUpon>YearsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\LeaguesViewController.cs" />
+    <Compile Include="Controller\LeaguesViewController.designer.cs">
+      <DependentUpon>LeaguesViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\SexChooserViewController.cs" />
+    <Compile Include="Controller\LeagueViewController.cs" />
+    <Compile Include="Controller\SexChooserViewController.designer.cs">
+      <DependentUpon>SexChooserViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\LeagueViewController.designer.cs">
+      <DependentUpon>LeagueViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\TeamViewController.cs" />
+    <Compile Include="Controller\TeamViewController.designer.cs">
+      <DependentUpon>TeamViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\TeamPlayersViewController.cs" />
+    <Compile Include="Controller\TeamPlayersViewController.designer.cs">
+      <DependentUpon>TeamPlayersViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\TeamMatchesViewController.cs" />
+    <Compile Include="Controller\TeamMatchesViewController.designer.cs">
+      <DependentUpon>TeamMatchesViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\LeagueStatTableViewController.cs" />
+    <Compile Include="Controller\LeagueStatTableViewController.designer.cs">
+      <DependentUpon>LeagueStatTableViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\LeagueTableViewController.cs" />
+    <Compile Include="Controller\LeagueTableViewController.designer.cs">
+      <DependentUpon>LeagueTableViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\LeagueStatContainerViewController.cs" />
+    <Compile Include="Controller\LeagueStatContainerViewController.designer.cs">
+      <DependentUpon>LeagueStatContainerViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\LeagueTableContainerViewController.cs" />
+    <Compile Include="Controller\LeagueTableContainerViewController.designer.cs">
+      <DependentUpon>LeagueTableContainerViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\LeagueMatchesViewController.designer.cs">
+      <DependentUpon>LeagueMatchesViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\PlayersContainerViewController.cs" />
+    <Compile Include="Controller\PlayersContainerViewController.designer.cs">
+      <DependentUpon>PlayersContainerViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\PlayerViewController.cs" />
+    <Compile Include="Controller\PlayerViewController.designer.cs">
+      <DependentUpon>PlayerViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\RefereesContainerViewController.cs" />
+    <Compile Include="Controller\RefereesContainerViewController.designer.cs">
+      <DependentUpon>RefereesContainerViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\RefereeViewController.cs" />
+    <Compile Include="Controller\RefereeViewController.designer.cs">
+      <DependentUpon>RefereeViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\MatchViewController.cs" />
+    <Compile Include="Controller\MatchViewController.designer.cs">
+      <DependentUpon>MatchViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\MatchEventsViewController.cs" />
+    <Compile Include="Controller\MatchEventsViewController.designer.cs">
+      <DependentUpon>MatchEventsViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controller\" />
     <Folder Include="Resources\" />
     <Folder Include="Resources\Images.xcassets\Phx.imageset\" />
+    <Folder Include="Settings.bundle\en.lproj\" />
+    <Folder Include="Settings.bundle\hu.lproj\" />
+    <Folder Include="Resources\Images.xcassets\redcard.imageset\" />
+    <Folder Include="Resources\Images.xcassets\2minutes.imageset\" />
+    <Folder Include="Resources\Images.xcassets\5minutes.imageset\" />
+    <Folder Include="Resources\Images.xcassets\10minutes.imageset\" />
+    <Folder Include="Resources\Images.xcassets\goal.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -174,6 +248,24 @@
     <ImageAsset Include="Resources\Images.xcassets\Phx.imageset\phoenix.jpg">
       <InProject>false</InProject>
     </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\redcard.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\redcard.imageset\Soccer Yellow Card Filled-50.png" />
+    <ImageAsset Include="Resources\Images.xcassets\2minutes.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\5minutes.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\10minutes.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\goal.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\2minutes.imageset\2-50.png" />
+    <ImageAsset Include="Resources\Images.xcassets\5minutes.imageset\5-50.png" />
+    <ImageAsset Include="Resources\Images.xcassets\10minutes.imageset\10-50.png" />
+    <ImageAsset Include="Resources\Images.xcassets\goal.imageset\ball.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Settings.bundle\Root.plist" />
+    <BundleResource Include="Settings.bundle\Countries.plist" />
+    <BundleResource Include="Settings.bundle\en.lproj\Root.strings" />
+    <BundleResource Include="Settings.bundle\hu.lproj\Root.strings" />
+    <BundleResource Include="Settings.bundle\en.lproj\Countries.strings" />
+    <BundleResource Include="Settings.bundle\hu.lproj\Countries.strings" />
   </ItemGroup>
   <Import Project="..\Floorball\Floorball.projitems" Label="Shared" Condition="Exists('..\Floorball\Floorball.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
