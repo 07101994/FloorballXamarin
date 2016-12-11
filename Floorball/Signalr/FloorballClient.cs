@@ -67,7 +67,13 @@ namespace Floorball.Signalr
         private void HubConnectionStateChanged(StateChange connectionState)
         {
             OldConnectionState = connectionState.OldState;
-            ConnectionState = connectionState.NewState;    
+            ConnectionState = connectionState.NewState;   
+            
+            if (connectionState.NewState == ConnectionState.Disconnected)
+            {
+                var i = 0;
+            }
+             
         }
 
         private void HubConnectionError(Exception exception)

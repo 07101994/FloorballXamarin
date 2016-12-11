@@ -182,7 +182,9 @@ namespace Floorball.Droid.Fragments
             matchTile.FindViewById<TextView>(Resource.Id.homeTeamName).Text = homeTeam.Name;
             matchTile.FindViewById<TextView>(Resource.Id.awayTeamName).Text = awayTeam.Name;
             matchTile.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = actualMatch.GoalsH.ToString();
+            matchTile.FindViewById<TextView>(Resource.Id.homeTeamScore).Tag = homeTeam.Id+"score"+actualMatch.Id;
             matchTile.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = actualMatch.GoalsA.ToString();
+            matchTile.FindViewById<TextView>(Resource.Id.awayTeamScore).Tag = awayTeam.Id+"score"+actualMatch.Id;
 
             matchTile.Tag = actualMatch.Id;
             matchTile.Click += MatchTileClick;
@@ -260,7 +262,21 @@ namespace Floorball.Droid.Fragments
 
         private void NewEventAdded(int eventId)
         {
-            throw new NotImplementedException();
+
+            Event e = UoW.EventRepo.GetEventById(eventId);
+
+            if (e.Type == "G")
+            {
+                var textView = (Activity.FindViewById(Resource.Id.matchesList1).FindViewWithTag(e.TeamId.ToString() + "score"+e.MatchId.ToString()) as TextView);
+
+                short score = Convert.ToInt16(textView.Text);
+                score++;
+
+                Activity.RunOnUiThread(() => {
+                    textView.Text = score.ToString();
+                });
+            }
+
         }
 
         private void MatchTimeUpdated(int matchId)
@@ -269,8 +285,11 @@ namespace Floorball.Droid.Fragments
             Match m = UoW.MatchRepo.GetMatchById(matchId);
 
             string newTime = UIHelper.GetMatchTime(m.Time,m.State);
+            var textView = (Activity.FindViewById(Resource.Id.matchesList1).FindViewWithTag(matchId.ToString() + "time") as TextView);
 
-            (Activity.FindViewById(Resource.Id.matchesList1).FindViewWithTag(matchId.ToString() + "time") as TextView).Text = newTime;
+            Activity.RunOnUiThread(() => {
+                textView.Text = newTime;
+            });
 
         }
 
