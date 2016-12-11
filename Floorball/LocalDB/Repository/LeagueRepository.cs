@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Floorball.LocalDB.Repository
 {
@@ -103,6 +104,11 @@ namespace Floorball.LocalDB.Repository
             {
                 AddLeague(m.Id, m.Name, m.Year, m.type, m.ClassName, m.Rounds, m.Country, m.Sex);
             }
+        }
+
+        public async void AddLeaguesAsync(List<LeagueModel> model)
+        {
+            await Task.Run(() => AddLeagues(model));
         }
 
         #endregion

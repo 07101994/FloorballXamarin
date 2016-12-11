@@ -49,4 +49,8 @@
   <string name="errorDialogTitle">Hiba történt</string>
   <string name="errorDialogButton">Ok</string>
 
+  <string name="initDownload">Adatok letöltése folyamatban...</string>
+  <string name="initDismiss">Sikeres inicializálás!</string>
+  <string name="initPrepare">Adatok előkészítése folyamatban...</string>
+  
 </resources>

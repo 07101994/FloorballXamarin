@@ -26,7 +26,6 @@ namespace Floorball
 
         public StadiumRepository StadiumRepo { get; set; }
 
-
         public UnitOfWork()
         {
             TeamRepo = new TeamRepository();

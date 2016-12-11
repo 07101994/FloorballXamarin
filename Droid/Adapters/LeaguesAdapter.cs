@@ -45,7 +45,7 @@ namespace Floorball.Droid.Adapters
             }
             else
             {
-                convertView.FindViewById<ImageView>(Resource.Id.countryFlag).SetImageDrawable(Context.GetDrawable(resourceId));
+                convertView.FindViewById<ImageView>(Resource.Id.countryFlag).SetImageDrawable(Context.Resources.GetDrawable(resourceId));
             }
 
             return convertView;

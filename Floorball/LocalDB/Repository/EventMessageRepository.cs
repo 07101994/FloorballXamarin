@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Floorball.LocalDB.Repository
 {
@@ -61,6 +62,12 @@ namespace Floorball.LocalDB.Repository
             {
                 AddEventMessage(m.Id, m.Code, m.Message);
             }
+        }
+
+        public async void AddEventMessagesAsync(List<EventMessageModel> model)
+        {
+            await Task.Run(() => AddEventMessages(model));
+
         }
 
         #endregion

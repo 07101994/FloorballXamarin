@@ -64,13 +64,15 @@ namespace Floorball.Droid.Fragments
 
             MainActivity activity = Activity as MainActivity;
 
+            IEnumerable<Match> SoonMatches = activity.ActualMatches.Where(m => m.State != StateEnum.Playing);
+
             int i = 0;
 
 
-            while (i < activity.ActualMatches.Count())
+            while (i < SoonMatches.Count())
             {
 
-                Match actualMatch = activity.ActualMatches.ElementAt(i);
+                Match actualMatch = SoonMatches.ElementAt(i);
                 League actualLeague = activity.Leagues.ToList().Find(l => l.Id == actualMatch.LeagueId);
 
                 //Create league name and country flag
@@ -79,12 +81,12 @@ namespace Floorball.Droid.Fragments
                 int j = i;
 
                 //While int the same league
-                while (j < activity.ActualMatches.Count() && activity.ActualMatches.ElementAt(j).LeagueId == actualMatch.LeagueId)
+                while (j < SoonMatches.Count() && SoonMatches.ElementAt(j).LeagueId == actualMatch.LeagueId)
                 {
 
-                    CreateMatchTile(activity.ActualMatches.ElementAt(j), container);
+                    CreateMatchTile(SoonMatches.ElementAt(j), container);
 
-                    actualMatch = activity.ActualMatches.ElementAt(j);
+                    actualMatch = SoonMatches.ElementAt(j);
 
                     j++;
                 }
@@ -110,11 +112,12 @@ namespace Floorball.Droid.Fragments
 
             int i = 0;
 
+            IEnumerable<Match> LiveMatches = activity.ActualMatches.Where(m => m.State == StateEnum.Playing);
 
-            while (i < activity.ActualMatches.Count())
+            while (i < LiveMatches.Count())
             {
 
-                Match actualMatch = activity.ActualMatches.ElementAt(i);
+                Match actualMatch = LiveMatches.ElementAt(i);
                 League actualLeague = activity.Leagues.ToList().Find(l => l.Id == actualMatch.LeagueId);
 
                 //Create league name and country flag
@@ -123,12 +126,12 @@ namespace Floorball.Droid.Fragments
                 int j = i;
 
                 //While int the same league
-                while (j < activity.ActualMatches.Count() && activity.ActualMatches.ElementAt(j).LeagueId ==  actualMatch.LeagueId)
+                while (j < LiveMatches.Count() && LiveMatches.ElementAt(j).LeagueId ==  actualMatch.LeagueId)
                 {
 
-                    CreateMatchTile(activity.ActualMatches.ElementAt(j), container);
+                    CreateMatchTile(LiveMatches.ElementAt(j), container);
 
-                    actualMatch = activity.ActualMatches.ElementAt(j);
+                    actualMatch = LiveMatches.ElementAt(j);
 
                     j++;
                 }
@@ -143,19 +146,22 @@ namespace Floorball.Droid.Fragments
             }
 
             //Connect to siqnalr server
-            if (activity.ActualMatches.Where(m => m.State == StateEnum.Playing).Count() > 0 && FloorballClient.Instance.ConnectionState == ConnectionState.Disconnected)
+            if (LiveMatches.Count() > 0 && FloorballClient.Instance.ConnectionState == ConnectionState.Disconnected)
             {
                 try
                 {
+                    activity.FindViewById<ProgressBar>(Resource.Id.progressbar).Visibility = ViewStates.Visible;
                     activity.FindViewById<TextView>(Resource.Id.notification).Text = "Csatlakozás szerverhez..";
                     activity.FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Visible;
                     await FloorballClient.Instance.Connect(activity.Countries);
                     activity.FindViewById<TextView>(Resource.Id.notification).Text = "Csatlakozva";
+                    activity.FindViewById<ProgressBar>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
                     await Task.Delay(3000);
                     activity.FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Gone;
                 }
                 catch (Exception)
                 {
+                    activity.FindViewById<ProgressBar>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
                     activity.FindViewById<TextView>(Resource.Id.notification).Text = "Nem sikerült csatlakozni";
                 }
             }
@@ -171,7 +177,7 @@ namespace Floorball.Droid.Fragments
             CardView matchTile = activity.LayoutInflater.Inflate(Resource.Layout.ActualTile, container, false) as CardView;
 
             matchTile.FindViewById<TextView>(Resource.Id.actualDate).Text = actualMatch.Date.ToString();
-            matchTile.FindViewById<TextView>(Resource.Id.time).Text = GetMatchTime(actualMatch.Time, actualMatch.State);
+            matchTile.FindViewById<TextView>(Resource.Id.time).Text = UIHelper.GetMatchTime(actualMatch.Time, actualMatch.State);
             matchTile.FindViewById<TextView>(Resource.Id.time).Tag = actualMatch.Id + "time";
             matchTile.FindViewById<TextView>(Resource.Id.homeTeamName).Text = homeTeam.Name;
             matchTile.FindViewById<TextView>(Resource.Id.awayTeamName).Text = awayTeam.Name;
@@ -199,8 +205,8 @@ namespace Floorball.Droid.Fragments
 
         private void MakeAnimation(View view)
         {
-            int colorFrom = Context.GetColor(Resource.Color.green);
-            int colotTo = Context.GetColor(Resource.Color.red);
+            int colorFrom = Resources.GetColor(Resource.Color.green);
+            int colotTo = Resources.GetColor(Resource.Color.red);
             ValueAnimator colorAnimation = ValueAnimator.OfObject(new ArgbEvaluator(), colorFrom, colotTo);
             colorAnimation.SetDuration(1000);
             colorAnimation.RepeatCount = ValueAnimator.Infinite;
@@ -210,55 +216,6 @@ namespace Floorball.Droid.Fragments
                 view.SetBackgroundColor(new Android.Graphics.Color(Convert.ToInt32(colorAnimation.AnimatedValue)));
             };
             colorAnimation.Start();
-        }
-
-        private string GetMatchTime(TimeSpan time, StateEnum state)
-        {
-            if (state == StateEnum.Ended || state == StateEnum.Playing)
-            {
-                if (time.Hours == 1)
-                {
-                    return "3.\n60:00";
-                }
-
-                return GetPeriod(time)+".\n"+GetTimeInPeriod(time);
-            }
-
-            return "";
-        }
-
-        private string GetTimeInPeriod(TimeSpan time)
-        {
-            string str = "";
-
-            int minutes = time.Minutes % 20;
-            if (minutes < 10)
-            {
-                str += "0" + minutes;
-            }
-            else
-            {
-                str += minutes;
-            }
-
-            str += ":";
-
-            int seconds = time.Seconds;
-            if (seconds < 10)
-            {
-                str += "0" + seconds;
-            }
-            else
-            {
-                str += seconds;
-            }
-
-            return str;
-        }
-
-        private string GetPeriod(TimeSpan time)
-        {
-            return (time.Minutes / 20 + 1).ToString();
         }
 
         private void CreateLeagueNameAndFlag(Match actualMatch, League actualLeague, ViewGroup container)
@@ -277,7 +234,7 @@ namespace Floorball.Droid.Fragments
             }
             else
             {
-                leagueNameView.FindViewById<ImageView>(Resource.Id.countryFlag).SetImageDrawable(Context.GetDrawable(resourceId));
+                leagueNameView.FindViewById<ImageView>(Resource.Id.countryFlag).SetImageDrawable(Resources.GetDrawable(resourceId));
             }
 
             leagueNameView.FindViewById<TextView>(Resource.Id.leagueName).Text = actualLeague.Name + " " + actualMatch.Round + ". forduló";
@@ -311,7 +268,7 @@ namespace Floorball.Droid.Fragments
 
             Match m = UoW.MatchRepo.GetMatchById(matchId);
 
-            string newTime = GetMatchTime(m.Time,m.State);
+            string newTime = UIHelper.GetMatchTime(m.Time,m.State);
 
             (Activity.FindViewById(Resource.Id.matchesList1).FindViewWithTag(matchId.ToString() + "time") as TextView).Text = newTime;
 

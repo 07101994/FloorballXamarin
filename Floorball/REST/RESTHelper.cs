@@ -14,7 +14,8 @@ namespace Floorball.REST
     class RESTHelper
     {
         private static JsonDeserializer deserial = new JsonDeserializer();
-        private static string ServerURL = "http://192.168.0.20:8080";
+        private static string ServerURL = "https://floorball.azurewebsites.net";
+        //private static string ServerURL = "http://192.168.0.20:8080";
         //private static string ServerURL = "http://192.168.173.1:8088";
         //private static string ServerURL = "http://192.168.173.1:8088";
 

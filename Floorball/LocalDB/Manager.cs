@@ -93,8 +93,14 @@ namespace Floorball.LocalDB
 
         }
 
+        private async static Task CreateDatabaseAsync()
+        {
+            await Task.Run(() => CreateDatabase());
+        }
+
         public static async Task<DateTime> InitLocalDatabase()
         {
+            //await CreateDatabaseAsync();
             CreateDatabase();
             await InitDatabaseFromServerAsync();
             return DateTime.Now;
@@ -145,20 +151,44 @@ namespace Floorball.LocalDB
 
             await Task.WhenAll(tasks);
 
+            Database db = new Database {
+                EventMessages = eventMessagesTask.Result,
+                Leagues = leaguesTask.Result,
+                Referees = refereesTask.Result,
+                Players = playersTask.Result,
+                Stadiums = stadiumsTask.Result,
+                Teams = teamsTask.Result,
+                Matches = matchesTask.Result,
+                PlayersAndTeams = playersAndTeamsTask.Result,
+                PlayersAndMatches = playersAndMatchesTask.Result,
+                RefereesAndMatches = refereesAndMatchesTask.Result,
+                Events = eventsTask.Result
+            };
+
+            await AddTablesAsync(db);
+
+        }
+
+        private async static Task AddTablesAsync(Database db)
+        {
+            await Task.Run(() => AddTables(db));
+        }
+
+        private static void AddTables(Database db)
+        {
             UnitOfWork UoW = new UnitOfWork();
 
-            UoW.EventMessageRepo.AddEventMessages(eventMessagesTask.Result);
-            UoW.LeagueRepo.AddLeagues(leaguesTask.Result);
-            UoW.RefereeRepo.AddReferees(refereesTask.Result);
-            UoW.PlayerRepo.AddPlayers(playersTask.Result);
-            UoW.StadiumRepo.AddStadiums(stadiumsTask.Result);
-            UoW.TeamRepo.AddTeams(teamsTask.Result);
-            UoW.MatchRepo.AddMatches(matchesTask.Result);
-            UoW.PlayerRepo.AddPlayersAndTeams(playersAndTeamsTask.Result);
-            UoW.PlayerRepo.AddPlayersAndMatches(playersAndMatchesTask.Result);
-            UoW.RefereeRepo.AddRefereesAndMatches(refereesAndMatchesTask.Result);
-            UoW.EventRepo.AddEvents(eventsTask.Result);
-
+            UoW.EventMessageRepo.AddEventMessages(db.EventMessages);
+            UoW.LeagueRepo.AddLeagues(db.Leagues);
+            UoW.RefereeRepo.AddReferees(db.Referees);
+            UoW.PlayerRepo.AddPlayers(db.Players);
+            UoW.StadiumRepo.AddStadiums(db.Stadiums);
+            UoW.TeamRepo.AddTeams(db.Teams);
+            UoW.MatchRepo.AddMatches(db.Matches);
+            UoW.PlayerRepo.AddPlayersAndTeams(db.PlayersAndTeams);
+            UoW.PlayerRepo.AddPlayersAndMatches(db.PlayersAndMatches);
+            UoW.RefereeRepo.AddRefereesAndMatches(db.RefereesAndMatches);
+            UoW.EventRepo.AddEvents(db.Events);
         }
 
         #region GET

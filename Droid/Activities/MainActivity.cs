@@ -64,8 +64,8 @@ namespace Floorball.Droid
 			base.OnCreate (savedInstanceState);
 
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
-            string lastSyncDate = prefs.GetString("LastSyncDate", null);
-            //lastSyncDate = null;
+            DateTime lastSyncDate = DateTime.Parse(prefs.GetString("LastSyncDate", "1900-12-12"));
+            //lastSyncDate = new DateTime(1900,12,12);
 
             //Init country from preference
             Countries = GetCountriesFromSharedPreference(prefs);
@@ -79,33 +79,41 @@ namespace Floorball.Droid
             //Initialize the drawerlayout
             InitDrawerlayout();
 
-            //Change to first (actual fragment)
-            ChangeFragments(0);
-
             try
             {
-                Task<string> lastSyncDateTask;
+                Task<DateTime> lastSyncDateTask;
 
                 if (IsFirstLaunch(lastSyncDate))
                 {
                     //Init the whole local DB
                     lastSyncDateTask = Manager.InitLocalDatabase();
-
+                    
                     //Show app initializing
-                    ShowInitializing();
+                    var dialog = ShowInitializing(Resources.GetString(Resource.String.initDownload));
 
                     //Initializing finished
                     lastSyncDate = await lastSyncDateTask;
-                    Updater.Instance.LastSyncDate = DateTime.Parse(lastSyncDate);
+                    Updater.Instance.LastSyncDate = lastSyncDate;
+
+                    //change init text
+                    //ChangeText(dialog, Resources.GetString(Resource.String.initPrepare));
 
                     //Initialize properties
                     InitProperties();
 
+                    //dismiss app initializing
+                    DismisInitializing(dialog);
+
+                    //Change to first (actual fragment)
+                    ChangeFragments(0);
                 }
                 else
                 {
+                    //Change to first (actual fragment)
+                    ChangeFragments(0);
+
                     //Check is there any remote database updates and update local DB
-                    Task<bool> isUpdated = Updater.Instance.UpdateDatabaseFromServer(DateTime.Parse(lastSyncDate));
+                    Task<bool> isUpdated = Updater.Instance.UpdateDatabaseFromServer(lastSyncDate);
 
                     //Initialize properties from database
                     InitProperties();
@@ -115,7 +123,7 @@ namespace Floorball.Droid
 
                     if (await isUpdated)
                     {
-                        lastSyncDate = Updater.Instance.LastSyncDate.ToString();
+                        lastSyncDate = Updater.Instance.LastSyncDate;
                         FindViewById<TextView>(Resource.Id.notification).Text = "Frissítve";
                         await Task.Delay(3000);
                         FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Gone;
@@ -154,9 +162,9 @@ namespace Floorball.Droid
 
         
 
-        private bool IsFirstLaunch(string lastSyncDate)
+        private bool IsFirstLaunch(DateTime lastSyncDate)
         {
-            return lastSyncDate == null;
+            return lastSyncDate.CompareTo(new DateTime(1900,12,12)) == 0;
         }
 
         private void NavigationDrawerItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)

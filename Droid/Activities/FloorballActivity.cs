@@ -10,6 +10,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.App;
 using Android.App;
+using Floorball.Droid.Fragments;
 
 namespace Floorball.Droid.Activities
 {
@@ -27,12 +28,29 @@ namespace Floorball.Droid.Activities
 
         public void OnClick(IDialogInterface dialog, int which)
         {
-            throw new NotImplementedException();
+            FinishAffinity();
         }
 
-        protected void ShowInitializing()
+        protected ProgressDialog ShowInitializing(string initText){
+            //Android.Support.V4.App.DialogFragment initDialog = AppInitFragment.Instance();
+            //initDialog.Show(SupportFragmentManager,"initdialog");
+
+            ProgressDialog initDialog = new ProgressDialog(this);
+            initDialog.SetMessage(initText);
+            initDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+            initDialog.Show();
+
+            return initDialog;
+        }
+
+        protected void ChangeText(ProgressDialog dialog, string message)
         {
-            throw new NotImplementedException();
+            dialog.SetMessage(message);
+        }
+
+        protected void DismisInitializing(ProgressDialog dialog)
+        {
+            dialog.Dismiss();
         }
 
         protected void ShowUpdating()
@@ -50,6 +68,7 @@ namespace Floorball.Droid.Activities
             builder.SetNeutralButton(Resource.String.errorDialogButton, this);
 
             Android.Support.V7.App.AlertDialog dialog = builder.Create();
+            dialog.Show();
         }
 
         protected virtual void InitToolbar()
@@ -64,10 +83,10 @@ namespace Floorball.Droid.Activities
             FindViewById<TextView>(Resource.Id.toolbarTitle).Text = "Floorball";
         }
 
-        protected void SaveSyncDate(ISharedPreferences prefs, string lastSyncDate)
+        protected void SaveSyncDate(ISharedPreferences prefs, DateTime lastSyncDate)
         {
             ISharedPreferencesEditor editor = prefs.Edit();
-            editor.PutString("LastSyncDate", DateTime.Now.ToString());
+            editor.PutString("LastSyncDate", lastSyncDate.ToString());
             editor.Apply();
         }
 

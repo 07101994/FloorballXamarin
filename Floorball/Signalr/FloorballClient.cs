@@ -13,7 +13,8 @@ namespace Floorball.Signalr
     public class FloorballClient
     {
 
-        private static string connectionString = "http://192.168.0.20:8080/";
+        private static string connectionString = "https://floorball.azurewebsites.net";
+        //private static string connectionString = "http://192.168.0.20:8080/";
 
         public ConnectionState ConnectionState { get; set; }
         public ConnectionState OldConnectionState { get; set; }
