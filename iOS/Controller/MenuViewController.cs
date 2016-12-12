@@ -7,11 +7,7 @@ namespace Floorball.iOS
 	public partial class MenuViewController : UITableViewController
 	{
 
-		public RootViewController Root
-		{
-			get;
-			set;
-		}
+		public RootViewController Root { get; set; }
 
 
 		public MenuViewController() : base("MenuViewController", null)

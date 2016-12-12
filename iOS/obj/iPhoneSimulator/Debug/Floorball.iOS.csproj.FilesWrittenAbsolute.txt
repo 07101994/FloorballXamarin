@@ -22,3 +22,4 @@
 /Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/System.Net.Http.Extensions.dll
 /Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/System.Net.Http.Primitives.dll
 /Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/Xamarin-Sidebar-Unified.dll
+/Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/BTProgressHUD.dll

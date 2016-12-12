@@ -11,8 +11,8 @@ using UIKit;
 
 namespace Floorball.iOS
 {
-    [Register ("RootViewController")]
-    partial class RootViewController
+    [Register ("InitViewController")]
+    partial class InitViewController
     {
         void ReleaseDesignerOutlets ()
         {

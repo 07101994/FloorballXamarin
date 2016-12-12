@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Floorball/UIHelper.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="FloorballXamarin Status">
     <Files>
       <File FileName="iOS/Controller/PlayersContainerViewController.cs" Line="42" Column="4" />
       <File FileName="iOS/Controller/PlayersViewController.cs" Line="58" Column="3" />
@@ -8,13 +8,19 @@
       <File FileName="iOS/Controller/RefereesContainerViewController.cs" Line="39" Column="45" />
       <File FileName="iOS/Controller/MatchViewController.cs" Line="87" Column="26" />
       <File FileName="iOS/Controller/MatchEventsViewController.cs" Line="63" Column="29" />
-      <File FileName="FloorballXamarin Status" />
-      <File FileName="iOS/Controller/ActualViewController.cs" Line="106" Column="66" />
+      <File FileName="iOS/Controller/ActualViewController.cs" Line="41" Column="9" />
       <File FileName="Floorball/LocalDB/Repository/TeamRepository.cs" Line="60" Column="4" />
-      <File FileName="Floorball/UIHelper.cs" Line="8" Column="4" />
+      <File FileName="Floorball/UIHelper.cs" Line="29" Column="5" />
+      <File FileName="iOS/Controller/RootViewController.cs" Line="66" Column="6" />
+      <File FileName="iOS/AppDelegate.cs" Line="22" Column="3" />
+      <File FileName="iOS/Controller/InitViewController.cs" Line="19" Column="6" />
+      <File FileName="iOS/Controller/MenuViewController.cs" Line="10" Column="46" />
+      <File FileName="iOS/Info.plist" />
+      <File FileName="iOS/Main.cs" Line="17" Column="1" />
+      <File FileName="FloorballXamarin Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.Floorball.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.C2F02235-5AFD-4068-9AFA-21507A93B532" />
+  <MonoDevelop.Ide.ItemProperties.Floorball.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.7F3FF5D9-3E41-43BD-9ED3-8CA2FDB6E5BC" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

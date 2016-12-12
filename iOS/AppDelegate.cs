@@ -32,18 +32,20 @@ namespace Floorball.iOS
 
 			//Get Last Sync Date
 			LastSyncDate = GetLastSyncDate(settings);
+			LastSyncDate = new DateTime(1900,12,12);
 
-			Window = new UIWindow(UIScreen.MainScreen.Bounds);
+			//Window = new UIWindow(UIScreen.MainScreen.Bounds);
+			//Window.MakeKeyAndVisible();
 
 			//Check first launch
-			if (LastSyncDate.CompareTo(new DateTime(2000, 12, 12)) == 0)
-			{
-				InitAppAsync(settings);
-			}
-			else
-			{
-				UpdateAppAsync(settings);
-			}
+			//if (LastSyncDate.CompareTo(new DateTime(1900, 12, 12)) == 0)
+			//{
+			//	InitAppAsync(settings);
+			//}
+			//else
+			//{
+			//	UpdateAppAsync(settings);
+			//}
 
 			return true;
 		}
@@ -56,8 +58,8 @@ namespace Floorball.iOS
 				//Check is there any remote database updates and update local DB
 				Task<bool> isUpdated = Updater.Instance.UpdateDatabaseFromServer(LastSyncDate);
 
-				ShowControllerFromSoryBoard("Root");
-				Window.MakeKeyAndVisible();
+				//ShowControllerFromSoryBoard("Root");
+				//Window.MakeKeyAndVisible();
 
 				if (await isUpdated) 
 				{
@@ -88,7 +90,7 @@ namespace Floorball.iOS
 
 		}
 
-		private async void InitAppAsync(NSUserDefaults settings)
+		public async void InitAppAsync(NSUserDefaults settings)
 		{
 
 			try
@@ -99,8 +101,8 @@ namespace Floorball.iOS
 				lastSyncDateTask = Manager.InitLocalDatabase();
 
 				//Show app initializing
-				ShowControllerFromSoryBoard("Init");
-				Window.MakeKeyAndVisible();
+				//ShowControllerFromSoryBoard("Init");
+				//Window.MakeKeyAndVisible();
 				
 
 				//Initializing finished
@@ -111,7 +113,8 @@ namespace Floorball.iOS
 				settings.SetString(LastSyncDate.ToString(), "lastSyncDate");
 
 				//Set the root view controller
-				ShowControllerFromSoryBoard("Root");
+				//ShowControllerFromSoryBoard("Root");
+				(Window.RootViewController as RootViewController).InitStopped();
 				
 			}
 			catch (Exception)
@@ -184,12 +187,12 @@ namespace Floorball.iOS
 			var lastSyncDate = settings.StringForKey("lastSyncDate");
 
 
-			if (lastSyncDate != "") 
+			if (lastSyncDate != null) 
 			{
 				return DateTime.Parse(lastSyncDate);
 			}
 
-			return new DateTime(2000,12,12);
+			return new DateTime(1900,12,12);
 		}
 	}
 }
