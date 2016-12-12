@@ -15,6 +15,11 @@ namespace Floorball.iOS
 		{
 		}
 
+		public TeamPlayersViewController(IntPtr handle) : base(handle)
+		{
+
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
@@ -39,7 +44,7 @@ namespace Floorball.iOS
 
 		public override UITableViewCell GetCell(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
-			var cell = tableView.DequeueReusableCell("PlayerCell", indexPath);
+			var cell = tableView.DequeueReusableCell("TeamPlayerCell", indexPath);
 
 			cell.TextLabel.Text = Players.ElementAt(indexPath.Row).Name;
 

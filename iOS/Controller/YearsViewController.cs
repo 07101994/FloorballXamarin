@@ -75,10 +75,10 @@ namespace Floorball.iOS
 		{
 			var year = Years.ElementAt(TableView.IndexPathForSelectedRow.Row);
 
-			if (segue.Identifier == "TeamsSeque" || segue.Identifier == "LeaguesSeque")
+			if (segue.Identifier == "TeamsSegue" || segue.Identifier == "LeaguesSegue")
 			{
 				var vc = segue.DestinationViewController as SexChooserViewController;
-				vc.Year = year;
+				vc.Date = year;
 			}
 		}
 

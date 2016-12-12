@@ -7,7 +7,7 @@ namespace Floorball.iOS
 	public partial class SexChooserViewController : UIViewController
 	{
 
-		public DateTime Year { get; set; }
+		public DateTime Date { get; set; }
 
 		public UIViewController Embedded { get; set; }
 
@@ -16,10 +16,17 @@ namespace Floorball.iOS
 		{
 		}
 
+		public SexChooserViewController(IntPtr handle) : base(handle)
+		{
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
+
+			Year.Text = Date.Year + "-" + Date.AddYears(1).Year;
+			
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -30,20 +37,21 @@ namespace Floorball.iOS
 
 		public override void PrepareForSegue(UIStoryboardSegue segue, Foundation.NSObject sender)
 		{
-			if (segue.Identifier == "TeamsSegue")
+			if (segue.Identifier == "TeamsSegue1")
 			{
 				var vc = segue.DestinationViewController as TeamsViewController;
-				vc.Teams = AppDelegate.SharedAppDelegate.UoW.TeamRepo.GetTeamsByYear(Year);
-				vc.ActualTeams = vc.Teams.Where(t => t.Sex == "ferfi");
+				vc.Teams = AppDelegate.SharedAppDelegate.UoW.TeamRepo.GetTeamsByYear(Date);
+				vc.ActualTeams = vc.Teams.Where(t => t.Sex == "férfi");
+				Embedded = vc;
 			} 
 			else
 			{
-				if (segue.Identifier == "LeaguesSeque")
+				if (segue.Identifier == "LeaguesSegue")
 				{
 					var vc = segue.DestinationViewController as LeaguesViewController;
-					vc.Leagues = AppDelegate.SharedAppDelegate.UoW.LeagueRepo.GetLeaguesByYear(Year);	
-					vc.ActualLeagues = vc.Leagues.Where(l => l.Sex == "ferfi");
-					
+					vc.Leagues = AppDelegate.SharedAppDelegate.UoW.LeagueRepo.GetLeaguesByYear(Date);	
+					vc.ActualLeagues = vc.Leagues.Where(l => l.Sex == "férfi");
+					Embedded = vc;
 				}
 			}
 		}
@@ -59,17 +67,15 @@ namespace Floorball.iOS
 
 					if (sender.SelectedSegment == 0)
 					{
-						teamsVC.ActualTeams = teamsVC.Teams.Where(t => t.Sex == "ferfi");
+						teamsVC.Update("férfi");
 					}
 					else
 					{
 						if (sender.SelectedSegment == 1)
 						{
-							teamsVC.ActualTeams = teamsVC.Teams.Where(t => t.Sex == "noi");
+							teamsVC.Update("noi");
 						}
 					}
-				
-					teamsVC.TableView.ReloadData();
 
 					break;
 
@@ -80,7 +86,7 @@ namespace Floorball.iOS
 
 					if (sender.SelectedSegment == 0)
 					{
-						leaguesVC.ActualLeagues = leaguesVC.Leagues.Where(l => l.Sex == "ferfi");
+						leaguesVC.ActualLeagues = leaguesVC.Leagues.Where(l => l.Sex == "férfi");
 					}
 					else
 					{

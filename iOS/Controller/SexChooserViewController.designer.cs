@@ -1,4 +1,4 @@
-﻿// WARNING
+// WARNING
 //
 // This file has been generated automatically by Xamarin Studio to store outlets and
 // actions made in the UI designer. If it is removed, they will be lost.
@@ -12,11 +12,18 @@ namespace Floorball.iOS
 	[Register ("SexChooserViewController")]
 	partial class SexChooserViewController
 	{
+		[Outlet]
+		UIKit.UILabel Year { get; set; }
+
 		[Action ("SexChanged:")]
 		partial void SexChanged (UIKit.UISegmentedControl sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (Year != null) {
+				Year.Dispose ();
+				Year = null;
+			}
 		}
 	}
 }

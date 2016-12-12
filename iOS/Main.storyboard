@@ -254,7 +254,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Soon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1195" tag="200">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Soon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1195">
                                             <rect key="frame" x="7" y="0.0" width="357" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="26"/>
@@ -270,7 +270,7 @@
                             <outlet property="delegate" destination="85" id="89"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="86" title="Actual">
+                    <navigationItem key="navigationItem" title="Actual" id="86">
                         <barButtonItem key="leftBarButtonItem" title="Menu" id="209">
                             <connections>
                                 <action selector="MenuPressed:" destination="85" id="249"/>
@@ -282,7 +282,7 @@
             </objects>
             <point key="canvasLocation" x="160" y="-826"/>
         </scene>
-        <!--Years-->
+        <!--Leagues-->
         <scene sceneID="pQG-kF-MRr">
             <objects>
                 <tableViewController id="jNw-NG-qGG" customClass="YearsViewController" sceneMemberID="viewController">
@@ -308,7 +308,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="ACx-6z-oFR" kind="push" id="zVu-Ed-IDJ"/>
+                                    <segue destination="ACx-6z-oFR" kind="push" identifier="LeaguesSegue" id="zVu-Ed-IDJ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -317,7 +317,7 @@
                             <outlet property="delegate" destination="jNw-NG-qGG" id="mMF-eH-Ibu"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="yh9-yI-I9H" title="Leagues">
+                    <navigationItem key="navigationItem" title="Leagues" id="yh9-yI-I9H">
                         <barButtonItem key="leftBarButtonItem" title="Menu" id="505">
                             <connections>
                                 <action selector="MenuPressed:" destination="jNw-NG-qGG" id="1317"/>
@@ -342,11 +342,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WBm-BW-WCU">
-                                <rect key="frame" x="0.0" y="-1187" width="0.0" height="545"/>
+                                <rect key="frame" x="0.0" y="-1748" width="0.0" height="545"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="343" kind="embed" id="NKY-8J-fnn"/>
-                                </connections>
                             </containerView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3Sz-AF-rke">
                                 <rect key="frame" x="0.0" y="93" width="375" height="29"/>
@@ -360,23 +357,33 @@
                                     <action selector="SexChanged:" destination="ACx-6z-oFR" eventType="valueChanged" id="Jpi-Ws-b4V"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="375">
-                                <rect key="frame" x="166" y="64" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="375">
+                                <rect key="frame" x="0.0" y="64" width="370" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1425">
+                                <rect key="frame" x="0.0" y="120" width="375" height="553"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="343" kind="embed" identifier="LeaguesSegue" id="BVS-qr-iCG"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Leagues" id="fjh-fI-Lli"/>
+                    <connections>
+                        <outlet property="Year" destination="375" id="tCD-vJ-ddA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pgo-EN-xO6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="793.5" y="249.5"/>
         </scene>
-        <!--Years-->
+        <!--Teams-->
         <scene sceneID="CLx-bS-Tvq">
             <objects>
                 <tableViewController id="3Fd-W2-gsv" customClass="YearsViewController" sceneMemberID="viewController">
@@ -402,7 +409,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="338" kind="push" identifier="TeamsSeque" id="CHc-m8-aRe"/>
+                                    <segue destination="338" kind="push" identifier="TeamsSegue" id="CHc-m8-aRe"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -411,7 +418,7 @@
                             <outlet property="delegate" destination="3Fd-W2-gsv" id="bla-yA-VAb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="J9E-7o-ejd" title="Teams">
+                    <navigationItem key="navigationItem" title="Teams" id="J9E-7o-ejd">
                         <barButtonItem key="leftBarButtonItem" title="Menu" id="506">
                             <connections>
                                 <action selector="MenuPressed:" destination="3Fd-W2-gsv" id="1379"/>
@@ -601,7 +608,7 @@
         <!--Referee View Controller-->
         <scene sceneID="hUZ-cS-7xh">
             <objects>
-                <tableViewController id="mlw-nd-kgn" customClass="RefereeViewController" sceneMemberID="viewController" storyboardIdentifier="RefereeViewController">
+                <tableViewController storyboardIdentifier="RefereeViewController" id="mlw-nd-kgn" customClass="RefereeViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="vUr-Ai-noc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -621,7 +628,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="M" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1028" tag="200">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="M" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1028">
                                             <rect key="frame" x="121" y="0.0" width="42" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -743,19 +750,19 @@
             <objects>
                 <tableViewController storyboardIdentifier="Teams" id="327" customClass="TeamsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="328">
-                        <rect key="frame" x="0.0" y="0.0" width="210" height="539"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="540"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TeamCell" textLabel="543" rowHeight="44" style="IBUITableViewCellStyleDefault" id="331">
-                                <rect key="frame" x="0.0" y="28" width="210" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="331" id="332">
-                                    <rect key="frame" x="0.0" y="0.0" width="176" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="543">
-                                            <rect key="frame" x="16" y="0.0" width="159" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -773,7 +780,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="333" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1306" y="1779"/>
+            <point key="canvasLocation" x="1336" y="1702"/>
         </scene>
         <!--Teams-->
         <scene sceneID="337">
@@ -788,11 +795,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xSi-x2-Qni">
-                                <rect key="frame" x="0.0" y="-427" width="210" height="539"/>
+                                <rect key="frame" x="0.0" y="-988" width="45" height="539"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="327" kind="embed" id="VMG-MA-X0T"/>
-                                </connections>
                             </containerView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3B9-wP-e08">
                                 <rect key="frame" x="0.0" y="97" width="375" height="29"/>
@@ -806,40 +810,50 @@
                                     <action selector="SexChanged:" destination="338" eventType="valueChanged" id="tel-z6-frl"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="376">
-                                <rect key="frame" x="160" y="68" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="376">
+                                <rect key="frame" x="-5" y="68" width="380" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vTx-KN-gbC">
+                                <rect key="frame" x="0.0" y="128" width="375" height="540"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="327" kind="embed" identifier="TeamsSegue1" id="xLe-0B-dZK"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Teams" id="OI9-pz-z8u"/>
+                    <connections>
+                        <outlet property="Year" destination="376" id="lF5-vI-QgR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="340" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="813" y="1654"/>
+            <point key="canvasLocation" x="792.5" y="1653.5"/>
         </scene>
         <!--Leagues View Controller-->
         <scene sceneID="342">
             <objects>
                 <tableViewController id="343" customClass="LeaguesViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="344">
-                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="545"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="553"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LeagueCell" textLabel="542" rowHeight="44" style="IBUITableViewCellStyleDefault" id="347">
-                                <rect key="frame" x="0.0" y="28" width="0.0" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="347" id="348">
-                                    <rect key="frame" x="-26" y="0.0" width="26" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="542">
-                                            <rect key="frame" x="-61" y="0.0" width="76" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -857,7 +871,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="349" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1294" y="373"/>
+            <point key="canvasLocation" x="1298" y="248"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="402">
@@ -920,7 +934,7 @@
         <!--Team View Controller-->
         <scene sceneID="409">
             <objects>
-                <viewController id="410" customClass="TeamViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TeamViewController" id="410" customClass="TeamViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="407"/>
                         <viewControllerLayoutGuide type="bottom" id="408"/>
@@ -936,7 +950,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="441">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="441" image="Phx">
                                 <rect key="frame" x="0.0" y="130" width="139" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -968,7 +982,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="448">
+                            <segmentedControl opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="448">
                                 <rect key="frame" x="0.0" y="278" width="368" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
@@ -983,14 +997,14 @@
                                 <rect key="frame" x="0.0" y="315" width="375" height="352"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="FDz-7D-OUZ" kind="embed" identifier="PlayersSegue" id="aDT-QU-R6f"/>
+                                    <segue destination="FDz-7D-OUZ" kind="embed" identifier="TeamPlayersSegue" id="aDT-QU-R6f"/>
                                 </connections>
                             </containerView>
                             <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="462">
                                 <rect key="frame" x="0.0" y="315" width="375" height="352"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="785" kind="embed" id="7cp-zj-x8b"/>
+                                    <segue destination="785" kind="embed" identifier="TeamMatchesSegue" id="7cp-zj-x8b"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -998,6 +1012,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="RbD-f3-KwD"/>
                     <connections>
+                        <outlet property="CoachName" destination="443" id="jZb-AC-7xd"/>
                         <outlet property="MatchesContainer" destination="462" id="Rch-qq-AtH"/>
                         <outlet property="PlayersContainer" destination="453" id="tA8-kg-ZCr"/>
                         <outlet property="StadiumName" destination="445" id="JMp-PH-A2a"/>
@@ -1009,16 +1024,16 @@
             </objects>
             <point key="canvasLocation" x="1803" y="1650"/>
         </scene>
-        <!--Players View Controller-->
+        <!--Team Players View Controller-->
         <scene sceneID="cO7-7d-B1f">
             <objects>
-                <tableViewController id="FDz-7D-OUZ" customClass="PlayersViewController" sceneMemberID="viewController">
+                <tableViewController id="FDz-7D-OUZ" customClass="TeamPlayersViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cic-zg-FIh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="352"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlayerCell" textLabel="579" rowHeight="44" style="IBUITableViewCellStyleDefault" id="OtN-fC-lUm">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TeamPlayerCell" textLabel="579" rowHeight="44" style="IBUITableViewCellStyleDefault" id="OtN-fC-lUm">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OtN-fC-lUm" id="URA-d4-xJv">
@@ -1458,42 +1473,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LeagueMatchCell" rowHeight="85" id="789">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TeamMatchCell" rowHeight="85" id="789">
                                 <rect key="frame" x="0.0" y="28" width="375" height="85"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="789" id="790">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="84.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="791">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="791">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HomeTeam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="792">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="201" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HomeTeam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="792">
                                             <rect key="frame" x="20" y="32" width="257" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AwayTeam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="793">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="203" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AwayTeam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="793">
                                             <rect key="frame" x="20" y="56" width="257" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="H" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="794">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="202" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="H" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="794">
                                             <rect key="frame" x="285" y="32" width="42" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="795">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="204" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="795">
                                             <rect key="frame" x="285" y="56" width="32" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1558,10 +1573,10 @@
             </objects>
             <point key="canvasLocation" x="142" y="3443"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Player View Controller-->
         <scene sceneID="942">
             <objects>
-                <tableViewController id="943" sceneMemberID="viewController" storyboardIdentifier="PlayerViewController" customClass="PlayerViewController">
+                <tableViewController storyboardIdentifier="PlayerViewController" id="943" customClass="PlayerViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="944">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1581,7 +1596,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="S" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="953" tag="200">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="S" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="953">
                                             <rect key="frame" x="115" y="2" width="42" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1684,7 +1699,7 @@
                                 <rect key="frame" x="0.0" y="91" width="375" height="576"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="193" kind="embed" id="o7A-Qf-dfn" identifier="referees"/>
+                                    <segue destination="193" kind="embed" identifier="referees" id="o7A-Qf-dfn"/>
                                 </connections>
                             </containerView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="983">

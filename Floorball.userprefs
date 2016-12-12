@@ -2,16 +2,22 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="FloorballXamarin Status">
     <Files>
       <File FileName="iOS/Controller/RefereesViewController.cs" Line="56" Column="1" />
-      <File FileName="iOS/Controller/RefereesContainerViewController.cs" Line="76" Column="28" />
+      <File FileName="iOS/Controller/RefereesContainerViewController.cs" Line="80" Column="6" />
+      <File FileName="iOS/Controller/LeaguesViewController.cs" Line="34" Column="57" />
+      <File FileName="iOS/Controller/YearsViewController.cs" Line="82" Column="1" />
+      <File FileName="iOS/Controller/SexChooserViewController.cs" Line="66" Column="1" />
+      <File FileName="iOS/Main.cs" Line="18" Column="5" />
+      <File FileName="iOS/Controller/TeamsViewController.cs" Line="76" Column="4" />
+      <File FileName="iOS/Controller/TeamViewController.cs" Line="80" Column="5" />
+      <File FileName="iOS/Controller/TeamPlayersViewController.cs" Line="37" Column="1" />
+      <File FileName="iOS/Controller/TeamMatchesViewController.cs" Line="46" Column="3" />
       <File FileName="FloorballXamarin Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.Floorball.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.7F3FF5D9-3E41-43BD-9ED3-8CA2FDB6E5BC" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/Main.cs" line="23" column="15" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

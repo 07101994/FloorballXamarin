@@ -45,6 +45,14 @@
       <LogicalName>Main.storyboardc/3Fd-W2-gsv-view-2lO-Qm-Tu1.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/410-view-411.nib">
+      <LogicalName>Main.storyboardc/410-view-411.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/785-view-786.nib">
+      <LogicalName>Main.storyboardc/785-view-786.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/841-view-842.nib">
       <LogicalName>Main.storyboardc/841-view-842.nib</LogicalName>
       <Optimize>false</Optimize>
@@ -75,6 +83,10 @@
     </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib">
       <LogicalName>Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/FDz-7D-OUZ-view-cic-zg-FIh.nib">
+      <LogicalName>Main.storyboardc/FDz-7D-OUZ-view-cic-zg-FIh.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/Info.plist">
@@ -113,6 +125,10 @@
       <LogicalName>Main.storyboardc/SideMenu.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/TeamViewController.nib">
+      <LogicalName>Main.storyboardc/TeamViewController.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/Teams.nib">
       <LogicalName>Main.storyboardc/Teams.nib</LogicalName>
       <Optimize>false</Optimize>
@@ -127,6 +143,14 @@
     </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/UITableViewController-343.nib">
       <LogicalName>Main.storyboardc/UITableViewController-343.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/UITableViewController-785.nib">
+      <LogicalName>Main.storyboardc/UITableViewController-785.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/UITableViewController-FDz-7D-OUZ.nib">
+      <LogicalName>Main.storyboardc/UITableViewController-FDz-7D-OUZ.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/UIViewController-1087.nib">

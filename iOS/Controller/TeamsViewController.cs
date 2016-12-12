@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using Floorball.LocalDB.Tables;
 using UIKit;
 
@@ -12,6 +13,8 @@ namespace Floorball.iOS
 		public IEnumerable<Team> Teams { get; set; }
 
 		public IEnumerable<Team> ActualTeams { get; set; }
+
+		public IEnumerable<League> Leagues { get; set; }
 
 		public List<List<Team>> TeamsByLeague { get; set; }
 
@@ -29,13 +32,14 @@ namespace Floorball.iOS
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
-
 			InitProperties();
-
+			TableView.TableFooterView = new UIView(CGRect.Empty);
+			
 		}
 
 		private void InitProperties()
 		{
+			TeamsByLeague = ActualTeams.GroupBy(t => t.LeagueId).Select(t => t.ToList()).ToList();
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -47,13 +51,12 @@ namespace Floorball.iOS
 
 		public override nint NumberOfSections(UITableView tableView)
 		{
-			TeamsByLeague = ActualTeams.GroupBy(t => t.LeagueId).Select(t => t.ToList()).ToList();
 			return TeamsByLeague.Count;
 		}
 
 		public override string TitleForHeader(UITableView tableView, nint section)
 		{
-			return TeamsByLeague.ElementAt(Convert.ToInt16(section)).First().Country.ToFriendlyString();
+			return AppDelegate.SharedAppDelegate.UoW.LeagueRepo.GetLeagueById(TeamsByLeague.ElementAt(Convert.ToInt16(section)).First().LeagueId).Name;
 		}
 
 		public override nint RowsInSection(UITableView tableView, nint section)
@@ -85,8 +88,14 @@ namespace Floorball.iOS
 
 			ParentViewController.NavigationController.PushViewController(vc, true);
 
+		}
 
+		public void Update(string sex)
+		{
 
+			ActualTeams = Teams.Where(t => t.Sex == sex);
+			InitProperties();
+			TableView.ReloadData();
 		}
 	}
 }
