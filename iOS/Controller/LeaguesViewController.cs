@@ -29,10 +29,16 @@ namespace Floorball.iOS
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
-			LeaguesByCountry = ActualLeagues.GroupBy(l => l.Country).Select(l => l.ToList()).ToList();
+			InitProperties();
+
 
 			TableView.TableFooterView = new UIView(CGRect.Empty);
 			
+		}
+
+		void InitProperties()
+		{
+			LeaguesByCountry = ActualLeagues.GroupBy(l => l.Country).Select(l => l.ToList()).ToList();
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -85,6 +91,13 @@ namespace Floorball.iOS
 
 		}
 
+		public void Update(string sex)
+		{
+			ActualLeagues = Leagues.Where(l => l.Sex == sex);
+			InitProperties();
+			TableView.ReloadData();
+
+		}
 	}
 }
 

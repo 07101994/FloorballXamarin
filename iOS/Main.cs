@@ -20,7 +20,7 @@ namespace Proba.iOS
 			}
 			catch (Exception ex)
 			{
-				int i = 0;
+				return;
 
 			}
 		}

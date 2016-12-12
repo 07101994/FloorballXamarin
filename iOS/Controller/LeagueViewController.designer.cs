@@ -1,21 +1,45 @@
 // WARNING
 //
-// This file has been generated automatically by Xamarin Studio from the outlets and
-// actions declared in your storyboard file.
-// Manual changes to this file will not be maintained.
+// This file has been generated automatically by Xamarin Studio to store outlets and
+// actions made in the UI designer. If it is removed, they will be lost.
+// Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using System;
 using System.CodeDom.Compiler;
-using UIKit;
 
 namespace Floorball.iOS
 {
-    [Register ("LeagueViewController")]
-    partial class LeagueViewController
-    {
-        void ReleaseDesignerOutlets ()
-        {
-        }
-    }
+	[Register ("LeagueViewController")]
+	partial class LeagueViewController
+	{
+		[Outlet]
+		UIKit.UIView MatchContainer { get; set; }
+
+		[Outlet]
+		UIKit.UIView StatContainer { get; set; }
+
+		[Outlet]
+		UIKit.UIView TableContainer { get; set; }
+
+		[Action ("SegmentChanged:")]
+		partial void SegmentChanged (UIKit.UISegmentedControl sender);
+		
+		void ReleaseDesignerOutlets ()
+		{
+			if (StatContainer != null) {
+				StatContainer.Dispose ();
+				StatContainer = null;
+			}
+
+			if (TableContainer != null) {
+				TableContainer.Dispose ();
+				TableContainer = null;
+			}
+
+			if (MatchContainer != null) {
+				MatchContainer.Dispose ();
+				MatchContainer = null;
+			}
+		}
+	}
 }

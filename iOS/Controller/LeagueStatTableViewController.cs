@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using Floorball.LocalDB.Tables;
 using UIKit;
 
@@ -18,10 +19,18 @@ namespace Floorball.iOS
 		{
 		}
 
+		public LeagueStatTableViewController(IntPtr handle) : base(handle)
+		{
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
+
+			TableView.TableFooterView = new UIView(CGRect.Empty);
+			
+
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -46,13 +55,13 @@ namespace Floorball.iOS
 
 			var actualStat = PlayerStatistics.ElementAt(indexPath.Row);
 
-			(cell.ViewWithTag(0) as UILabel).Text = (indexPath.Row + 1).ToString();
-			(cell.ViewWithTag(1) as UILabel).Text = Players.First(p => p.RegNum == actualStat.PlayerId).Name;
-			(cell.ViewWithTag(2) as UILabel).Text = Teams.First(t => t.Id == actualStat.TeamId).Name;
-			(cell.ViewWithTag(3) as UILabel).Text = actualStat.Goals.ToString();
-			(cell.ViewWithTag(4) as UILabel).Text = actualStat.Assists.ToString();
-			(cell.ViewWithTag(5) as UILabel).Text = actualStat.Points.ToString();
-			(cell.ViewWithTag(6) as UILabel).Text = actualStat.Penalties;
+			(cell.ViewWithTag(200) as UILabel).Text = (indexPath.Row + 1).ToString();
+			(cell.ViewWithTag(201) as UILabel).Text = Players.First(p => p.RegNum == actualStat.PlayerId).Name;
+			(cell.ViewWithTag(202) as UILabel).Text = Teams.First(t => t.Id == actualStat.TeamId).Name;
+			(cell.ViewWithTag(203) as UILabel).Text = actualStat.Goals.ToString();
+			(cell.ViewWithTag(204) as UILabel).Text = actualStat.Assists.ToString();
+			(cell.ViewWithTag(205) as UILabel).Text = actualStat.Points.ToString();
+			(cell.ViewWithTag(206) as UILabel).Text = actualStat.Penalties;
 
 			return cell;
 		}

@@ -27,10 +27,45 @@ namespace Floorball.iOS
 		{
 		}
 
+		public LeagueViewController(IntPtr handle) : base(handle)
+		{
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
+
+			MatchContainer.Hidden = false;
+			StatContainer.Hidden = true;
+			TableContainer.Hidden = true;
+
+		}
+
+		partial void SegmentChanged(UISegmentedControl sender)
+		{
+			if (sender.SelectedSegment == 0)
+			{
+				MatchContainer.Hidden = false;
+				StatContainer.Hidden = true;
+				TableContainer.Hidden = true;
+			}
+			else
+			{
+
+				if (sender.SelectedSegment == 1)
+				{
+					MatchContainer.Hidden = true;
+					StatContainer.Hidden = true;
+					TableContainer.Hidden = false;
+				}
+				else
+				{
+					MatchContainer.Hidden = true;
+					StatContainer.Hidden = false;
+					TableContainer.Hidden = true;
+				}
+			}
 		}
 
 		public override void DidReceiveMemoryWarning()

@@ -26,7 +26,7 @@ namespace Floorball.iOS
 			//check first launch
 			if (AppDelegate.SharedAppDelegate.LastSyncDate.CompareTo(new DateTime(1900, 12, 12)) == 0)
 			{
-				activeController = new InitViewController();
+				activeController = Storyboard.InstantiateViewController("InitViewController");
     		} 
 			else
 			{
@@ -34,7 +34,6 @@ namespace Floorball.iOS
 				(actualNavController.ViewControllers[0] as ActualViewController).Root = this;
 				activeController = actualNavController;;
 			}
-		
 
 			var menuNavController = Storyboard.InstantiateViewController("SideMenu") as UINavigationController;
 			(menuNavController.ViewControllers[0] as MenuViewController).Root = this;

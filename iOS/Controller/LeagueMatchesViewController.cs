@@ -17,6 +17,10 @@ namespace Floorball.iOS
 		{
 		}
 
+		public LeagueMatchesViewController(IntPtr handle) : base(handle)
+		{
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
@@ -46,17 +50,22 @@ namespace Floorball.iOS
 			return MatchesByRound.ElementAt(Convert.ToInt16(section)).Count();
 		}
 
+		public override nfloat GetHeightForRow(UITableView tableView, Foundation.NSIndexPath indexPath)
+		{
+			return 100;
+		}
+
 		public override UITableViewCell GetCell(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
 			var cell = tableView.DequeueReusableCell("LeagueMatchCell", indexPath);
 
 			var match = MatchesByRound.ElementAt(indexPath.Section).ElementAt(indexPath.Row);
 
-			(cell.ViewWithTag(0) as UILabel).Text = match.Date.ToString();
-			(cell.ViewWithTag(1) as UILabel).Text = Teams.First(t => t.Id == match.HomeTeamId).Name;
-			(cell.ViewWithTag(2) as UILabel).Text = match.GoalsH.ToString();
-			(cell.ViewWithTag(3) as UILabel).Text = Teams.First(t => t.Id == match.AwayTeamId).Name;
-			(cell.ViewWithTag(4) as UILabel).Text = match.GoalsA.ToString();
+			(cell.ViewWithTag(200) as UILabel).Text = match.Date.ToString();
+			(cell.ViewWithTag(201) as UILabel).Text = Teams.First(t => t.Id == match.HomeTeamId).Name;
+			(cell.ViewWithTag(202) as UILabel).Text = match.GoalsH.ToString();
+			(cell.ViewWithTag(203) as UILabel).Text = Teams.First(t => t.Id == match.AwayTeamId).Name;
+			(cell.ViewWithTag(204) as UILabel).Text = match.GoalsA.ToString();
 
 			return cell;
 		}

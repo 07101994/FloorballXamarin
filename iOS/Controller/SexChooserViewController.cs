@@ -50,7 +50,7 @@ namespace Floorball.iOS
 				{
 					var vc = segue.DestinationViewController as LeaguesViewController;
 					vc.Leagues = AppDelegate.SharedAppDelegate.UoW.LeagueRepo.GetLeaguesByYear(Date);	
-					vc.ActualLeagues = vc.Leagues.Where(l => l.Sex == "férfi");
+					vc.ActualLeagues = vc.Leagues.Where(l => l.Sex == "ferfi");
 					Embedded = vc;
 				}
 			}
@@ -86,17 +86,15 @@ namespace Floorball.iOS
 
 					if (sender.SelectedSegment == 0)
 					{
-						leaguesVC.ActualLeagues = leaguesVC.Leagues.Where(l => l.Sex == "férfi");
+						leaguesVC.Update("ferfi");
 					}
 					else
 					{
 						if (sender.SelectedSegment == 1)
 						{
-							leaguesVC.ActualLeagues = leaguesVC.Leagues.Where(l => l.Sex == "noi");
+							leaguesVC.Update("noi");
 						}
 					}
-
-					leaguesVC.TableView.ReloadData();
 
 					break;
 
