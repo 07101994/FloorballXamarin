@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using Floorball.LocalDB.Tables;
 using Floorball.Signalr;
 using UIKit;
@@ -46,6 +47,9 @@ namespace Floorball.iOS
 
 			//Connect to server
 			ConnectToServer();
+
+			TableView.TableFooterView = new UIView(CGRect.Empty);
+
 
 		}
 
@@ -117,6 +121,11 @@ namespace Floorball.iOS
 			return 2;
 		}
 
+		public override nfloat GetHeightForHeader(UITableView tableView, nint section)
+		{
+			return 40;
+		}
+
 		public override UIView GetViewForHeader(UITableView tableView, nint section)
 		{
 
@@ -124,14 +133,19 @@ namespace Floorball.iOS
 
 			if (section == 0)
 			{
-				(cell.ViewWithTag(0) as UILabel).Text = "Live";
+				(cell.ViewWithTag(200) as UILabel).Text = "Live";
 			} 
 			else
 			{
-				(cell.ViewWithTag(0) as UILabel).Text = "Soon";;
+				(cell.ViewWithTag(200) as UILabel).Text = "Soon";;
 			}
 
 			return cell;
+		}
+
+		public override nfloat GetHeightForRow(UITableView tableView, Foundation.NSIndexPath indexPath)
+		{
+			return 120;
 		}
 
 		public override nint RowsInSection(UITableView tableView, nint section)
@@ -146,7 +160,7 @@ namespace Floorball.iOS
 
 		public override UITableViewCell GetCell(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
-			var cell = tableView.DequeueReusableCell("LiveMatchCell", indexPath);
+			LiveMatchCell cell = tableView.DequeueReusableCell("LiveMatchCell", indexPath) as LiveMatchCell;
 
 			Match match;
 			Team homeTeam;
@@ -165,13 +179,21 @@ namespace Floorball.iOS
 				awayTeam = SoonTeams.First(t => t.Id == match.AwayTeamId);	
 			}
 
-			(cell.ViewWithTag(0) as UILabel).Text = match.Date.ToString();
-			(cell.ViewWithTag(2) as UILabel).LineBreakMode = UILineBreakMode.WordWrap;
-			(cell.ViewWithTag(2) as UILabel).Text = UIHelper.GetMatchTime(match.Time, match.State).Replace("\\n"," ");
-			(cell.ViewWithTag(3) as UILabel).Text = homeTeam.Name;
-			(cell.ViewWithTag(4) as UILabel).Text = match.GoalsH.ToString();
-			(cell.ViewWithTag(5) as UILabel).Text = awayTeam.Name;
-			(cell.ViewWithTag(6) as UILabel).Text = match.GoalsA.ToString();
+			cell.Date.Text = match.Date.ToString();
+			cell.Time.LineBreakMode = UILineBreakMode.WordWrap;
+			cell.Time.Text = UIHelper.GetMatchTime(match.Time, match.State).Replace("\\n", " ");
+			cell.HomeTeam.Text = homeTeam.Name;
+			cell.HomeScore.Text = match.GoalsH.ToString();
+			cell.AwayTeam.Text = awayTeam.Name;
+			cell.AwayScore.Text = match.GoalsA.ToString();
+
+			//(cell.ContentView.ViewWithTag(0) as UILabel).Text = match.Date.ToString();
+			//(cell.ContentView.ViewWithTag(2) as UILabel).LineBreakMode = UILineBreakMode.WordWrap;
+			//(cell.ContentView.ViewWithTag(2) as UILabel).Text = UIHelper.GetMatchTime(match.Time, match.State).Replace("\\n"," ");
+			//(cell.ContentView.ViewWithTag(3) as UILabel).Text = homeTeam.Name;
+			//(cell.ContentView.ViewWithTag(4) as UILabel).Text = match.GoalsH.ToString();
+			//(cell.ContentView.ViewWithTag(5) as UILabel).Text = awayTeam.Name;
+			//(cell.ContentView.ViewWithTag(6) as UILabel).Text = match.GoalsA.ToString();
 
 
 			return cell;

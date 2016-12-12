@@ -53,6 +53,10 @@
       <LogicalName>Main.storyboardc/85-view-87.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/943-view-944.nib">
+      <LogicalName>Main.storyboardc/943-view-944.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/970-view-971.nib">
       <LogicalName>Main.storyboardc/970-view-971.nib</LogicalName>
       <Optimize>false</Optimize>
@@ -81,12 +85,20 @@
       <LogicalName>Main.storyboardc/LeaguesNav.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/PlayerViewController.nib">
+      <LogicalName>Main.storyboardc/PlayerViewController.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/PlayersNav.nib">
       <LogicalName>Main.storyboardc/PlayersNav.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/PlayersViewController.nib">
       <LogicalName>Main.storyboardc/PlayersViewController.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/RefereeViewController.nib">
+      <LogicalName>Main.storyboardc/RefereeViewController.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/RefereesNav.nib">
@@ -135,6 +147,10 @@
     </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/jNw-NG-qGG-view-6it-wp-RpX.nib">
       <LogicalName>Main.storyboardc/jNw-NG-qGG-view-6it-wp-RpX.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/mlw-nd-kgn-view-vUr-Ai-noc.nib">
+      <LogicalName>Main.storyboardc/mlw-nd-kgn-view-vUr-Ai-noc.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/v2g-tB-FC4-view-xMG-r3-CVo.nib">

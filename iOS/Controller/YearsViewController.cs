@@ -48,11 +48,11 @@ namespace Floorball.iOS
 
 		public override UITableViewCell GetCell(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
-			var cell = tableView.DequeueReusableCell("leagueyearcell", indexPath);
+			var cell = tableView.DequeueReusableCell("yearcell", indexPath);
 
 			var date = Years.ElementAt(indexPath.Row);
 
-			cell.TextLabel.Text = date.Year.ToString() + "-" + date.AddYears(1).Year.ToString();
+			cell.TextLabel.Text = date.Year + "-" + date.AddYears(1).Year;
 
 			return cell;
 

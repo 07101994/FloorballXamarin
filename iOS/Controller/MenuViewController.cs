@@ -1,5 +1,5 @@
 ﻿using System;
-
+using CoreGraphics;
 using UIKit;
 
 namespace Floorball.iOS
@@ -25,6 +25,7 @@ namespace Floorball.iOS
 		{
 			base.ViewDidLoad();
 
+			TableView.TableFooterView = new UIView(CGRect.Empty);
 
 		}
 
@@ -37,7 +38,7 @@ namespace Floorball.iOS
 
 		partial void BackButtonPressed(UIBarButtonItem sender)
 		{
-
+			Root.SideBarController.ToggleMenu();
 		}
 
 		public override void RowSelected(UITableView tableView, Foundation.NSIndexPath indexPath)

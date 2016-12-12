@@ -51,6 +51,7 @@ namespace Floorball.iOS
 			sidebarController.HasShadowing = true;
 			sidebarController.MenuWidth = 220;
 			sidebarController.MenuLocation = MenuLocations.Left;
+			//sidebarController.IsOpen = true;
 
 			return sidebarController;
 		}

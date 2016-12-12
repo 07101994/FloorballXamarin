@@ -228,6 +228,10 @@
     <Compile Include="Controller\InitViewController.designer.cs">
       <DependentUpon>InitViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\LiveMatchCell.cs" />
+    <Compile Include="View\LiveMatchCell.designer.cs">
+      <DependentUpon>LiveMatchCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controller\" />
@@ -240,6 +244,7 @@
     <Folder Include="Resources\Images.xcassets\5minutes.imageset\" />
     <Folder Include="Resources\Images.xcassets\10minutes.imageset\" />
     <Folder Include="Resources\Images.xcassets\goal.imageset\" />
+    <Folder Include="View\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />

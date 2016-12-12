@@ -25,6 +25,8 @@ namespace Floorball.iOS
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 
+			UoW = new UnitOfWork();
+
 			var settings = NSUserDefaults.StandardUserDefaults;
 
 			//Get countries
@@ -32,7 +34,7 @@ namespace Floorball.iOS
 
 			//Get Last Sync Date
 			LastSyncDate = GetLastSyncDate(settings);
-			LastSyncDate = new DateTime(1900,12,12);
+			//LastSyncDate = new DateTime(1900,12,12);
 
 			//Window = new UIWindow(UIScreen.MainScreen.Bounds);
 			//Window.MakeKeyAndVisible();
@@ -119,7 +121,6 @@ namespace Floorball.iOS
 			}
 			catch (Exception)
 			{
-
 			}
 
 		}

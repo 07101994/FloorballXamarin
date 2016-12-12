@@ -49,7 +49,7 @@ namespace Floorball.iOS
 
 		public override UITableViewCell GetCell(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
-			var cell = tableView.DequeueReusableCell("playercell", indexPath);
+			var cell = tableView.DequeueReusableCell("PlayerCell", indexPath);
 
 			cell.TextLabel.Text = ActualPlayers.ElementAt(indexPath.Row).Name;
 
