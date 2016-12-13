@@ -49,6 +49,8 @@ namespace Floorball.iOS
 			//	UpdateAppAsync(settings);
 			//}
 
+			Window.TintColor = UIColor.FromRGB( (float)(58/255.0f), (float)(65/255.0f), (float)(85/255.0));
+
 			return true;
 		}
 

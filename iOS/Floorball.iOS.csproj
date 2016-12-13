@@ -245,6 +245,7 @@
     <Folder Include="Resources\Images.xcassets\10minutes.imageset\" />
     <Folder Include="Resources\Images.xcassets\goal.imageset\" />
     <Folder Include="View\" />
+    <Folder Include="Resources\Images.xcassets\logo.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -270,6 +271,8 @@
     <ImageAsset Include="Resources\Images.xcassets\5minutes.imageset\5-50.png" />
     <ImageAsset Include="Resources\Images.xcassets\10minutes.imageset\10-50.png" />
     <ImageAsset Include="Resources\Images.xcassets\goal.imageset\ball.png" />
+    <ImageAsset Include="Resources\Images.xcassets\logo.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\logo.imageset\images.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Settings.bundle\Root.plist" />
