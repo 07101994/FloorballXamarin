@@ -4,7 +4,7 @@
       <File FileName="iOS/Main.cs" Line="11" Column="3" />
       <File FileName="iOS/Controller/MatchEventsViewController.cs" Line="74" Column="12" />
       <File FileName="iOS/Controller/ActualViewController.cs" Line="209" Column="6" />
-      <File FileName="iOS/Controller/MenuViewController.cs" Line="29" Column="57" />
+      <File FileName="iOS/Controller/MenuViewController.cs" Line="83" Column="12" />
       <File FileName="iOS/AppDelegate.cs" Line="47" Column="10" />
       <File FileName="FloorballXamarin Status" />
     </Files>

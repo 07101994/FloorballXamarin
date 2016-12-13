@@ -231,6 +231,7 @@
       <DependentUpon>LiveMatchCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller\MatchViewController.cs" />
+    <Compile Include="Controller\YearsViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controller\" />
