@@ -44,6 +44,8 @@ namespace Floorball.iOS
 
 			//Init outlets
 			InitOutlets();
+
+			NavigationItem.Title = "Match";
 		}
 
 		private void InitOutlets()

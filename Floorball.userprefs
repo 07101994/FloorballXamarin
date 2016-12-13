@@ -1,7 +1,6 @@
 ﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="FloorballXamarin Status">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="iOS/Controller/MatchViewController.cs" Line="90" Column="6" />
       <File FileName="iOS/Main.cs" Line="23" Column="1" />
       <File FileName="iOS/Controller/MatchEventsViewController.cs" Line="74" Column="12" />
       <File FileName="iOS/Controller/ActualViewController.cs" Line="215" Column="8" />

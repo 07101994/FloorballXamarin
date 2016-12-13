@@ -216,7 +216,6 @@
     <Compile Include="Controller\RefereeViewController.designer.cs">
       <DependentUpon>RefereeViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controller\MatchViewController.cs" />
     <Compile Include="Controller\MatchViewController.designer.cs">
       <DependentUpon>MatchViewController.cs</DependentUpon>
     </Compile>
