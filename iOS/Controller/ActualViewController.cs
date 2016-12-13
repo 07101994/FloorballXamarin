@@ -152,7 +152,17 @@ namespace Floorball.iOS
 		{
 			if (section == 0)
 			{
+				if (!HasLiveMatch)
+				{
+					return 1;
+				}
+
 				return LiveMatches.Count();
+			}
+
+			if (!HasSoonMatch)
+			{
+				return 1;
 			}
 
 			return SoonMatches.Count();
@@ -160,6 +170,11 @@ namespace Floorball.iOS
 
 		public override UITableViewCell GetCell(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
+			if ((indexPath.Section == 0 && !HasLiveMatch) || (indexPath.Section == 1 && !HasSoonMatch))
+			{
+				return tableView.DequeueReusableCell("NoMatchCell");
+			}
+
 			LiveMatchCell cell = tableView.DequeueReusableCell("LiveMatchCell", indexPath) as LiveMatchCell;
 
 			Match match;

@@ -20,7 +20,7 @@ namespace Floorball.iOS
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
-			View.BackgroundColor = UIColor.Orange;
+			//View.BackgroundColor = UIColor.Orange;
 
 			//BTProgressHUD.Show("Application initialization");
 

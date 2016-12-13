@@ -3,14 +3,20 @@
     <Files>
       <File FileName="iOS/Main.cs" Line="19" Column="1" />
       <File FileName="iOS/Controller/MatchEventsViewController.cs" Line="74" Column="12" />
-      <File FileName="iOS/Controller/ActualViewController.cs" Line="209" Column="6" />
+      <File FileName="iOS/Controller/ActualViewController.cs" Line="173" Column="4" />
       <File FileName="iOS/Controller/MenuViewController.cs" Line="29" Column="57" />
-      <File FileName="iOS/AppDelegate.cs" Line="47" Column="10" />
+      <File FileName="iOS/AppDelegate.cs" Line="29" Column="4" />
       <File FileName="iOS/Controller/LeagueViewController.cs" Line="41" Column="4" />
       <File FileName="iOS/Controller/LeaguesViewController.cs" Line="1" Column="1" />
       <File FileName="iOS/Controller/YearsViewController.cs" Line="59" Column="65" />
       <File FileName="iOS/Controller/TeamPlayersViewController.cs" Line="29" Column="45" />
-      <File FileName="iOS/Controller/TeamMatchesViewController.cs" Line="31" Column="45" />
+      <File FileName="iOS/Controller/TeamMatchesViewController.cs" Line="35" Column="3" />
+      <File FileName="iOS/Controller/RefereesViewController.cs" Line="24" Column="3" />
+      <File FileName="iOS/Controller/PlayersViewController.cs" Line="56" Column="4" />
+      <File FileName="iOS/Controller/InitViewController.cs" Line="23" Column="6" />
+      <File FileName="iOS/Info.plist" />
+      <File FileName="Floorball/UIHelper.cs" Line="1" Column="1" />
+      <File FileName="iOS/Controller/MatchViewController.cs" Line="65" Column="21" />
       <File FileName="FloorballXamarin Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>

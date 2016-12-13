@@ -247,6 +247,7 @@
     <Folder Include="View\" />
     <Folder Include="Resources\Images.xcassets\logo.imageset\" />
     <Folder Include="Resources\Images.xcassets\menu.imageset\" />
+    <Folder Include="Resources\Images.xcassets\AppIcon.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
@@ -275,6 +276,9 @@
     <ImageAsset Include="Resources\Images.xcassets\logo.imageset\images.png" />
     <ImageAsset Include="Resources\Images.xcassets\menu.imageset\Contents.json" />
     <ImageAsset Include="Resources\Images.xcassets\menu.imageset\Menu-50.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcon.appiconset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcon-1.appiconset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcon-1.appiconset\ball.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Settings.bundle\Root.plist" />

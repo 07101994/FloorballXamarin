@@ -61,7 +61,8 @@ namespace Floorball.iOS
 
 
 			Result.Text = Match.GoalsH + " - " + Match.GoalsA;
-			ActualTime.Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes + ":" + Match.Time.Seconds;
+			//ActualTime.Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes + ":" + Match.Time.Seconds;
+			ActualTime.Text = UIHelper.GetMatchTime(Match.Time, Match.State);
 		}
 
 		private void InitProperties()
