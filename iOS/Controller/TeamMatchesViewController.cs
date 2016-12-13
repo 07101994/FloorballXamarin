@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using Floorball.LocalDB.Tables;
 using UIKit;
 
@@ -26,6 +27,10 @@ namespace Floorball.iOS
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
+
+			TableView.TableFooterView = new UIView(CGRect.Empty);
+			
+
 		}
 
 		public override void DidReceiveMemoryWarning()

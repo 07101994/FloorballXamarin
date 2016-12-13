@@ -36,6 +36,9 @@ namespace Floorball.iOS
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
+			NavigationItem.Title = League.Name;
+			LeagueName.Text = League.Year.Year + "-" + League.Year.AddYears(1).Year;
+
 			MatchContainer.Hidden = false;
 			StatContainer.Hidden = true;
 			TableContainer.Hidden = true;

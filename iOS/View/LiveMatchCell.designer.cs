@@ -43,6 +43,40 @@ namespace Floorball.iOS
 
         void ReleaseDesignerOutlets ()
         {
+            if (AwayScore != null) {
+                AwayScore.Dispose ();
+                AwayScore = null;
+            }
+
+            if (AwayTeam != null) {
+                AwayTeam.Dispose ();
+                AwayTeam = null;
+            }
+
+            if (Date != null) {
+                Date.Dispose ();
+                Date = null;
+            }
+
+            if (HomeScore != null) {
+                HomeScore.Dispose ();
+                HomeScore = null;
+            }
+
+            if (HomeTeam != null) {
+                HomeTeam.Dispose ();
+                HomeTeam = null;
+            }
+
+            if (Indicator != null) {
+                Indicator.Dispose ();
+                Indicator = null;
+            }
+
+            if (Time != null) {
+                Time.Dispose ();
+                Time = null;
+            }
         }
     }
 }

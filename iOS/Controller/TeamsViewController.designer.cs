@@ -14,10 +14,6 @@ namespace Floorball.iOS
     [Register ("TeamsViewController")]
     partial class TeamsViewController
     {
-        [Action ("MenuPressed:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void MenuPressed (UIKit.UIBarButtonItem sender);
-
         void ReleaseDesignerOutlets ()
         {
         }

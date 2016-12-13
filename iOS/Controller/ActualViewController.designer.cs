@@ -19,7 +19,6 @@ namespace Floorball.iOS
 
         void ReleaseDesignerOutlets ()
         {
-			
         }
     }
 }
