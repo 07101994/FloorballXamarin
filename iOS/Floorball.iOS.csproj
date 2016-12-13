@@ -269,7 +269,7 @@
     <ImageAsset Include="Resources\Images.xcassets\2minutes.imageset\2-50.png" />
     <ImageAsset Include="Resources\Images.xcassets\5minutes.imageset\5-50.png" />
     <ImageAsset Include="Resources\Images.xcassets\10minutes.imageset\10-50.png" />
-    <ImageAsset Include="Resources\Images.xcassets\goal.imageset\ball.jpg" />
+    <ImageAsset Include="Resources\Images.xcassets\goal.imageset\ball.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Settings.bundle\Root.plist" />

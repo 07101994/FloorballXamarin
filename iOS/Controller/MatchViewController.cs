@@ -30,13 +30,17 @@ namespace Floorball.iOS
 		{
 		}
 
+		public MatchViewController(IntPtr handle) : base (handle)
+        {
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
 			//Init properties
-			InitProperties();
+			//InitProperties();
 
 			//Init outlets
 			InitOutlets();
@@ -81,6 +85,8 @@ namespace Floorball.iOS
 			switch (segue.Identifier)
 			{
 				case "MatchEvents":
+
+					InitProperties();
 
 					var vc = segue.DestinationViewController as MatchEventsViewController;
 					vc.Events = Events.Where(e => e.Type != "A");

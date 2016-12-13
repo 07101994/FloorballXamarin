@@ -129,6 +129,14 @@
       <LogicalName>Main.storyboardc/LeaguesNav.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/MatchEventsViewController.nib">
+      <LogicalName>Main.storyboardc/MatchEventsViewController.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
+    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/MatchViewController.nib">
+      <LogicalName>Main.storyboardc/MatchViewController.nib</LogicalName>
+      <Optimize>false</Optimize>
+    </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/PlayerViewController.nib">
       <LogicalName>Main.storyboardc/PlayerViewController.nib</LogicalName>
       <Optimize>false</Optimize>
@@ -169,10 +177,6 @@
       <LogicalName>Main.storyboardc/TeamsNav.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
-    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/UITableViewController-1092.nib">
-      <LogicalName>Main.storyboardc/UITableViewController-1092.nib</LogicalName>
-      <Optimize>false</Optimize>
-    </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/UITableViewController-343.nib">
       <LogicalName>Main.storyboardc/UITableViewController-343.nib</LogicalName>
       <Optimize>false</Optimize>
@@ -195,10 +199,6 @@
     </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/UITableViewController-Xvt-Aw-nDH.nib">
       <LogicalName>Main.storyboardc/UITableViewController-Xvt-Aw-nDH.nib</LogicalName>
-      <Optimize>false</Optimize>
-    </_BundleResourceWithLogicalName>
-    <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/UIViewController-1087.nib">
-      <LogicalName>Main.storyboardc/UIViewController-1087.nib</LogicalName>
       <Optimize>false</Optimize>
     </_BundleResourceWithLogicalName>
     <_BundleResourceWithLogicalName Include="obj/iPhoneSimulator/Debug/ibtool-link/Main.storyboardc/UIViewController-338.nib">

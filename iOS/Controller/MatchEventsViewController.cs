@@ -19,6 +19,10 @@ namespace Floorball.iOS
 		{
 		}
 
+		public MatchEventsViewController(IntPtr handle) : base (handle)
+        {
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
@@ -50,50 +54,55 @@ namespace Floorball.iOS
 			if (e.TeamId == HomeTeam.Id)
 			{
 				cell = tableView.DequeueReusableCell("HomeEventCell", indexPath);
-				(cell.ViewWithTag(1) as UILabel).Text = HomeTeam.Players.First(p => p.RegNum == e.PlayerId).ShortName;
+				(cell.ViewWithTag(201) as UILabel).Text = HomeTeam.Players.First(p => p.RegNum == e.PlayerId).ShortName;
 			}
 			else
 			{ 
 				cell = tableView.DequeueReusableCell("AwayEventCell", indexPath);
-				(cell.ViewWithTag(1) as UILabel).Text = AwayTeam.Players.First(p => p.RegNum == e.PlayerId).ShortName;
+				(cell.ViewWithTag(201) as UILabel).Text = AwayTeam.Players.First(p => p.RegNum == e.PlayerId).ShortName;
 			}
 
-			(cell.ViewWithTag(0) as UILabel).Text = e.Time.Split(':')[1] + ":" + e.Time.Split(':')[2];
+			(cell.ViewWithTag(200) as UILabel).Text = e.Time.Split(':')[1] + ":" + e.Time.Split(':')[2];
 
 			cell = SetImage(cell, e);
 
 			return cell;
 		}
 
+		public override nfloat GetHeightForRow(UITableView tableView, Foundation.NSIndexPath indexPath)
+		{
+			return 90;
+		}
+
 		private UITableViewCell SetImage(UITableViewCell cell, Event e)
 		{
 			if (e.Type == "P2")
 			{
-				(cell.ViewWithTag(2) as UIImageView).Image = new UIImage("2minutes");
+				(cell.ViewWithTag(202) as UIImageView).Image = UIImage.FromBundle("2minutes");
 			}
 			else
 			{
 				if (e.Type == "P5")
 				{
-					(cell.ViewWithTag(2) as UIImageView).Image = new UIImage("5minutes");
+					(cell.ViewWithTag(202) as UIImageView).Image = UIImage.FromBundle("5minutes");
 				}
 				else
 				{
 					if (e.Type == "G")
 					{
-						(cell.ViewWithTag(2) as UIImageView).Image = new UIImage("goal");
+						(cell.ViewWithTag(202) as UIImageView).Image = UIImage.FromBundle("goal");
 					}
 					else
 					{
 						if (e.Type == "P10")
 						{
-							(cell.ViewWithTag(2) as UIImageView).Image = new UIImage("10minutes");
+							(cell.ViewWithTag(202) as UIImageView).Image = UIImage.FromBundle("10minutes");
 						}
 						else
 						{
 							if (e.Type == "PV")
 							{
-								(cell.ViewWithTag(2) as UIImageView).Image = new UIImage("redcard");
+								(cell.ViewWithTag(202) as UIImageView).Image = UIImage.FromBundle("redcard");
 							}
 						}
 					}

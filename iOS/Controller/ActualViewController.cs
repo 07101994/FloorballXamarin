@@ -199,6 +199,32 @@ namespace Floorball.iOS
 			return cell;
 		}
 
+		public override void PrepareForSegue(UIStoryboardSegue segue, Foundation.NSObject sender)
+		{
+			switch (segue.Identifier)
+			{
+
+				case "MatchFromActual":
+
+
+					var vc = segue.DestinationViewController as MatchViewController;
+					if (TableView.IndexPathForSelectedRow.Section == 0)
+					{
+						vc.Match = LiveMatches.ElementAt(TableView.IndexPathForSelectedRow.Row);
+					} 
+					else
+					{
+						vc.Match = SoonMatches.ElementAt(TableView.IndexPathForSelectedRow.Row);
+					}
+
+					break;
+
+
+				default:
+					break;
+			}
+		}
+
 		partial void MenuPressed(UIBarButtonItem sender)
 		{
 			Root.SideBarController.ToggleMenu();
