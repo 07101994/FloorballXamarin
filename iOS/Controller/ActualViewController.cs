@@ -207,6 +207,8 @@ namespace Floorball.iOS
 				case "MatchFromActual":
 
 
+					//var bc1 = segue.DestinationViewController as MatchViewController;
+
 					var vc = segue.DestinationViewController as MatchViewController;
 					if (TableView.IndexPathForSelectedRow.Section == 0)
 					{

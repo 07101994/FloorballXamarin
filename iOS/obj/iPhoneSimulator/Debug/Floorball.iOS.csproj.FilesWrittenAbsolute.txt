@@ -8,11 +8,6 @@
 /Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/obj/iPhoneSimulator/Debug/optimized/Settings.bundle/hu.lproj/Root.strings
 /Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/obj/iPhoneSimulator/Debug/optimized/Settings.bundle/en.lproj/Countries.strings
 /Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/obj/iPhoneSimulator/Debug/optimized/Settings.bundle/hu.lproj/Countries.strings
-/Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/FloorballiOS.exe.config
-/Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/FloorballiOS.exe.mdb
-/Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/FloorballiOS.exe
-/Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/obj/iPhoneSimulator/Debug/FloorballiOS.exe
-/Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/obj/iPhoneSimulator/Debug/FloorballiOS.exe.mdb
 /Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/Microsoft.AspNet.SignalR.Client.dll
 /Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/Newtonsoft.Json.dll
 /Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/RestSharp.dll
@@ -23,3 +18,8 @@
 /Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/System.Net.Http.Primitives.dll
 /Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/Xamarin-Sidebar-Unified.dll
 /Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/BTProgressHUD.dll
+/Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/FloorballiOS.exe.config
+/Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/FloorballiOS.exe.mdb
+/Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug/FloorballiOS.exe
+/Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/obj/iPhoneSimulator/Debug/FloorballiOS.exe
+/Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/obj/iPhoneSimulator/Debug/FloorballiOS.exe.mdb

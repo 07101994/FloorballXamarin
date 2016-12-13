@@ -151,7 +151,6 @@
     <Compile Include="Controller\RefereesViewController.designer.cs">
       <DependentUpon>RefereesViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controller\YearsViewController.cs" />
     <Compile Include="Controller\LeagueMatchesViewController.cs" />
     <Compile Include="Controller\TeamsViewController.cs" />
     <Compile Include="Controller\YearsViewController.designer.cs">
@@ -231,6 +230,7 @@
     <Compile Include="View\LiveMatchCell.designer.cs">
       <DependentUpon>LiveMatchCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\MatchViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controller\" />

@@ -1,10 +1,10 @@
 ﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="FloorballXamarin Status">
     <Files>
-      <File FileName="iOS/Main.cs" Line="23" Column="1" />
+      <File FileName="iOS/Main.cs" Line="11" Column="3" />
       <File FileName="iOS/Controller/MatchEventsViewController.cs" Line="74" Column="12" />
-      <File FileName="iOS/Controller/ActualViewController.cs" Line="215" Column="8" />
-      <File FileName="iOS/Controller/MenuViewController.cs" Line="99" Column="8" />
+      <File FileName="iOS/Controller/ActualViewController.cs" Line="209" Column="6" />
+      <File FileName="iOS/Controller/MenuViewController.cs" Line="29" Column="57" />
       <File FileName="iOS/AppDelegate.cs" Line="47" Column="10" />
       <File FileName="FloorballXamarin Status" />
     </Files>
