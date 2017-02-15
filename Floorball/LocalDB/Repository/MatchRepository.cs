@@ -79,7 +79,7 @@ namespace Floorball.LocalDB.Repository
 
         #region POST
 
-        public void AddMatch(int id, int homeTeamId, int awayTeamId, short goalsH, short goalsA, short round, StateEnum state, TimeSpan time, DateTime date, int leagueId, int stadiumId)
+        public int AddMatch(int id, int homeTeamId, int awayTeamId, short goalsH, short goalsA, short round, StateEnum state, TimeSpan time, DateTime date, int leagueId, int stadiumId)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
@@ -99,6 +99,8 @@ namespace Floorball.LocalDB.Repository
                 m.Players = new List<Player>();
 
                 db.Insert(m);
+
+                return m.Id;
             }
         }
 
@@ -106,7 +108,13 @@ namespace Floorball.LocalDB.Repository
         {
             foreach (var m in model)
             {
-                AddMatch(m.Id, m.HomeTeamId, m.AwayTeamId, m.GoalsH, m.GoalsA, m.Round, m.State, m.Time, m.Date, m.LeagueId, m.StadiumId);
+                try
+                {
+                    AddMatch(m.Id, m.HomeTeamId, m.AwayTeamId, m.GoalsH, m.GoalsA, m.Round, m.State, m.Time, m.Date, m.LeagueId, m.StadiumId);
+                }
+                catch (Exception)
+                {
+                }
             }
         }
 

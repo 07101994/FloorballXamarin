@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using FloorballServer.Models.Floorball;
 using Floorball.REST;
+using Floorball.Updater;
 using System.Linq;
 using Android.Content;
 using Android.Preferences;
@@ -62,7 +63,7 @@ namespace Floorball.Droid
         protected override async void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
-
+            
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             DateTime lastSyncDate = DateTime.Parse(prefs.GetString("LastSyncDate", "1900-12-12"));
             //lastSyncDate = new DateTime(1900,12,12);
@@ -93,7 +94,7 @@ namespace Floorball.Droid
 
                     //Initializing finished
                     lastSyncDate = await lastSyncDateTask;
-                    Updater.Instance.LastSyncDate = lastSyncDate;
+                    Updater.Updater.Instance.LastSyncDate = lastSyncDate;
 
                     //change init text
                     //ChangeText(dialog, Resources.GetString(Resource.String.initPrepare));
@@ -113,7 +114,7 @@ namespace Floorball.Droid
                     ChangeFragments(0);
 
                     //Check is there any remote database updates and update local DB
-                    Task<bool> isUpdated = Updater.Instance.UpdateDatabaseFromServer(lastSyncDate);
+                    Task<bool> isUpdated = Updater.Updater.Instance.UpdateDatabaseFromServer(lastSyncDate);
 
                     //Initialize properties from database
                     InitProperties();
@@ -123,7 +124,7 @@ namespace Floorball.Droid
 
                     if (await isUpdated)
                     {
-                        lastSyncDate = Updater.Instance.LastSyncDate;
+                        lastSyncDate = Updater.Updater.Instance.LastSyncDate;
                         FindViewById<TextView>(Resource.Id.notification).Text = "Frissítve";
                         await Task.Delay(3000);
                         FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Gone;

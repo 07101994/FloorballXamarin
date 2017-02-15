@@ -43,7 +43,7 @@ namespace Floorball.LocalDB.Repository
 
         #region POST
 
-        public void AddEventMessage(int id, int code, string message)
+        public int AddEventMessage(int id, int code, string message)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
@@ -53,6 +53,8 @@ namespace Floorball.LocalDB.Repository
                 e.Message = message;
 
                 db.Insert(e);
+
+                return e.Id;
             }
         }
 
@@ -60,7 +62,14 @@ namespace Floorball.LocalDB.Repository
         {
             foreach (var m in model)
             {
-                AddEventMessage(m.Id, m.Code, m.Message);
+                try
+                {
+                    AddEventMessage(m.Id, m.Code, m.Message);
+                }
+                catch (Exception)
+                {
+
+                }
             }
         }
 

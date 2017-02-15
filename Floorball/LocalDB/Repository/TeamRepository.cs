@@ -103,7 +103,13 @@ namespace Floorball.LocalDB.Repository
         {
             foreach (var m in model)
             {
-                AddTeam(m.Id, m.Name, m.Year, m.Coach, m.Sex, m.Country, m.StadiumId, m.LeagueId, m.Get, m.Scored, m.Points, m.Standing);
+                try
+                {
+                    AddTeam(m.Id, m.Name, m.Year, m.Coach, m.Sex, m.Country, m.StadiumId, m.LeagueId, m.Get, m.Scored, m.Points, m.Standing);
+                }
+                catch (Exception)
+                {
+                }
             }
         }
 

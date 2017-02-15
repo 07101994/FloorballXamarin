@@ -1,4 +1,6 @@
 ﻿using Floorball.Exceptions;
+using Floorball.Model;
+using Floorball.Updater;
 using FloorballServer.Models.Floorball;
 using Newtonsoft.Json;
 using RestSharp;
@@ -152,7 +154,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", refereeId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/referee/{id}", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequest("/api/floorball/referees/{id}", Method.GET, urlParams) as RestResponse;
 
                 CheckError(response, "Nem sikerült a bíró lekérdezése!");
 
@@ -211,7 +213,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", refereeId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/referee/{id}/matches", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequest("/api/floorball/referees/{id}/matches", Method.GET, urlParams) as RestResponse;
 
                 CheckError(response, "Nem sikerült a bíróhoz tartozó meccsek lekérdezése!");
 
@@ -604,7 +606,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> queryParams = new Dictionary<string, string>() { { "year", year } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/leaguesbyyear", Method.GET, null, queryParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequest("/api/floorball/leagues", Method.GET, null, queryParams) as RestResponse;
 
                 return deserial.Deserialize<List<LeagueModel>>(response);
             }
@@ -870,7 +872,7 @@ namespace Floorball.REST
 
         }
 
-        public async static Task<List<UpdateData>> GetUpdatesAsync(DateTime date)
+        public async static Task<UpdateModel> GetUpdatesAsync(DateTime date)
         {
             try
             {
@@ -880,7 +882,7 @@ namespace Floorball.REST
 
                 CheckError(response,"Nem sikerült a frissíések letöltése!");
 
-                return JsonConvert.DeserializeObject<List<UpdateData>>(deserial.Deserialize<string>(response));
+                return JsonConvert.DeserializeObject<UpdateModel>(deserial.Deserialize<string>(response));
             }
             catch (Exception ex)
             {

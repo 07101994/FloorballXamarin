@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Floorball
+namespace Floorball.Updater
 {
     public class UpdateData
     {

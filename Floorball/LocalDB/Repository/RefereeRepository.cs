@@ -58,7 +58,13 @@ namespace Floorball.LocalDB.Repository
         {
             foreach (var m in model)
             {
-                AddReferee(m.Id, m.Name, m.Country, m.Number, m.Penalty);
+                try
+                {
+                    AddReferee(m.Id, m.Name, m.Country, m.Number, m.Penalty);
+                }
+                catch (Exception)
+                {
+                }
             }
         }
 

@@ -9,7 +9,7 @@ using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Floorball
+namespace Floorball.Updater
 {
     public class Updater
     {
@@ -22,6 +22,8 @@ namespace Floorball
 
         private static Updater instance;
 
+        public DateTime SyncDate { get; set; }
+
         public static Updater Instance
         {
             get
@@ -32,7 +34,6 @@ namespace Floorball
                 }
 
                 return instance;
-                
             }
         }
 
@@ -66,7 +67,9 @@ namespace Floorball
         {
             try
             {
-                UpdateDataList = await RESTHelper.GetUpdatesAsync(date);
+                var updateModel = await RESTHelper.GetUpdatesAsync(date);
+                SyncDate = updateModel.UpdateTime;
+                UpdateDataList = updateModel.Updates;
             }
             catch (Exception)
             {
@@ -121,7 +124,7 @@ namespace Floorball
                 }
             }
 
-            LastSyncDate = DateTime.Now;
+            LastSyncDate = SyncDate;
 
             return false;
         }
@@ -131,7 +134,13 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                UoW.RefereeRepo.AddRefereeToMatch(c.Value<int>("refereeId"), c.Value<int>("matchId"));
+                try
+                {
+                    UoW.RefereeRepo.AddRefereeToMatch(c.Value<int>("refereeId"), c.Value<int>("matchId"));
+                }
+                catch (Exception)
+                {
+                }
             }
             else
             {
@@ -157,7 +166,13 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                UoW.PlayerRepo.AddPlayerToTeam(c.Value<int>("playerId"), c.Value<int>("teamId"));
+                try
+                {
+                    UoW.PlayerRepo.AddPlayerToTeam(c.Value<int>("playerId"), c.Value<int>("teamId"));
+                }
+                catch (Exception)
+                {
+                }
             }
             else
             {
@@ -170,7 +185,13 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                UoW.EventMessageRepo.AddEventMessage(c.Value<int>("Id"), c.Value<int>("Code"), c.Value<string>("Message"));
+                try
+                {
+                    UoW.EventMessageRepo.AddEventMessage(c.Value<int>("Id"), c.Value<int>("Code"), c.Value<string>("Message"));
+                }
+                catch (Exception)
+                {
+                }
             }
             else
             {
@@ -183,7 +204,13 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                UoW.EventRepo.AddEvent(c.Value<int>("Id"), c.Value<int>("MatchId"), c.Value<string>("Type"), TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture), c.Value<int>("PlayerId"), c.Value<int>("EventMessageId"), c.Value<int>("TeamId"));
+                try
+                {
+                    UoW.EventRepo.AddEvent(c.Value<int>("Id"), c.Value<int>("MatchId"), c.Value<string>("Type"), TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture), c.Value<int>("PlayerId"), c.Value<int>("EventMessageId"), c.Value<int>("TeamId"));
+                }
+                catch (Exception)
+                {
+                }
             }
             else
             {
@@ -196,7 +223,13 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                UoW.RefereeRepo.AddReferee(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<CountriesEnum>("Country"));
+                try
+                {
+                    UoW.RefereeRepo.AddReferee(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<CountriesEnum>("Country"));
+                }
+                catch (Exception)
+                {
+                }
             }
             else
             {
@@ -209,7 +242,13 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                UoW.StadiumRepo.AddStadium(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<string>("Address"));
+                try
+                {
+                    UoW.StadiumRepo.AddStadium(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<string>("Address"));
+                }
+                catch (Exception)
+                {
+                }
             }
             else
             {
@@ -222,7 +261,13 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                UoW.PlayerRepo.AddPlayer(c.Value<string>("FirstName"), c.Value<string>("SecondName"), c.Value<int>("RegNum"), c.Value<int>("Number"), DateTime.ParseExact(c.Value<string>("BirthDate"), "yyyy-MM-dd", CultureInfo.InvariantCulture));
+                try
+                {
+                    UoW.PlayerRepo.AddPlayer(c.Value<string>("FirstName"), c.Value<string>("SecondName"), c.Value<int>("RegNum"), c.Value<int>("Number"), DateTime.ParseExact(c.Value<string>("BirthDate"), "yyyy-MM-dd", CultureInfo.InvariantCulture));
+                }
+                catch (Exception)
+                {
+                }
             }
             else
             {
@@ -235,7 +280,13 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                UoW.MatchRepo.AddMatch(c.Value<int>("Id"), c.Value<int>("HomeTeamId"), c.Value<int>("AwayTeamId"), c.Value<short>("GoalsH"), c.Value<short>("GoalsA"), c.Value<short>("Round"), c.Value<StateEnum>("State"), TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture), DateTime.ParseExact(c.Value<string>("Date"), "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture), c.Value<int>("LeagueId"), c.Value<int>("StadiumId"));
+                try
+                {
+                    UoW.MatchRepo.AddMatch(c.Value<int>("Id"), c.Value<int>("HomeTeamId"), c.Value<int>("AwayTeamId"), c.Value<short>("GoalsH"), c.Value<short>("GoalsA"), c.Value<short>("Round"), c.Value<StateEnum>("State"), TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture), DateTime.ParseExact(c.Value<string>("Date"), "yyyy-MM-dd hh:mm:ss", CultureInfo.InvariantCulture), c.Value<int>("LeagueId"), c.Value<int>("StadiumId"));
+                }
+                catch (Exception)
+                {
+                }
             }
             else
             {
@@ -248,7 +299,13 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                UoW.TeamRepo.AddTeam(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Coach"), c.Value<string>("Sex"), c.Value<CountriesEnum>("Country"), c.Value<int>("StadiumId"), c.Value<int>("LeagueId"));
+                try
+                {
+                    UoW.TeamRepo.AddTeam(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Coach"), c.Value<string>("Sex"), c.Value<CountriesEnum>("Country"), c.Value<int>("StadiumId"), c.Value<int>("LeagueId"));
+                }
+                catch (Exception)
+                {
+                }
             }
             else
             {
@@ -261,7 +318,13 @@ namespace Floorball
             if (u.IsAdding)
             {
                 JObject c = u.Entity as JObject;
-                UoW.LeagueRepo.AddLeague(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Type"), c.Value<string>("ClassName"), c.Value<int>("Rounds"), c.Value<CountriesEnum>("Country"), c.Value<string>("Sex"));
+                try
+                {
+                    UoW.LeagueRepo.AddLeague(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Type"), c.Value<string>("ClassName"), c.Value<int>("Rounds"), c.Value<CountriesEnum>("Country"), c.Value<string>("Sex"));
+                }
+                catch (Exception)
+                {
+                }
             }
             else
             {

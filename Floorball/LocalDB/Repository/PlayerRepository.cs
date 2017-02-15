@@ -80,7 +80,6 @@ namespace Floorball.LocalDB.Repository
                 p.BirthDate = date.Date;
                 p.Teams = new List<Team>();
 
-
                 db.Insert(p);
 
                 return p.RegNum;
@@ -91,7 +90,13 @@ namespace Floorball.LocalDB.Repository
         {
             foreach (var m in model)
             {
-                AddPlayer(m.FirstName, m.SecondName, m.RegNum, m.Number, m.BirthDate);
+                try
+                {
+                    AddPlayer(m.FirstName, m.SecondName, m.RegNum, m.Number, m.BirthDate);
+                }
+                catch (Exception)
+                {
+                }
             }
         }
 

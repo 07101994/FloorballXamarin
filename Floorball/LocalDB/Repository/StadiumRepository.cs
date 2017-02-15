@@ -52,7 +52,13 @@ namespace Floorball.LocalDB.Repository
         {
             foreach (var m in model)
             {
-                AddStadium(m.Id, m.Name, m.Address);
+                try
+                {
+                    AddStadium(m.Id, m.Name, m.Address);
+                }
+                catch (Exception)
+                {
+                }
             }
         }
 
