@@ -69,8 +69,8 @@ namespace Floorball.Droid.Activities
 
             FindViewById<TextView>(Resource.Id.actualTime).Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes.ToString() + ":" + Match.Time.Seconds.ToString();
 
-            FindViewById<ImageView>(Resource.Id.homeTeamImage).SetImageResource(Resource.Drawable.phoenix);
-            FindViewById<ImageView>(Resource.Id.awayTeamImage).SetImageResource(Resource.Drawable.phoenix);
+            FindViewById<ImageView>(Resource.Id.homeTeamImage).SetImageBitmap(ImageManager.GetImage(HomeTeam.ImageName));
+            FindViewById<ImageView>(Resource.Id.awayTeamImage).SetImageBitmap(ImageManager.GetImage(AwayTeam.ImageName));
 
             CreateEvents();
             CreateReferees();

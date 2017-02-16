@@ -34,6 +34,8 @@ namespace Floorball.LocalDB.Tables
 
         public CountriesEnum Country { get; set; }
 
+        public string  ImageName { get; set; }
+
         //Relationships
 
         [ForeignKey(typeof(Stadium))]

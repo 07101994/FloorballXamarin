@@ -301,7 +301,8 @@ namespace Floorball.Updater
                 JObject c = u.Entity as JObject;
                 try
                 {
-                    UoW.TeamRepo.AddTeam(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Coach"), c.Value<string>("Sex"), c.Value<CountriesEnum>("Country"), c.Value<int>("StadiumId"), c.Value<int>("LeagueId"));
+                    ImageManager.SaveImage(c.Value<byte[]>("Image"), c.Value<string>("ImageName"));
+                    UoW.TeamRepo.AddTeam(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Coach"), c.Value<string>("Sex"), c.Value<CountriesEnum>("Country"), c.Value<int>("StadiumId"), c.Value<int>("LeagueId"), c.Value<string>("ImageName"));
                 }
                 catch (Exception)
                 {

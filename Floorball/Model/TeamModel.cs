@@ -35,5 +35,9 @@ namespace FloorballServer.Models.Floorball
 
         public CountriesEnum Country { get; set; }
 
+        public string ImageName { get; set; }
+
+        public byte[] Image { get; set; }
+
     }
 }

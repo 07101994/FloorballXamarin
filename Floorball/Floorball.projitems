@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\CommunicationException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\FloorballException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ImageManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Database.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Manager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocalDB\Repository\EventMessageRepository.cs" />

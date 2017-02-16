@@ -75,7 +75,7 @@ namespace Floorball.LocalDB.Repository
 
         #region POST
 
-        public int AddTeam(int id, string name, DateTime year, string coach, string sex, CountriesEnum country, int stadiumId, int leagueId, short get = 0, short scored = 0, short points = 0, short standing = -1)
+        public int AddTeam(int id, string name, DateTime year, string coach, string sex, CountriesEnum country, int stadiumId, int leagueId, string imageName, short get = 0, short scored = 0, short points = 0, short standing = -1)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
@@ -92,6 +92,7 @@ namespace Floorball.LocalDB.Repository
                 t.StadiumId = stadiumId;
                 t.LeagueId = leagueId;
                 t.Standing = standing != -1 ? standing : (short)(db.GetAllWithChildren<Team>().Where(t1 => t1.LeagueId == leagueId).Count() + 1);
+                t.ImageName = imageName;
 
                 db.Insert(t);
 
@@ -105,7 +106,8 @@ namespace Floorball.LocalDB.Repository
             {
                 try
                 {
-                    AddTeam(m.Id, m.Name, m.Year, m.Coach, m.Sex, m.Country, m.StadiumId, m.LeagueId, m.Get, m.Scored, m.Points, m.Standing);
+                    ImageManager.SaveImage(m.Image, m.ImageName);
+                    AddTeam(m.Id, m.Name, m.Year, m.Coach, m.Sex, m.Country, m.StadiumId, m.LeagueId, m.ImageName, m.Get, m.Scored, m.Points, m.Standing);
                 }
                 catch (Exception)
                 {

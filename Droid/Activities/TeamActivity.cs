@@ -18,6 +18,8 @@ using FloorballServer.Models.Floorball;
 using Newtonsoft.Json;
 using Floorball.LocalDB;
 using Floorball.LocalDB.Tables;
+using Android.Graphics;
+using System.IO;
 
 namespace Floorball.Droid.Activities
 {
@@ -52,7 +54,7 @@ namespace Floorball.Droid.Activities
             FindViewById<TextView>(Resource.Id.coachName).Text = Team.Coach;
             FindViewById<TextView>(Resource.Id.stadiumName).Text = UoW.StadiumRepo.GetStadiumById(Team.StadiumId).Name;
             FindViewById<TextView>(Resource.Id.teamName).Text = Team.Name;
-
+            FindViewById<ImageView>(Resource.Id.teamImage).SetImageBitmap(ImageManager.GetImage(Team.ImageName));
         }
 
         
