@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using Floorball.LocalDB.Tables;
 using UIKit;
 
@@ -15,10 +16,18 @@ namespace Floorball.iOS
 		{
 		}
 
+		public TeamPlayersViewController(IntPtr handle) : base(handle)
+		{
+
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
+
+			TableView.TableFooterView = new UIView(CGRect.Empty);
+			
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -39,7 +48,7 @@ namespace Floorball.iOS
 
 		public override UITableViewCell GetCell(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
-			var cell = tableView.DequeueReusableCell("PlayerCell", indexPath);
+			var cell = tableView.DequeueReusableCell("TeamPlayerCell", indexPath);
 
 			cell.TextLabel.Text = Players.ElementAt(indexPath.Row).Name;
 

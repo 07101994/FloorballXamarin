@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using Floorball.LocalDB.Tables;
 using UIKit;
 
@@ -19,12 +20,17 @@ namespace Floorball.iOS
 		{
 		}
 
+		public RefereeViewController(IntPtr handle) : base(handle)
+		{
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
 			NavigationItem.Title = Referee.Name;
+			TableView.TableFooterView = new UIView(CGRect.Empty);
 
 		}
 
@@ -43,6 +49,11 @@ namespace Floorball.iOS
 		public override nint RowsInSection(UITableView tableView, nint section)
 		{
 			return 1;
+		}
+
+		public override nfloat GetHeightForRow(UITableView tableView, Foundation.NSIndexPath indexPath)
+		{
+			return 140;
 		}
 
 		public override UIView GetViewForHeader(UITableView tableView, nint section)
@@ -64,11 +75,11 @@ namespace Floorball.iOS
 
 			var stat = StatsByLeague.ElementAt(indexPath.Section);
 
-			(cell.ViewWithTag(0) as UILabel).Text = stat.NumberOfMatches.ToString();
-			(cell.ViewWithTag(1) as UILabel).Text = stat.TwoMinutesPenalties.ToString();
-			(cell.ViewWithTag(2) as UILabel).Text = stat.FiveMinutesPenalties.ToString();
-			(cell.ViewWithTag(3) as UILabel).Text = stat.TenMinutesPenalties.ToString();
-			(cell.ViewWithTag(4) as UILabel).Text = stat.FinalPenalties.ToString();
+			(cell.ViewWithTag(200) as UILabel).Text = stat.NumberOfMatches.ToString();
+			(cell.ViewWithTag(201) as UILabel).Text = stat.TwoMinutesPenalties.ToString();
+			(cell.ViewWithTag(202) as UILabel).Text = stat.FiveMinutesPenalties.ToString();
+			(cell.ViewWithTag(203) as UILabel).Text = stat.TenMinutesPenalties.ToString();
+			(cell.ViewWithTag(204) as UILabel).Text = stat.FinalPenalties.ToString();
 
 			return cell;
 		}

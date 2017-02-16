@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using Floorball.LocalDB.Tables;
 using UIKit;
 
@@ -19,10 +20,25 @@ namespace Floorball.iOS
 		{
 		}
 
+		public LeaguesViewController(IntPtr handle) : base(handle)
+		{
+
+		}
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
+
+			InitProperties();
+
+
+			TableView.TableFooterView = new UIView(CGRect.Empty);
+			
+		}
+
+		void InitProperties()
+		{
+			LeaguesByCountry = ActualLeagues.GroupBy(l => l.Country).Select(l => l.ToList()).ToList();
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -33,8 +49,6 @@ namespace Floorball.iOS
 
 		public override nint NumberOfSections(UITableView tableView)
 		{
-			//ActualLeagues.GroupBy(l => l.Country).ToDictionary(l => l.Key, l => l.ToList());
-			LeaguesByCountry = ActualLeagues.GroupBy(l => l.Country).Select( l => l.ToList()).ToList();
 			return LeaguesByCountry.Count;
 		}
 
@@ -77,6 +91,13 @@ namespace Floorball.iOS
 
 		}
 
+		public void Update(string sex)
+		{
+			ActualLeagues = Leagues.Where(l => l.Sex == sex);
+			InitProperties();
+			TableView.ReloadData();
+
+		}
 	}
 }
 

@@ -30,16 +30,22 @@ namespace Floorball.iOS
 		{
 		}
 
+		public MatchViewController(IntPtr handle) : base (handle)
+        {
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
 			//Init properties
-			InitProperties();
+			//InitProperties();
 
 			//Init outlets
 			InitOutlets();
+
+			NavigationItem.Title = "Match";
 		}
 
 		private void InitOutlets()
@@ -55,7 +61,8 @@ namespace Floorball.iOS
 
 
 			Result.Text = Match.GoalsH + " - " + Match.GoalsA;
-			ActualTime.Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes + ":" + Match.Time.Seconds;
+			//ActualTime.Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes + ":" + Match.Time.Seconds;
+			ActualTime.Text = UIHelper.GetMatchTime(Match.Time, Match.State);
 		}
 
 		private void InitProperties()
@@ -81,6 +88,8 @@ namespace Floorball.iOS
 			switch (segue.Identifier)
 			{
 				case "MatchEvents":
+
+					InitProperties();
 
 					var vc = segue.DestinationViewController as MatchEventsViewController;
 					vc.Events = Events.Where(e => e.Type != "A");

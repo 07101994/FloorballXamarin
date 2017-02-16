@@ -41,7 +41,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<string>Resources/Images.xcassets/AppIcon-1.appiconset</string>
 	<key>CFBundleName</key>
 	<string>Floorball</string>
 </dict>

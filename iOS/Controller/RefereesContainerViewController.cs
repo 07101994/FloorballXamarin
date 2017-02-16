@@ -18,12 +18,17 @@ namespace Floorball.iOS
 		{
 		}
 
+		public RefereesContainerViewController(IntPtr handle) : base(handle)
+		{
+
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
-			InitProperties();
+			//InitProperties();
 
 		}
 
@@ -49,7 +54,7 @@ namespace Floorball.iOS
 			}
 			else
 			{
-				refereesContainer.Referees = Referees.Where(p => p.Name.Contains(sender.Text));
+				refereesContainer.Referees = Referees.Where(p => p.Name.ToLower().Contains(sender.Text.ToLower()));
 			}
 
 			refereesContainer.TableView.ReloadData();
@@ -65,6 +70,8 @@ namespace Floorball.iOS
 			switch (segue.Identifier)
 			{
 				case "referees":
+
+					InitProperties();
 
 					var vc = segue.DestinationViewController as RefereesViewController;
 					vc.Referees = Referees;

@@ -21,12 +21,17 @@ namespace Floorball.iOS
 		{
 		}
 
+		public PlayerViewController(IntPtr handle) : base(handle)
+		{
+
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
-			InitProperties();
+			//InitProperties();
 
 			NavigationItem.Title = Player.Name;
 
@@ -34,7 +39,7 @@ namespace Floorball.iOS
 
 		void InitProperties()
 		{
-			throw new NotImplementedException();
+			//throw new NotImplementedException();
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -52,6 +57,11 @@ namespace Floorball.iOS
 		public override nint RowsInSection(UITableView tableView, nint section)
 		{
 			return 1;
+		}
+
+		public override nfloat GetHeightForRow(UITableView tableView, Foundation.NSIndexPath indexPath)
+		{
+			return 120;
 		}
 
 		public override UIView GetViewForHeader(UITableView tableView, nint section)
@@ -73,10 +83,10 @@ namespace Floorball.iOS
 
 			var stats = StatisticsByTeam.ElementAt(indexPath.Section);
 
-			(cell.ViewWithTag(0) as UILabel).Text = stats.First(s => s.Name == "G").Number.ToString();
-			(cell.ViewWithTag(1) as UILabel).Text = stats.First(s => s.Name == "A").Number.ToString();
-			(cell.ViewWithTag(2) as UILabel).Text = CratePenalty(stats,Teams.ElementAt(indexPath.Section).Id);
-			(cell.ViewWithTag(3) as UILabel).Text = MatchCounts.ElementAt(indexPath.Section).ToString();
+			(cell.ViewWithTag(200) as UILabel).Text = stats.First(s => s.Name == "G").Number.ToString();
+			(cell.ViewWithTag(201) as UILabel).Text = stats.First(s => s.Name == "A").Number.ToString();
+			(cell.ViewWithTag(202) as UILabel).Text = CratePenalty(stats,Teams.ElementAt(indexPath.Section).Id);
+			(cell.ViewWithTag(203) as UILabel).Text = MatchCounts.ElementAt(indexPath.Section).ToString();
 
 			return cell;
 		}

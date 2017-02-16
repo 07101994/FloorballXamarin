@@ -20,6 +20,11 @@ namespace Floorball.iOS
 		{
 		}
 
+		public TeamViewController(IntPtr handle) : base(handle)
+		{
+
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
@@ -28,7 +33,9 @@ namespace Floorball.iOS
 			TeamName.Text = Team.Name;
 			CoachName.Text = Team.Coach;
 			StadiumName.Text = AppDelegate.SharedAppDelegate.UoW.StadiumRepo.GetStadiumById(Team.StadiumId).Name;
-		
+
+			MatchesContainer.Hidden = true;
+
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -42,17 +49,18 @@ namespace Floorball.iOS
 			switch (segue.Identifier)
 			{
 
-				case "PlayersSegue":
+				case "TeamPlayersSegue":
 
 					var vc = segue.DestinationViewController as TeamPlayersViewController;
 					vc.Players = Players;
 
 					break;
 
-				case "MatchesSegue":
+				case "TeamMatchesSegue":
 
 					var vc1 = segue.DestinationViewController as TeamMatchesViewController;
 					vc1.MatchesByLeague = Matches.GroupBy(m => m.LeagueId).Select(m => m.ToList()).ToList();
+					vc1.Team = Team;
 
 					break;
 
@@ -63,14 +71,14 @@ namespace Floorball.iOS
 
 		partial void SegmentControlChanged(UISegmentedControl sender)
 		{
-			if (sender.Tag == 0)
+			if (sender.SelectedSegment == 0)
 			{
 				MatchesContainer.Hidden = true;
 				PlayersContainer.Hidden = false;
 			} 
 			else
 			{
-				if (sender.Tag == 1)
+				if (sender.SelectedSegment == 1)
 				{
 					MatchesContainer.Hidden = false;
 					PlayersContainer.Hidden = true;

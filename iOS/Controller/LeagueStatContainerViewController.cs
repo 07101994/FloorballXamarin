@@ -19,6 +19,10 @@ namespace Floorball.iOS
 		{
 		}
 
+		public LeagueStatContainerViewController(IntPtr handle) : base(handle)
+		{
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
@@ -36,7 +40,7 @@ namespace Floorball.iOS
 			switch (segue.Identifier)
 			{
 
-				case "LeagueStat":
+				case "LeagueStat1":
 
 					var vc = segue.DestinationViewController as LeagueStatTableViewController;
 					vc.Players = Players;

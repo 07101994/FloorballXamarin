@@ -58,6 +58,8 @@
 	-r \
 	/Users/user123024/Documents/FloorballNEW/FloorballXamarin/packages/SidebarNavigation.1.9.1/lib/Xamarin.iOS10/Xamarin-Sidebar-Unified.dll \
 	-r \
+	/Users/user123024/Documents/FloorballNEW/FloorballXamarin/packages/BTProgressHUD.1.2.0.3/lib/Xamarin.iOS10/BTProgressHUD.dll \
+	-r \
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/mscorlib.dll \
 	-r \
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/Facades/Microsoft.Win32.Primitives.dll \
@@ -333,6 +335,8 @@
 	/Users/user123024/Documents/FloorballNEW/FloorballXamarin/packages/Microsoft.Net.Http.2.2.29/lib/Xamarin.iOS10/System.Net.Http.Primitives.dll \
 	-r \
 	/Users/user123024/Documents/FloorballNEW/FloorballXamarin/packages/SidebarNavigation.1.9.1/lib/Xamarin.iOS10/Xamarin-Sidebar-Unified.dll \
+	-r \
+	/Users/user123024/Documents/FloorballNEW/FloorballXamarin/packages/BTProgressHUD.1.2.0.3/lib/Xamarin.iOS10/BTProgressHUD.dll \
 	--target-framework \
 	"Xamarin.iOS,v1.0" \
 	/Users/user123024/Documents/FloorballNEW/FloorballXamarin/iOS/bin/iPhoneSimulator/Debug//FloorballiOS.exe \

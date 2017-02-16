@@ -1,4 +1,4 @@
-﻿// WARNING
+// WARNING
 //
 // This file has been generated automatically by Xamarin Studio from the outlets and
 // actions declared in your storyboard file.
@@ -11,11 +11,11 @@ using UIKit;
 
 namespace Floorball.iOS
 {
-	[Register("TeamPlayersViewController")]
-	partial class TeamPlayersViewController
-	{
-		void ReleaseDesignerOutlets()
-		{
-		}
-	}
+    [Register ("TeamPlayersViewController")]
+    partial class TeamPlayersViewController
+    {
+        void ReleaseDesignerOutlets ()
+        {
+        }
+    }
 }

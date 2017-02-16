@@ -1,5 +1,5 @@
 ﻿using System;
-
+using CoreGraphics;
 using UIKit;
 
 namespace Floorball.iOS
@@ -7,11 +7,7 @@ namespace Floorball.iOS
 	public partial class MenuViewController : UITableViewController
 	{
 
-		public RootViewController Root
-		{
-			get;
-			set;
-		}
+		public RootViewController Root { get; set; }
 
 
 		public MenuViewController() : base("MenuViewController", null)
@@ -29,6 +25,8 @@ namespace Floorball.iOS
 		{
 			base.ViewDidLoad();
 
+			//TableView.TableHeaderView = TableView.DequeueReusableCell("MenuHeader");
+			TableView.TableFooterView = new UIView(CGRect.Empty);
 
 		}
 
@@ -41,7 +39,7 @@ namespace Floorball.iOS
 
 		partial void BackButtonPressed(UIBarButtonItem sender)
 		{
-
+			Root.SideBarController.ToggleMenu();
 		}
 
 		public override void RowSelected(UITableView tableView, Foundation.NSIndexPath indexPath)
@@ -61,28 +59,28 @@ namespace Floorball.iOS
 			switch (row)
 			{
 
-				case 0:
+				case 1:
 
 					newContent = Storyboard.InstantiateViewController("ActualNav") as UINavigationController;
 					(newContent.ViewControllers[0] as ActualViewController).Root = Root;
 
 					break;
 				
-				case 1:
+				case 2:
 
 					newContent = Storyboard.InstantiateViewController("LeaguesNav") as UINavigationController;
 					(newContent.ViewControllers[0] as YearsViewController).Root = Root;
 
 					break;
 	
-				case 2:
+				case 3:
 
 					newContent = Storyboard.InstantiateViewController("TeamsNav") as UINavigationController;
 					(newContent.ViewControllers[0] as YearsViewController).Root = Root;
 
 					break;
 
-				case 3:
+				case 4:
 
 					newContent = Storyboard.InstantiateViewController("PlayersNav") as UINavigationController;
 					(newContent.ViewControllers[0] as PlayersContainerViewController).Root = Root;
@@ -90,7 +88,7 @@ namespace Floorball.iOS
 					break;
 
 
-				case 4:
+				case 5:
 
 					newContent = Storyboard.InstantiateViewController("RefereesNav") as UINavigationController;
 					(newContent.ViewControllers[0] as RefereesContainerViewController).Root = Root;

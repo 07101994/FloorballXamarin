@@ -18,12 +18,17 @@ namespace Floorball.iOS
 		{
 		}
 
+		public PlayersContainerViewController(IntPtr handle) : base(handle)
+		{
+
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
-			InitProperties();
+			//InitProperties();
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -63,6 +68,8 @@ namespace Floorball.iOS
 			switch (segue.Identifier)
 			{
 				case "players":
+
+					InitProperties();
 
 					var vc = segue.DestinationViewController as PlayersViewController;
 					vc.ActualPlayers = Players;
