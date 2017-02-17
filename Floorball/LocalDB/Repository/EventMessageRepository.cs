@@ -81,5 +81,25 @@ namespace Floorball.LocalDB.Repository
 
         #endregion
 
+        #region PUT
+
+        public int UpdateEventMessage(EventMessage eventMessage)
+        {
+
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                EventMessage e = db.Find<EventMessage>(eventMessage.Id);
+
+                e.Code = eventMessage.Code;
+                e.Message = eventMessage.Message;
+
+                db.Insert(e);
+
+                return e.Id;
+            }
+        }
+
+        #endregion
+
     }
 }

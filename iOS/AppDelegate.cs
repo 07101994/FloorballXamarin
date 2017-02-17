@@ -60,14 +60,14 @@ namespace Floorball.iOS
 			{
 
 				//Check is there any remote database updates and update local DB
-				Task<bool> isUpdated = Updater.Instance.UpdateDatabaseFromServer(LastSyncDate);
+				Task<bool> isUpdated = Updater.Updater.Instance.UpdateDatabaseFromServer(LastSyncDate);
 
 				//ShowControllerFromSoryBoard("Root");
 				//Window.MakeKeyAndVisible();
 
 				if (await isUpdated) 
 				{
-					LastSyncDate = Updater.Instance.LastSyncDate;
+					LastSyncDate = Updater.Updater.Instance.LastSyncDate;
 					//update last sync date
 					settings.SetString(LastSyncDate.ToString(), "lastSyncDate");
 				
@@ -111,7 +111,7 @@ namespace Floorball.iOS
 
 				//Initializing finished
 				LastSyncDate = await lastSyncDateTask;
-				Updater.Instance.LastSyncDate = LastSyncDate;
+				Updater.Updater.Instance.LastSyncDate = LastSyncDate;
 
 				//update last sync date
 				settings.SetString(LastSyncDate.ToString(), "lastSyncDate");

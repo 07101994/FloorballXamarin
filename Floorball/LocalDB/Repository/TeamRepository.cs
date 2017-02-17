@@ -117,5 +117,33 @@ namespace Floorball.LocalDB.Repository
 
         #endregion
 
+        #region PUT
+
+        public int UpdateTeam(Team team)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                Team t = db.Find<Team>(team.Id);
+
+                t.Name = team.Name;
+                t.Year = team.Year;
+                t.Coach = team.Coach;
+                t.Sex = team.Sex;
+                t.Country = team.Country;
+                t.Get = team.Get;
+                t.Scored = team.Scored;
+                t.Points = team.Points;
+                t.StadiumId = team.StadiumId;
+                t.LeagueId = team.LeagueId;
+                t.ImageName = team.ImageName;
+
+                db.Update(t);
+
+                return t.Id;
+            }
+        }
+
+        #endregion
+
     }
 }

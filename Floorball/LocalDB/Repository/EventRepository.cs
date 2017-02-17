@@ -58,7 +58,7 @@ namespace Floorball.LocalDB.Repository
                 e.MatchId = matchId;
                 e.PlayerId = playerId;
                 e.EventMessageId = evenetMessageId;
-                e.Time = time.ToString();
+                e.Time = time;
                 e.Type = type;
                 e.TeamId = teamId;
 
@@ -164,6 +164,31 @@ namespace Floorball.LocalDB.Repository
             //var entry = db.Entry(stat);
             //entry.Property(e => e.Number).IsModified = true;
 
+        }
+
+        public int UpdateEvent(Event ev)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                Event e = db.Find<Event>(ev.Id);
+
+                e.Id = ev.Id;
+                e.MatchId = ev.MatchId;
+                e.PlayerId = ev.PlayerId;
+                e.EventMessageId = ev.EventMessageId;
+                e.Time = ev.Time;
+                e.Type = ev.Type;
+                e.TeamId = ev.TeamId;
+
+                db.Update(e);
+
+                //if (playerId != -1 && type != "I" && type != "B")
+                //{
+                //    ChangeStatisticFromPlayer(playerId, teamId, type, db, "increase");
+                //}
+
+                return e.Id;
+            }
         }
 
         #endregion

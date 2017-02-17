@@ -14,7 +14,7 @@ namespace Floorball.LocalDB.Tables
 
         public string Type { get; set; }
 
-        public string Time { get; set; }
+        public TimeSpan Time { get; set; }
 
         //Relationships
 

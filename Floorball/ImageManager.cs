@@ -1,5 +1,4 @@
-﻿using Android.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -31,10 +30,9 @@ namespace Floorball
             return directoryPath;
         }
         
-        public static Bitmap GetImage(string imageName)
+        public static string GetImagePath(string imageName)
         {
-            string path = System.IO.Path.Combine(GetImagesPath(), imageName);
-            return BitmapFactory.DecodeStream(File.OpenRead(path));
+            return System.IO.Path.Combine(GetImagesPath(), imageName);
         }
 
     }

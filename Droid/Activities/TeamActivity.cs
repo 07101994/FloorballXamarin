@@ -54,7 +54,7 @@ namespace Floorball.Droid.Activities
             FindViewById<TextView>(Resource.Id.coachName).Text = Team.Coach;
             FindViewById<TextView>(Resource.Id.stadiumName).Text = UoW.StadiumRepo.GetStadiumById(Team.StadiumId).Name;
             FindViewById<TextView>(Resource.Id.teamName).Text = Team.Name;
-            FindViewById<ImageView>(Resource.Id.teamImage).SetImageBitmap(ImageManager.GetImage(Team.ImageName));
+            FindViewById<ImageView>(Resource.Id.teamImage).SetImageBitmap(BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(Team.ImageName))));
         }
 
         

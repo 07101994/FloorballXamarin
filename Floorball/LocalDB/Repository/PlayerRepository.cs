@@ -68,7 +68,7 @@ namespace Floorball.LocalDB.Repository
 
         #region POST
 
-        public int AddPlayer(string firstName, string secondName, int regNum, int number, DateTime date)
+        public int AddPlayer(string firstName, string secondName, int regNum, short number, DateTime date)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
@@ -76,7 +76,7 @@ namespace Floorball.LocalDB.Repository
                 p.FirstName = firstName;
                 p.SecondName = secondName;
                 p.RegNum = regNum;
-                p.Number = (short)number;
+                p.Number = number;
                 p.BirthDate = date.Date;
                 p.Teams = new List<Team>();
 
@@ -219,6 +219,23 @@ namespace Floorball.LocalDB.Repository
 
                 }
 
+            }
+        }
+
+        public int UpdatePlayer(Player player)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                Player p = db.Find<Player>(player.RegNum);
+
+                p.FirstName = player.FirstName;
+                p.SecondName = player.SecondName;
+                p.Number = player.Number;
+                p.BirthDate = player.BirthDate;
+
+                db.Update(p);
+
+                return p.RegNum;
             }
         }
 

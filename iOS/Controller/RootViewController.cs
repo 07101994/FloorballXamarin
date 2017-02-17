@@ -2,7 +2,6 @@ using Foundation;
 using System;
 using UIKit;
 using SidebarNavigation;
-using BigTed;
 
 namespace Floorball.iOS
 {

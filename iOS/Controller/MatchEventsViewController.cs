@@ -62,7 +62,7 @@ namespace Floorball.iOS
 				(cell.ViewWithTag(201) as UILabel).Text = AwayTeam.Players.First(p => p.RegNum == e.PlayerId).ShortName;
 			}
 
-			(cell.ViewWithTag(200) as UILabel).Text = e.Time.Split(':')[1] + ":" + e.Time.Split(':')[2];
+			(cell.ViewWithTag(200) as UILabel).Text = e.Time.Minutes + ":" + e.Time.Seconds;
 
 			cell = SetImage(cell, e);
 

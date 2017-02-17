@@ -14,6 +14,8 @@ using Newtonsoft.Json;
 using Floorball.LocalDB;
 using Android.Support.V7.App;
 using Android.Support.V4.App;
+using Android.Graphics;
+using System.IO;
 
 namespace Floorball.Droid.Activities
 {
@@ -69,8 +71,8 @@ namespace Floorball.Droid.Activities
 
             FindViewById<TextView>(Resource.Id.actualTime).Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes.ToString() + ":" + Match.Time.Seconds.ToString();
 
-            FindViewById<ImageView>(Resource.Id.homeTeamImage).SetImageBitmap(ImageManager.GetImage(HomeTeam.ImageName));
-            FindViewById<ImageView>(Resource.Id.awayTeamImage).SetImageBitmap(ImageManager.GetImage(AwayTeam.ImageName));
+            FindViewById<ImageView>(Resource.Id.homeTeamImage).SetImageBitmap(BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(HomeTeam.ImageName))));
+            FindViewById<ImageView>(Resource.Id.awayTeamImage).SetImageBitmap(BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(AwayTeam.ImageName))));
 
             CreateEvents();
             CreateReferees();
@@ -140,7 +142,7 @@ namespace Floorball.Droid.Activities
                     }
 
 
-                    eventItem.FindViewById<TextView>(Resource.Id.time).Text = e.Time.Split(':')[1] + ":" + e.Time.Split(':')[2];
+                    eventItem.FindViewById<TextView>(Resource.Id.time).Text = e.Time.Minutes + ":" + e.Time.Seconds;
 
                     relativeLayout.AddView(eventCard);
 

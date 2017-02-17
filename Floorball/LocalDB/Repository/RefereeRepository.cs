@@ -114,7 +114,41 @@ namespace Floorball.LocalDB.Repository
             }
         }
 
+        public int UpdateRefereee(Referee referee)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                Referee r = db.Find<Referee>(referee.Id);
+
+                r.Name = referee.Name;
+                r.Number = referee.Number;
+                r.Penalty = referee.Penalty;
+                r.Country = referee.Country;
+
+                db.Update(r);
+
+                return r.Id;
+            }
+        }
+
         #endregion
 
+        #region DELETE
+
+        public void RemoveRefereeFromMatch(int refereeeId, int matchId)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                var referee = db.GetWithChildren<Referee>(refereeeId);
+
+                var match = db.GetWithChildren<Match>(matchId);
+
+                match.Referees.Remove(referee);
+                referee.Matches.Remove(match);
+
+            }
+        }
+
+        #endregion
     }
 }

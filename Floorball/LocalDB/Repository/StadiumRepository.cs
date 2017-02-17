@@ -64,6 +64,24 @@ namespace Floorball.LocalDB.Repository
 
         #endregion
 
+        #region PUT
+
+        public int UpdateStadium(Stadium stadium)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                Stadium s = db.Find<Stadium>(stadium.Id);
+
+                s.Name = stadium.Name;
+                s.Address = stadium.Address;
+
+                db.Update(s);
+
+                return s.Id;
+            }
+        }
+
+        #endregion
 
     }
 }

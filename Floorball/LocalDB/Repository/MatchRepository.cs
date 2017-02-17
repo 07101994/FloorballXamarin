@@ -122,6 +122,29 @@ namespace Floorball.LocalDB.Repository
 
         #region PUT
 
+        public int UpdateMatch(Match match)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                Match m = db.Get<Match>(match.Id);
+
+                m.AwayTeamId = match.AwayTeamId;
+                m.HomeTeamId = match.HomeTeamId;
+                m.Date = match.Date;
+                m.GoalsA = match.GoalsA;
+                m.GoalsH = match.GoalsH;
+                m.LeagueId = match.LeagueId;
+                m.Round = match.Round;
+                m.StadiumId = match.StadiumId;
+                m.Time = match.Time;
+                m.State = match.State;
+
+                db.Update(match);
+
+                return m.Id;
+            }
+        }
+
         public void UpdateMatchState(int matchId, StateEnum newState)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
