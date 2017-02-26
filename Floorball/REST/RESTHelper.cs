@@ -15,7 +15,7 @@ namespace Floorball.REST
 {
     class RESTHelper
     {
-        private static JsonDeserializer deserial = new JsonDeserializer();
+        private static FloorballSerializer deserial = new FloorballSerializer(new JsonSerializer());
         private static string ServerURL = "https://floorball.azurewebsites.net";
         //private static string ServerURL = "http://192.168.0.20:8080";
         //private static string ServerURL = "http://192.168.173.1:8088";
@@ -402,12 +402,13 @@ namespace Floorball.REST
 
         }
 
-        public async static Task<List<TeamModel>> GetTeamsAsync()
+        public async static Task<List<TeamModel>> GetTeamsAsync(bool withImage = false)
         {
             try
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/teams", Method.GET) as RestResponse;
+                Dictionary<string, string> queryParams = new Dictionary<string, string>() { { "withImage", withImage.ToString() } };
+                RestResponse response = await client.ExecuteRequest("/api/floorball/teams", Method.GET, null, queryParams) as RestResponse;
 
                 CheckError(response, "Nem sikerült a csapatok lekérdezése!");
 
@@ -882,7 +883,7 @@ namespace Floorball.REST
 
                 CheckError(response,"Nem sikerült a frissíések letöltése!");
 
-                return JsonConvert.DeserializeObject<UpdateModel>(deserial.Deserialize<string>(response));
+                return deserial.Deserialize<UpdateModel>(response);
             }
             catch (Exception ex)
             {

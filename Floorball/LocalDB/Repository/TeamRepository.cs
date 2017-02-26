@@ -106,7 +106,10 @@ namespace Floorball.LocalDB.Repository
             {
                 try
                 {
-                    ImageManager.SaveImage(m.Image, m.ImageName);
+                    if (m.Image != null)
+                    {
+                        ImageManager.SaveImage(m.Image, m.ImageName);
+                    }
                     AddTeam(m.Id, m.Name, m.Year, m.Coach, m.Sex, m.Country, m.StadiumId, m.LeagueId, m.ImageName, m.Get, m.Scored, m.Points, m.Standing);
                 }
                 catch (Exception)

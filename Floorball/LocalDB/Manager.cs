@@ -75,22 +75,25 @@ namespace Floorball.LocalDB
             {
                 DropTables(db);
 
-                db.CreateTable<PlayerTeam>();
-                db.CreateTable<PlayerMatch>();
-                db.CreateTable<RefereeMatch>();
-                db.CreateTable<EventMessage>();
-                db.CreateTable<League>();
-                db.CreateTable<Match>();
-                db.CreateTable<Player>();
-                db.CreateTable<Referee>();
-                db.CreateTable<Stadium>();
-                db.CreateTable<Team>();
-                db.CreateTable<Statistic>();
-                db.CreateTable<Event>();
-                
-                
+                CreateTables(db);
             }
 
+        }
+
+        private static void CreateTables(SQLiteConnection db)
+        {
+            db.CreateTable<PlayerTeam>();
+            db.CreateTable<PlayerMatch>();
+            db.CreateTable<RefereeMatch>();
+            db.CreateTable<EventMessage>();
+            db.CreateTable<League>();
+            db.CreateTable<Match>();
+            db.CreateTable<Player>();
+            db.CreateTable<Referee>();
+            db.CreateTable<Stadium>();
+            db.CreateTable<Team>();
+            db.CreateTable<Statistic>();
+            db.CreateTable<Event>();
         }
 
         private async static Task CreateDatabaseAsync()
@@ -136,7 +139,7 @@ namespace Floorball.LocalDB
             tasks.Add(playersTask);
             Task<List<StadiumModel>> stadiumsTask = RESTHelper.GetStadiumsAsync();
             tasks.Add(stadiumsTask);
-            Task<List<TeamModel>> teamsTask = RESTHelper.GetTeamsAsync();
+            Task<List<TeamModel>> teamsTask = RESTHelper.GetTeamsAsync(true);
             tasks.Add(teamsTask);
             Task<List<MatchModel>> matchesTask = RESTHelper.GetMatchesAsync();
             tasks.Add(matchesTask);

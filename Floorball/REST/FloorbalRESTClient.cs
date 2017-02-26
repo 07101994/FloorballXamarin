@@ -13,7 +13,12 @@ namespace Floorball.REST
 
         public FloorballRESTClient(string url) : base(url)
         {
-
+            // Override with Newtonsoft JSON Handler
+            AddHandler("application/json", FloorballSerializer.Instance);
+            AddHandler("text/json", FloorballSerializer.Instance);
+            AddHandler("text/x-json", FloorballSerializer.Instance);
+            AddHandler("text/javascript", FloorballSerializer.Instance);
+            AddHandler("*+json", FloorballSerializer.Instance);
         }
 
         public async Task<IRestResponse> ExecuteRequest(string path, Method method, Dictionary<string, string> urlParams = null, Dictionary<string, string> queryParams = null, object body = null, Dictionary<string, string> headers = null)
@@ -21,6 +26,8 @@ namespace Floorball.REST
             RestResponse response;
 
             request = new RestRequest(path, method);
+            request.RequestFormat = DataFormat.Json;
+            request.JsonSerializer = FloorballSerializer.Instance;
             if (urlParams != null)
             {
                 foreach (var urlParam in urlParams)
