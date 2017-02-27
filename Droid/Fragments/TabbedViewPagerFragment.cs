@@ -14,8 +14,10 @@ using Android.Support.V4.App;
 using Android.Support.V4.View;
 using Newtonsoft.Json;
 using Android.Support.Design.Widget;
+using Floorball.Droid.Adapters;
+using Floorball.Droid.Models;
 
-namespace Floorball.Droid
+namespace Floorball.Droid.Fragments
 {
     public enum FragmentType
     {

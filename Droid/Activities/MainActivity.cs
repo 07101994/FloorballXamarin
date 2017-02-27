@@ -23,9 +23,9 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Util;
 using System.Threading.Tasks;
-using Floorball.Droid.Activities;
+using Floorball.Droid.Utils;
 
-namespace Floorball.Droid
+namespace Floorball.Droid.Activities
 {
     public interface IListItemSelected
     {

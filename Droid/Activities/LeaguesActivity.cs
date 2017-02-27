@@ -13,6 +13,8 @@ using Floorball.Droid.Adapters;
 using Floorball.LocalDB.Tables;
 using Android.Support.V4.App;
 using Android.App;
+using Floorball.Droid.Models;
+using Floorball.Droid.Fragments;
 
 namespace Floorball.Droid.Activities
 {

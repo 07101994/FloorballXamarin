@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Floorball.LocalDB.Tables;
+using Floorball.Droid.Models;
+using Floorball.Droid.Fragments;
 
 namespace Floorball.Droid.Activities
 {

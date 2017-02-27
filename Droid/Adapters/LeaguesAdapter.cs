@@ -13,6 +13,7 @@ using FloorballServer.Models.Floorball;
 using Floorball.LocalDB.Tables;
 using Android.Content.Res;
 using Android.Support.V7.Widget;
+using Floorball.Droid.Models;
 
 namespace Floorball.Droid.Adapters
 {

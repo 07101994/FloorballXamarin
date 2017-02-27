@@ -9,8 +9,9 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Floorball.Droid.Fragments;
 
-namespace Floorball.Droid
+namespace Floorball.Droid.Models
 {
     public  class TabbedViewPagerModel
     {

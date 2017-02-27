@@ -11,7 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Floorball.LocalDB.Tables;
 
-namespace Floorball.Droid
+namespace Floorball.Droid.Models
 {
     public class LeaguesModel
     {

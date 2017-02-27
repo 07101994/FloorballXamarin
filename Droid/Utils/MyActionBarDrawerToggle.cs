@@ -12,7 +12,7 @@ using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 
-namespace Floorball.Droid
+namespace Floorball.Droid.Utils
 {
     public class MyActionBarDrawerToggle : ActionBarDrawerToggle
     {

@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 using Floorball.LocalDB.Tables;
+using Floorball.Droid.Models;
 
 namespace Floorball.Droid.Adapters
 {

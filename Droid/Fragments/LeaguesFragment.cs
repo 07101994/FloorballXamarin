@@ -21,6 +21,7 @@ using Floorball.LocalDB.Tables;
 using Newtonsoft.Json;
 using Android.Support.V4.View;
 using Android.Support.V7.Widget;
+using Floorball.Droid.Models;
 
 namespace Floorball.Droid.Fragments
 {

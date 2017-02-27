@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V4.App;
 using Android.App;
+using Floorball.Droid.Activities;
 
 namespace Floorball.Droid.Fragments
 {
