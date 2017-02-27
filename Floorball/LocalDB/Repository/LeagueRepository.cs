@@ -15,7 +15,6 @@ namespace Floorball.LocalDB.Repository
 
         #region GET
 
-
         public IEnumerable<League> GetAllLeague()
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
@@ -24,11 +23,11 @@ namespace Floorball.LocalDB.Repository
             }
         }
 
-        public IEnumerable<DateTime> GetAllYear()
+        public IEnumerable<int> GetAllYear()
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
-                return db.GetAllWithChildren<League>().Select(l => l.Year).Distinct().OrderBy(t => t.Year);
+                return db.GetAllWithChildren<League>().OrderBy(l => l.Year).Select(l => l.Year.Year).Distinct();
             }
         }
 

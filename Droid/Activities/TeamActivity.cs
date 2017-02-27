@@ -57,18 +57,22 @@ namespace Floorball.Droid.Activities
 
             try
             {
-                FindViewById<ImageView>(Resource.Id.teamImage).SetImageBitmap(BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(Team.ImageName))));
+                var bitmap = BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(Team.ImageName)));
+
+                if (bitmap == null)
+                {
+                    throw new System.Exception("Image not found!");
+                }
+
+                FindViewById<ImageView>(Resource.Id.teamImage).SetImageBitmap(bitmap);
             }
             catch (System.Exception)
             {
                 var teamImageView = FindViewById<ImageView>(Resource.Id.teamImage);
                 teamImageView.SetImageResource(Resource.Drawable.ball);
                 teamImageView.Alpha = 125;
-                
             }
         }
-
-        
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {

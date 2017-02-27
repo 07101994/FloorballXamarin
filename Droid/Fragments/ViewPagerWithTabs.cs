@@ -38,7 +38,7 @@ namespace Floorball.Droid.Fragments
         {
             base.OnCreate(savedInstanceState);
 
-            years = UoW.LeagueRepo.GetAllYear().Select(y => y.Year.ToString()).ToList();
+            //years = UoW.LeagueRepo.GetAllYear().Select(y => y.Year.ToString()).ToList();
             ActualFragmentIndex = 0;
 
         }

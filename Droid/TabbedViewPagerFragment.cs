@@ -19,7 +19,7 @@ namespace Floorball.Droid
 {
     public enum FragmentType
     {
-        Leagues, Players, Matches, Stats, Table
+        Leagues, Players, Matches, Stats, Table, Teams
     }
 
     public class TabbedViewPagerFragment : Fragment
@@ -43,7 +43,6 @@ namespace Floorball.Droid
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
 
         }
 

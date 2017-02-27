@@ -28,7 +28,7 @@ namespace Floorball.LocalDB.Repository
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
-                return db.GetAllWithChildren<Team>().Where(t => t.Year == year);
+                return db.GetAllWithChildren<Team>().Where(t => t.Year.Year == year.Year);
             }
         }
 

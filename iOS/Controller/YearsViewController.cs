@@ -11,7 +11,7 @@ namespace Floorball.iOS
 	{
 		public RootViewController Root { get; set; }
 					
-		public IEnumerable<DateTime> Years { get; set; }
+		public IEnumerable<int> Years { get; set; }
 
 		public YearsViewController() : base("LeaguesViewController", null)
 		{
@@ -56,7 +56,7 @@ namespace Floorball.iOS
 
 			var date = Years.ElementAt(indexPath.Row);
 
-			cell.TextLabel.Text = date.Year + "-" + date.AddYears(1).Year;
+			cell.TextLabel.Text = date + "-" + (date+1);
 
 			return cell;
 
@@ -82,7 +82,7 @@ namespace Floorball.iOS
 			if (segue.Identifier == "TeamsSegue" || segue.Identifier == "LeaguesSegue")
 			{
 				var vc = segue.DestinationViewController as SexChooserViewController;
-				vc.Date = year;
+				vc.Date = new DateTime(year,1,1);
 			}
 		}
 

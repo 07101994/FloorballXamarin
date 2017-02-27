@@ -3196,25 +3196,28 @@ namespace Floorball.Droid
 			public const int TeamActivity = 2130968668;
 			
 			// aapt resource value: 0x7f04005d
-			public const int TeamsFragment = 2130968669;
+			public const int Teams = 2130968669;
 			
 			// aapt resource value: 0x7f04005e
-			public const int TeamsPageFragment = 2130968670;
+			public const int TeamsFragment = 2130968670;
 			
 			// aapt resource value: 0x7f04005f
-			public const int Toolbar = 2130968671;
+			public const int TeamsPageFragment = 2130968671;
 			
 			// aapt resource value: 0x7f040060
-			public const int ViewPagerWithTabs = 2130968672;
+			public const int Toolbar = 2130968672;
 			
 			// aapt resource value: 0x7f040061
-			public const int Year = 2130968673;
+			public const int ViewPagerWithTabs = 2130968673;
 			
 			// aapt resource value: 0x7f040062
-			public const int YearPagerWithTabsFragment = 2130968674;
+			public const int Year = 2130968674;
 			
 			// aapt resource value: 0x7f040063
-			public const int YearViewPagerContent = 2130968675;
+			public const int YearPagerWithTabsFragment = 2130968675;
+			
+			// aapt resource value: 0x7f040064
+			public const int YearViewPagerContent = 2130968676;
 			
 			static Layout()
 			{

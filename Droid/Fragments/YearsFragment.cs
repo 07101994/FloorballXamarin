@@ -16,25 +16,33 @@ using Floorball.Droid.Activities;
 
 namespace Floorball.Droid.Fragments
 {
+
+
     public class YearsFragment : MainFragment
     {
+        public string Type { get; set; }
 
         private RecyclerView recyclerView;
         private YearsAdapter adapter;
 
-        public static YearsFragment Instance()
+        public static YearsFragment Instance(string type)
         {
-            return new YearsFragment();
+            var fragment = new YearsFragment();
+            Bundle args = new Bundle();
+            args.PutString("type", type);
+
+            fragment.Arguments = args;
+
+            return fragment;
         }
 
-       
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            adapter = new YearsAdapter(UoW.LeagueRepo.GetAllYear().Select(y => y.Year.ToString()));
-
+            adapter = new YearsAdapter(UoW.LeagueRepo.GetAllYear().Select(y => y.ToString()));
+            Type = Arguments.GetString("type");
 
         }
 
@@ -47,14 +55,23 @@ namespace Floorball.Droid.Fragments
             recyclerView.SetLayoutManager(new LinearLayoutManager(Context));
             adapter.YearClicked += Adapter_YearClicked;
             recyclerView.SetAdapter(adapter);
-            //recyclerView.AddItemDecoration()
 
             return root;
         }
 
         private void Adapter_YearClicked(object sender, int e)
         {
-            Intent intent = new Intent(Activity, typeof(LeaguesActivity));
+            Intent intent;
+
+            if (Type == "leagues")
+            {
+                intent = new Intent(Activity, typeof(LeaguesActivity));
+            }
+            else
+            {
+                intent = new Intent(Activity, typeof(TeamsActivity));
+            }
+
             intent.PutExtra("year", adapter.Years[e]);
             StartActivity(intent);
         }

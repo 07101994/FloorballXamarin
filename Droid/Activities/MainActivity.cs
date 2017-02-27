@@ -231,11 +231,11 @@ namespace Floorball.Droid
                     break;
 
                 case 1:
-                    fragment = YearsFragment.Instance();
+                    fragment = YearsFragment.Instance("leagues");
                     break;
 
                 case 2:
-                    fragment = YearsFragment.Instance();
+                    fragment = YearsFragment.Instance("teams");
                     break;
 
                 case 3:
