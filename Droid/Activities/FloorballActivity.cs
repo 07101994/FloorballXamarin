@@ -129,5 +129,21 @@ namespace Floorball.Droid.Activities
 
         protected abstract void InitActivityProperties();
 
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+
+                    Finish();
+
+                    return true;
+
+                default:
+                    break;
+            }
+
+            return base.OnOptionsItemSelected(item);
+        }
     }
 }

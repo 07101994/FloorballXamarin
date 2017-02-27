@@ -20,71 +20,57 @@ using Floorball.LocalDB;
 using Floorball.LocalDB.Tables;
 using Newtonsoft.Json;
 using Android.Support.V4.View;
+using Android.Support.V7.Widget;
 
 namespace Floorball.Droid.Fragments
 {
-    public class LeaguesFragment : ViewPagerWithTabs
+    public class LeaguesFragment : Fragment
     {
 
-        public IEnumerable<League> Leagues { get; set; }
+        public List<League> Leagues { get; set; }
 
-        public IEnumerable<League> ActualLeagues { get; set; }
+        RecyclerView recyclerView;
+        LeaguesAdapter adapter;
 
-        public static LeaguesFragment Instance()
+        public static LeaguesFragment Instance(LeaguesModel model)
         {
-            return new LeaguesFragment();
+            var fragment = new LeaguesFragment();
+
+            Bundle args = new Bundle();
+            args.PutString("leagues", JsonConvert.SerializeObject(model.Leagues));
+
+            fragment.Arguments = args;
+
+            return fragment;
         }
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            PagerType = PagerFragmentType.Leagues;
+            Leagues = JsonConvert.DeserializeObject<List<League>>(Arguments.GetString("leagues"));
+
+            adapter = new LeaguesAdapter(Leagues.GroupBy(l => l.Country).Select(l => l.ToList()));
+
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View root = base.OnCreateView(inflater, container, savedInstanceState);
+            View root = inflater.Inflate(Resource.Layout.RecycleView, container, false);
 
-            root.FindViewById<TextView>(Resource.Id.title).Text = Resources.GetString(Resource.String.league);
-
-            //leaguesListView = root.FindViewById<ListView>(Resource.Id.leaguesList);
-
-            //try
-            //{
-            //    Leagues = Manager.GetAllLeague();
-            //    ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
-            //    leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
-            //    leaguesListView.ItemClick += (e, p) => {
-
-            //        Intent intent = new Intent(Context, typeof(LeagueActivity));
-            //        intent.PutExtra("league", JsonConvert.SerializeObject(ActualLeagues.ElementAt(p.Position)));
-            //        StartActivity(intent);
-            //    };
-
-            //}
-            //catch (Java.Lang.Exception)
-            //{
-
-            //}
+            recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            recyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
+            adapter.Clicked += Adapter_Clicked; ;
+            recyclerView.SetAdapter(adapter);
 
             return root;
         }
 
-        //public override void YearViewPager_PageSelected(object sender, ViewPager.PageSelectedEventArgs e)
-        //{
-        //    base.YearViewPager_PageSelected(sender, e);
-
-        //    ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == years.ElementAt(ActualFragmentIndex)).ToList();
-        //    leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
-
-        //}
-
-        public override void listItemSelected(string newYear)
+        private void Adapter_Clicked(object sender, int leagueId)
         {
-            //Activity.FindViewById<Button>(Resource.Id.yearsbutton).Text = newYear;
-            //ActualLeagues = Leagues.Where(l => l.Year.Year.ToString() == newYear).ToList();
-            //leaguesListView.Adapter = new LeaguesAdapter(Context, ActualLeagues.ToList());
+            Intent intent = new Intent(Activity, typeof(LeagueActivity));
+            intent.PutExtra("league",JsonConvert.SerializeObject(Leagues.Find(l => l.Id == leagueId)));
+            StartActivity(intent);
         }
 
     }

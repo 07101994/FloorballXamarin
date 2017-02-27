@@ -49,7 +49,7 @@ namespace Floorball.Droid.Fragments
             {
                 //TODO nemre szűrés
 
-                LeaguesListView.Adapter = new LeaguesAdapter(Context, Leagues.ToList());
+                //LeaguesListView.Adapter = new LeaguesAdapter(Context, Leagues.ToList());
                 LeaguesListView.ItemClick += (e, p) =>
                 {
 
@@ -73,7 +73,7 @@ namespace Floorball.Droid.Fragments
             base.YearUpdated(year);
 
             Leagues = (Activity as MainActivity).Leagues.Where(l => l.Year.Year.ToString() == Year.ToString()).ToList();
-            LeaguesListView.Adapter = new LeaguesAdapter(Context, Leagues.ToList());
+            //LeaguesListView.Adapter = new LeaguesAdapter(Context, Leagues.ToList());
 
         }
 

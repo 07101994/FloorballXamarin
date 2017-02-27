@@ -12,45 +12,137 @@ using Android.Widget;
 using FloorballServer.Models.Floorball;
 using Floorball.LocalDB.Tables;
 using Android.Content.Res;
+using Android.Support.V7.Widget;
 
 namespace Floorball.Droid.Adapters
 {
-    class LeaguesAdapter : ArrayAdapter<League>
+    class LeaguesAdapter : RecyclerView.Adapter
     {
+        private List<ListItem> listItems;
+        private List<string> headers;
+        private List<object> contents;
 
-        //private Context Context { get; set; }
+        public event EventHandler<int> Clicked;
 
-        public LeaguesAdapter(Context context , List<League> leagues) : base(context,0,leagues)
+        private class ListItem
         {
-            //Context = context;
+            public string Type { get; set; }
+            public int Index { get; set; }
         }
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
+        public LeaguesAdapter(IEnumerable<List<League>> leagues)
         {
 
-            League league = GetItem(position);
-            if (convertView == null)
+            listItems = new List<ListItem>();
+            headers = new List<string>();
+            contents = new List<object>();
+
+            leagues.ToList().ForEach(l =>
             {
-                convertView = LayoutInflater.From(Context).Inflate(Resource.Layout.LeagueItem, parent, false);
-            }
+                listItems.Add(new ListItem { Type = "header", Index = headers.Count });
+                headers.Add(l.First().Country.ToFriendlyString());
 
-            convertView.FindViewById<TextView>(Resource.Id.leagueName).Text = league.Name;
+                foreach (var value in l)
+                {
+                    listItems.Add(new ListItem { Type = "content", Index = contents.Count });
+                    contents.Add(value);
+                }
+            });
 
-            int resourceId = Context.Resources.GetIdentifier(league.Country.ToFriendlyString().ToLower(), "drawable", Context.PackageName);
-
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
-            {
-                //leagueNameView.FindViewById<ImageView>(Resource.Id.countryFlag).SetImageDrawable(Resources.GetDrawable(Resource.Drawable.HU, activity.ApplicationContext.Theme));
-                convertView.FindViewById<ImageView>(Resource.Id.countryFlag).SetImageDrawable(Context.Resources.GetDrawable(resourceId, Context.ApplicationContext.Theme));
-            }
-            else
-            {
-                convertView.FindViewById<ImageView>(Resource.Id.countryFlag).SetImageDrawable(Context.Resources.GetDrawable(resourceId));
-            }
-
-            return convertView;
         }
 
+        class HeaderViewHolder : RecyclerView.ViewHolder
+        {
+            public TextView TextView { get; set; }
 
+            public HeaderViewHolder(View itemView, Action<int> listener) : base(itemView)
+            {
+                TextView = itemView.FindViewById<TextView>(Resource.Id.headerName);
+            }
+        }
+
+        class ViewHolder : RecyclerView.ViewHolder
+        {
+            public TextView TextView { get; set; }
+
+            public ViewHolder(View itemView, Action<int> listener) : base(itemView)
+            {
+                TextView = itemView.FindViewById<TextView>(Resource.Id.cardName);
+
+                itemView.Click += (sender, e) => listener(AdapterPosition);
+                
+            }
+        }
+
+        public override int GetItemViewType(int position)
+        {
+            return Convert.ToInt16(listItems[position].Type == "header");
+        }
+
+        
+
+        public override int ItemCount
+        {
+            get
+            {
+                return listItems.Count;
+            }
+        }
+
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
+        {
+            switch (holder.ItemViewType)
+            {
+                case 0:
+                    var vh = holder as ViewHolder;
+
+                    vh.TextView.Text = (contents[listItems[position].Index] as League).Name;
+
+                    break;
+                case 1:
+
+                    var vh1 = holder as HeaderViewHolder;
+
+                    vh1.TextView.Text = headers[listItems[position].Index];
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
+        {
+            View itemView;
+            RecyclerView.ViewHolder vh = null;
+
+            switch (viewType)
+            {
+                case 0:
+
+                    itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.Card, parent, false);
+                    vh = new ViewHolder(itemView, OnClick);
+
+                    break;
+                case 1:
+
+                    itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.Header, parent, false);
+                    vh = new HeaderViewHolder(itemView, OnClick);
+
+                    break;
+                default:
+                    break;
+            }
+
+            return vh;
+        }
+
+        private void OnClick(int position)
+        {
+            if (Clicked != null)
+            {
+                Clicked(this, (contents[listItems[position].Index] as League).Id);
+            }
+        }
     }
 }

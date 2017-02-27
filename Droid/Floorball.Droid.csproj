@@ -130,6 +130,7 @@
   <ItemGroup>
     <Compile Include="Activities\FloorballActivity.cs" />
     <Compile Include="Activities\LeagueActivity.cs" />
+    <Compile Include="Activities\LeaguesActivity.cs" />
     <Compile Include="Activities\MatchActivity.cs" />
     <Compile Include="Activities\PlayerActivity.cs" />
     <Compile Include="Activities\RefereeActivity.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Adapters\PlayersAdapter.cs" />
     <Compile Include="Adapters\RefereesAdapter.cs" />
     <Compile Include="Adapters\SexPagerAdapter.cs" />
+    <Compile Include="Adapters\YearsAdapter.cs" />
     <Compile Include="Adapters\YearFragmentStatePageAdapter.cs" />
     <Compile Include="Fragments\ActualFragment.cs" />
     <Compile Include="Fragments\AppInitFragment.cs" />
@@ -161,9 +163,14 @@
     <Compile Include="Fragments\TeamsPageFragment.cs" />
     <Compile Include="Fragments\ViewPagerWithTabs.cs" />
     <Compile Include="Fragments\YearPageFragment.cs" />
+    <Compile Include="Fragments\YearsFragment.cs" />
+    <Compile Include="LeaguesModel.cs" />
     <Compile Include="MyActionBarDrawerToggle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="TabbedViewPagerAdapter.cs" />
+    <Compile Include="TabbedViewPagerFragment.cs" />
+    <Compile Include="TabbedViewPagerModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\fl.png" />
@@ -344,6 +351,15 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\InitFragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\RecycleView.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Year.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Leagues.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

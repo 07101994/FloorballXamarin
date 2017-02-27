@@ -58,22 +58,7 @@ namespace Floorball.Droid.Activities
             FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name;
         }
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            switch (item.ItemId)
-            {
-                case Android.Resource.Id.Home:
-
-                    Finish();
-
-                    return true;
-
-                default:
-                    break;
-            }
-
-            return base.OnOptionsItemSelected(item);    
-        }
+        
 
         protected override void InitProperties()
         {

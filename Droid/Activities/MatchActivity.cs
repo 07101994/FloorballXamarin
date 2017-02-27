@@ -59,20 +59,8 @@ namespace Floorball.Droid.Activities
             //Initialize properties
             InitProperties();
 
-            FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name + " " + Match.Round.ToString() + ". forduló";
-            FindViewById<TextView>(Resource.Id.date).Text = Match.Date.ToShortDateString();
-            FindViewById<TextView>(Resource.Id.stadium).Text = Stadium.Name;
-
-            FindViewById<TextView>(Resource.Id.homeTeamName).Text = HomeTeam.Name;
-            FindViewById<TextView>(Resource.Id.awayTeamName).Text = AwayTeam.Name;
-
-            FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
-            FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
-
-            FindViewById<TextView>(Resource.Id.actualTime).Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes.ToString() + ":" + Match.Time.Seconds.ToString();
-
-            FindViewById<ImageView>(Resource.Id.homeTeamImage).SetImageBitmap(BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(HomeTeam.ImageName))));
-            FindViewById<ImageView>(Resource.Id.awayTeamImage).SetImageBitmap(BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(AwayTeam.ImageName))));
+            //Initialize activity properties
+            InitActivityProperties();
 
             CreateEvents();
             CreateReferees();
@@ -204,7 +192,20 @@ namespace Floorball.Droid.Activities
 
         protected override void InitActivityProperties()
         {
-            throw new NotImplementedException();
+            FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name + " " + Match.Round.ToString() + ". forduló";
+            FindViewById<TextView>(Resource.Id.date).Text = Match.Date.ToShortDateString();
+            FindViewById<TextView>(Resource.Id.stadium).Text = Stadium.Name;
+
+            FindViewById<TextView>(Resource.Id.homeTeamName).Text = HomeTeam.Name;
+            FindViewById<TextView>(Resource.Id.awayTeamName).Text = AwayTeam.Name;
+
+            FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
+            FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
+
+            FindViewById<TextView>(Resource.Id.actualTime).Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes.ToString() + ":" + Match.Time.Seconds.ToString();
+
+            FindViewById<ImageView>(Resource.Id.homeTeamImage).SetImageBitmap(BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(HomeTeam.ImageName))));
+            FindViewById<ImageView>(Resource.Id.awayTeamImage).SetImageBitmap(BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(AwayTeam.ImageName))));
         }
     }
 }

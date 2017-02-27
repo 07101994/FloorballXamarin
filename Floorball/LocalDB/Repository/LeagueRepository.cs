@@ -52,7 +52,7 @@ namespace Floorball.LocalDB.Repository
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
-                return db.GetAllWithChildren<League>().Where(l => l.Year == year);
+                return db.GetAllWithChildren<League>().Where(l => l.Year.Year == year.Year);
             }
         }
 
