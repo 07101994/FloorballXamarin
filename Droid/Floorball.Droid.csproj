@@ -166,6 +166,7 @@
     <Compile Include="Fragments\ViewPagerWithTabs.cs" />
     <Compile Include="Fragments\YearPageFragment.cs" />
     <Compile Include="Fragments\YearsFragment.cs" />
+    <Compile Include="HeaderModel.cs" />
     <Compile Include="LeaguesModel.cs" />
     <Compile Include="MyActionBarDrawerToggle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

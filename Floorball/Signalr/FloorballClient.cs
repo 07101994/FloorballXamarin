@@ -88,7 +88,7 @@ namespace Floorball.Signalr
 
             foreach (var country in countries)
             {
-                countriesQueryString += country.ToFriendlyString() + ";";
+                countriesQueryString += country.ToString() + ";";
             }
 
             if (countriesQueryString.Length > 0)

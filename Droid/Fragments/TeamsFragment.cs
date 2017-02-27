@@ -50,7 +50,7 @@ namespace Floorball.Droid.Fragments
             Teams = JsonConvert.DeserializeObject<List<Team>>(Arguments.GetString("teams"));
             Leagues = JsonConvert.DeserializeObject<List<League>>(Arguments.GetString("leagues"));
 
-            adapter = new TeamsAdapter(Teams.GroupBy(t => t.LeagueId).Select(t => t.ToList()), Leagues);
+            adapter = new TeamsAdapter(Activity,Teams.GroupBy(t => t.LeagueId).Select(t => t.ToList()), Leagues);
 
         }
 

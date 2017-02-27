@@ -21,15 +21,15 @@ namespace Floorball
             switch (country)
             {
                 case CountriesEnum.HU:
-                    return "HU";
+                    return "Hungary";
                 case CountriesEnum.SE:
-                    return "SE";
+                    return "Sweden";
                 case CountriesEnum.FL:
-                    return "FL";
+                    return "Finnland";
                 case CountriesEnum.SW:
-                    return "SW";
+                    return "Switzerland";
                 case CountriesEnum.CZ:
-                    return "CZ";
+                    return "Checz Republic";
                 default:
                     return "";
             }

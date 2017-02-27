@@ -350,7 +350,7 @@ namespace Floorball.Droid
 
         public void OnSharedPreferenceChanged(ISharedPreferences sharedPreferences, string key)
         {
-            if (Countries.Select(c => c.ToFriendlyString()).Contains(key))
+            if (Countries.Select(c => c.ToString()).Contains(key))
             {
                 if (sharedPreferences.GetBoolean(key,false))
                 {

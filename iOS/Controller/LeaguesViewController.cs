@@ -54,7 +54,7 @@ namespace Floorball.iOS
 
 		public override string TitleForHeader(UITableView tableView, nint section)
 		{
-			return LeaguesByCountry.ElementAt(Convert.ToInt16(section)).First().Country.ToFriendlyString();
+			return LeaguesByCountry.ElementAt(Convert.ToInt16(section)).First().Country.ToString();
 		}
 
 		public override nint RowsInSection(UITableView tableView, nint section)

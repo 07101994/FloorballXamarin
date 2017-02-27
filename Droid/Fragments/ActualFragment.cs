@@ -225,7 +225,7 @@ namespace Floorball.Droid.Fragments
 
             MainActivity activity = Activity as MainActivity;
 
-            int resourceId = activity.Resources.GetIdentifier(actualLeague.Country.ToFriendlyString().ToLower(), "drawable", activity.PackageName);
+            int resourceId = activity.Resources.GetIdentifier(actualLeague.Country.ToString().ToLower(), "drawable", activity.PackageName);
 
             ViewGroup leagueNameView = activity.LayoutInflater.Inflate(Resource.Layout.LeagueNameWithFlag, null, false) as ViewGroup;
 
