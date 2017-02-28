@@ -17,40 +17,25 @@ using Floorball.Droid.Models;
 
 namespace Floorball.Droid.Adapters
 {
-    class LeaguesAdapter : RecyclerView.Adapter
+    public class LeaguesAdapter : AdapterWithHeader<HeaderModel,object>
     {
-        private List<ListItem> listItems;
-        private List<HeaderModel> headers;
-        private List<object> contents;
-
-        public event EventHandler<int> Clicked;
 
         public Context Context { get; set; }
-
-        private class ListItem
-        {
-            public string Type { get; set; }
-            public int Index { get; set; }
-        }
 
         public LeaguesAdapter(Context ctx, IEnumerable<List<League>> leagues)
         {
             Context = ctx;
 
-            listItems = new List<ListItem>();
-            headers = new List<HeaderModel>();
-            contents = new List<object>();
-
             leagues.ToList().ForEach(l =>
             {
-                listItems.Add(new ListItem { Type = "header", Index = headers.Count });
+                ListItems.Add(new ListItem { Type = "header", Index = Headers.Count });
                 var header = new HeaderModel { Country = l.First().Country, Title = l.First().Country.ToFriendlyString() };
-                headers.Add(header);
+                Headers.Add(header);
 
                 foreach (var value in l)
                 {
-                    listItems.Add(new ListItem { Type = "content", Index = contents.Count });
-                    contents.Add(value);
+                    ListItems.Add(new ListItem { Type = "content", Index = Contents.Count });
+                    Contents.Add(value);
                 }
             });
 
@@ -61,7 +46,7 @@ namespace Floorball.Droid.Adapters
             public TextView TextView { get; set; }
             public ImageView Flag { get; set; }
 
-            public HeaderViewHolder(View itemView, Action<int> listener) : base(itemView)
+            public HeaderViewHolder(View itemView) : base(itemView)
             {
                 TextView = itemView.FindViewById<TextView>(Resource.Id.leagueName);
                 Flag = itemView.FindViewById<ImageView>(Resource.Id.countryFlag);
@@ -72,27 +57,12 @@ namespace Floorball.Droid.Adapters
         {
             public TextView TextView { get; set; }
 
-            public ViewHolder(View itemView, Action<int> listener) : base(itemView)
+            public ViewHolder(View itemView, Action<int> listener, LeaguesAdapter adapter) : base(itemView)
             {
                 TextView = itemView.FindViewById<TextView>(Resource.Id.cardName);
 
-                itemView.Click += (sender, e) => listener(AdapterPosition);
+                itemView.Click += (sender, e) => listener((adapter.Contents[adapter.ListItems[AdapterPosition].Index] as League).Id);
                 
-            }
-        }
-
-        public override int GetItemViewType(int position)
-        {
-            return Convert.ToInt16(listItems[position].Type == "header");
-        }
-
-        
-
-        public override int ItemCount
-        {
-            get
-            {
-                return listItems.Count;
             }
         }
 
@@ -103,14 +73,14 @@ namespace Floorball.Droid.Adapters
                 case 0:
                     var vh = holder as ViewHolder;
 
-                    vh.TextView.Text = (contents[listItems[position].Index] as League).Name;
+                    vh.TextView.Text = (Contents[ListItems[position].Index] as League).Name;
 
                     break;
                 case 1:
 
                     var vh1 = holder as HeaderViewHolder;
 
-                    int resourceId = Context.Resources.GetIdentifier(headers[listItems[position].Index].Country.ToString().ToLower(), "drawable", Context.PackageName);
+                    int resourceId = Context.Resources.GetIdentifier(Headers[ListItems[position].Index].Country.ToString().ToLower(), "drawable", Context.PackageName);
 
                     if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
                     {
@@ -121,7 +91,7 @@ namespace Floorball.Droid.Adapters
                         vh1.Flag.SetImageDrawable(Context.Resources.GetDrawable(resourceId));
                     }
 
-                    vh1.TextView.Text = headers[listItems[position].Index].Title;
+                    vh1.TextView.Text = Headers[ListItems[position].Index].Title;
 
                     break;
                 default:
@@ -139,13 +109,13 @@ namespace Floorball.Droid.Adapters
                 case 0:
 
                     itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.Card, parent, false);
-                    vh = new ViewHolder(itemView, OnClick);
+                    vh = new ViewHolder(itemView, OnClickId, this);
 
                     break;
                 case 1:
 
                     itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.LeagueNameWithFlag, parent, false);
-                    vh = new HeaderViewHolder(itemView, OnClick);
+                    vh = new HeaderViewHolder(itemView);
 
                     break;
                 default:
@@ -155,12 +125,6 @@ namespace Floorball.Droid.Adapters
             return vh;
         }
 
-        private void OnClick(int position)
-        {
-            if (Clicked != null)
-            {
-                Clicked(this, (contents[listItems[position].Index] as League).Id);
-            }
-        }
+       
     }
 }
