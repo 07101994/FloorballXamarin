@@ -10,30 +10,76 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Floorball.LocalDB.Tables;
+using Android.Support.V7.Widget;
 
 namespace Floorball.Droid.Adapters
 {
-    class RefereesAdapter : ArrayAdapter<Referee>
+    class RefereesAdapter : RecyclerView.Adapter
     {
 
-        public RefereesAdapter(Context context, List<Referee> referees) : base(context,0,referees)
-        {
+        public List<Referee> Referees { get; set; }
 
+        public event EventHandler<Referee> Clicked;
+
+        public RefereesAdapter(List<Referee> referees)
+        {
+            Referees = referees;
         }
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
+        public override int ItemCount
+        {
+            get
+            {
+                return Referees.Count;
+            }
+        }
+
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
+        {
+            ViewHolder vh = holder as ViewHolder;
+            //vh.Image.SetImageResource(Resource.Drawable.hu);
+            vh.Text.Text = Referees[position].Name;
+        }
+
+        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
+        {
+            var itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.PlayerItem, parent, false);
+
+            var vh = new ViewHolder(itemView, OnClick);
+
+            return vh;
+        }
+
+        public void Swap(List<Referee> referees)
+        {
+            Referees.Clear();
+            Referees.AddRange(referees);
+            NotifyDataSetChanged();
+        }
+
+        private class ViewHolder : RecyclerView.ViewHolder
         {
 
-            Referee model = GetItem(position);
-            if (convertView == null)
+            public ImageView Image { get; set; }
+
+            public TextView Text { get; set; }
+
+            public ViewHolder(View itemView, Action<int> listener) : base(itemView)
             {
-                convertView = LayoutInflater.From(Context).Inflate(Resource.Layout.RefereeItem, parent, false);
+                Image = itemView.FindViewById<ImageView>(Resource.Id.playerTeamImage);
+                Text = itemView.FindViewById<TextView>(Resource.Id.playerName);
+
+                itemView.Click += (sender, e) => listener(AdapterPosition);
+
             }
+        }
 
-            TextView name = convertView.FindViewById<TextView>(Resource.Id.refereeName);
-            name.Text = model.Name;
-
-            return convertView;
+        private void OnClick(int position)
+        {
+            if (Clicked != null)
+            {
+                Clicked(this, Referees[position]);
+            }
         }
 
 

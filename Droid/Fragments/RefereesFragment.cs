@@ -16,13 +16,14 @@ using Floorball.Droid.Adapters;
 using Android.Text;
 using Newtonsoft.Json;
 using Floorball.Droid.Activities;
+using Android.Support.V7.Widget;
 
 namespace Floorball.Droid.Fragments
 {
     public class RefereesFragment : MainFragment
     {
-
-        ListView refereeListView;
+        RecyclerView recyclerView;
+        RefereesAdapter adapter;
 
         public IEnumerable<Referee> Referees { get; set; }
 
@@ -38,27 +39,33 @@ namespace Floorball.Droid.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
-        }
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-
-            View root = inflater.Inflate(Resource.Layout.SearchListFragment,container,false);
-
-            root.FindViewById<TextView>(Resource.Id.fragmentName).Text = Resources.GetString(Resource.String.referees);
-
 
             Referees = UoW.RefereeRepo.GetAllReferee().OrderBy(p => p.Name).ToList();
             ActualReferees = Referees;
 
-            //refereeListView = root.FindViewById<ListView>(Resource.Id.playersList);
-            //refereeListView.Adapter = new RefereesAdapter(Context, ActualReferees.ToList());
-            //refereeListView.ItemClick += RefereeListViewItemClick;
+            adapter = new RefereesAdapter(ActualReferees.ToList());
+            adapter.Clicked += Adapter_Clicked;
+        }
+
+        private void Adapter_Clicked(object sender, Referee r)
+        {
+            Intent intent = new Intent(Context, typeof(RefereeActivity));
+            intent.PutExtra("referee", JsonConvert.SerializeObject(r));
+            StartActivity(intent);
+        }
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            View root = inflater.Inflate(Resource.Layout.SearchListFragment,container,false);
+
+            root.FindViewById<TextView>(Resource.Id.fragmentName).Text = Resources.GetString(Resource.String.referees);
 
             EditText searchBox = root.FindViewById<EditText>(Resource.Id.playerSearch);
             searchBox.TextChanged += SearchBoxTextChanged;
+
+            recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            recyclerView.SetLayoutManager(new LinearLayoutManager(Context));
+            recyclerView.SetAdapter(adapter);
 
             return root;
         }
@@ -66,13 +73,16 @@ namespace Floorball.Droid.Fragments
 
         private void SearchBoxTextChanged(object sender, TextChangedEventArgs e)
         {
-        }
+            if (e.Text.ToString() == "")
+            {
+                ActualReferees = Referees;
+            }
+            else
+            {
+                ActualReferees = Referees.Where(p => p.Name.ToLower().Contains(e.Text.ToString().ToLower()));
+            }
 
-        private void RefereeListViewItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        {
-            Intent intent = new Intent(Context, typeof(RefereeActivity));
-            intent.PutExtra("referee", JsonConvert.SerializeObject(ActualReferees.ElementAt(e.Position)));
-            StartActivity(intent);
+            adapter.Swap(ActualReferees.ToList());
         }
 
         public override void listItemSelected(string s)
