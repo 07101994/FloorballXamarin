@@ -32,7 +32,7 @@ namespace Floorball.Droid.Activities
        void ListItemSelected(string s);
     }
 
-    [Activity(Label = "Floorball", MainLauncher = true, Icon = "@mipmap/ball")]
+    [Activity(Label = "Floorball", MainLauncher = true, Icon = "@mipmap/ic_launcher")]
     //[Activity(Label = "Floorball")]
     public class MainActivity : FloorballActivity, IListItemSelected, ISharedPreferencesOnSharedPreferenceChangeListener
     {

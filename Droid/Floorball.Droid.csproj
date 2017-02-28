@@ -147,7 +147,6 @@
     <Compile Include="Fragments\LeaguesFragment.cs" />
     <Compile Include="Fragments\LeagueStatisticsFragment.cs" />
     <Compile Include="Fragments\LeagueTableFragment.cs" />
-    <Compile Include="Fragments\ListDialogFragment.cs" />
     <Compile Include="Fragments\MainFragment.cs" />
     <Compile Include="Fragments\MatchListFragment.cs" />
     <Compile Include="Fragments\PlayerListFragment.cs">
@@ -158,7 +157,6 @@
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="Fragments\TeamsFragment.cs" />
     <Compile Include="Activities\MainActivity.cs" />
-    <Compile Include="Fragments\YearPageFragment.cs" />
     <Compile Include="Fragments\YearsFragment.cs" />
     <Compile Include="Models\HeaderModel.cs" />
     <Compile Include="Models\LeaguesModel.cs" />
@@ -181,9 +179,6 @@
     <AndroidResource Include="Resources\layout\League.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\LeagueItem.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\MatchesFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -200,12 +195,6 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\StatHeader.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\YearPagerWithTabsFragment.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\ListDialogFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Main.axml">
@@ -229,30 +218,17 @@
     <AndroidResource Include="Resources\layout\TeamActivity.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\TeamsFragment.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\TeamsPageFragment.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\mipmap-hdpi\Icon.png" />
-    <AndroidResource Include="Resources\mipmap-mdpi\Icon.png" />
-    <AndroidResource Include="Resources\mipmap-xhdpi\Icon.png" />
-    <AndroidResource Include="Resources\mipmap-xxhdpi\Icon.png" />
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\values-mdpi\dimens.xml" />
-    <AndroidResource Include="Resources\values-v11\Style.axml" />
-    <AndroidResource Include="Resources\values-v14\Style.axml" />
-    <AndroidResource Include="Resources\values\Arrays.xml">
+    <AndroidResource Include="Resources\values-mdpi\Arrays.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\values\colors.xml">
+    <AndroidResource Include="Resources\values-mdpi\colors.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\values\Strings.xml">
+    <AndroidResource Include="Resources\values-mdpi\Strings.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\values\Style.axml">
+    <AndroidResource Include="Resources\values-mdpi\Style.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="App.config" />
@@ -306,9 +282,6 @@
     <AndroidResource Include="Resources\layout\SearchListFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\PlayerItem.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\RefereeItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -316,9 +289,6 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Toolbar.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\YearViewPagerContent.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\MatchActivity.axml">
@@ -345,9 +315,6 @@
     <AndroidResource Include="Resources\layout\ViewPagerWithTabs.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\LeaguesPageFragment.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\InitFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -365,6 +332,10 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\mipmap-hdpi\" />
+    <Folder Include="Resources\mipmap-xhdpi\" />
+    <Folder Include="Resources\mipmap-xxhdpi\" />
+    <Folder Include="Resources\mipmap-xxxhdpi\" />
     <Folder Include="Resources\values-hdpi\" />
     <Folder Include="Resources\values-xhdpi\" />
     <Folder Include="Resources\values-xxhdpi\" />
@@ -467,9 +438,6 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_forward_black_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\ball.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\divider.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -519,6 +487,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\se.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher.png" />
   </ItemGroup>
   <Import Project="..\Floorball\Floorball.projitems" Label="Shared" Condition="Exists('..\Floorball\Floorball.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

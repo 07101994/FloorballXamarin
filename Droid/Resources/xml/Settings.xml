@@ -27,23 +27,5 @@
 
 
   </PreferenceCategory>
-
-
-  <!--<PreferenceScreen
-      android:key="button_voicemail_category_key"
-      android:title="AAA"
-      android:persistent="false">
-    <ListPreference
-        android:key="button_voicemail_provider_key"
-        android:title="BBB"/>
-
-    --><!-- opens another nested subscreen --><!--
-    <PreferenceScreen
-        android:key="button_voicemail_setting_key"
-        android:title="CCC"
-        android:persistent="false">
-    </PreferenceScreen>
-
-
-  </PreferenceScreen>-->
+  
 </PreferenceScreen>

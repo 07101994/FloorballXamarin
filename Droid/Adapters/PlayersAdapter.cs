@@ -26,14 +26,14 @@ namespace Floorball.Droid.Adapters
             Player model = GetItem(position);
             if (convertView == null)
             {
-                convertView = LayoutInflater.From(Context).Inflate(Resource.Layout.PlayerItem, parent, false);
+                //convertView = LayoutInflater.From(Context).Inflate(Resource.Layout.PlayerItem, parent, false);
             }
 
             TextView name = convertView.FindViewById<TextView>(Resource.Id.playerName);
             name.Text = model.Name;
 
-            ImageView image = convertView.FindViewById<ImageView>(Resource.Id.playerTeamImage);
-            image.SetBackgroundResource(Resource.Drawable.phoenix);
+            //ImageView image = convertView.FindViewById<ImageView>(Resource.Id.playerTeamImage);
+            //image.SetBackgroundResource(Resource.Drawable.phoenix);
 
             return convertView;
         }
