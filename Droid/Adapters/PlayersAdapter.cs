@@ -10,34 +10,77 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Floorball.LocalDB.Tables;
+using Android.Support.V7.Widget;
 
 namespace Floorball.Droid.Adapters
 {
-    class PlayersAdapter : ArrayAdapter<Player>
+    class PlayersAdapter : RecyclerView.Adapter
     {
-        public PlayersAdapter(Context context, List<Player> players) : base(context,0,players)
-        {
 
+        public List<Player> Players { get; set; }
+
+        public event EventHandler<Player> Clicked;
+
+        public PlayersAdapter(List<Player> players)
+        {
+            Players = players;
         }
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
+        public override int ItemCount
         {
-
-            Player model = GetItem(position);
-            if (convertView == null)
+            get
             {
-                //convertView = LayoutInflater.From(Context).Inflate(Resource.Layout.PlayerItem, parent, false);
+                return Players.Count;
             }
-
-            TextView name = convertView.FindViewById<TextView>(Resource.Id.playerName);
-            name.Text = model.Name;
-
-            //ImageView image = convertView.FindViewById<ImageView>(Resource.Id.playerTeamImage);
-            //image.SetBackgroundResource(Resource.Drawable.phoenix);
-
-            return convertView;
         }
 
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
+        {
+            ViewHolder vh = holder as ViewHolder;
+            //vh.Image.SetImageResource(Resource.Drawable.hu);
+            vh.Text.Text = Players[position].Name;
+        }
+
+        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
+        {
+            var itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.PlayerItem, parent, false);
+
+            var vh = new ViewHolder(itemView, OnClick);
+
+            return vh;
+        }
+
+        public void Swap(List<Player> players)
+        {
+            Players.Clear();
+            Players.AddRange(players);
+            NotifyDataSetChanged();
+        }
+
+        private class ViewHolder : RecyclerView.ViewHolder
+        {
+
+            public ImageView Image { get; set; }
+
+            public TextView Text { get; set; }
+
+            public ViewHolder(View itemView, Action<int> listener) : base(itemView)
+            {
+                Image = itemView.FindViewById<ImageView>(Resource.Id.playerTeamImage);
+                Text = itemView.FindViewById<TextView>(Resource.Id.playerName);
+
+                itemView.Click += (sender, e) => listener(AdapterPosition);
+
+            }
+        }
+
+        private void OnClick(int position)
+        {
+            if (Clicked != null)
+            {
+                Clicked(this, Players[position]);
+            }
+        }
 
     }
 }

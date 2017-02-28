@@ -53,9 +53,9 @@ namespace Floorball.Droid.Fragments
             Referees = UoW.RefereeRepo.GetAllReferee().OrderBy(p => p.Name).ToList();
             ActualReferees = Referees;
 
-            refereeListView = root.FindViewById<ListView>(Resource.Id.playersList);
-            refereeListView.Adapter = new RefereesAdapter(Context, ActualReferees.ToList());
-            refereeListView.ItemClick += RefereeListViewItemClick;
+            //refereeListView = root.FindViewById<ListView>(Resource.Id.playersList);
+            //refereeListView.Adapter = new RefereesAdapter(Context, ActualReferees.ToList());
+            //refereeListView.ItemClick += RefereeListViewItemClick;
 
             EditText searchBox = root.FindViewById<EditText>(Resource.Id.playerSearch);
             searchBox.TextChanged += SearchBoxTextChanged;

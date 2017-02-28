@@ -15,17 +15,19 @@ using Floorball.LocalDB;
 using Floorball.Droid.Adapters;
 using Floorball.Droid.Activities;
 using Newtonsoft.Json;
+using Android.Support.V7.Widget;
 
 namespace Floorball.Droid.Fragments
 {
     public class PlayersFragment : MainFragment
     {
-        ListView playerListView;
+
+        RecyclerView recyclerView;
+        PlayersAdapter adapter;
 
         public IEnumerable<Player> Players { get; set; }
 
         public IEnumerable<Player> ActualPlayers { get; set; }
-
 
         public static PlayersFragment Instance()
         {
@@ -37,34 +39,34 @@ namespace Floorball.Droid.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
+            Players = UoW.PlayerRepo.GetAllPlayer().OrderBy(p => p.Name).ToList();
+            ActualPlayers = Players;
+
+            adapter = new PlayersAdapter(ActualPlayers.ToList());
+            adapter.Clicked += Adapter_Clicked;
+        }
+
+        private void Adapter_Clicked(object sender, Player player)
+        {
+            Intent intent = new Intent(Context, typeof(PlayerActivity));
+            intent.PutExtra("player", JsonConvert.SerializeObject(player));
+            StartActivity(intent);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-
             View root = inflater.Inflate(Resource.Layout.SearchListFragment,container,false);
 
             root.FindViewById<TextView>(Resource.Id.fragmentName).Text = Resources.GetString(Resource.String.players);
+            EditText searchBox = root.FindViewById<EditText>(Resource.Id.playerSearch);
+            searchBox.TextChanged += SearchBoxTextChanged;
+
+            recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            recyclerView.SetLayoutManager(new LinearLayoutManager(Context));
+            recyclerView.SetAdapter(adapter);
+            
 
             return root;
-        }
-
-        public override void OnStart()
-        {
-            base.OnStart();
-
-            Players = UoW.PlayerRepo.GetAllPlayer().OrderBy(p => p.Name).ToList();
-            ActualPlayers = Players;
-
-            playerListView = Activity.FindViewById<ListView>(Resource.Id.playersList);
-            playerListView.Adapter = new PlayersAdapter(Context, ActualPlayers.ToList());
-            playerListView.ItemClick += PlayerListViewItemClick;
-
-            EditText searchBox = Activity.FindViewById<EditText>(Resource.Id.playerSearch);
-            searchBox.TextChanged += SearchBoxTextChanged;
-            
         }
 
         private void SearchBoxTextChanged(object sender, Android.Text.TextChangedEventArgs e)
@@ -73,12 +75,12 @@ namespace Floorball.Droid.Fragments
             if (e.Text.ToString() == "")
             {
                 ActualPlayers = Players;
-                playerListView.Adapter = new PlayersAdapter(Context, ActualPlayers.ToList());
             } else
             {
                 ActualPlayers = Players.Where(p => p.Name.ToLower().Contains(e.Text.ToString().ToLower()));
-                playerListView.Adapter = new PlayersAdapter(Context,ActualPlayers.ToList());
             }
+
+            adapter.Swap(ActualPlayers.ToList());
 
         }
 

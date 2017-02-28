@@ -16,11 +16,6 @@
         android:hint="@string/playerSearchHint"
         android:drawableLeft="@drawable/ic_search_black_24dp"
         android:inputType="text" />
-    <ListView
-        android:id="@+id/playersList"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp" />
+    <include
+        layout="@layout/recycleview" />
 </LinearLayout>
