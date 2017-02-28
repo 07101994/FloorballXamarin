@@ -53,5 +53,12 @@ namespace Floorball.Droid.Adapters
                 ClickedObject(this, clicked);
             }
         }
+
+        public void Swap(List<T> newItems)
+        {
+            ListItems.Clear();
+            ListItems.AddRange(newItems);
+            NotifyDataSetChanged();
+        }
     }
 }

@@ -60,7 +60,7 @@ namespace Floorball.Droid.Fragments
 
             recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             recyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
-            adapter.Clicked += Adapter_Clicked; ;
+            adapter.ClickedId += Adapter_Clicked; ;
             recyclerView.SetAdapter(adapter);
 
             return root;

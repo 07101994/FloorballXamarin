@@ -14,6 +14,7 @@ using Floorball.LocalDB.Tables;
 using Android.Content.Res;
 using Android.Support.V7.Widget;
 using Floorball.Droid.Models;
+using Floorball.Droid.ViewHolders;
 
 namespace Floorball.Droid.Adapters
 {
@@ -41,44 +42,19 @@ namespace Floorball.Droid.Adapters
 
         }
 
-        class HeaderViewHolder : RecyclerView.ViewHolder
-        {
-            public TextView TextView { get; set; }
-            public ImageView Flag { get; set; }
-
-            public HeaderViewHolder(View itemView) : base(itemView)
-            {
-                TextView = itemView.FindViewById<TextView>(Resource.Id.leagueName);
-                Flag = itemView.FindViewById<ImageView>(Resource.Id.countryFlag);
-            }
-        }
-
-        class ViewHolder : RecyclerView.ViewHolder
-        {
-            public TextView TextView { get; set; }
-
-            public ViewHolder(View itemView, Action<int> listener, LeaguesAdapter adapter) : base(itemView)
-            {
-                TextView = itemView.FindViewById<TextView>(Resource.Id.cardName);
-
-                itemView.Click += (sender, e) => listener((adapter.Contents[adapter.ListItems[AdapterPosition].Index] as League).Id);
-                
-            }
-        }
-
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             switch (holder.ItemViewType)
             {
                 case 0:
-                    var vh = holder as ViewHolder;
+                    var vh = holder as LeagueContentViewHolder;
 
                     vh.TextView.Text = (Contents[ListItems[position].Index] as League).Name;
-
+                    
                     break;
                 case 1:
 
-                    var vh1 = holder as HeaderViewHolder;
+                    var vh1 = holder as LeagueHeaderViewHolder;
 
                     int resourceId = Context.Resources.GetIdentifier(Headers[ListItems[position].Index].Country.ToString().ToLower(), "drawable", Context.PackageName);
 
@@ -109,13 +85,13 @@ namespace Floorball.Droid.Adapters
                 case 0:
 
                     itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.Card, parent, false);
-                    vh = new ViewHolder(itemView, OnClickId, this);
+                    vh = new LeagueContentViewHolder(itemView, OnClickId, this);
 
                     break;
                 case 1:
 
                     itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.LeagueNameWithFlag, parent, false);
-                    vh = new HeaderViewHolder(itemView);
+                    vh = new LeagueHeaderViewHolder(itemView);
 
                     break;
                 default:

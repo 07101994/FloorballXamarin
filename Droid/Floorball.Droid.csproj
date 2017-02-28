@@ -171,6 +171,13 @@
     <Compile Include="Fragments\TabbedViewPagerFragment.cs" />
     <Compile Include="Models\TabbedViewPagerModel.cs" />
     <Compile Include="Models\TeamsModel.cs" />
+    <Compile Include="ViewHolders\LeagueHeaderViewHolder.cs" />
+    <Compile Include="ViewHolders\LeagueContentViewHolder.cs" />
+    <Compile Include="ViewHolders\PlayerViewHolder.cs" />
+    <Compile Include="ViewHolders\RefereeViewHolder.cs" />
+    <Compile Include="ViewHolders\TeamContentViewHolder.cs" />
+    <Compile Include="ViewHolders\TeamHeaderViewHolder.cs" />
+    <Compile Include="ViewHolders\YearViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\fl.png" />
@@ -347,7 +354,6 @@
     <Folder Include="Resources\values-xhdpi\" />
     <Folder Include="Resources\values-xxhdpi\" />
     <Folder Include="Resources\values-xxxhdpi\" />
-    <Folder Include="ViewHolders\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_search_black_24dp.png" />

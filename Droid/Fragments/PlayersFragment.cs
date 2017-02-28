@@ -43,10 +43,10 @@ namespace Floorball.Droid.Fragments
             ActualPlayers = Players;
 
             adapter = new PlayersAdapter(ActualPlayers.ToList());
-            adapter.Clicked += Adapter_Clicked;
+            adapter.ClickedObject += Adapter_Clicked;
         }
 
-        private void Adapter_Clicked(object sender, Player player)
+        private void Adapter_Clicked(object sender, object player)
         {
             Intent intent = new Intent(Context, typeof(PlayerActivity));
             intent.PutExtra("player", JsonConvert.SerializeObject(player));

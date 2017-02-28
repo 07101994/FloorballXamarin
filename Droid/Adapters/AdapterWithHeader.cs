@@ -17,8 +17,8 @@ namespace Floorball.Droid.Adapters
     public abstract class AdapterWithHeader<H,C> : BaseRecyclerViewAdapter<ListItem>
     {
 
-        protected List<H> Headers;
-        protected List<C> Contents;
+        public List<H> Headers;
+        public List<C> Contents;
 
         public AdapterWithHeader() : base(new List<ListItem>())
         {

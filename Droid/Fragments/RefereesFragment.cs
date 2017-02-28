@@ -44,10 +44,10 @@ namespace Floorball.Droid.Fragments
             ActualReferees = Referees;
 
             adapter = new RefereesAdapter(ActualReferees.ToList());
-            adapter.Clicked += Adapter_Clicked;
+            adapter.ClickedObject += Adapter_Clicked;
         }
 
-        private void Adapter_Clicked(object sender, Referee r)
+        private void Adapter_Clicked(object sender, object r)
         {
             Intent intent = new Intent(Context, typeof(RefereeActivity));
             intent.PutExtra("referee", JsonConvert.SerializeObject(r));

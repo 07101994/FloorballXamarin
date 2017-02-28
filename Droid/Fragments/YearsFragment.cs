@@ -48,12 +48,11 @@ namespace Floorball.Droid.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
             View root = inflater.Inflate(Resource.Layout.RecycleView, container, false);
 
             recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             recyclerView.SetLayoutManager(new LinearLayoutManager(Context));
-            adapter.YearClicked += Adapter_YearClicked;
+            adapter.ClickedId += Adapter_YearClicked;
             recyclerView.SetAdapter(adapter);
 
             return root;
@@ -72,7 +71,7 @@ namespace Floorball.Droid.Fragments
                 intent = new Intent(Activity, typeof(TeamsActivity));
             }
 
-            intent.PutExtra("year", adapter.Years[e]);
+            intent.PutExtra("year", adapter.ListItems[e]);
             StartActivity(intent);
         }
 

@@ -12,89 +12,35 @@ using Android.Widget;
 using Android.Support.V7.Widget;
 using Floorball.LocalDB.Tables;
 using Floorball.Droid.Models;
+using Floorball.Droid.ViewHolders;
 
 namespace Floorball.Droid.Adapters
 {
-    public class TeamsAdapter : RecyclerView.Adapter
+    public class TeamsAdapter : AdapterWithHeader<HeaderModel,object>
     {
 
-        private List<ListItem> listItems;
-        private List<HeaderModel> headers;
-        private List<object> contents;
-
-        public event EventHandler<int> Clicked;
-
         public Context Context { get; set; }
-
-        private class ListItem
-        {
-            public string Type { get; set; }
-            public int Index { get; set; }
-        }
 
         public TeamsAdapter(Context ctx, IEnumerable<List<Team>> teams, List<League> leagues)
         {
             Context = ctx;
 
-            listItems = new List<ListItem>();
-            headers = new List<HeaderModel>();
-            contents = new List<object>();
-
             teams.ToList().ForEach(t =>
             {
-                listItems.Add(new ListItem { Type = "header", Index = headers.Count });
+                ListItems.Add(new ListItem { Type = "header", Index = Headers.Count });
                 var header = new HeaderModel {
                     Title = leagues.Find(l => l.Id == t.First().LeagueId).Name,
                     Country = t.First().Country
                 };
-                headers.Add(header);
+                Headers.Add(header);
 
                 foreach (var team in t)
                 {
-                    listItems.Add(new ListItem { Type = "content", Index = contents.Count });
-                    contents.Add(team);
+                    ListItems.Add(new ListItem { Type = "content", Index = Contents.Count });
+                    Contents.Add(team);
                 }
             });
 
-        }
-
-        class HeaderViewHolder : RecyclerView.ViewHolder
-        {
-            public TextView TextView { get; set; }
-            public ImageView Flag { get; set; }
-
-            public HeaderViewHolder(View itemView, Action<int> listener) : base(itemView)
-            {
-                Flag = itemView.FindViewById<ImageView>(Resource.Id.countryFlag);
-                TextView = itemView.FindViewById<TextView>(Resource.Id.leagueName);
-
-            }
-        }
-
-        class ViewHolder : RecyclerView.ViewHolder
-        {
-            public TextView TextView { get; set; }
-
-            public ViewHolder(View itemView, Action<int> listener) : base(itemView)
-            {
-                TextView = itemView.FindViewById<TextView>(Resource.Id.cardName);
-
-                itemView.Click += (sender, e) => listener(AdapterPosition);
-
-            }
-        }
-
-        public override int GetItemViewType(int position)
-        {
-            return Convert.ToInt16(listItems[position].Type == "header");
-        }
-
-        public override int ItemCount
-        {
-            get
-            {
-                return listItems.Count;
-            }
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
@@ -102,16 +48,16 @@ namespace Floorball.Droid.Adapters
             switch (holder.ItemViewType)
             {
                 case 0:
-                    var vh = holder as ViewHolder;
+                    var vh = holder as TeamContentViewHolder;
 
-                    vh.TextView.Text = (contents[listItems[position].Index] as Team).Name;
+                    vh.TextView.Text = (Contents[ListItems[position].Index] as Team).Name;
 
                     break;
                 case 1:
 
-                    var vh1 = holder as HeaderViewHolder;
+                    var vh1 = holder as TeamHeaderViewHolder;
 
-                    int resourceId = Context.Resources.GetIdentifier(headers[listItems[position].Index].Country.ToString().ToLower(), "drawable", Context.PackageName);
+                    int resourceId = Context.Resources.GetIdentifier(Headers[ListItems[position].Index].Country.ToString().ToLower(), "drawable", Context.PackageName);
 
                     if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
                     {
@@ -122,7 +68,7 @@ namespace Floorball.Droid.Adapters
                         vh1.Flag.SetImageDrawable(Context.Resources.GetDrawable(resourceId));
                     }
 
-                    vh1.TextView.Text = headers[listItems[position].Index].Title;
+                    vh1.TextView.Text = Headers[ListItems[position].Index].Title;
 
                     break;
                 default:
@@ -140,13 +86,13 @@ namespace Floorball.Droid.Adapters
                 case 0:
 
                     itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.Card, parent, false);
-                    vh = new ViewHolder(itemView, OnClick);
+                    vh = new TeamContentViewHolder(itemView, OnClickId, this);
 
                     break;
                 case 1:
 
                     itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.LeagueNameWithFlag, parent, false);
-                    vh = new HeaderViewHolder(itemView, OnClick);
+                    vh = new TeamHeaderViewHolder(itemView, OnClickId);
 
                     break;
                 default:
@@ -154,14 +100,6 @@ namespace Floorball.Droid.Adapters
             }
 
             return vh;
-        }
-
-        private void OnClick(int position)
-        {
-            if (Clicked != null)
-            {
-                Clicked(this, (contents[listItems[position].Index] as Team).Id);
-            }
         }
 
     }
