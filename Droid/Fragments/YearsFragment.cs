@@ -17,7 +17,6 @@ using Floorball.Droid.Activities;
 namespace Floorball.Droid.Fragments
 {
 
-
     public class YearsFragment : MainFragment
     {
         public string Type { get; set; }

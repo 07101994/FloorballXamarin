@@ -15,6 +15,8 @@ using Android.App;
 using Android.Support.V7.Widget;
 using Android.Support.V7.App;
 using Floorball.Droid.Activities;
+using Floorball.Droid.Adapters;
+using Floorball.Droid.Models;
 
 namespace Floorball.Droid.Activities
 {
@@ -28,6 +30,8 @@ namespace Floorball.Droid.Activities
 
         private IEnumerable<Team> Teams { get; set; }
 
+        RecyclerView recyclerView;
+        PlayerStatsAdapter adapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -45,50 +49,31 @@ namespace Floorball.Droid.Activities
             FindViewById<TextView>(Resource.Id.birthDate).Text = Player.BirthDate.ToShortDateString();
             FindViewById<TextView>(Resource.Id.regNum).Text = Player.RegNum.ToString();
 
-            CreatePlayerStat(Teams, Statistics, UoW.MatchRepo.GetMatchesByPlayer(Player.RegNum).Count(), FindViewById<LinearLayout>(Resource.Id.linearlayout));
+            recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            adapter = new PlayerStatsAdapter(CreateStatModels());
+            recyclerView.SetLayoutManager(new LinearLayoutManager(this));
+            recyclerView.SetAdapter(adapter);
 
         }
 
-        private void CreatePlayerStat(IEnumerable<Team> Teams, IEnumerable<Statistic> statistics, int matchCount, LinearLayout container)
+        private List<PlayerStatModel> CreateStatModels()
         {
+            List<PlayerStatModel> stats = new List<PlayerStatModel>();
 
-            foreach (var team in Teams)
+            foreach (var stat in UoW.StatiscticRepo.GetStatisticsByPlayer(Player.RegNum).GroupBy(s => s.TeamId).Select(s => s.ToList()))
             {
-                ViewGroup stat = LayoutInflater.Inflate(Resource.Layout.Stat, container, false) as ViewGroup;
-                stat.FindViewById<TextView>(Resource.Id.leagueName).Text = team.Name;// + " (" + team.Year.Year + "-" + (team.Year.Year+1) + ")";
-                stat.FindViewById<TextView>(Resource.Id.leagueYear).Text = "(" + team.Year.Year + "-" + (team.Year.Year + 1) + ")";
+                var team = Teams.First(t => stat.First().TeamId == t.Id);
 
-                LinearLayout statCard = stat.FindViewById<LinearLayout>(Resource.Id.statCard);
-
-                ViewGroup goals = LayoutInflater.Inflate(Resource.Layout.StatLine,statCard,false) as ViewGroup;
-                goals.FindViewById<TextView>(Resource.Id.statLabel).Text = "Gólok: ";
-                goals.FindViewById<TextView>(Resource.Id.statNumber).Text = statistics.Where(s => s.TeamId == team.Id && s.Name == "G").First().Number.ToString();
-                statCard.AddView(goals);
-
-
-                ViewGroup assists = LayoutInflater.Inflate(Resource.Layout.StatLine, statCard, false) as ViewGroup;
-                assists.FindViewById<TextView>(Resource.Id.statLabel).Text = "Asszisztok: ";
-                assists.FindViewById<TextView>(Resource.Id.statNumber).Text = statistics.Where(s => s.TeamId == team.Id && s.Name == "A").First().Number.ToString();
-                statCard.AddView(assists);
-
-                ViewGroup penalties = LayoutInflater.Inflate(Resource.Layout.StatLine, statCard, false) as ViewGroup;
-                penalties.FindViewById<TextView>(Resource.Id.statLabel).Text = "Kiállítások: ";
-                int penaltySum = 0;
-                penaltySum += statistics.Where(s => s.TeamId == team.Id && s.Name == "P2").First().Number * 2;
-                penaltySum += statistics.Where(s => s.TeamId == team.Id && s.Name == "P5").First().Number * 5;
-                int p10 = statistics.Where(s => s.TeamId == team.Id && s.Name == "P10").First().Number * 10;
-                penaltySum += p10;
-                penalties.FindViewById<TextView>(Resource.Id.statNumber).Text = penaltySum.ToString() + " (" + p10 + ") perc" ;
-                statCard.AddView(penalties);
-
-                ViewGroup matches = LayoutInflater.Inflate(Resource.Layout.StatLine, statCard, false) as ViewGroup;
-                matches.FindViewById<TextView>(Resource.Id.statLabel).Text = "Mérkőzés szám: ";
-                matches.FindViewById<TextView>(Resource.Id.statNumber).Text = matchCount.ToString();
-                statCard.AddView(matches);
-
-                container.AddView(stat);
+                stats.Add(new PlayerStatModel
+                {
+                    Stats = stat,
+                    TeamName = team.Name,
+                    Year = team.Year,
+                    MatchCount = Player.Matches.Count().ToString()
+                });
             }
 
+            return stats;
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

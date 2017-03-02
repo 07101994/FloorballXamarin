@@ -164,6 +164,7 @@
     <Compile Include="Models\HeaderModel.cs" />
     <Compile Include="Models\LeaguesModel.cs" />
     <Compile Include="Models\ListItem.cs" />
+    <Compile Include="Models\PlayerStatModel.cs" />
     <Compile Include="Utils\MyActionBarDrawerToggle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="ViewHolders\LeagueContentViewHolder.cs" />
     <Compile Include="ViewHolders\PlayerViewHolder.cs" />
     <Compile Include="ViewHolders\RefereeViewHolder.cs" />
+    <Compile Include="ViewHolders\StatViewHolder.cs" />
     <Compile Include="ViewHolders\TeamContentViewHolder.cs" />
     <Compile Include="ViewHolders\TeamHeaderViewHolder.cs" />
     <Compile Include="ViewHolders\YearViewHolder.cs" />

@@ -2278,8 +2278,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f08009f
 			public const int actualTime = 2131230879;
 			
-			// aapt resource value: 0x7f0800cf
-			public const int actualmenuitem = 2131230927;
+			// aapt resource value: 0x7f0800d3
+			public const int actualmenuitem = 2131230931;
 			
 			// aapt resource value: 0x7f08004d
 			public const int alertTitle = 2131230797;
@@ -2292,6 +2292,9 @@ namespace Floorball.Droid
 			
 			// aapt resource value: 0x7f08002f
 			public const int always = 2131230767;
+			
+			// aapt resource value: 0x7f0800c5
+			public const int assistStat = 2131230917;
 			
 			// aapt resource value: 0x7f0800aa
 			public const int awayScore = 2131230890;
@@ -2356,8 +2359,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080014
 			public const int clip_vertical = 2131230740;
 			
-			// aapt resource value: 0x7f0800ca
-			public const int coachName = 2131230922;
+			// aapt resource value: 0x7f0800ce
+			public const int coachName = 2131230926;
 			
 			// aapt resource value: 0x7f080030
 			public const int collapseActionView = 2131230768;
@@ -2458,6 +2461,9 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0800c1
 			public const int fragmentName = 2131230913;
 			
+			// aapt resource value: 0x7f0800c4
+			public const int goalStat = 2131230916;
+			
 			// aapt resource value: 0x7f08008c
 			public const int headerName = 2131230860;
 			
@@ -2515,11 +2521,11 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080095
 			public const int leagueTableRow = 2131230869;
 			
-			// aapt resource value: 0x7f0800c4
-			public const int leagueYear = 2131230916;
+			// aapt resource value: 0x7f0800c8
+			public const int leagueYear = 2131230920;
 			
-			// aapt resource value: 0x7f0800d0
-			public const int leaguemenuitem = 2131230928;
+			// aapt resource value: 0x7f0800d4
+			public const int leaguemenuitem = 2131230932;
 			
 			// aapt resource value: 0x7f080094
 			public const int leaguetable = 2131230868;
@@ -2550,6 +2556,9 @@ namespace Floorball.Droid
 			
 			// aapt resource value: 0x7f0800a4
 			public const int matchDate = 2131230884;
+			
+			// aapt resource value: 0x7f0800c7
+			public const int matchStat = 2131230919;
 			
 			// aapt resource value: 0x7f0800a6
 			public const int matches = 2131230886;
@@ -2596,14 +2605,17 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080098
 			public const int notification = 2131230872;
 			
-			// aapt resource value: 0x7f0800ce
-			public const int pager = 2131230926;
+			// aapt resource value: 0x7f0800d2
+			public const int pager = 2131230930;
 			
 			// aapt resource value: 0x7f080039
 			public const int parallax = 2131230777;
 			
 			// aapt resource value: 0x7f08004a
 			public const int parentPanel = 2131230794;
+			
+			// aapt resource value: 0x7f0800c6
+			public const int penaltyStat = 2131230918;
 			
 			// aapt resource value: 0x7f08003a
 			public const int pin = 2131230778;
@@ -2617,8 +2629,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0800b7
 			public const int playerTeamImage = 2131230903;
 			
-			// aapt resource value: 0x7f0800d2
-			public const int playersmenuitem = 2131230930;
+			// aapt resource value: 0x7f0800d6
+			public const int playersmenuitem = 2131230934;
 			
 			// aapt resource value: 0x7f080006
 			public const int progress_circular = 2131230726;
@@ -2641,8 +2653,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0800a2
 			public const int refereesLayout = 2131230882;
 			
-			// aapt resource value: 0x7f0800d3
-			public const int refereesmenuitem = 2131230931;
+			// aapt resource value: 0x7f0800d7
+			public const int refereesmenuitem = 2131230935;
 			
 			// aapt resource value: 0x7f0800b9
 			public const int regNum = 2131230905;
@@ -2704,8 +2716,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f08006c
 			public const int select_dialog_listview = 2131230828;
 			
-			// aapt resource value: 0x7f0800d4
-			public const int settingsmenuitem = 2131230932;
+			// aapt resource value: 0x7f0800d8
+			public const int settingsmenuitem = 2131230936;
 			
 			// aapt resource value: 0x7f080057
 			public const int shortcut = 2131230807;
@@ -2746,8 +2758,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f08009c
 			public const int stadium = 2131230876;
 			
-			// aapt resource value: 0x7f0800cb
-			public const int stadiumName = 2131230923;
+			// aapt resource value: 0x7f0800cf
+			public const int stadiumName = 2131230927;
 			
 			// aapt resource value: 0x7f08001b
 			public const int start = 2131230747;
@@ -2755,14 +2767,14 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0800c3
 			public const int statCard = 2131230915;
 			
-			// aapt resource value: 0x7f0800c6
-			public const int statLabel = 2131230918;
+			// aapt resource value: 0x7f0800ca
+			public const int statLabel = 2131230922;
 			
-			// aapt resource value: 0x7f0800c7
-			public const int statNumber = 2131230919;
+			// aapt resource value: 0x7f0800cb
+			public const int statNumber = 2131230923;
 			
-			// aapt resource value: 0x7f0800c5
-			public const int statisticsTableRow = 2131230917;
+			// aapt resource value: 0x7f0800c9
+			public const int statisticsTableRow = 2131230921;
 			
 			// aapt resource value: 0x7f080092
 			public const int statisticstable = 2131230866;
@@ -2782,17 +2794,17 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080091
 			public const int table_scroll = 2131230865;
 			
-			// aapt resource value: 0x7f0800cd
-			public const int tabs = 2131230925;
-			
-			// aapt resource value: 0x7f0800c9
-			public const int teamImage = 2131230921;
-			
-			// aapt resource value: 0x7f0800c8
-			public const int teamName = 2131230920;
-			
 			// aapt resource value: 0x7f0800d1
-			public const int teamsmenuitem = 2131230929;
+			public const int tabs = 2131230929;
+			
+			// aapt resource value: 0x7f0800cd
+			public const int teamImage = 2131230925;
+			
+			// aapt resource value: 0x7f0800cc
+			public const int teamName = 2131230924;
+			
+			// aapt resource value: 0x7f0800d5
+			public const int teamsmenuitem = 2131230933;
 			
 			// aapt resource value: 0x7f0800b4
 			public const int text = 2131230900;
@@ -2818,8 +2830,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080097
 			public const int toolbar = 2131230871;
 			
-			// aapt resource value: 0x7f0800cc
-			public const int toolbarTitle = 2131230924;
+			// aapt resource value: 0x7f0800d0
+			public const int toolbarTitle = 2131230928;
 			
 			// aapt resource value: 0x7f08001c
 			public const int top = 2131230748;
