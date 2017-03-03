@@ -2293,8 +2293,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f08002f
 			public const int always = 2131230767;
 			
-			// aapt resource value: 0x7f0800c5
-			public const int assistStat = 2131230917;
+			// aapt resource value: 0x7f0800c2
+			public const int assistStat = 2131230914;
 			
 			// aapt resource value: 0x7f0800aa
 			public const int awayScore = 2131230890;
@@ -2335,8 +2335,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f08007b
 			public const int cardName = 2131230843;
 			
-			// aapt resource value: 0x7f0800c0
-			public const int cardlist = 2131230912;
+			// aapt resource value: 0x7f0800c5
+			public const int cardlist = 2131230917;
 			
 			// aapt resource value: 0x7f080010
 			public const int center = 2131230736;
@@ -2458,11 +2458,11 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f08003c
 			public const int @fixed = 2131230780;
 			
-			// aapt resource value: 0x7f0800c1
-			public const int fragmentName = 2131230913;
+			// aapt resource value: 0x7f0800c6
+			public const int fragmentName = 2131230918;
 			
-			// aapt resource value: 0x7f0800c4
-			public const int goalStat = 2131230916;
+			// aapt resource value: 0x7f0800c1
+			public const int goalStat = 2131230913;
 			
 			// aapt resource value: 0x7f08008c
 			public const int headerName = 2131230860;
@@ -2557,8 +2557,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0800a4
 			public const int matchDate = 2131230884;
 			
-			// aapt resource value: 0x7f0800c7
-			public const int matchStat = 2131230919;
+			// aapt resource value: 0x7f0800c4
+			public const int matchStat = 2131230916;
 			
 			// aapt resource value: 0x7f0800a6
 			public const int matches = 2131230886;
@@ -2614,8 +2614,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f08004a
 			public const int parentPanel = 2131230794;
 			
-			// aapt resource value: 0x7f0800c6
-			public const int penaltyStat = 2131230918;
+			// aapt resource value: 0x7f0800c3
+			public const int penaltyStat = 2131230915;
 			
 			// aapt resource value: 0x7f08003a
 			public const int pin = 2131230778;
@@ -2623,8 +2623,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080089
 			public const int playerName = 2131230857;
 			
-			// aapt resource value: 0x7f0800c2
-			public const int playerSearch = 2131230914;
+			// aapt resource value: 0x7f0800c7
+			public const int playerSearch = 2131230919;
 			
 			// aapt resource value: 0x7f0800b7
 			public const int playerTeamImage = 2131230903;
@@ -2764,8 +2764,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f08001b
 			public const int start = 2131230747;
 			
-			// aapt resource value: 0x7f0800c3
-			public const int statCard = 2131230915;
+			// aapt resource value: 0x7f0800c0
+			public const int statCard = 2131230912;
 			
 			// aapt resource value: 0x7f0800ca
 			public const int statLabel = 2131230922;
@@ -3148,49 +3148,52 @@ namespace Floorball.Droid
 			public const int RefereeStat = 2130968654;
 			
 			// aapt resource value: 0x7f04004f
-			public const int ScrollableCardList = 2130968655;
+			public const int RefereeStatCard = 2130968655;
 			
 			// aapt resource value: 0x7f040050
-			public const int SearchListFragment = 2130968656;
+			public const int ScrollableCardList = 2130968656;
 			
 			// aapt resource value: 0x7f040051
-			public const int select_dialog_item_material = 2130968657;
+			public const int SearchListFragment = 2130968657;
 			
 			// aapt resource value: 0x7f040052
-			public const int select_dialog_multichoice_material = 2130968658;
+			public const int select_dialog_item_material = 2130968658;
 			
 			// aapt resource value: 0x7f040053
-			public const int select_dialog_singlechoice_material = 2130968659;
+			public const int select_dialog_multichoice_material = 2130968659;
 			
 			// aapt resource value: 0x7f040054
-			public const int Stat = 2130968660;
+			public const int select_dialog_singlechoice_material = 2130968660;
 			
 			// aapt resource value: 0x7f040055
-			public const int StatHeader = 2130968661;
+			public const int Stat = 2130968661;
 			
 			// aapt resource value: 0x7f040056
-			public const int StatisticsTableRow = 2130968662;
+			public const int StatHeader = 2130968662;
 			
 			// aapt resource value: 0x7f040057
-			public const int StatLine = 2130968663;
+			public const int StatisticsTableRow = 2130968663;
 			
 			// aapt resource value: 0x7f040058
-			public const int support_simple_spinner_dropdown_item = 2130968664;
+			public const int StatLine = 2130968664;
 			
 			// aapt resource value: 0x7f040059
-			public const int TeamActivity = 2130968665;
+			public const int support_simple_spinner_dropdown_item = 2130968665;
 			
 			// aapt resource value: 0x7f04005a
-			public const int Teams = 2130968666;
+			public const int TeamActivity = 2130968666;
 			
 			// aapt resource value: 0x7f04005b
-			public const int Toolbar = 2130968667;
+			public const int Teams = 2130968667;
 			
 			// aapt resource value: 0x7f04005c
-			public const int ViewPagerWithTabs = 2130968668;
+			public const int Toolbar = 2130968668;
 			
 			// aapt resource value: 0x7f04005d
-			public const int Year = 2130968669;
+			public const int ViewPagerWithTabs = 2130968669;
+			
+			// aapt resource value: 0x7f04005e
+			public const int Year = 2130968670;
 			
 			static Layout()
 			{

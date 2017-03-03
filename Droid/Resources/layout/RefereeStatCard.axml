@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/statCard"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/goalStat"
+        layout="@layout/StatLine" />
+    <include
+        android:id="@+id/assistStat"
+        layout="@layout/StatLine" />
+    <include
+        android:id="@+id/penaltyStat"
+        layout="@layout/StatLine" />
+    <include
+        android:id="@+id/matchStat"
+        layout="@layout/StatLine" />
+</LinearLayout>

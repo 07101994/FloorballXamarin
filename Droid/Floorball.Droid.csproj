@@ -142,6 +142,7 @@
     <Compile Include="Adapters\PlayersAdapter.cs" />
     <Compile Include="Adapters\PlayerStatsAdapter.cs" />
     <Compile Include="Adapters\RefereesAdapter.cs" />
+    <Compile Include="Adapters\RefereeStatsAdapter.cs" />
     <Compile Include="Adapters\TeamsAdapter.cs" />
     <Compile Include="Adapters\YearsAdapter.cs" />
     <Compile Include="Fragments\ActualFragment.cs" />
@@ -316,9 +317,6 @@
     <AndroidResource Include="Resources\layout\ActualFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\RefereeStat.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\LeagueNameWithFlag.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -346,6 +344,10 @@
     <AndroidResource Include="Resources\layout\PlayerItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\RefereeStatCard.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\RefereeStat.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\mipmap-hdpi\" />

@@ -13,12 +13,18 @@ using Floorball.LocalDB.Tables;
 using Newtonsoft.Json;
 using Floorball.LocalDB;
 using Android.Support.V7.App;
+using Android.Support.V7.Widget;
+using Floorball.Droid.Adapters;
+using Floorball.Droid.Models;
 
 namespace Floorball.Droid.Activities
 {
     [Activity(Label = "RefereeActivity")]
     public class RefereeActivity : FloorballActivity
     {
+        RecyclerView recyclerView;
+        RefereeStatsAdapter adapter;
+
         public Referee Referee { get; set; }
 
         public IEnumerable<Event> Events { get; set; }
@@ -41,8 +47,46 @@ namespace Floorball.Droid.Activities
 
             FindViewById<TextView>(Resource.Id.refereeName).Text = Referee.Name;
 
-            CreateRefereeStat(Leagues, Events, Matches, FindViewById<LinearLayout>(Resource.Id.linearlayout));
+            //CreateRefereeStat(Leagues, Events, Matches, FindViewById<LinearLayout>(Resource.Id.linearlayout));
+            recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            adapter = new RefereeStatsAdapter(CreateStatModels());
+            recyclerView.SetLayoutManager(new LinearLayoutManager(this));
+            recyclerView.SetAdapter(adapter);
 
+        }
+
+        private List<RefereeStatModel> CreateStatModels()
+        {
+
+            var model = new List<RefereeStatModel>();
+
+            foreach (var league in Leagues)
+            {
+                List<Event> leagueEvents = new List<Event>();
+                IEnumerable<int> leagueMatchIds = Matches.Where(m => m.LeagueId == league.Id).Select(m => m.Id);
+                foreach (var e in Events)
+                {
+                    if (leagueMatchIds.Contains(e.MatchId))
+                    {
+                        leagueEvents.Add(e);
+                    }
+                }
+
+                model.Add(new RefereeStatModel
+                {
+                    LeagueName = league.Name,
+                    Year = league.Year,
+                    NumberOfMatches = leagueMatchIds.Count(),
+                    TwoMinutesPenalties = leagueEvents.Where(e => e.Type == "P2").Count(),
+                    FiveMinutesPenalties = leagueEvents.Where(e => e.Type == "P5").Count(),
+                    TenMinutesPenalties = leagueEvents.Where(e => e.Type == "P10").Count(),
+                    FinalPenalties = leagueEvents.Where(e => e.Type == "PV").Count()
+
+            });
+
+            }
+
+            return model;
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

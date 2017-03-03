@@ -22,7 +22,7 @@ namespace Floorball.Droid.ViewHolders
         public List<TextView> StatLabels { get; set; }
         public List<TextView> StatNumbers { get; set; }
 
-        public StatViewHolder(View itemView) : base(itemView) 
+        public StatViewHolder(View itemView, int count) : base(itemView) 
         {
             LeagueName =  itemView.FindViewById<TextView>(Resource.Id.leagueName);
             LeagueYear =  itemView.FindViewById<TextView>(Resource.Id.leagueYear);
@@ -32,10 +32,14 @@ namespace Floorball.Droid.ViewHolders
 
             LinearLayout statCard = itemView.FindViewById<LinearLayout>(Resource.Id.statCard);
 
-            AddStatLine(statCard.FindViewById<View>(Resource.Id.goalStat));
-            AddStatLine(statCard.FindViewById<View>(Resource.Id.assistStat));
-            AddStatLine(statCard.FindViewById<View>(Resource.Id.penaltyStat));
-            AddStatLine(statCard.FindViewById<View>(Resource.Id.matchStat));
+            for (int i = 0; i < count; i++)
+            {
+
+                var statLine = LayoutInflater.From(statCard.Context).Inflate(Resource.Layout.StatLine, statCard, false);
+                statCard.AddView(statLine);
+
+                AddStatLine(statLine);
+            }
 
         }
 

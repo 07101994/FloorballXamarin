@@ -4,7 +4,11 @@ namespace Floorball
 	public class RefereeStatModel
 	{
 
-		public int NumberOfMatches { get; set; }
+        public string LeagueName { get; set; }
+
+        public DateTime Year { get; set; }
+
+        public int NumberOfMatches { get; set; }
 
 		public int TwoMinutesPenalties { get; set; }
 
@@ -14,6 +18,13 @@ namespace Floorball
 
 		public int FinalPenalties { get; set; }
 
+        public string LeagueYear
+        {
+            get
+            {
+                return Year.Year.ToString() + " - " + (Year.Year + 1).ToString();
+            }
+        }
 
-	}
+    }
 }

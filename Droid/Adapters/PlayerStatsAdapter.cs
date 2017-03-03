@@ -45,7 +45,7 @@ namespace Floorball.Droid.Adapters
         {
             var itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.Stat, parent, false);
 
-            var vh = new StatViewHolder(itemView);
+            var vh = new StatViewHolder(itemView,4);
 
             return vh;
         }

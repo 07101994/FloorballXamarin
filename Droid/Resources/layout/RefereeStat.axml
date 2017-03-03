@@ -12,13 +12,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="30sp" />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/linearlayout"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </ScrollView>
+    <include
+        layout="@layout/recycleview" />
 </LinearLayout>

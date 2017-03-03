@@ -15,7 +15,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <include
+        <!--<include
                 android:id="@+id/goalStat"
                 layout="@layout/StatLine" />
             <include
@@ -26,7 +26,7 @@
                 layout="@layout/StatLine" />
             <include
                 android:id="@+id/matchStat"
-                layout="@layout/StatLine" />
+                layout="@layout/StatLine" />-->
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
