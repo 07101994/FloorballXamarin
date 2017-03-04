@@ -32,7 +32,7 @@ namespace Floorball.Droid.Adapters
 
         public override int GetItemViewType(int position)
         {
-            return Convert.ToInt16(ListItems[position].Type == "header");
+            return ListItems[position].Type;
         }
 
     }

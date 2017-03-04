@@ -37,7 +37,7 @@ namespace Floorball.Droid.Fragments
 
             View root = inflater.Inflate(Resource.Layout.MatchesFragment, container, false);
 
-            CreateMatches(root.FindViewById<LinearLayout>(Resource.Id.matchesList));
+            //CreateMatches(root.FindViewById<LinearLayout>(Resource.Id.matchesList));
 
             return root;
         }
@@ -55,7 +55,6 @@ namespace Floorball.Droid.Fragments
 
             while (i < activity.Matches.Count)
             {
-
                 header = Activity.LayoutInflater.Inflate(Resource.Layout.Header, null, false) as ViewGroup;
                 Match actual = activity.Matches.ElementAt(i);
                 League league = UoW.LeagueRepo.GetLeagueById(actual.LeagueId);

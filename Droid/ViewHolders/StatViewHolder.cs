@@ -15,7 +15,6 @@ namespace Floorball.Droid.ViewHolders
 {
     public class StatViewHolder : RecyclerView.ViewHolder
     {
-
         public TextView LeagueName { get; set; }
         public TextView LeagueYear { get; set; }
 
@@ -34,7 +33,6 @@ namespace Floorball.Droid.ViewHolders
 
             for (int i = 0; i < count; i++)
             {
-
                 var statLine = LayoutInflater.From(statCard.Context).Inflate(Resource.Layout.StatLine, statCard, false);
                 statCard.AddView(statLine);
 
@@ -45,10 +43,8 @@ namespace Floorball.Droid.ViewHolders
 
         private void AddStatLine(View view)
         {
-
             StatLabels.Add(view.FindViewById<TextView>(Resource.Id.statLabel));
             StatNumbers.Add(view.FindViewById<TextView>(Resource.Id.statNumber));
-
         }
     }
 }

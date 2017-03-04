@@ -12,9 +12,11 @@ using Android.Widget;
 
 namespace Floorball.Droid.Models
 {
-    public class ListItem
+    public class MatchResultModel
     {
-        public int Type { get; set; }
-        public int Index { get; set; }
+        public string HomeTeam { get; set; }
+        public string AwayTeam { get; set; }
+        public string HomeScore { get; set; }
+        public string AwayScore { get; set; }
     }
 }

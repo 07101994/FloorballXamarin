@@ -19,7 +19,7 @@ namespace Floorball.Droid.ViewHolders
         public ImageView Flag { get; set; }
 
         public TeamHeaderViewHolder(View itemView, Action<int> listener) : base(itemView)
-            {
+        {
             Flag = itemView.FindViewById<ImageView>(Resource.Id.countryFlag);
             TextView = itemView.FindViewById<TextView>(Resource.Id.leagueName);
 

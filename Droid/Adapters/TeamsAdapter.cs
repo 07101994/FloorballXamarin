@@ -27,7 +27,7 @@ namespace Floorball.Droid.Adapters
 
             teams.ToList().ForEach(t =>
             {
-                ListItems.Add(new ListItem { Type = "header", Index = Headers.Count });
+                ListItems.Add(new ListItem { Type = 0, Index = Headers.Count });
                 var header = new HeaderModel {
                     Title = leagues.Find(l => l.Id == t.First().LeagueId).Name,
                     Country = t.First().Country
@@ -36,7 +36,7 @@ namespace Floorball.Droid.Adapters
 
                 foreach (var team in t)
                 {
-                    ListItems.Add(new ListItem { Type = "content", Index = Contents.Count });
+                    ListItems.Add(new ListItem { Type = 1, Index = Contents.Count });
                     Contents.Add(team);
                 }
             });
@@ -48,12 +48,6 @@ namespace Floorball.Droid.Adapters
             switch (holder.ItemViewType)
             {
                 case 0:
-                    var vh = holder as TeamContentViewHolder;
-
-                    vh.TextView.Text = (Contents[ListItems[position].Index] as Team).Name;
-
-                    break;
-                case 1:
 
                     var vh1 = holder as TeamHeaderViewHolder;
 
@@ -71,6 +65,13 @@ namespace Floorball.Droid.Adapters
                     vh1.TextView.Text = Headers[ListItems[position].Index].Title;
 
                     break;
+                case 1:
+
+                    var vh = holder as TeamContentViewHolder;
+
+                    vh.TextView.Text = (Contents[ListItems[position].Index] as Team).Name;
+
+                    break;
                 default:
                     break;
             }
@@ -85,14 +86,14 @@ namespace Floorball.Droid.Adapters
             {
                 case 0:
 
-                    itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.Card, parent, false);
-                    vh = new TeamContentViewHolder(itemView, OnClickId, this);
+                    itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.LeagueNameWithFlag, parent, false);
+                    vh = new TeamHeaderViewHolder(itemView, OnClickId);
 
                     break;
                 case 1:
 
-                    itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.LeagueNameWithFlag, parent, false);
-                    vh = new TeamHeaderViewHolder(itemView, OnClickId);
+                    itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.Card, parent, false);
+                    vh = new TeamContentViewHolder(itemView, OnClickId, this);
 
                     break;
                 default:

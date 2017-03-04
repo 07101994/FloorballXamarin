@@ -15,93 +15,35 @@ using Floorball.Droid.Activities;
 using FloorballServer.Models.Floorball;
 using Android.Support.V7.Widget;
 using Floorball.LocalDB.Tables;
+using Floorball.Droid.Adapters;
 
 namespace Floorball.Droid.Fragments
 {
     public class LeagueMatchesFragment : Fragment
     {
 
-        public LinearLayout Matches { get; set; }
+        RecyclerView recyclerView;
+        MatchesAdapter adapter;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
+            var activity = Activity as LeagueActivity;
+            adapter = new MatchesAdapter(activity.Teams.ToList(),activity.Matches.ToList(),activity.League.Rounds);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
             View root = inflater.Inflate(Resource.Layout.MatchesFragment, container, false);
 
-
-            CreateMatches(root);
+            recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            recyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
+            recyclerView.SetAdapter(adapter);
 
             return root;
         }
-
-        private void CreateMatches(View root)
-        {
-
-            LeagueActivity activity = Activity as LeagueActivity;
-
-            Matches = root.FindViewById<LinearLayout>(Resource.Id.matchesList);
-            ViewGroup round;
-            ViewGroup matches;
-            ViewGroup matchResult;
-
-            for (int i = 0; i < activity.League.Rounds; i++)
-            {
-                round = Activity.LayoutInflater.Inflate(Resource.Layout.Header, null, false) as ViewGroup;
-                round.FindViewById<TextView>(Resource.Id.headerName).Text = (i + 1) + ". forduló";
-
-                Matches.AddView(round);
-
-                List<Match> matchesInRound = activity.Matches.Where(m => m.Round == i + 1).OrderBy(m => m.Date).ThenBy(m => m.Time).ToList();
-
-                int j = 0;
-
-                while (j < matchesInRound.Count)
-                {
-
-                    matches = Activity.LayoutInflater.Inflate(Resource.Layout.Matches, null, false) as ViewGroup;
-                    matches.FindViewById<TextView>(Resource.Id.matchDate).Text = matchesInRound.ElementAt(j).Date.ToString(); 
-
-                    int k = j;
-                    while (k < matchesInRound.Count && matchesInRound.ElementAt(j).Date == matchesInRound.ElementAt(k).Date && matchesInRound.ElementAt(j).Time == matchesInRound.ElementAt(k).Time)
-                    {
-
-                        matchResult = Activity.LayoutInflater.Inflate(Resource.Layout.MatchResult, null, false) as ViewGroup;
-                        matchResult.FindViewById<TextView>(Resource.Id.homeTeam).Text = activity.Teams.Where(t => t.Id == matchesInRound.ElementAt(k).HomeTeamId).First().Name + " ";
-                        matchResult.FindViewById<TextView>(Resource.Id.homeScore).Text = matchesInRound.ElementAt(j).GoalsH.ToString();
-                        matchResult.FindViewById<TextView>(Resource.Id.awayScore).Text = matchesInRound.ElementAt(j).GoalsA.ToString();
-                        matchResult.FindViewById<TextView>(Resource.Id.awayTeam).Text = " " + activity.Teams.Where(t => t.Id == matchesInRound.ElementAt(k).AwayTeamId).First().Name;
-
-                        matches.AddView(matchResult);
-
-                        matchResult.Tag = matchesInRound.ElementAt(j).Id;
-                        matchResult.Click += OpenMatch;
-                        
-                        k++;
-                    }
-                    Matches.AddView(matches);
-                    j = k;
-                }
-
-
-
-            }
-
-
-        }
-
-        private void OpenMatch(object sender, EventArgs e)
-        {
-            Intent intent = new Intent(Context, typeof(MatchActivity));
-            intent.PutExtra("id", Convert.ToInt32((sender as CardView).Tag));
-            StartActivity(intent);
-        }
+       
     }
 }
