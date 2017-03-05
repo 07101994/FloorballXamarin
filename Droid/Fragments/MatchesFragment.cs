@@ -16,34 +16,34 @@ using FloorballServer.Models.Floorball;
 using Android.Support.V7.Widget;
 using Floorball.LocalDB.Tables;
 using Floorball.Droid.Adapters;
+using Newtonsoft.Json;
+using Floorball.Droid.Models;
 
 namespace Floorball.Droid.Fragments
 {
-    public class LeagueMatchesFragment : Fragment
+    public abstract class MatchesFragment : Fragment
     {
 
         RecyclerView recyclerView;
-        MatchesAdapter adapter;
-
-        public override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-
-            // Create your fragment here
-            var activity = Activity as LeagueActivity;
-            adapter = new MatchesAdapter(activity.Teams.ToList(),activity.Matches.ToList(),activity.League.Rounds);
-        }
+        protected MatchesAdapter adapter;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View root = inflater.Inflate(Resource.Layout.MatchesFragment, container, false);
+            View root = inflater.Inflate(Resource.Layout.RecycleView, container, false);
 
             recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             recyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
+            adapter.ClickedObject += Adapter_ClickedObject;
             recyclerView.SetAdapter(adapter);
 
             return root;
         }
-       
+
+        private void Adapter_ClickedObject(object sender, object e)
+        {
+            Intent intent = new Intent(Context, typeof(MatchActivity));
+            intent.PutExtra("id", (e as MatchResultModel).Id);
+            StartActivity(intent);
+        }
     }
 }

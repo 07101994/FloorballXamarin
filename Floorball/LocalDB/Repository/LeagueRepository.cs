@@ -72,6 +72,18 @@ namespace Floorball.LocalDB.Repository
             }
         }
 
+        public IEnumerable<League> GetLeaguesByMatches(IEnumerable<Match> matches)
+        {
+            List<League> leagues = new List<League>();
+
+            foreach (var match in matches.DistinctBy(m => m.LeagueId))
+            {
+                leagues.Add(GetLeagueById(match.LeagueId));
+            }
+
+            return leagues;
+        }
+
         #endregion
 
         #region POST

@@ -18,8 +18,8 @@ namespace Floorball.Droid.Adapters
 
         public List<T> ListItems { get; set; }
 
-        public event EventHandler<int> ClickedId;
-        public event EventHandler<object> ClickedObject;
+        public virtual event EventHandler<int> ClickedId;
+        public virtual event EventHandler<object> ClickedObject;
 
         public BaseRecyclerViewAdapter(List<T> listItems)
         {
@@ -38,7 +38,7 @@ namespace Floorball.Droid.Adapters
 
         public abstract override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType);
 
-        protected void OnClickId(int position)
+        protected virtual void OnClickId(int position)
         {
             if (ClickedId != null)
             {
@@ -46,7 +46,7 @@ namespace Floorball.Droid.Adapters
             }
         }
 
-        protected void OnClickObject(object clicked)
+        protected virtual void OnClickObject(object clicked)
         {
             if (ClickedObject != null)
             {

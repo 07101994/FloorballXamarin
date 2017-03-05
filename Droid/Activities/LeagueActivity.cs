@@ -101,7 +101,9 @@ namespace Floorball.Droid.Activities
                 switch (position)
                 {
                     case 0:
-                        return new LeagueMatchesFragment();
+
+                        return null;
+                        //return LeagueMatchesFragment.Instance;
                     case 1:
                         return new LeagueTableFragment();
                     case 2:

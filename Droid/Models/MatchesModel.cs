@@ -9,15 +9,16 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Floorball.LocalDB.Tables;
 
 namespace Floorball.Droid.Models
 {
-    public class MatchResultModel
+    public class MatchesModel
     {
-        public int Id { get; set; }
-        public string HomeTeam { get; set; }
-        public string AwayTeam { get; set; }
-        public string HomeScore { get; set; }
-        public string AwayScore { get; set; }
+        public IEnumerable<Team> Teams { get; set; }
+        public IEnumerable<Match> Matches { get; set; }
+        public IEnumerable<League> Leagues { get; set; }
+
+        public int TeamId { get; set; }
     }
 }

@@ -20,14 +20,13 @@ using Floorball.LocalDB;
 using Floorball.LocalDB.Tables;
 using Android.Graphics;
 using System.IO;
+using Floorball.Droid.Models;
 
 namespace Floorball.Droid.Activities
 {
     [Activity(Label = "TeamActivity")]
     public class TeamActivity : FloorballActivity
     {
-
-        TeamPageAdapter pagerAdapter;
 
         public Team Team { get; set; }
 
@@ -45,16 +44,31 @@ namespace Floorball.Droid.Activities
             //Initialize toolbar
             InitToolbar();
 
-            //Init activity properties
-            InitActivityProperties();
-
             //Initialize properties
             InitProperties();
 
-            FindViewById<TextView>(Resource.Id.coachName).Text = Team.Coach;
-            FindViewById<TextView>(Resource.Id.stadiumName).Text = UoW.StadiumRepo.GetStadiumById(Team.StadiumId).Name;
-            FindViewById<TextView>(Resource.Id.teamName).Text = Team.Name;
+            //Init activity properties
+            InitActivityProperties();
 
+            //Set team image
+            SetTeamImage();
+
+            //Attach tabbedfragment
+            if (savedInstanceState == null)
+            {
+                var tabModels = new List<TabbedViewPagerModel>();
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Players, TabTitle = "játékosok", Data = Players } );
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.TeamMatches, TabTitle = "mérkőzések", Data = new MatchesModel { Matches = Matches, TeamId = Team.Id, Teams = UoW.TeamRepo.GetTeamsByMatches(Matches), Leagues = UoW.LeagueRepo.GetLeaguesByMatches(Matches) } });
+
+                Android.Support.V4.App.Fragment fr = TabbedViewPagerFragment.Instance(tabModels);
+                Android.Support.V4.App.FragmentTransaction ft = SupportFragmentManager.BeginTransaction();
+                ft.Add(Resource.Id.content_frame, fr).Commit();
+            }
+
+        }
+
+        private void SetTeamImage()
+        {
             try
             {
                 var bitmap = BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(Team.ImageName)));
@@ -102,56 +116,10 @@ namespace Floorball.Droid.Activities
 
         protected override void InitActivityProperties()
         {
-            ViewPager pager = FindViewById<ViewPager>(Resource.Id.pager);
-            pagerAdapter = new TeamPageAdapter(SupportFragmentManager);
-            pager.Adapter = pagerAdapter;
-
-            FindViewById<TabLayout>(Resource.Id.tabs).SetupWithViewPager(pager);
+            FindViewById<TextView>(Resource.Id.coachName).Text = Team.Coach;
+            FindViewById<TextView>(Resource.Id.stadiumName).Text = UoW.StadiumRepo.GetStadiumById(Team.StadiumId).Name;
+            FindViewById<TextView>(Resource.Id.teamName).Text = Team.Name;
         }
 
-        public class TeamPageAdapter : Android.Support.V4.App.FragmentPagerAdapter
-        {
-            public TeamPageAdapter(Android.Support.V4.App.FragmentManager manager) : base(manager)
-            {
-
-            }
-
-            public override int Count
-            {
-                get
-                {
-                    return 2;
-                }
-            }
-
-            public override Android.Support.V4.App.Fragment GetItem(int position)
-            {
-                switch (position)
-                {
-                    case 0:
-                        return new PlayerListFragment();
-                    case 1:
-                        return new MatchListFragment();
-                    default:
-                        return null;
-                }
-            }
-
-            public override ICharSequence GetPageTitleFormatted(int position)
-            {
-                switch (position)
-                {
-                    case 0:
-                        return new Java.Lang.String("Játékosok");
-                    case 1:
-                        return new Java.Lang.String("Mérkőzések");
-                    default:
-                        return null;
-                }
-
-            }
-
-
-        }
     }
 }

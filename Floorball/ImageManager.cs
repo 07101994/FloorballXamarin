@@ -32,7 +32,7 @@ namespace Floorball
         
         public static string GetImagePath(string imageName)
         {
-            return Path.Combine(GetImagesPath(), imageName);
+            return imageName == null ? "" : Path.Combine(GetImagesPath(), imageName);
         }
 
     }

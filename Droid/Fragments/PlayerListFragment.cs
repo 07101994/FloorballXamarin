@@ -14,57 +14,54 @@ using Floorball.LocalDB.Tables;
 using Floorball.Droid.Activities;
 using Newtonsoft.Json;
 using Android.Support.V7.Widget;
+using Floorball.Droid.Adapters;
 
 namespace Floorball.Droid.Fragments
 {
     public class PlayerListFragment : Fragment
     {
-
         public List<Player> Players { get; set; }
 
+        RecyclerView recyclerView;
+        PlayersAdapter adapter;
+
+        public static PlayerListFragment Instance(List<Player> players)
+        {
+            var fragment = new PlayerListFragment();
+
+            Bundle args = new Bundle();
+            args.PutString("players", JsonConvert.SerializeObject(players));
+            fragment.Arguments = args;
+
+            return fragment;
+        }
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your fragment here
+            Players = JsonConvert.DeserializeObject<List<Player>>(Arguments.GetString("players"));
+            adapter = new PlayersAdapter(Players);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
+            View root = inflater.Inflate(Resource.Layout.RecycleView, container, false);
 
-            View root = inflater.Inflate(Resource.Layout.ScrollableCardList, container, false);
-            Players = (Activity as TeamActivity).Players;
-            CreatePlayers(Players, root);
+            recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            recyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
+            adapter.ClickedObject += Adapter_ClickedObject;
+            recyclerView.SetAdapter(adapter);
 
             return root;
         }
 
-        private void CreatePlayers(List<Player> players,View root)
-        {
-
-            ViewGroup playerlist = root.FindViewById<LinearLayout>(Resource.Id.cardlist);
-
-            foreach (var player in players)
-            {
-                ViewGroup playerView = Activity.LayoutInflater.Inflate(Resource.Layout.Card, playerlist, false) as ViewGroup;
-
-                playerView.FindViewById<TextView>(Resource.Id.cardName).Text = player.Name;
-                playerView.Tag = player.RegNum;
-                playerView.Click += PlayerViewClick;
-
-                playerlist.AddView(playerView);
-
-            }
-        }
-
-        private void PlayerViewClick(object sender, EventArgs e)
+        private void Adapter_ClickedObject(object sender, object e)
         {
             Intent intent = new Intent(Context, typeof(PlayerActivity));
-            intent.PutExtra("player", JsonConvert.SerializeObject(Players.Where(p => p.RegNum  == Convert.ToInt32((sender as CardView).Tag.ToString())).First()));
+            intent.PutExtra("player", JsonConvert.SerializeObject(e));
             StartActivity(intent);
         }
+
     }
 }

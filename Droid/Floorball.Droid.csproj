@@ -139,17 +139,20 @@
     <Compile Include="Adapters\AdapterWithHeader.cs" />
     <Compile Include="Adapters\AdapterWithTwoHeader.cs" />
     <Compile Include="Adapters\BaseRecyclerViewAdapter.cs" />
+    <Compile Include="Adapters\LeagueMatchesAdapter.cs" />
     <Compile Include="Adapters\LeaguesAdapter.cs" />
     <Compile Include="Adapters\MatchesAdapter.cs" />
     <Compile Include="Adapters\PlayersAdapter.cs" />
     <Compile Include="Adapters\PlayerStatsAdapter.cs" />
     <Compile Include="Adapters\RefereesAdapter.cs" />
     <Compile Include="Adapters\RefereeStatsAdapter.cs" />
+    <Compile Include="Adapters\TeamMatchesAdapter.cs" />
     <Compile Include="Adapters\TeamsAdapter.cs" />
     <Compile Include="Adapters\YearsAdapter.cs" />
     <Compile Include="Fragments\ActualFragment.cs" />
     <Compile Include="Fragments\AppInitFragment.cs" />
-    <Compile Include="Fragments\LeagueMatchesFragment.cs" />
+    <Compile Include="Fragments\LeagueMatchesFragmentcs.cs" />
+    <Compile Include="Fragments\MatchesFragment.cs" />
     <Compile Include="Fragments\LeaguesFragment.cs" />
     <Compile Include="Fragments\LeagueStatisticsFragment.cs" />
     <Compile Include="Fragments\LeagueTableFragment.cs" />
@@ -161,12 +164,14 @@
     <Compile Include="Fragments\PlayersFragment.cs" />
     <Compile Include="Fragments\RefereesFragment.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
+    <Compile Include="Fragments\TeamMatchesFragment.cs" />
     <Compile Include="Fragments\TeamsFragment.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Fragments\YearsFragment.cs" />
     <Compile Include="Models\HeaderModel.cs" />
     <Compile Include="Models\LeaguesModel.cs" />
     <Compile Include="Models\ListItem.cs" />
+    <Compile Include="Models\MatchesModel.cs" />
     <Compile Include="Models\MatchResultModel.cs" />
     <Compile Include="Models\PlayerStatModel.cs" />
     <Compile Include="Utils\MyActionBarDrawerToggle.cs" />
@@ -235,7 +240,7 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\TeamActivity.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values-mdpi\dimens.xml" />
     <AndroidResource Include="Resources\values-mdpi\Arrays.xml">

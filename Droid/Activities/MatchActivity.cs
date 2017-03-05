@@ -204,8 +204,30 @@ namespace Floorball.Droid.Activities
 
             FindViewById<TextView>(Resource.Id.actualTime).Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes.ToString() + ":" + Match.Time.Seconds.ToString();
 
-            FindViewById<ImageView>(Resource.Id.homeTeamImage).SetImageBitmap(BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(HomeTeam.ImageName))));
-            FindViewById<ImageView>(Resource.Id.awayTeamImage).SetImageBitmap(BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(AwayTeam.ImageName))));
+            SetTeamImage(HomeTeam, FindViewById<ImageView>(Resource.Id.homeTeamImage));
+            SetTeamImage(AwayTeam, FindViewById<ImageView>(Resource.Id.awayTeamImage));
+
         }
+
+        private void SetTeamImage(Team team, ImageView imageView)
+        {
+            try
+            {
+                var bitmap = BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(team.ImageName)));
+
+                if (bitmap == null)
+                {
+                    throw new Exception("Image not found!");
+                }
+
+                imageView.SetImageBitmap(bitmap);
+            }
+            catch (Exception)
+            {
+                imageView.SetImageResource(Resource.Drawable.ball);
+                imageView.Alpha = 125;
+            }
+        }
+
     }
 }

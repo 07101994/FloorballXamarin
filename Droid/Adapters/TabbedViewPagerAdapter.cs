@@ -15,6 +15,7 @@ using Floorball.Droid.Fragments;
 using Newtonsoft.Json.Linq;
 using Floorball.LocalDB.Tables;
 using Floorball.Droid.Models;
+using FloorballServer.Models.Floorball;
 
 namespace Floorball.Droid.Adapters
 {
@@ -51,10 +52,16 @@ namespace Floorball.Droid.Adapters
                     fr = TeamsFragment.Instance(teamsModel.Teams, teamsModel.Leagues);
                     break;
                 case FragmentType.Players:
-                    fr = new Fragment();
+                    var playersModel = data.ToObject<List<Player>>();
+                    fr = PlayerListFragment.Instance(playersModel);
                     break;
-                case FragmentType.Matches:
-                    fr = new Fragment();
+                case FragmentType.TeamMatches:
+                    var matchesModel = data.ToObject<MatchesModel>();
+                    fr = TeamMatchesFragment.Instance(matchesModel.Teams,matchesModel.Matches,matchesModel.Leagues, matchesModel.TeamId);
+                    break;
+                case FragmentType.LeagueMatches:
+                    var leagueMatchesModel = data.ToObject<MatchesModel>();
+                    fr = LeagueMatchesFragment.Instance(leagueMatchesModel.Teams, leagueMatchesModel.Matches, leagueMatchesModel.Leagues.First());
                     break;
                 case FragmentType.Stats:
                     fr = new Fragment();
