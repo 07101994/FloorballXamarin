@@ -64,10 +64,10 @@ namespace Floorball.Droid.Adapters
                     fr = LeagueMatchesFragment.Instance(leagueMatchesModel.Teams, leagueMatchesModel.Matches, leagueMatchesModel.Leagues.First());
                     break;
                 case FragmentType.Stats:
-                    fr = new Fragment();
+                    fr = LeagueStatisticsFragment.Instance();
                     break;
                 case FragmentType.Table:
-                    fr = new Fragment();
+                    fr = LeagueTableFragment.Instance();
                     break;
                 default:
                     break;

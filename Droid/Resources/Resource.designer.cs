@@ -2368,11 +2368,11 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f08004e
 			public const int contentPanel = 2131230798;
 			
-			// aapt resource value: 0x7f080090
-			public const int content_frame = 2131230864;
-			
 			// aapt resource value: 0x7f08008e
-			public const int countryFlag = 2131230862;
+			public const int content_frame = 2131230862;
+			
+			// aapt resource value: 0x7f08008f
+			public const int countryFlag = 2131230863;
 			
 			// aapt resource value: 0x7f080054
 			public const int custom = 2131230804;
@@ -2857,8 +2857,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080027
 			public const int wrap_content = 2131230759;
 			
-			// aapt resource value: 0x7f08008f
-			public const int year = 2131230863;
+			// aapt resource value: 0x7f080090
+			public const int year = 2131230864;
 			
 			static Id()
 			{

@@ -19,14 +19,13 @@ using Floorball.REST;
 using Floorball.LocalDB;
 using Floorball.LocalDB.Tables;
 using Newtonsoft.Json;
+using Floorball.Droid.Models;
 
 namespace Floorball.Droid.Activities
 {
     [Activity(Label = "LeagueActivity")]
     public class LeagueActivity : FloorballActivity
     {
-
-        LeaguePageAdapter pagerAdapter;
 
         public League League { get; set; }
 
@@ -55,10 +54,22 @@ namespace Floorball.Droid.Activities
             //Initialize properties
             InitProperties();
 
+            //Attach tabbedfragment
+            if (savedInstanceState == null)
+            {
+
+                var tabModels = new List<TabbedViewPagerModel>();
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.LeagueMatches, TabTitle = "Mérkőzések", Data = new MatchesModel { Teams = Teams, Matches = Matches, Leagues = new List<League> { League } } });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Table, TabTitle = "Tabella", Data = null });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Stats, TabTitle = "Statisztikák", Data = null });
+
+                Android.Support.V4.App.Fragment fr = TabbedViewPagerFragment.Instance(tabModels);
+                Android.Support.V4.App.FragmentTransaction ft = SupportFragmentManager.BeginTransaction();
+                ft.Add(Resource.Id.content_frame, fr).Commit();
+            }
+
             FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name;
         }
-
-        
 
         protected override void InitProperties()
         {
@@ -74,64 +85,8 @@ namespace Floorball.Droid.Activities
 
         protected override void InitActivityProperties()
         {
-            ViewPager pager = FindViewById<ViewPager>(Resource.Id.pager);
-            pagerAdapter = new LeaguePageAdapter(SupportFragmentManager);
-            pager.Adapter = pagerAdapter;
 
-            FindViewById<TabLayout>(Resource.Id.tabs).SetupWithViewPager(pager);
         }
-
-        public class LeaguePageAdapter : FragmentPagerAdapter
-        {
-            public LeaguePageAdapter(Android.Support.V4.App.FragmentManager manager) : base(manager)
-            {
-
-            }
-
-            public override int Count
-            {
-                get
-                {
-                    return 3;
-                }
-            }
-
-            public override Android.Support.V4.App.Fragment GetItem(int position)
-            {
-                switch (position)
-                {
-                    case 0:
-
-                        return null;
-                        //return LeagueMatchesFragment.Instance;
-                    case 1:
-                        return new LeagueTableFragment();
-                    case 2:
-                        return new LeagueStatisticsFragment();
-                    default:
-                        return null;
-                }
-            }
-
-            public override ICharSequence GetPageTitleFormatted(int position)
-            {
-                switch (position)
-                {
-                    case 0:
-                        return new Java.Lang.String("Mérkőzések");
-                    case 1:
-                        return new Java.Lang.String("Tabella");
-                    case 2:
-                        return new Java.Lang.String("Statisztikák");
-                    default:
-                        return null;
-                }
-             
-            }
-
-            
-        }
-
 
     }
 }
