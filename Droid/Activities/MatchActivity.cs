@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +16,8 @@ using Android.Support.V7.App;
 using Android.Support.V4.App;
 using Android.Graphics;
 using System.IO;
+using Floorball.Droid.Models;
+using Floorball.Droid.Fragments;
 
 namespace Floorball.Droid.Activities
 {
@@ -62,97 +64,157 @@ namespace Floorball.Droid.Activities
             //Initialize activity properties
             InitActivityProperties();
 
-            CreateEvents();
-            CreateReferees();
+            //Attach tabbedfragment
+            if (savedInstanceState == null)
+            {
+                var tabModels = new List<TabbedViewPagerModel>();
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Events, TabTitle = "Események", Data = CreateEvents() });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchDetails, TabTitle = "Részletek", Data = null });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchReferees, TabTitle = "Játékvezetők", Data = null });
 
-            ChangeTimelineHeight();
+                Android.Support.V4.App.Fragment fr = TabbedViewPagerFragment.Instance(tabModels);
+                Android.Support.V4.App.FragmentTransaction ft = SupportFragmentManager.BeginTransaction();
+                ft.Add(Resource.Id.content_frame, fr).Commit();
+            }
+
+            //CreateEvents();
+            //CreateReferees();
+
+            //ChangeTimelineHeight();
             
         }
 
-        private void ChangeTimelineHeight()
+        //private void ChangeTimelineHeight()
+        //{
+        //    LinearLayout layout = FindViewById<LinearLayout>(Resource.Id.timeLine);
+        //    ViewGroup.LayoutParams parameters = layout.LayoutParameters;
+        //    parameters.Height = RealEventCount * 100;
+
+        //    layout.LayoutParameters = parameters;
+
+        //}
+
+        private List<MatchEventModel> CreateEvents()
         {
-            LinearLayout layout = FindViewById<LinearLayout>(Resource.Id.timeLine);
-            ViewGroup.LayoutParams parameters = layout.LayoutParameters;
-            parameters.Height = RealEventCount * 100;
 
-            layout.LayoutParameters = parameters;
+            var events = new List<MatchEventModel>();
 
-        }
-
-        private void CreateEvents()
-        {
             RealEventCount = 0;
-
-            ViewGroup eventLayout = FindViewById<LinearLayout>(Resource.Id.eventContainer);
-          
 
             foreach (var e in Events)
             {
-
                 if (e.Type != "A")
                 {
-                    ViewGroup eventItem = LayoutInflater.Inflate(Resource.Layout.EventItem, eventLayout, false) as ViewGroup;
-
-                    ViewGroup eventCard;
-                    ViewGroup relativeLayout;
+                    var eventModel = new MatchEventModel { Id = e.Id};
 
                     if (e.TeamId == HomeTeam.Id)
                     {
-                        relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.homeTeamEventId);
-                        eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
-                        eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = HomeTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().ShortName;
+                        eventModel.Player = HomeTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().ShortName;
+                        eventModel.ViewType = 0;
                     }
                     else
                     {
-                        relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.awayTeamEventId);
-                        eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
-                        eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = AwayTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().ShortName;
+                        eventModel.Player = AwayTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().ShortName;
+                        eventModel.ViewType = 1;
                     }
 
 
                     if (e.Type == "P2" || e.Type == "P10")
                     {
-                        eventCard.FindViewById<ImageView>(Resource.Id.eventImage).SetImageResource(Resource.Drawable.ic_numeric_2_box_grey600_24dp);
+                        eventModel.ResourceId = Resource.Drawable.ic_numeric_2_box_grey600_24dp;
                     }
                     else
                     {
                         if (e.Type == "P5")
                         {
-                            eventCard.FindViewById<ImageView>(Resource.Id.eventImage).SetImageResource(Resource.Drawable.ic_numeric_2_box_grey600_24dp);
+                            eventModel.ResourceId = Resource.Drawable.ic_numeric_2_box_grey600_24dp;
                         }
                         else
                         {
                             if (e.Type == "G")
                             {
-                                eventCard.FindViewById<ImageView>(Resource.Id.eventImage).SetImageResource(Resource.Drawable.ball);
+                                eventModel.ResourceId = Resource.Drawable.ball;
                             }
                         }
                     }
 
-
-                    eventItem.FindViewById<TextView>(Resource.Id.time).Text = e.Time.Minutes + ":" + e.Time.Seconds;
-
-                    relativeLayout.AddView(eventCard);
-
-                    eventLayout.AddView(eventItem);
-                    RealEventCount++;
+                    eventModel.Time = e.Time;
+                    events.Add(eventModel);
                 }
             }
+
+            return events;
+            //RealEventCount = 0;
+
+            //ViewGroup eventLayout = FindViewById<LinearLayout>(Resource.Id.eventContainer);
+
+            //foreach (var e in Events)
+            //{
+
+            //    if (e.Type != "A")
+            //    {
+            //        ViewGroup eventItem = LayoutInflater.Inflate(Resource.Layout.EventItem, eventLayout, false) as ViewGroup;
+
+            //        ViewGroup eventCard;
+            //        ViewGroup relativeLayout;
+
+            //        if (e.TeamId == HomeTeam.Id)
+            //        {
+            //            relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.homeTeamEventId);
+            //            eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
+            //            eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = HomeTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().ShortName;
+            //        }
+            //        else
+            //        {
+            //            relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.awayTeamEventId);
+            //            eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
+            //            eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = AwayTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().ShortName;
+            //        }
+
+
+            //        if (e.Type == "P2" || e.Type == "P10")
+            //        {
+            //            eventCard.FindViewById<ImageView>(Resource.Id.eventImage).SetImageResource(Resource.Drawable.ic_numeric_2_box_grey600_24dp);
+            //        }
+            //        else
+            //        {
+            //            if (e.Type == "P5")
+            //            {
+            //                eventCard.FindViewById<ImageView>(Resource.Id.eventImage).SetImageResource(Resource.Drawable.ic_numeric_2_box_grey600_24dp);
+            //            }
+            //            else
+            //            {
+            //                if (e.Type == "G")
+            //                {
+            //                    eventCard.FindViewById<ImageView>(Resource.Id.eventImage).SetImageResource(Resource.Drawable.ball);
+            //                }
+            //            }
+            //        }
+
+
+            //        eventItem.FindViewById<TextView>(Resource.Id.time).Text = e.Time.Minutes + ":" + e.Time.Seconds;
+
+            //        relativeLayout.AddView(eventCard);
+
+            //        eventLayout.AddView(eventItem);
+            //        RealEventCount++;
+            //    }
+            //}
 
 
         }
 
         private void CreateReferees()
         {
-            ViewGroup refereeLayout = FindViewById<LinearLayout>(Resource.Id.refereesLayout);
+            //ViewGroup refereeLayout = FindViewById<LinearLayout>(Resource.Id.refereesLayout);
 
-            foreach (var referee in Referees)
-            {
-                ViewGroup refereeItem = LayoutInflater.Inflate(Resource.Layout.RefereeItem, refereeLayout, false) as ViewGroup;
-                refereeItem.FindViewById<TextView>(Resource.Id.refereeName).Text = referee.Name;
+            //foreach (var referee in Referees)
+            //{
+            //    ViewGroup refereeItem = LayoutInflater.Inflate(Resource.Layout.RefereeItem, refereeLayout, false) as ViewGroup;
+            //    refereeItem.FindViewById<TextView>(Resource.Id.refereeName).Text = referee.Name;
 
-                refereeLayout.AddView(refereeItem);
-            }
+            //    refereeLayout.AddView(refereeItem);
+            //}
 
         }
 
@@ -192,20 +254,20 @@ namespace Floorball.Droid.Activities
 
         protected override void InitActivityProperties()
         {
-            FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name + " " + Match.Round.ToString() + ". fordul�";
-            FindViewById<TextView>(Resource.Id.date).Text = Match.Date.ToShortDateString();
-            FindViewById<TextView>(Resource.Id.stadium).Text = Stadium.Name;
+            //FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name + " " + Match.Round.ToString() + ". forduló";
+            //FindViewById<TextView>(Resource.Id.date).Text = Match.Date.ToShortDateString();
+            //FindViewById<TextView>(Resource.Id.stadium).Text = Stadium.Name;
 
-            FindViewById<TextView>(Resource.Id.homeTeamName).Text = HomeTeam.Name;
-            FindViewById<TextView>(Resource.Id.awayTeamName).Text = AwayTeam.Name;
+            //FindViewById<TextView>(Resource.Id.homeTeamName).Text = HomeTeam.Name;
+            //FindViewById<TextView>(Resource.Id.awayTeamName).Text = AwayTeam.Name;
 
-            FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
-            FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
+            //FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
+            //FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
 
-            FindViewById<TextView>(Resource.Id.actualTime).Text = Match.Time.Hours == 1 ? "V�ge" : Match.Time.Minutes.ToString() + ":" + Match.Time.Seconds.ToString();
+            //FindViewById<TextView>(Resource.Id.actualTime).Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes.ToString() + ":" + Match.Time.Seconds.ToString();
 
-            SetTeamImage(HomeTeam, FindViewById<ImageView>(Resource.Id.homeTeamImage));
-            SetTeamImage(AwayTeam, FindViewById<ImageView>(Resource.Id.awayTeamImage));
+            //SetTeamImage(HomeTeam, FindViewById<ImageView>(Resource.Id.homeTeamImage));
+            //SetTeamImage(AwayTeam, FindViewById<ImageView>(Resource.Id.awayTeamImage));
 
         }
 

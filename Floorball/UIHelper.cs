@@ -51,5 +51,33 @@ namespace Floorball
 		{
 			return (time.Minutes / 20 + 1).ToString();
 		}
+
+        public static string GetMatchFullTime(TimeSpan time)
+        {
+            string str = "";
+
+            if (time.Minutes < 10)
+            {
+                str += "0" + time.Minutes;
+            }
+            else
+            {
+                str += time.Minutes;
+            }
+
+            str += ":";
+
+            if (time.Seconds < 10)
+            {
+                str += "0" + time.Seconds;
+            }
+            else
+            {
+                str += time.Seconds;
+            }
+
+            return str;
+        }
+
 	}
 }

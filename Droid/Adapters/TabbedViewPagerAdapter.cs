@@ -69,6 +69,16 @@ namespace Floorball.Droid.Adapters
                 case FragmentType.Table:
                     fr = LeagueTableFragment.Instance();
                     break;
+                case FragmentType.Events:
+                    var eventModels = data.ToObject<List<MatchEventModel>>();
+                    fr = EventsFragment.Instance(eventModels);
+                    break;
+                case FragmentType.MatchDetails:
+                    fr = new Fragment();
+                    break;
+                case FragmentType.MatchReferees:
+                    fr = new Fragment();
+                    break;
                 default:
                     break;
             }

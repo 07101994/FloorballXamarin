@@ -25,7 +25,7 @@ namespace Floorball.iOS
 
 		public bool HasSoonMatch { get; set; }
 
-		public ActualViewController() : base("ActualViewController", null)
+        public ActualViewController() : base("ActualViewController", null)
 		{
 		}
 
@@ -65,7 +65,8 @@ namespace Floorball.iOS
 				catch (Exception ex)
 				{
 
-				}     
+				}
+     
 			}
 		}
 
@@ -81,7 +82,7 @@ namespace Floorball.iOS
 
 		private void InitProperties()
 		{
-			var matches = AppDelegate.SharedAppDelegate.UoW.MatchRepo.GetActualMatches();
+			var matches = AppDelegate.SharedAppDelegate.UoW.MatchRepo.GetActualMatches(AppDelegate.SharedAppDelegate.UoW.LeagueRepo.GetAllLeague());
 
 			SoonMatches = matches.Where(m => m.State != StateEnum.Playing);
 

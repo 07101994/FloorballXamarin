@@ -140,6 +140,7 @@
     <Compile Include="Adapters\AdapterWithHeader.cs" />
     <Compile Include="Adapters\AdapterWithTwoHeader.cs" />
     <Compile Include="Adapters\BaseRecyclerViewAdapter.cs" />
+    <Compile Include="Adapters\EventsAdapter.cs" />
     <Compile Include="Adapters\LeagueMatchesAdapter.cs" />
     <Compile Include="Adapters\LeaguesAdapter.cs" />
     <Compile Include="Adapters\MatchesAdapter.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Adapters\YearsAdapter.cs" />
     <Compile Include="Fragments\ActualFragment.cs" />
     <Compile Include="Fragments\AppInitFragment.cs" />
+    <Compile Include="Fragments\EventsFragment.cs" />
     <Compile Include="Fragments\LeagueMatchesFragmentcs.cs" />
     <Compile Include="Fragments\MatchesFragment.cs" />
     <Compile Include="Fragments\LeaguesFragment.cs" />
@@ -177,6 +179,7 @@
     <Compile Include="Models\MatchesModel.cs" />
     <Compile Include="Models\MatchResultModel.cs" />
     <Compile Include="Models\PlayerStatModel.cs" />
+    <Compile Include="Models\MatchEventModel.cs" />
     <Compile Include="Utils\MyActionBarDrawerToggle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -184,6 +187,7 @@
     <Compile Include="Fragments\TabbedViewPagerFragment.cs" />
     <Compile Include="Models\TabbedViewPagerModel.cs" />
     <Compile Include="Models\TeamsModel.cs" />
+    <Compile Include="ViewHolders\EventViewHolder.cs" />
     <Compile Include="ViewHolders\HeaderViewHolder.cs" />
     <Compile Include="ViewHolders\LeagueHeaderViewHolder.cs" />
     <Compile Include="ViewHolders\LeagueContentViewHolder.cs" />
@@ -205,7 +209,7 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\League.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\MatchesFragment.axml">
       <SubType>AndroidResource</SubType>
@@ -322,14 +326,14 @@
     <AndroidResource Include="Resources\layout\MatchActivity.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\EventItem.axml">
+    <AndroidResource Include="Resources\layout\AwayEventItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\EventCard.axml">
+    <AndroidResource Include="Resources\layout\HomeEventCard.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ActualFragment.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\LeagueNameWithFlag.axml">
       <SubType>AndroidResource</SubType>
@@ -369,6 +373,15 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Settings.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\HomeEventItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\AwayEventCard.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Events.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
