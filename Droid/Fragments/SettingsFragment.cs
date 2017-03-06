@@ -26,24 +26,26 @@ namespace Floorball.Droid.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
-            AddPreferencesFromResource(Resource.Xml.Settings);
+            //AddPreferencesFromResource(Resource.Xml.Settings);
 
         }
 
         public override void OnCreatePreferences(Bundle savedInstanceState, string rootKey)
         {
-            
+            //SetPreferencesFromResource(Resource.Xml.Settings, rootKey);
         }
-
+        
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
+            //return inflater.Inflate(Resource.Layout.Settings, container, false);
+
             return base.OnCreateView(inflater, container, savedInstanceState);
         }
 
-
+        
         //public bool OnPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen)
         //{
         //    preferenceFragmentCompat.PreferenceScreen = preferenceScreen;

@@ -136,6 +136,7 @@
     <Compile Include="Activities\RefereeActivity.cs" />
     <Compile Include="Activities\TeamActivity.cs" />
     <Compile Include="Activities\TeamsActivity.cs" />
+    <Compile Include="Adapters\ActualAdapter.cs" />
     <Compile Include="Adapters\AdapterWithHeader.cs" />
     <Compile Include="Adapters\AdapterWithTwoHeader.cs" />
     <Compile Include="Adapters\BaseRecyclerViewAdapter.cs" />
@@ -171,6 +172,8 @@
     <Compile Include="Models\HeaderModel.cs" />
     <Compile Include="Models\LeaguesModel.cs" />
     <Compile Include="Models\ListItem.cs" />
+    <Compile Include="Models\LiveMatchModel.cs" />
+    <Compile Include="Models\LiveMatchModelBase.cs" />
     <Compile Include="Models\MatchesModel.cs" />
     <Compile Include="Models\MatchResultModel.cs" />
     <Compile Include="Models\PlayerStatModel.cs" />
@@ -184,6 +187,7 @@
     <Compile Include="ViewHolders\HeaderViewHolder.cs" />
     <Compile Include="ViewHolders\LeagueHeaderViewHolder.cs" />
     <Compile Include="ViewHolders\LeagueContentViewHolder.cs" />
+    <Compile Include="ViewHolders\LiveMatchViewHolder.cs" />
     <Compile Include="ViewHolders\MatchViewHolder.cs" />
     <Compile Include="ViewHolders\PlayerViewHolder.cs" />
     <Compile Include="ViewHolders\RefereeViewHolder.cs" />
@@ -360,6 +364,12 @@
     <AndroidResource Include="Resources\layout\RefereeStat.axml" />
     <AndroidResource Include="Resources\layout\SubHeader.axml">
       <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CenterHeader.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Settings.axml">
+      <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>

@@ -31,13 +31,15 @@ namespace Floorball.LocalDB.Repository
             }
         }
 
-        public IEnumerable<Match> GetActualMatches()
+        public IEnumerable<Match> GetActualMatches(IEnumerable<League> leagues)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
                 DateTime threshold = DateTime.Now.AddDays(3).AddYears(-1);
 
-                return db.GetAllWithChildren<Match>().Where(m => DateTime.Compare(DateTime.Now.AddYears(-1), m.Date) < 0 && DateTime.Compare(m.Date, threshold) < 0 || m.State == StateEnum.Playing);
+                IEnumerable<int> leagueIds = leagues.Select(l => l.Id);
+
+                return db.GetAllWithChildren<Match>().Where(m => DateTime.Compare(DateTime.Now.AddYears(-1), m.Date) < 0 && DateTime.Compare(m.Date, threshold) < 0 || m.State == StateEnum.Playing && leagueIds.Contains(m.LeagueId));
             }
         }
 

@@ -2212,8 +2212,8 @@ namespace Floorball.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f080085
-			public const int DrawerHeader = 2131230853;
+			// aapt resource value: 0x7f080086
+			public const int DrawerHeader = 2131230854;
 			
 			// aapt resource value: 0x7f0800aa
 			public const int action0 = 2131230890;
@@ -2302,8 +2302,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0800a8
 			public const int awayTeam = 2131230888;
 			
-			// aapt resource value: 0x7f08008b
-			public const int awayTeamEventId = 2131230859;
+			// aapt resource value: 0x7f08008c
+			public const int awayTeamEventId = 2131230860;
 			
 			// aapt resource value: 0x7f08009e
 			public const int awayTeamImage = 2131230878;
@@ -2389,20 +2389,20 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080044
 			public const int default_activity_button = 2131230788;
 			
-			// aapt resource value: 0x7f08007d
-			public const int design_bottom_sheet = 2131230845;
+			// aapt resource value: 0x7f08007e
+			public const int design_bottom_sheet = 2131230846;
+			
+			// aapt resource value: 0x7f080085
+			public const int design_menu_item_action_area = 2131230853;
 			
 			// aapt resource value: 0x7f080084
-			public const int design_menu_item_action_area = 2131230852;
+			public const int design_menu_item_action_area_stub = 2131230852;
 			
 			// aapt resource value: 0x7f080083
-			public const int design_menu_item_action_area_stub = 2131230851;
+			public const int design_menu_item_text = 2131230851;
 			
 			// aapt resource value: 0x7f080082
-			public const int design_menu_item_text = 2131230850;
-			
-			// aapt resource value: 0x7f080081
-			public const int design_navigation_view = 2131230849;
+			public const int design_navigation_view = 2131230850;
 			
 			// aapt resource value: 0x7f080020
 			public const int disableHome = 2131230752;
@@ -2428,14 +2428,14 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080035
 			public const int enterAlwaysCollapsed = 2131230773;
 			
-			// aapt resource value: 0x7f080087
-			public const int eventCard = 2131230855;
+			// aapt resource value: 0x7f080088
+			public const int eventCard = 2131230856;
 			
 			// aapt resource value: 0x7f0800a1
 			public const int eventContainer = 2131230881;
 			
-			// aapt resource value: 0x7f080088
-			public const int eventImage = 2131230856;
+			// aapt resource value: 0x7f080089
+			public const int eventImage = 2131230857;
 			
 			// aapt resource value: 0x7f080036
 			public const int exitUntilCollapsed = 2131230774;
@@ -2464,8 +2464,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0800c0
 			public const int goalStat = 2131230912;
 			
-			// aapt resource value: 0x7f08008c
-			public const int headerName = 2131230860;
+			// aapt resource value: 0x7f08007c
+			public const int headerName = 2131230844;
 			
 			// aapt resource value: 0x7f080093
 			public const int headerRow = 2131230867;
@@ -2482,8 +2482,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0800a6
 			public const int homeTeam = 2131230886;
 			
-			// aapt resource value: 0x7f08008a
-			public const int homeTeamEventId = 2131230858;
+			// aapt resource value: 0x7f08008b
+			public const int homeTeamEventId = 2131230859;
 			
 			// aapt resource value: 0x7f08009d
 			public const int homeTeamImage = 2131230877;
@@ -2539,8 +2539,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f0800b2
 			public const int line3 = 2131230898;
 			
-			// aapt resource value: 0x7f080086
-			public const int linearlayout = 2131230854;
+			// aapt resource value: 0x7f080087
+			public const int linearlayout = 2131230855;
 			
 			// aapt resource value: 0x7f0800bb
 			public const int list = 2131230907;
@@ -2581,8 +2581,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080028
 			public const int multiply = 2131230760;
 			
-			// aapt resource value: 0x7f080080
-			public const int navigation_header_container = 2131230848;
+			// aapt resource value: 0x7f080081
+			public const int navigation_header_container = 2131230849;
 			
 			// aapt resource value: 0x7f080032
 			public const int never = 2131230770;
@@ -2617,8 +2617,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f08003a
 			public const int pin = 2131230778;
 			
-			// aapt resource value: 0x7f080089
-			public const int playerName = 2131230857;
+			// aapt resource value: 0x7f08008a
+			public const int playerName = 2131230858;
 			
 			// aapt resource value: 0x7f0800c6
 			public const int playerSearch = 2131230918;
@@ -2728,11 +2728,11 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080025
 			public const int showTitle = 2131230757;
 			
-			// aapt resource value: 0x7f08007f
-			public const int snackbar_action = 2131230847;
+			// aapt resource value: 0x7f080080
+			public const int snackbar_action = 2131230848;
 			
-			// aapt resource value: 0x7f08007e
-			public const int snackbar_text = 2131230846;
+			// aapt resource value: 0x7f08007f
+			public const int snackbar_text = 2131230847;
 			
 			// aapt resource value: 0x7f080038
 			public const int snap = 2131230776;
@@ -2836,8 +2836,8 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f08004b
 			public const int topPanel = 2131230795;
 			
-			// aapt resource value: 0x7f08007c
-			public const int touch_outside = 2131230844;
+			// aapt resource value: 0x7f08007d
+			public const int touch_outside = 2131230845;
 			
 			// aapt resource value: 0x7f080009
 			public const int up = 2131230729;
@@ -2992,208 +2992,214 @@ namespace Floorball.Droid
 			public const int Card = 2130968603;
 			
 			// aapt resource value: 0x7f04001c
-			public const int design_bottom_sheet_dialog = 2130968604;
+			public const int CenterHeader = 2130968604;
 			
 			// aapt resource value: 0x7f04001d
-			public const int design_layout_snackbar = 2130968605;
+			public const int design_bottom_sheet_dialog = 2130968605;
 			
 			// aapt resource value: 0x7f04001e
-			public const int design_layout_snackbar_include = 2130968606;
+			public const int design_layout_snackbar = 2130968606;
 			
 			// aapt resource value: 0x7f04001f
-			public const int design_layout_tab_icon = 2130968607;
+			public const int design_layout_snackbar_include = 2130968607;
 			
 			// aapt resource value: 0x7f040020
-			public const int design_layout_tab_text = 2130968608;
+			public const int design_layout_tab_icon = 2130968608;
 			
 			// aapt resource value: 0x7f040021
-			public const int design_menu_item_action_area = 2130968609;
+			public const int design_layout_tab_text = 2130968609;
 			
 			// aapt resource value: 0x7f040022
-			public const int design_navigation_item = 2130968610;
+			public const int design_menu_item_action_area = 2130968610;
 			
 			// aapt resource value: 0x7f040023
-			public const int design_navigation_item_header = 2130968611;
+			public const int design_navigation_item = 2130968611;
 			
 			// aapt resource value: 0x7f040024
-			public const int design_navigation_item_separator = 2130968612;
+			public const int design_navigation_item_header = 2130968612;
 			
 			// aapt resource value: 0x7f040025
-			public const int design_navigation_item_subheader = 2130968613;
+			public const int design_navigation_item_separator = 2130968613;
 			
 			// aapt resource value: 0x7f040026
-			public const int design_navigation_menu = 2130968614;
+			public const int design_navigation_item_subheader = 2130968614;
 			
 			// aapt resource value: 0x7f040027
-			public const int design_navigation_menu_item = 2130968615;
+			public const int design_navigation_menu = 2130968615;
 			
 			// aapt resource value: 0x7f040028
-			public const int DrawerHeader = 2130968616;
+			public const int design_navigation_menu_item = 2130968616;
 			
 			// aapt resource value: 0x7f040029
-			public const int Empty = 2130968617;
+			public const int DrawerHeader = 2130968617;
 			
 			// aapt resource value: 0x7f04002a
-			public const int EventCard = 2130968618;
+			public const int Empty = 2130968618;
 			
 			// aapt resource value: 0x7f04002b
-			public const int EventItem = 2130968619;
+			public const int EventCard = 2130968619;
 			
 			// aapt resource value: 0x7f04002c
-			public const int Header = 2130968620;
+			public const int EventItem = 2130968620;
 			
 			// aapt resource value: 0x7f04002d
-			public const int HeaderCell = 2130968621;
+			public const int Header = 2130968621;
 			
 			// aapt resource value: 0x7f04002e
-			public const int InitFragment = 2130968622;
+			public const int HeaderCell = 2130968622;
 			
 			// aapt resource value: 0x7f04002f
-			public const int League = 2130968623;
+			public const int InitFragment = 2130968623;
 			
 			// aapt resource value: 0x7f040030
-			public const int LeagueNameWithFlag = 2130968624;
+			public const int League = 2130968624;
 			
 			// aapt resource value: 0x7f040031
-			public const int Leagues = 2130968625;
+			public const int LeagueNameWithFlag = 2130968625;
 			
 			// aapt resource value: 0x7f040032
-			public const int LeagueStatisticsFragment = 2130968626;
+			public const int Leagues = 2130968626;
 			
 			// aapt resource value: 0x7f040033
-			public const int LeagueTableFragment = 2130968627;
+			public const int LeagueStatisticsFragment = 2130968627;
 			
 			// aapt resource value: 0x7f040034
-			public const int LeagueTableRow = 2130968628;
+			public const int LeagueTableFragment = 2130968628;
 			
 			// aapt resource value: 0x7f040035
-			public const int Main = 2130968629;
+			public const int LeagueTableRow = 2130968629;
 			
 			// aapt resource value: 0x7f040036
-			public const int MatchActivity = 2130968630;
+			public const int Main = 2130968630;
 			
 			// aapt resource value: 0x7f040037
-			public const int Matches = 2130968631;
+			public const int MatchActivity = 2130968631;
 			
 			// aapt resource value: 0x7f040038
-			public const int MatchesFragment = 2130968632;
+			public const int Matches = 2130968632;
 			
 			// aapt resource value: 0x7f040039
-			public const int MatchResult = 2130968633;
+			public const int MatchesFragment = 2130968633;
 			
 			// aapt resource value: 0x7f04003a
-			public const int notification_media_action = 2130968634;
+			public const int MatchResult = 2130968634;
 			
 			// aapt resource value: 0x7f04003b
-			public const int notification_media_cancel_action = 2130968635;
+			public const int notification_media_action = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int notification_template_big_media = 2130968636;
+			public const int notification_media_cancel_action = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int notification_template_big_media_narrow = 2130968637;
+			public const int notification_template_big_media = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
-			public const int notification_template_lines = 2130968638;
+			public const int notification_template_big_media_narrow = 2130968638;
 			
 			// aapt resource value: 0x7f04003f
-			public const int notification_template_media = 2130968639;
+			public const int notification_template_lines = 2130968639;
 			
 			// aapt resource value: 0x7f040040
-			public const int notification_template_part_chronometer = 2130968640;
+			public const int notification_template_media = 2130968640;
 			
 			// aapt resource value: 0x7f040041
-			public const int notification_template_part_time = 2130968641;
+			public const int notification_template_part_chronometer = 2130968641;
 			
 			// aapt resource value: 0x7f040042
-			public const int PlayerItem = 2130968642;
+			public const int notification_template_part_time = 2130968642;
 			
 			// aapt resource value: 0x7f040043
-			public const int PlayerStat = 2130968643;
+			public const int PlayerItem = 2130968643;
 			
 			// aapt resource value: 0x7f040044
-			public const int preference = 2130968644;
+			public const int PlayerStat = 2130968644;
 			
 			// aapt resource value: 0x7f040045
-			public const int preference_category = 2130968645;
+			public const int preference = 2130968645;
 			
 			// aapt resource value: 0x7f040046
-			public const int preference_dialog_edittext = 2130968646;
+			public const int preference_category = 2130968646;
 			
 			// aapt resource value: 0x7f040047
-			public const int preference_information = 2130968647;
+			public const int preference_dialog_edittext = 2130968647;
 			
 			// aapt resource value: 0x7f040048
-			public const int preference_list_fragment = 2130968648;
+			public const int preference_information = 2130968648;
 			
 			// aapt resource value: 0x7f040049
-			public const int preference_recyclerview = 2130968649;
+			public const int preference_list_fragment = 2130968649;
 			
 			// aapt resource value: 0x7f04004a
-			public const int preference_widget_checkbox = 2130968650;
+			public const int preference_recyclerview = 2130968650;
 			
 			// aapt resource value: 0x7f04004b
-			public const int preference_widget_switch_compat = 2130968651;
+			public const int preference_widget_checkbox = 2130968651;
 			
 			// aapt resource value: 0x7f04004c
-			public const int RecycleView = 2130968652;
+			public const int preference_widget_switch_compat = 2130968652;
 			
 			// aapt resource value: 0x7f04004d
-			public const int RefereeItem = 2130968653;
+			public const int RecycleView = 2130968653;
 			
 			// aapt resource value: 0x7f04004e
-			public const int RefereeStat = 2130968654;
+			public const int RefereeItem = 2130968654;
 			
 			// aapt resource value: 0x7f04004f
-			public const int RefereeStatCard = 2130968655;
+			public const int RefereeStat = 2130968655;
 			
 			// aapt resource value: 0x7f040050
-			public const int ScrollableCardList = 2130968656;
+			public const int RefereeStatCard = 2130968656;
 			
 			// aapt resource value: 0x7f040051
-			public const int SearchListFragment = 2130968657;
+			public const int ScrollableCardList = 2130968657;
 			
 			// aapt resource value: 0x7f040052
-			public const int select_dialog_item_material = 2130968658;
+			public const int SearchListFragment = 2130968658;
 			
 			// aapt resource value: 0x7f040053
-			public const int select_dialog_multichoice_material = 2130968659;
+			public const int select_dialog_item_material = 2130968659;
 			
 			// aapt resource value: 0x7f040054
-			public const int select_dialog_singlechoice_material = 2130968660;
+			public const int select_dialog_multichoice_material = 2130968660;
 			
 			// aapt resource value: 0x7f040055
-			public const int Stat = 2130968661;
+			public const int select_dialog_singlechoice_material = 2130968661;
 			
 			// aapt resource value: 0x7f040056
-			public const int StatHeader = 2130968662;
+			public const int Settings = 2130968662;
 			
 			// aapt resource value: 0x7f040057
-			public const int StatisticsTableRow = 2130968663;
+			public const int Stat = 2130968663;
 			
 			// aapt resource value: 0x7f040058
-			public const int StatLine = 2130968664;
+			public const int StatHeader = 2130968664;
 			
 			// aapt resource value: 0x7f040059
-			public const int SubHeader = 2130968665;
+			public const int StatisticsTableRow = 2130968665;
 			
 			// aapt resource value: 0x7f04005a
-			public const int support_simple_spinner_dropdown_item = 2130968666;
+			public const int StatLine = 2130968666;
 			
 			// aapt resource value: 0x7f04005b
-			public const int TeamActivity = 2130968667;
+			public const int SubHeader = 2130968667;
 			
 			// aapt resource value: 0x7f04005c
-			public const int Teams = 2130968668;
+			public const int support_simple_spinner_dropdown_item = 2130968668;
 			
 			// aapt resource value: 0x7f04005d
-			public const int Toolbar = 2130968669;
+			public const int TeamActivity = 2130968669;
 			
 			// aapt resource value: 0x7f04005e
-			public const int ViewPagerWithTabs = 2130968670;
+			public const int Teams = 2130968670;
 			
 			// aapt resource value: 0x7f04005f
-			public const int Year = 2130968671;
+			public const int Toolbar = 2130968671;
+			
+			// aapt resource value: 0x7f040060
+			public const int ViewPagerWithTabs = 2130968672;
+			
+			// aapt resource value: 0x7f040061
+			public const int Year = 2130968673;
 			
 			static Layout()
 			{

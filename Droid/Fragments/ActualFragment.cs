@@ -21,15 +21,31 @@ using Android.Graphics.Drawables;
 using Floorball.LocalDB;
 using Floorball.Droid.Activities;
 using System.Threading.Tasks;
+using Floorball.Droid.Adapters;
+using Newtonsoft.Json;
+using Floorball.Droid.Models;
 
 namespace Floorball.Droid.Fragments
 {
     public class ActualFragment : MainFragment
     {
 
-        public static ActualFragment Instance()
+        RecyclerView recyclerView;
+        ActualAdapter adapter;
+
+        public static ActualFragment Instance(IEnumerable<Match> liveMatches, IEnumerable<Match> soonMatches, IEnumerable<Team> teams, IEnumerable<League> leagues)
         {
-            return new ActualFragment();
+            var fragment = new ActualFragment();
+
+            Bundle args = new Bundle();
+            args.PutString("liveMatches",JsonConvert.SerializeObject(liveMatches));
+            args.PutString("soonMatches",JsonConvert.SerializeObject(soonMatches));
+            args.PutString("teams",JsonConvert.SerializeObject(teams));
+            args.PutString("leagues",JsonConvert.SerializeObject(leagues));
+
+            fragment.Arguments = args;
+
+            return fragment;
         }
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -37,6 +53,14 @@ namespace Floorball.Droid.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
+            adapter = new ActualAdapter(JsonConvert.DeserializeObject<IEnumerable<Match>>(Arguments.GetString("liveMatches")),
+                JsonConvert.DeserializeObject<IEnumerable<Match>>(Arguments.GetString("soonMatches")),
+                JsonConvert.DeserializeObject<IEnumerable<Team>>(Arguments.GetString("teams")),
+                JsonConvert.DeserializeObject<IEnumerable<League>>(Arguments.GetString("leagues")),
+                Context);
+            adapter.ClickedObject += Adapter_ClickedObject;
+
+
             FloorballClient.Instance.MatchStarted += MatchStarted;
             FloorballClient.Instance.MatchEnded += MatchEnded;
             FloorballClient.Instance.NewEventAdded += NewEventAdded;
@@ -44,17 +68,24 @@ namespace Floorball.Droid.Fragments
 
         }
 
+        private void Adapter_ClickedObject(object sender, object e)
+        {
+            Intent intent = new Intent(Context, typeof(MatchActivity));
+            intent.PutExtra("id", (e as LiveMatchModel).MatchId);
+            StartActivity(intent);
+        }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
+            View root = inflater.Inflate(Resource.Layout.RecycleView, container, false);
 
-            View root = inflater.Inflate(Resource.Layout.ActualFragment, container, false);
-            
-            CreateLiveMatches(root);
-            CreateSoonMatches(root);
-            
+            //CreateLiveMatches(root);
+            //CreateSoonMatches(root);
+
+            recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            recyclerView.SetLayoutManager(new LinearLayoutManager(Context));
+            recyclerView.SetAdapter(adapter);
+
             return root;
         }
 

@@ -24,6 +24,8 @@ using Android.Support.V7.App;
 using Android.Util;
 using System.Threading.Tasks;
 using Floorball.Droid.Utils;
+using Floorball.Signalr;
+using Microsoft.AspNet.SignalR.Client;
 
 namespace Floorball.Droid.Activities
 {
@@ -110,14 +112,14 @@ namespace Floorball.Droid.Activities
                 }
                 else
                 {
+                    //Initialize properties from database
+                    InitProperties();
+
                     //Change to first (actual fragment)
                     ChangeFragments(0);
 
                     //Check is there any remote database updates and update local DB
                     Task<bool> isUpdated = Updater.Updater.Instance.UpdateDatabaseFromServer(lastSyncDate);
-
-                    //Initialize properties from database
-                    InitProperties();
 
                     //Show app updating
                     ShowUpdating();
@@ -227,7 +229,8 @@ namespace Floorball.Droid.Activities
             switch (position)
             {
                 case 0:
-                    fragment = ActualFragment.Instance();
+                    fragment = ActualFragment.Instance(ActualMatches.Where(m => m.State == StateEnum.Playing), ActualMatches.Where(m => m.State != StateEnum.Playing),ActualTeams, Leagues);
+                    //ConnectToSignalRServer();
                     break;
 
                 case 1:
@@ -257,6 +260,29 @@ namespace Floorball.Droid.Activities
             }
 
             return fragment;
+        }
+
+        private async void ConnectToSignalRServer()
+        {
+            if (ActualMatches.Where(m => m.State == StateEnum.Playing).Count() > 0 && FloorballClient.Instance.ConnectionState == ConnectionState.Disconnected)
+            {
+                try
+                {
+                    FindViewById<ProgressBar>(Resource.Id.progressbar).Visibility = ViewStates.Visible;
+                    FindViewById<TextView>(Resource.Id.notification).Text = "Csatlakozás szerverhez..";
+                    FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Visible;
+                    await FloorballClient.Instance.Connect(Countries);
+                    FindViewById<TextView>(Resource.Id.notification).Text = "Csatlakozva";
+                    FindViewById<ProgressBar>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
+                    await Task.Delay(3000);
+                    FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Gone;
+                }
+                catch (Exception)
+                {
+                    FindViewById<ProgressBar>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
+                    FindViewById<TextView>(Resource.Id.notification).Text = "Nem sikerült csatlakozni";
+                }
+            }
         }
 
         public override void OnPostCreate(Bundle savedInstanceState, PersistableBundle persistentState)
@@ -366,7 +392,7 @@ namespace Floorball.Droid.Activities
             //Initialize properties from database
             Leagues = UoW.LeagueRepo.GetAllLeague().Where(l => Countries.Contains(l.Country)) ?? new List<League>();
             Teams = UoW.TeamRepo.GetAllTeam().Where(t => Countries.Contains(t.Country)) ?? new List<Team>();
-            ActualMatches = UoW.MatchRepo.GetActualMatches().OrderBy(a => a.LeagueId).ThenBy(a => a.Date) ?? new List<Match>().OrderBy(a => a.LeagueId);
+            ActualMatches = UoW.MatchRepo.GetActualMatches(Leagues).OrderBy(a => a.LeagueId).ThenBy(a => a.Date) ?? new List<Match>().OrderBy(a => a.LeagueId);
             ActualTeams = GetActualTeams(ActualMatches) ?? new List<Team>();
         }
 
