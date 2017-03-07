@@ -13,6 +13,7 @@ using Android.Widget;
 using Floorball.Droid.Adapters;
 using Floorball.LocalDB.Tables;
 using Newtonsoft.Json;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Fragments
 {
@@ -24,8 +25,8 @@ namespace Floorball.Droid.Fragments
             var fragment = new LeagueMatchesFragment();
 
             Bundle args = new Bundle();
-            args.PutString("matches", JsonConvert.SerializeObject(matches));
-            args.PutString("teams", JsonConvert.SerializeObject(teams));
+            args.PutObject("matches", matches);
+            args.PutObject("teams", teams);
             args.PutInt("rounds", league.Rounds);
 
             fragment.Arguments = args;
@@ -37,8 +38,8 @@ namespace Floorball.Droid.Fragments
         {
             base.OnCreate(savedInstanceState);
 
-            adapter = new LeagueMatchesAdapter(JsonConvert.DeserializeObject<IEnumerable<Team>>(Arguments.GetString("teams")),
-               JsonConvert.DeserializeObject<IEnumerable<Match>>(Arguments.GetString("matches")), Arguments.GetInt("rounds"));
+            adapter = new LeagueMatchesAdapter(Arguments.GetObject<IEnumerable<Team>>("teams"),
+               Arguments.GetObject<IEnumerable<Match>>("matches"), Arguments.GetInt("rounds"));
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

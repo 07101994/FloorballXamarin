@@ -22,6 +22,7 @@ using Newtonsoft.Json;
 using Android.Support.V4.View;
 using Android.Support.V7.Widget;
 using Floorball.Droid.Models;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Fragments
 {
@@ -38,7 +39,7 @@ namespace Floorball.Droid.Fragments
             var fragment = new LeaguesFragment();
 
             Bundle args = new Bundle();
-            args.PutString("leagues", JsonConvert.SerializeObject(model.Leagues));
+            args.PutObject("leagues", model.Leagues);
 
             fragment.Arguments = args;
 
@@ -49,7 +50,7 @@ namespace Floorball.Droid.Fragments
         {
             base.OnCreate(savedInstanceState);
 
-            Leagues = JsonConvert.DeserializeObject<List<League>>(Arguments.GetString("leagues"));
+            Leagues = Arguments.GetObject<List<League>>("leagues");
 
             adapter = new LeaguesAdapter(Activity,Leagues.GroupBy(l => l.Country).Select(l => l.ToList()));
 

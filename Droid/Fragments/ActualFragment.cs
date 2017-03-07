@@ -24,6 +24,7 @@ using System.Threading.Tasks;
 using Floorball.Droid.Adapters;
 using Newtonsoft.Json;
 using Floorball.Droid.Models;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Fragments
 {
@@ -38,11 +39,10 @@ namespace Floorball.Droid.Fragments
             var fragment = new ActualFragment();
 
             Bundle args = new Bundle();
-            args.PutString("liveMatches",JsonConvert.SerializeObject(liveMatches));
-            args.PutString("soonMatches",JsonConvert.SerializeObject(soonMatches));
-            args.PutString("teams",JsonConvert.SerializeObject(teams));
-            args.PutString("leagues",JsonConvert.SerializeObject(leagues));
-
+            args.PutObject("liveMatches", liveMatches);
+            args.PutObject("soonMatches",soonMatches);
+            args.PutObject("teams",teams);
+            args.PutObject("leagues",leagues);
             fragment.Arguments = args;
 
             return fragment;
@@ -53,14 +53,14 @@ namespace Floorball.Droid.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
-            adapter = new ActualAdapter(JsonConvert.DeserializeObject<IEnumerable<Match>>(Arguments.GetString("liveMatches")),
-                JsonConvert.DeserializeObject<IEnumerable<Match>>(Arguments.GetString("soonMatches")),
-                JsonConvert.DeserializeObject<IEnumerable<Team>>(Arguments.GetString("teams")),
-                JsonConvert.DeserializeObject<IEnumerable<League>>(Arguments.GetString("leagues")),
+            adapter = new ActualAdapter(Arguments.GetObject<IEnumerable<Match>>("liveMatches"),
+                Arguments.GetObject<IEnumerable<Match>>("soonMatches"),
+                Arguments.GetObject<IEnumerable<Team>>("teams"),
+                Arguments.GetObject<IEnumerable<League>>("leagues"),
                 Context);
             adapter.ClickedObject += Adapter_ClickedObject;
-
-
+            
+            
             FloorballClient.Instance.MatchStarted += MatchStarted;
             FloorballClient.Instance.MatchEnded += MatchEnded;
             FloorballClient.Instance.NewEventAdded += NewEventAdded;

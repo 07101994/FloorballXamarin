@@ -12,6 +12,7 @@ using Android.Widget;
 using Newtonsoft.Json;
 using Floorball.Droid.Adapters;
 using Floorball.LocalDB.Tables;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Fragments
 {
@@ -23,9 +24,9 @@ namespace Floorball.Droid.Fragments
             var fragment = new TeamMatchesFragment();
 
             Bundle args = new Bundle();
-            args.PutString("matches", JsonConvert.SerializeObject(matches));
-            args.PutString("teams", JsonConvert.SerializeObject(teams));
-            args.PutString("leagues", JsonConvert.SerializeObject(leagues));
+            args.PutObject("matches", matches);
+            args.PutObject("teams", teams);
+            args.PutObject("leagues", leagues);
             args.PutInt("teamId", teamId);
 
             fragment.Arguments = args;
@@ -37,9 +38,9 @@ namespace Floorball.Droid.Fragments
         {
             base.OnCreate(savedInstanceState);
 
-            adapter = new TeamMatchesAdapter(JsonConvert.DeserializeObject<IEnumerable<Team>>(Arguments.GetString("teams")),
-               JsonConvert.DeserializeObject<IEnumerable<Match>>(Arguments.GetString("matches")), 
-               JsonConvert.DeserializeObject<IEnumerable<League>>(Arguments.GetString("leagues")),
+            adapter = new TeamMatchesAdapter(Arguments.GetObject<IEnumerable<Team>>("teams"),
+               Arguments.GetObject<IEnumerable<Match>>("matches"),
+               Arguments.GetObject<IEnumerable<League>>("leagues"),
                Arguments.GetInt("teamId"));
         }
 

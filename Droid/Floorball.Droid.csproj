@@ -160,7 +160,6 @@
     <Compile Include="Fragments\LeagueStatisticsFragment.cs" />
     <Compile Include="Fragments\LeagueTableFragment.cs" />
     <Compile Include="Fragments\MainFragment.cs" />
-    <Compile Include="Fragments\MatchListFragment.cs" />
     <Compile Include="Fragments\PlayerListFragment.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -180,6 +179,7 @@
     <Compile Include="Models\MatchResultModel.cs" />
     <Compile Include="Models\PlayerStatModel.cs" />
     <Compile Include="Models\MatchEventModel.cs" />
+    <Compile Include="Utils\Extensions.cs" />
     <Compile Include="Utils\MyActionBarDrawerToggle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

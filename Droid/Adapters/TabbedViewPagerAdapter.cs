@@ -23,9 +23,9 @@ namespace Floorball.Droid.Adapters
     {
         public List<TabbedViewPagerModel> Model { get; set; }
 
-        public TabbedViewPagerAdapter(FragmentManager manager, string model) : base(manager) 
+        public TabbedViewPagerAdapter(FragmentManager manager, List<TabbedViewPagerModel> model) : base(manager) 
         {
-            Model = JsonConvert.DeserializeObject<List<TabbedViewPagerModel>>(model);   
+            Model = model;   
         }
 
         public override int Count

@@ -142,7 +142,7 @@ namespace Floorball.Droid.Activities
             }
             catch (Exception ex)
             {
-                ShowAlertDialog(ex);
+                //ShowAlertDialog(ex);
             }
 
         }

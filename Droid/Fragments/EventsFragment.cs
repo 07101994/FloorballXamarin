@@ -18,6 +18,7 @@ using Floorball.LocalDB.Tables;
 using Android.Graphics;
 using System.IO;
 using Floorball.Droid.Activities;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Fragments
 {
@@ -31,7 +32,7 @@ namespace Floorball.Droid.Fragments
             var fragment = new EventsFragment();
 
             Bundle args = new Bundle();
-            args.PutString("events", JsonConvert.SerializeObject(events));
+            args.PutObject("events", events);
 
             fragment.Arguments = args;
 
@@ -43,7 +44,7 @@ namespace Floorball.Droid.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
-            adapter = new EventsAdapter(JsonConvert.DeserializeObject<List<MatchEventModel>>(Arguments.GetString("events")));
+            adapter = new EventsAdapter(Arguments.GetObject<List<MatchEventModel>>("events"));
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

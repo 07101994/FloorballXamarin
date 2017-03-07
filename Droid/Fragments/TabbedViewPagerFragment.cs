@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using Android.Support.Design.Widget;
 using Floorball.Droid.Adapters;
 using Floorball.Droid.Models;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Fragments
 {
@@ -35,7 +36,7 @@ namespace Floorball.Droid.Fragments
             var fragment = new TabbedViewPagerFragment();
             var args = new Bundle();
 
-            args.PutString("model", JsonConvert.SerializeObject(model));
+            args.PutObject("model", model);
             fragment.Arguments = args;
 
             return fragment;
@@ -54,7 +55,7 @@ namespace Floorball.Droid.Fragments
             View root = inflater.Inflate(Resource.Layout.ViewPagerWithTabs, container, false);
 
             viewPager = root.FindViewById<ViewPager>(Resource.Id.pager);
-            adapter = new TabbedViewPagerAdapter(Activity.SupportFragmentManager, Arguments.GetString("model"));
+            adapter = new TabbedViewPagerAdapter(Activity.SupportFragmentManager, Arguments.GetObject<List<TabbedViewPagerModel>>("model"));
             viewPager.Adapter = adapter;
 
             TabLayout tabs = root.FindViewById<TabLayout>(Resource.Id.tabs);
