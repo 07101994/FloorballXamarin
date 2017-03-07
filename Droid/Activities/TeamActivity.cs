@@ -21,6 +21,7 @@ using Floorball.LocalDB.Tables;
 using Android.Graphics;
 using System.IO;
 using Floorball.Droid.Models;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Activities
 {
@@ -57,7 +58,7 @@ namespace Floorball.Droid.Activities
             if (savedInstanceState == null)
             {
                 var tabModels = new List<TabbedViewPagerModel>();
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Players, TabTitle = "játékosok", Data = Players } );
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Players, TabTitle = "játékosok", Data = Players.Select(p => new ListModel { Text = p.Name, Object = p }) } );
                 tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.TeamMatches, TabTitle = "mérkőzések", Data = new MatchesModel { Matches = Matches, TeamId = Team.Id, Teams = UoW.TeamRepo.GetTeamsByMatches(Matches), Leagues = UoW.LeagueRepo.GetLeaguesByMatches(Matches) } });
 
                 Android.Support.V4.App.Fragment fr = TabbedViewPagerFragment.Instance(tabModels);
@@ -109,7 +110,7 @@ namespace Floorball.Droid.Activities
         {
             base.InitProperties();
 
-            Team = JsonConvert.DeserializeObject<Team>(Intent.GetStringExtra("team"));
+            Team = Intent.GetObject<Team>("team");
             Players = UoW.PlayerRepo.GetPlayersByTeam(Team.Id).ToList();
             Matches = UoW.MatchRepo.GetMatchesByTeam(Team.Id).OrderBy(m => m.LeagueId).ThenBy(m => m.Date).ToList();
         }

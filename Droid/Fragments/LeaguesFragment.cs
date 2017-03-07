@@ -71,7 +71,7 @@ namespace Floorball.Droid.Fragments
         private void Adapter_Clicked(object sender, int leagueId)
         {
             Intent intent = new Intent(Activity, typeof(LeagueActivity));
-            intent.PutExtra("league",JsonConvert.SerializeObject(Leagues.Find(l => l.Id == leagueId)));
+            intent.PutObject("league",Leagues.Find(l => l.Id == leagueId));
             StartActivity(intent);
         }
 

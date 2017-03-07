@@ -52,8 +52,8 @@ namespace Floorball.Droid.Adapters
                     fr = TeamsFragment.Instance(teamsModel.Teams, teamsModel.Leagues);
                     break;
                 case FragmentType.Players:
-                    var playersModel = data.ToObject<List<Player>>();
-                    fr = PlayerListFragment.Instance(playersModel);
+                    var playersModel = data.ToObject<IEnumerable<ListModel>>();
+                    fr = Fragments.ListFragment.Instance(playersModel,"players");
                     break;
                 case FragmentType.TeamMatches:
                     var matchesModel = data.ToObject<MatchesModel>();
@@ -63,21 +63,24 @@ namespace Floorball.Droid.Adapters
                     var leagueMatchesModel = data.ToObject<MatchesModel>();
                     fr = LeagueMatchesFragment.Instance(leagueMatchesModel.Teams, leagueMatchesModel.Matches, leagueMatchesModel.Leagues.First());
                     break;
-                case FragmentType.Stats:
-                    fr = LeagueStatisticsFragment.Instance();
+                case FragmentType.LeagueStats:
+                    var leagueStatModel = data.ToObject<LeagueStatModel>();
+                    fr = LeagueStatisticsFragment.Instance(leagueStatModel.Stats, leagueStatModel.Players, leagueStatModel.Teams);
                     break;
-                case FragmentType.Table:
-                    fr = LeagueTableFragment.Instance();
+                case FragmentType.LeagueTable:
+                    fr = LeagueTableFragment.Instance(data.ToObject<IEnumerable<Team>>());
                     break;
                 case FragmentType.Events:
-                    var eventModels = data.ToObject<List<MatchEventModel>>();
-                    fr = EventsFragment.Instance(eventModels);
+                    var eventModels = data.ToObject<MatchEvents>();
+                    fr = EventsFragment.Instance(eventModels.Events,eventModels.Match,eventModels.HomeTeam,eventModels.AwayTeam);
                     break;
                 case FragmentType.MatchDetails:
-                    fr = new Fragment();
+                    var matchDetailModel = data.ToObject<MatchDetailModel>();
+                    fr = MatchDetailFragment.Instance(matchDetailModel.League,matchDetailModel.Match,matchDetailModel.Stadium);
                     break;
                 case FragmentType.MatchReferees:
-                    fr = new Fragment();
+                    var refereesModel = data.ToObject<IEnumerable<ListModel>>();
+                    fr = Fragments.ListFragment.Instance(refereesModel,"referees");
                     break;
                 default:
                     break;

@@ -20,6 +20,7 @@ using Floorball.LocalDB;
 using Floorball.LocalDB.Tables;
 using Newtonsoft.Json;
 using Floorball.Droid.Models;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Activities
 {
@@ -60,8 +61,8 @@ namespace Floorball.Droid.Activities
 
                 var tabModels = new List<TabbedViewPagerModel>();
                 tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.LeagueMatches, TabTitle = "Mérkőzések", Data = new MatchesModel { Teams = Teams, Matches = Matches, Leagues = new List<League> { League } } });
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Table, TabTitle = "Tabella", Data = null });
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Stats, TabTitle = "Statisztikák", Data = null });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.LeagueTable, TabTitle = "Tabella", Data = Teams });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.LeagueStats, TabTitle = "Statisztikák", Data = new LeagueStatModel { Players = Players, Teams = Teams, Stats = PlayerStatistics } });
 
                 Android.Support.V4.App.Fragment fr = TabbedViewPagerFragment.Instance(tabModels);
                 Android.Support.V4.App.FragmentTransaction ft = SupportFragmentManager.BeginTransaction();
@@ -75,7 +76,7 @@ namespace Floorball.Droid.Activities
         {
             base.InitProperties();
 
-            League = JsonConvert.DeserializeObject<League>(Intent.GetStringExtra("league"));
+            League = Intent.GetObject<League>("league");
             Teams = UoW.TeamRepo.GetTeamsByLeague(League.Id);
             Matches = UoW.MatchRepo.GetMatchesByLeague(League.Id);
             Statistics = UoW.StatiscticRepo.GetStatisticsByLeague(League.Id);

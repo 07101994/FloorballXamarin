@@ -26,6 +26,7 @@ using System.Threading.Tasks;
 using Floorball.Droid.Utils;
 using Floorball.Signalr;
 using Microsoft.AspNet.SignalR.Client;
+using Floorball.Droid.Models;
 
 namespace Floorball.Droid.Activities
 {
@@ -234,11 +235,11 @@ namespace Floorball.Droid.Activities
                     break;
 
                 case 1:
-                    fragment = YearsFragment.Instance("leagues");
+                    fragment = Fragments.ListFragment.Instance(UoW.LeagueRepo.GetAllYear().Select(l => new ListModel { Text = l.ToString(), Object = l}),"leagues");
                     break;
 
                 case 2:
-                    fragment = YearsFragment.Instance("teams");
+                    fragment = Fragments.ListFragment.Instance(UoW.LeagueRepo.GetAllYear().Select(l => new ListModel { Text = l.ToString(), Object = l }),"teams");
                     break;
 
                 case 3:

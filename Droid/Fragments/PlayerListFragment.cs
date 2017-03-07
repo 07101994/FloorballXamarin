@@ -21,12 +21,10 @@ namespace Floorball.Droid.Fragments
 {
     public class PlayerListFragment : Fragment
     {
-        public List<Player> Players { get; set; }
-
         RecyclerView recyclerView;
-        PlayersAdapter adapter;
+        ListAdapter adapter;
 
-        public static PlayerListFragment Instance(List<Player> players)
+        public static PlayerListFragment Instance(List<string> players)
         {
             var fragment = new PlayerListFragment();
 
@@ -41,8 +39,8 @@ namespace Floorball.Droid.Fragments
         {
             base.OnCreate(savedInstanceState);
 
-            Players = Arguments.GetObject<List<Player>>("players");
-            adapter = new PlayersAdapter(Players);
+            //adapter = new PlayersAdapter(Arguments.GetObject<List<Player>>("players"));
+            //adapter = new ListAdapter(Arguments.GetObject<List<string>>("players"));
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -60,7 +58,7 @@ namespace Floorball.Droid.Fragments
         private void Adapter_ClickedObject(object sender, object e)
         {
             Intent intent = new Intent(Context, typeof(PlayerActivity));
-            intent.PutExtra("player", JsonConvert.SerializeObject(e));
+            intent.PutObject("player", e);
             StartActivity(intent);
         }
 

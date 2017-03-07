@@ -150,11 +150,12 @@
     <Compile Include="Adapters\RefereeStatsAdapter.cs" />
     <Compile Include="Adapters\TeamMatchesAdapter.cs" />
     <Compile Include="Adapters\TeamsAdapter.cs" />
-    <Compile Include="Adapters\YearsAdapter.cs" />
+    <Compile Include="Adapters\ListAdapter.cs" />
     <Compile Include="Fragments\ActualFragment.cs" />
     <Compile Include="Fragments\AppInitFragment.cs" />
     <Compile Include="Fragments\EventsFragment.cs" />
     <Compile Include="Fragments\LeagueMatchesFragmentcs.cs" />
+    <Compile Include="Fragments\MatchDetailFragment.cs" />
     <Compile Include="Fragments\MatchesFragment.cs" />
     <Compile Include="Fragments\LeaguesFragment.cs" />
     <Compile Include="Fragments\LeagueStatisticsFragment.cs" />
@@ -169,13 +170,17 @@
     <Compile Include="Fragments\TeamMatchesFragment.cs" />
     <Compile Include="Fragments\TeamsFragment.cs" />
     <Compile Include="Activities\MainActivity.cs" />
-    <Compile Include="Fragments\YearsFragment.cs" />
+    <Compile Include="Fragments\ListFragment.cs" />
     <Compile Include="Models\HeaderModel.cs" />
     <Compile Include="Models\LeaguesModel.cs" />
+    <Compile Include="Models\LeagueStatModel.cs" />
     <Compile Include="Models\ListItem.cs" />
+    <Compile Include="Models\ListModel.cs" />
     <Compile Include="Models\LiveMatchModel.cs" />
     <Compile Include="Models\LiveMatchModelBase.cs" />
+    <Compile Include="Models\MatchDetailModel.cs" />
     <Compile Include="Models\MatchesModel.cs" />
+    <Compile Include="Models\MatchEvents.cs" />
     <Compile Include="Models\MatchResultModel.cs" />
     <Compile Include="Models\PlayerStatModel.cs" />
     <Compile Include="Models\MatchEventModel.cs" />
@@ -382,6 +387,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Events.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\MatchDetail.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -15,6 +15,7 @@ using Android.Support.V4.App;
 using Android.App;
 using Floorball.Droid.Models;
 using Floorball.Droid.Fragments;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Activities
 {
@@ -68,7 +69,7 @@ namespace Floorball.Droid.Activities
         {
             base.InitProperties();
 
-            Year = new DateTime(Convert.ToInt16(Intent.GetStringExtra("year")), 1, 1);
+            Year = Intent.GetObject<DateTime>("year");
             YearString = Year.Year + " - " + (Year.Year + 1); 
 
         }

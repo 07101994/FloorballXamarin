@@ -17,6 +17,7 @@ using Android.Text;
 using Newtonsoft.Json;
 using Floorball.Droid.Activities;
 using Android.Support.V7.Widget;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Fragments
 {
@@ -50,7 +51,7 @@ namespace Floorball.Droid.Fragments
         private void Adapter_Clicked(object sender, object r)
         {
             Intent intent = new Intent(Context, typeof(RefereeActivity));
-            intent.PutExtra("referee", JsonConvert.SerializeObject(r));
+            intent.PutObject("referee", r);
             StartActivity(intent);
         }
 

@@ -14,15 +14,23 @@ using FloorballServer.Models.Floorball;
 using Floorball.REST;
 using Floorball.Droid.Activities;
 using Android.Support.V4.Content;
+using Floorball.LocalDB.Tables;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Fragments
 {
+
     public class LeagueTableFragment : Fragment
     {
+        public IEnumerable<Team> Teams { get; set; }
 
-        public static LeagueTableFragment Instance()
+        public static LeagueTableFragment Instance(IEnumerable<Team> teams)
         {
             var fragment = new LeagueTableFragment();
+            Bundle args = new Bundle();
+            args.PutObject("teams", teams);
+
+            fragment.Arguments = args;
 
             return fragment;
         } 
@@ -32,12 +40,11 @@ namespace Floorball.Droid.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
+            Teams = Arguments.GetObject<IEnumerable<Team>>("teams");
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
             View root = inflater.Inflate(Resource.Layout.LeagueTableFragment, container, false);
 
             CreateLeagueTable(root);
@@ -50,7 +57,7 @@ namespace Floorball.Droid.Fragments
             TableLayout table = root.FindViewById<TableLayout>(Resource.Id.leaguetable);
             ViewGroup newRow = Activity.LayoutInflater.Inflate(Resource.Layout.LeagueTableRow, table, false) as ViewGroup;
 
-            foreach (var team in (Activity as LeagueActivity).Teams.OrderBy(t => t.Points))
+            foreach (var team in Teams.OrderBy(t => t.Points))
             {
                 newRow = Activity.LayoutInflater.Inflate(Resource.Layout.LeagueTableRow, table, false) as ViewGroup;
                 (newRow.GetChildAt(0) as TextView).Text = team.Standing.ToString();

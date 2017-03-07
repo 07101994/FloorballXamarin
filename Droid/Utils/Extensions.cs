@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Floorball.Droid.Utils
 {
-    public static class Extensions
+    public static class BundleExtensions
     {
         public static void PutObject<T>(this Bundle bundle, string key,T o)
         {
@@ -25,5 +25,18 @@ namespace Floorball.Droid.Utils
             return JsonConvert.DeserializeObject<T>(bundle.GetString(key));
         }
 
+    }
+
+    public static class IntentExtension
+    {
+        public static void PutObject<T>(this Intent intent, string key, T o)
+        {
+            intent.PutExtra(key, JsonConvert.SerializeObject(o));
+        }
+
+        public static T GetObject<T>(this Intent intent, string key)
+        {
+            return JsonConvert.DeserializeObject<T>(intent.GetStringExtra(key));
+        }
     }
 }

@@ -11,13 +11,14 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 using Floorball.Droid.ViewHolders;
+using Floorball.Droid.Models;
 
 namespace Floorball.Droid.Adapters
 {
-    public class YearsAdapter : BaseRecyclerViewAdapter<string>
+    public class ListAdapter : BaseRecyclerViewAdapter<ListModel>
     {
 
-        public YearsAdapter(IEnumerable<string> years) : base(years.ToList())
+        public ListAdapter(IEnumerable<ListModel> items) : base(items.ToList())
         {
         }
 
@@ -25,7 +26,7 @@ namespace Floorball.Droid.Adapters
         {
             var vh = holder as YearViewHolder;
 
-            vh.TextView.Text = ListItems[position];
+            vh.TextView.Text = ListItems[position].Text;
 
         }
 
@@ -34,7 +35,7 @@ namespace Floorball.Droid.Adapters
 
             var itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.Card, parent, false);
 
-            var vh = new YearViewHolder(itemView, OnClickId);
+            var vh = new YearViewHolder(itemView, OnClickObject, this);
 
             return vh;
         }

@@ -27,12 +27,19 @@ namespace Floorball.Droid.Fragments
         RecyclerView recyclerView;
         EventsAdapter adapter;
 
-        public static EventsFragment Instance(List<MatchEventModel> events)
+        public Match Match { get; set; }
+        public Team HomeTeam { get; set; }
+        public Team AwayTeam { get; set; }
+
+        public static EventsFragment Instance(IEnumerable<MatchEventModel> events, Match match, Team homeTeam, Team awayTeam)
         {
             var fragment = new EventsFragment();
 
             Bundle args = new Bundle();
             args.PutObject("events", events);
+            args.PutObject("match", match);
+            args.PutObject("homeTeam", homeTeam);
+            args.PutObject("awayTeam", awayTeam);
 
             fragment.Arguments = args;
 
@@ -44,7 +51,10 @@ namespace Floorball.Droid.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
-            adapter = new EventsAdapter(Arguments.GetObject<List<MatchEventModel>>("events"));
+            adapter = new EventsAdapter(Arguments.GetObject<IEnumerable<MatchEventModel>>("events"));
+            Match = Arguments.GetObject<Match>("match");
+            HomeTeam = Arguments.GetObject<Team>("homeTeam");
+            AwayTeam = Arguments.GetObject<Team>("awayTeam");
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -52,18 +62,16 @@ namespace Floorball.Droid.Fragments
             // Use this to return your custom view for this Fragment
             View root = inflater.Inflate(Resource.Layout.Events, container, false);
 
-            var activity = Activity as MatchActivity;
+            root.FindViewById<TextView>(Resource.Id.homeTeamName).Text = HomeTeam.Name;
+            root.FindViewById<TextView>(Resource.Id.awayTeamName).Text = AwayTeam.Name;
 
-            root.FindViewById<TextView>(Resource.Id.homeTeamName).Text = activity.HomeTeam.Name;
-            root.FindViewById<TextView>(Resource.Id.awayTeamName).Text = activity.AwayTeam.Name;
+            root.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
+            root.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
 
-            root.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = activity.Match.GoalsH.ToString();
-            root.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = activity.Match.GoalsA.ToString();
+            root.FindViewById<TextView>(Resource.Id.actualTime).Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes.ToString() + ":" + Match.Time.Seconds.ToString();
 
-            root.FindViewById<TextView>(Resource.Id.actualTime).Text = activity.Match.Time.Hours == 1 ? "Vége" : activity.Match.Time.Minutes.ToString() + ":" + activity.Match.Time.Seconds.ToString();
-
-            SetTeamImage(activity.HomeTeam, root.FindViewById<ImageView>(Resource.Id.homeTeamImage));
-            SetTeamImage(activity.AwayTeam, root.FindViewById<ImageView>(Resource.Id.awayTeamImage));
+            SetTeamImage(HomeTeam, root.FindViewById<ImageView>(Resource.Id.homeTeamImage));
+            SetTeamImage(AwayTeam, root.FindViewById<ImageView>(Resource.Id.awayTeamImage));
 
             recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             recyclerView.SetLayoutManager(new LinearLayoutManager(Context));

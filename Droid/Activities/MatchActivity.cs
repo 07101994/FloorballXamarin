@@ -68,31 +68,15 @@ namespace Floorball.Droid.Activities
             if (savedInstanceState == null)
             {
                 var tabModels = new List<TabbedViewPagerModel>();
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Events, TabTitle = "Események", Data = CreateEvents() });
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchDetails, TabTitle = "Részletek", Data = null });
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchReferees, TabTitle = "Játékvezetők", Data = null });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Events, TabTitle = "Események", Data = new MatchEvents { Events = CreateEvents(), Match = Match, HomeTeam = HomeTeam, AwayTeam = AwayTeam } });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchDetails, TabTitle = "Részletek", Data = new MatchDetailModel { League = League, Match = Match, Stadium = Stadium } });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchReferees, TabTitle = "Játékvezetők", Data = Referees.Select(r => new ListModel { Text = r.Name, Object = r}) });
 
                 Android.Support.V4.App.Fragment fr = TabbedViewPagerFragment.Instance(tabModels);
                 Android.Support.V4.App.FragmentTransaction ft = SupportFragmentManager.BeginTransaction();
                 ft.Add(Resource.Id.content_frame, fr).Commit();
             }
-
-            //CreateEvents();
-            //CreateReferees();
-
-            //ChangeTimelineHeight();
-            
         }
-
-        //private void ChangeTimelineHeight()
-        //{
-        //    LinearLayout layout = FindViewById<LinearLayout>(Resource.Id.timeLine);
-        //    ViewGroup.LayoutParams parameters = layout.LayoutParameters;
-        //    parameters.Height = RealEventCount * 100;
-
-        //    layout.LayoutParameters = parameters;
-
-        //}
 
         private List<MatchEventModel> CreateEvents()
         {
@@ -144,64 +128,6 @@ namespace Floorball.Droid.Activities
             }
 
             return events;
-            //RealEventCount = 0;
-
-            //ViewGroup eventLayout = FindViewById<LinearLayout>(Resource.Id.eventContainer);
-
-            //foreach (var e in Events)
-            //{
-
-            //    if (e.Type != "A")
-            //    {
-            //        ViewGroup eventItem = LayoutInflater.Inflate(Resource.Layout.EventItem, eventLayout, false) as ViewGroup;
-
-            //        ViewGroup eventCard;
-            //        ViewGroup relativeLayout;
-
-            //        if (e.TeamId == HomeTeam.Id)
-            //        {
-            //            relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.homeTeamEventId);
-            //            eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
-            //            eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = HomeTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().ShortName;
-            //        }
-            //        else
-            //        {
-            //            relativeLayout = eventItem.FindViewById<RelativeLayout>(Resource.Id.awayTeamEventId);
-            //            eventCard = LayoutInflater.Inflate(Resource.Layout.EventCard, relativeLayout, false) as ViewGroup;
-            //            eventCard.FindViewById<TextView>(Resource.Id.playerName).Text = AwayTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().ShortName;
-            //        }
-
-
-            //        if (e.Type == "P2" || e.Type == "P10")
-            //        {
-            //            eventCard.FindViewById<ImageView>(Resource.Id.eventImage).SetImageResource(Resource.Drawable.ic_numeric_2_box_grey600_24dp);
-            //        }
-            //        else
-            //        {
-            //            if (e.Type == "P5")
-            //            {
-            //                eventCard.FindViewById<ImageView>(Resource.Id.eventImage).SetImageResource(Resource.Drawable.ic_numeric_2_box_grey600_24dp);
-            //            }
-            //            else
-            //            {
-            //                if (e.Type == "G")
-            //                {
-            //                    eventCard.FindViewById<ImageView>(Resource.Id.eventImage).SetImageResource(Resource.Drawable.ball);
-            //                }
-            //            }
-            //        }
-
-
-            //        eventItem.FindViewById<TextView>(Resource.Id.time).Text = e.Time.Minutes + ":" + e.Time.Seconds;
-
-            //        relativeLayout.AddView(eventCard);
-
-            //        eventLayout.AddView(eventItem);
-            //        RealEventCount++;
-            //    }
-            //}
-
-
         }
 
         private void CreateReferees()
@@ -269,26 +195,6 @@ namespace Floorball.Droid.Activities
             //SetTeamImage(HomeTeam, FindViewById<ImageView>(Resource.Id.homeTeamImage));
             //SetTeamImage(AwayTeam, FindViewById<ImageView>(Resource.Id.awayTeamImage));
 
-        }
-
-        private void SetTeamImage(Team team, ImageView imageView)
-        {
-            try
-            {
-                var bitmap = BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(team.ImageName)));
-
-                if (bitmap == null)
-                {
-                    throw new Exception("Image not found!");
-                }
-
-                imageView.SetImageBitmap(bitmap);
-            }
-            catch (Exception)
-            {
-                imageView.SetImageResource(Resource.Drawable.ball);
-                imageView.Alpha = 125;
-            }
         }
 
     }

@@ -17,13 +17,13 @@ using Android.Support.V7.App;
 using Floorball.Droid.Activities;
 using Floorball.Droid.Adapters;
 using Floorball.Droid.Models;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Activities
 {
     [Activity(Label = "PlayerActivity")]
     public class PlayerActivity : FloorballActivity
     {
-
         public Player Player { get; set; }
 
         public IEnumerable<Statistic> Statistics { get; set; }
@@ -97,7 +97,7 @@ namespace Floorball.Droid.Activities
         {
             base.InitProperties();
 
-            Player = JsonConvert.DeserializeObject<Player>(Intent.GetStringExtra("player"));
+            Player = Intent.GetObject<Player>("player");
             Statistics = UoW.StatiscticRepo.GetStatisticsByPlayer(Player.RegNum);
             Teams = Statistics.Select(s => UoW.TeamRepo.GetTeamById(s.TeamId)).GroupBy(t => t.Id).Select(g => g.First()).OrderByDescending(t => t.Year).ToList();
         }

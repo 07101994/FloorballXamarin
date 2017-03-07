@@ -16,6 +16,7 @@ using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Floorball.Droid.Adapters;
 using Floorball.Droid.Models;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Activities
 {
@@ -111,7 +112,7 @@ namespace Floorball.Droid.Activities
         {
             base.InitProperties();
 
-            Referee = JsonConvert.DeserializeObject<Referee>(Intent.GetStringExtra("referee"));
+            Referee = Intent.GetObject<Referee>("referee");
             Matches = UoW.MatchRepo.GetMatchesByReferee(Referee.Id);
             List<Event> events = new List<Event>();
             Matches.Select(m => UoW.EventRepo.GetEventsByMatch(m.Id)).ToList().ForEach(e => events.AddRange(e));

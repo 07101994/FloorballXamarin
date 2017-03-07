@@ -16,6 +16,7 @@ using Floorball.Droid.Adapters;
 using Floorball.Droid.Activities;
 using Newtonsoft.Json;
 using Android.Support.V7.Widget;
+using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Fragments
 {
@@ -49,7 +50,7 @@ namespace Floorball.Droid.Fragments
         private void Adapter_Clicked(object sender, object player)
         {
             Intent intent = new Intent(Context, typeof(PlayerActivity));
-            intent.PutExtra("player", JsonConvert.SerializeObject(player));
+            intent.PutObject("player", player);
             StartActivity(intent);
         }
 
@@ -84,13 +85,6 @@ namespace Floorball.Droid.Fragments
 
         }
 
-        private void PlayerListViewItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        {
-            Intent intent = new Intent(Context,typeof(PlayerActivity));
-            intent.PutExtra("player", JsonConvert.SerializeObject(ActualPlayers.ElementAt(e.Position)));
-            StartActivity(intent);
-
-        }
 
         public override void listItemSelected(string s)
         {

@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
+using Floorball.Droid.Adapters;
 
 namespace Floorball.Droid.ViewHolders
 {
@@ -18,11 +19,11 @@ namespace Floorball.Droid.ViewHolders
 
         public TextView TextView { get; set; }
 
-        public YearViewHolder(View itemView, Action<int> listener) : base(itemView)
+        public YearViewHolder(View itemView, Action<object> listener, ListAdapter adapter) : base(itemView)
             {
             TextView = itemView.FindViewById<TextView>(Resource.Id.cardName);
 
-            itemView.Click += (sender, e) => listener(AdapterPosition);
+            itemView.Click += (sender, e) => listener(adapter.ListItems[AdapterPosition]);
 
         }
 
