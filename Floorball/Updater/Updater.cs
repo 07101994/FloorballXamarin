@@ -61,7 +61,7 @@ namespace Floorball.Updater
             {
                 IsSyncing = true;
                 RaiseEvent(UpdateStarted);
-                await Task.Delay(5000);
+                await Task.Delay(10000);
                 if (await GetUpdates(date))
                 {
                     UpdateDatabase();

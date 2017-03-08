@@ -86,18 +86,6 @@ namespace Floorball.Droid.Fragments
 
         }
 
-        protected override void UpdateStarted()
-        {
-            View.FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Visible;
-            View.FindViewById<TextView>(Resource.Id.notification).Text = "Frissítés folyamatban..";
-        }
-
-        protected async override void UpdateEnded()
-        {
-            View.FindViewById<TextView>(Resource.Id.notification).Text = "Frissítve";
-            await Task.Delay(3000);
-            View.FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
-        }
 
     }
 }

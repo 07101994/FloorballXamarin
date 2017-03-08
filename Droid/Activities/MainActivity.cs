@@ -86,25 +86,11 @@ namespace Floorball.Droid.Activities
             //Initialize the drawerlayout
             InitDrawerlayout();
 
-            if (!IsFirstLaunch(lastSyncDate))
-            {
-                //Initialize properties from database
-                InitProperties();
-
-                //Change to first (actual fragment)
-                ChangeFragments(0);
-            }
+            Init();
             
         }
-        
-        protected override void OnStart()
-        {
-            base.OnStart();
 
-            Start();
-        }
-
-        private async void Start()
+        private async void Init()
         {
             try
             {
@@ -136,7 +122,11 @@ namespace Floorball.Droid.Activities
                 }
                 else
                 {
-                    await Task.Delay(1000);
+                    //Initialize properties
+                    InitProperties();
+
+                    //Change to first (actual fragment)
+                    ChangeFragments(0);
 
                     //Check is there any remote database updates and update local DB
                     Task<bool> isUpdated = Updater.Updater.Instance.UpdateDatabaseFromServer(lastSyncDate);

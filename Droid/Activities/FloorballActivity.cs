@@ -11,6 +11,7 @@ using Android.Widget;
 using Android.Support.V7.App;
 using Android.App;
 using Floorball.Droid.Fragments;
+using System.Threading.Tasks;
 
 namespace Floorball.Droid.Activities
 {
@@ -24,6 +25,38 @@ namespace Floorball.Droid.Activities
         {
             base.OnCreate(savedInstanceState);
 
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            Updater.Updater.Instance.UpdateStarted += UpdateStarted;
+            Updater.Updater.Instance.UpdateEnded += UpdateEnded;
+
+            CheckIsSyncing();
+
+        }
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+
+            Updater.Updater.Instance.UpdateStarted -= UpdateStarted;
+            Updater.Updater.Instance.UpdateEnded -= UpdateEnded;
+        }
+
+        protected async virtual void UpdateEnded()
+        {
+            FindViewById<TextView>(Resource.Id.notification).Text = "Frissítve";
+            await Task.Delay(3000);
+            FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
+        }
+
+        protected virtual void UpdateStarted()
+        {
+            FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Visible;
+            FindViewById<TextView>(Resource.Id.notification).Text = "Frissítés folyamatban..";
         }
 
         public void OnClick(IDialogInterface dialog, int which)
@@ -144,6 +177,18 @@ namespace Floorball.Droid.Activities
             }
 
             return base.OnOptionsItemSelected(item);
+        }
+
+        private void CheckIsSyncing()
+        {
+            if (Updater.Updater.Instance.IsSyncing)
+            {
+                UpdateStarted();
+            }
+            else
+            {
+                FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
+            }
         }
     }
 }

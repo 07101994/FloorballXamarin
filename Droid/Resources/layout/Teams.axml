@@ -5,7 +5,8 @@
     android:layout_height="match_parent">
     <include
         layout="@layout/toolbar" />
-    <TextView
+  <include layout="@layout/progressbar"/>
+  <TextView
         android:id="@+id/year"
         android:layout_width="match_parent"
         android:layout_height="48dp"

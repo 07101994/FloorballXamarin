@@ -16,6 +16,7 @@ using Floorball.Droid.Activities;
 using Floorball.Droid.Utils;
 using Floorball.Droid.Models;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace Floorball.Droid.Fragments
 {
@@ -85,7 +86,7 @@ namespace Floorball.Droid.Fragments
             {
                 case "leagues":
                     intent = new Intent(Activity, typeof(LeaguesActivity));
-                    intent.PutObject("year", new DateTime(Convert.ToInt16(model.Object),1,1));
+                    intent.PutObject("year", new DateTime(Convert.ToInt16(model.Object), 1, 1));
                     break;
                 case "teams":
                     intent = new Intent(Activity, typeof(TeamsActivity));
@@ -105,6 +106,6 @@ namespace Floorball.Droid.Fragments
 
             StartActivity(intent);
         }
-        
+
     }
 }

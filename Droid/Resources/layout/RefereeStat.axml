@@ -4,14 +4,16 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
-    <include
-        layout="@layout/toolbar" />
-    <TextView
-        android:id="@+id/refereeName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="30sp" />
-    <include
-        layout="@layout/recycleview" />
+  <include
+      layout="@layout/toolbar" />
+  <include
+        layout="@layout/progressbar" />
+  <TextView
+      android:id="@+id/refereeName"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:textSize="30sp" />
+  <include
+      layout="@layout/recycleview" />
 </LinearLayout>

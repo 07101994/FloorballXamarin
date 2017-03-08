@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using Floorball.Droid.Activities;
 using Android.Support.V7.Widget;
 using Floorball.Droid.Utils;
+using System.Threading.Tasks;
 
 namespace Floorball.Droid.Fragments
 {
@@ -85,5 +86,6 @@ namespace Floorball.Droid.Fragments
 
             adapter.Swap(ActualReferees.ToList());
         }
+
     }
 }
