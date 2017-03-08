@@ -9,7 +9,9 @@
         android:id="@+id/year"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="30sp"
+        />
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"

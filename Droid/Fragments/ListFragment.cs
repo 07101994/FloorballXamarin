@@ -24,15 +24,18 @@ namespace Floorball.Droid.Fragments
     {
         public string Type { get; set; }
 
+        public string Header { get; set; }
+
         private RecyclerView recyclerView;
         private ListAdapter adapter;
 
-        public static ListFragment Instance(IEnumerable<ListModel> list, string type)
+        public static ListFragment Instance(IEnumerable<ListModel> list, string type, string header = "")
         {
             var fragment = new ListFragment();
             Bundle args = new Bundle();
             args.PutString("type", type);
             args.PutObject("list", list);
+            args.PutString("header", header);
 
             fragment.Arguments = args;
 
@@ -46,12 +49,23 @@ namespace Floorball.Droid.Fragments
 
             adapter = new ListAdapter(Arguments.GetObject<IEnumerable<ListModel>>("list"));
             Type = Arguments.GetString("type");
+            Header = Arguments.GetString("header");
 
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View root = inflater.Inflate(Resource.Layout.RecycleView, container, false);
+            View root;
+
+            if (Header != "")
+            {
+                root = inflater.Inflate(Resource.Layout.RecycleViewWithHeader, container, false);
+                root.FindViewById<TextView>(Resource.Id.header).Text = Header;
+            }
+            else
+            {
+                root = inflater.Inflate(Resource.Layout.RecycleView, container, false);
+            }
 
             recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             recyclerView.SetLayoutManager(new LinearLayoutManager(Context));
@@ -91,10 +105,6 @@ namespace Floorball.Droid.Fragments
 
             StartActivity(intent);
         }
-
-        public override void listItemSelected(string s)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

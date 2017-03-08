@@ -60,12 +60,6 @@ namespace Floorball.Droid.Fragments
                 Context);
             adapter.ClickedObject += Adapter_ClickedObject;
             
-            
-            FloorballClient.Instance.MatchStarted += MatchStarted;
-            FloorballClient.Instance.MatchEnded += MatchEnded;
-            FloorballClient.Instance.NewEventAdded += NewEventAdded;
-            FloorballClient.Instance.MatchTimeUpdated += MatchTimeUpdated;
-
         }
 
         private void Adapter_ClickedObject(object sender, object e)
@@ -77,10 +71,7 @@ namespace Floorball.Droid.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View root = inflater.Inflate(Resource.Layout.RecycleView, container, false);
-
-            //CreateLiveMatches(root);
-            //CreateSoonMatches(root);
+            View root = inflater.Inflate(Resource.Layout.ActualFragment, container, false);
 
             recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             recyclerView.SetLayoutManager(new LinearLayoutManager(Context));
@@ -89,51 +80,69 @@ namespace Floorball.Droid.Fragments
             return root;
         }
 
-        public override void listItemSelected(string s)
+        protected override void UpdateStarted()
         {
-            throw new NotImplementedException();
+            View.FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Visible;
+            View.FindViewById<TextView>(Resource.Id.notification).Text = "Frissítés folyamatban..";
         }
 
-        private void MatchStarted(int matchId)
+        protected async override void UpdateEnded()
         {
-            throw new NotImplementedException();
+            View.FindViewById<TextView>(Resource.Id.notification).Text = "Frissítve";
+            await Task.Delay(3000);
+            View.FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
         }
 
-        private void MatchEnded(int matchId)
+        protected override void MatchStarted(int matchId)
         {
-            throw new NotImplementedException();
+            
         }
 
-        private void NewEventAdded(int eventId)
+        protected override void MatchEnded(int matchId)
         {
+            
+        }
 
+        protected override void NewEventAdded(int eventId)
+        {
             Event e = UoW.EventRepo.GetEventById(eventId);
 
             if (e.Type == "G")
             {
-                var textView = (Activity.FindViewById(Resource.Id.matchesList1).FindViewWithTag(e.TeamId.ToString() + "score"+e.MatchId.ToString()) as TextView);
-
-                short score = Convert.ToInt16(textView.Text);
-                score++;
-
-                Activity.RunOnUiThread(() => {
-                    textView.Text = score.ToString();
-                });
+                var match = adapter.Contents.FirstOrDefault(c => (c as LiveMatchModel).MatchId == e.MatchId);
+                if (match != null)
+                {
+                    var m = match as LiveMatchModel;
+                    if (e.TeamId == m.HomeTeamId)
+                    {
+                        m.HomeScore++;
+                        (adapter.Contents.FirstOrDefault(c => (c as LiveMatchModel).MatchId == e.MatchId) as LiveMatchModel).HomeScore++;
+                    }
+                    else
+                    {
+                        m.AwayScore++;
+                        (adapter.Contents.FirstOrDefault(c => (c as LiveMatchModel).MatchId == e.MatchId) as LiveMatchModel).AwayScore++;
+                    }
+                    int index = adapter.Contents.FindIndex(c => (c as LiveMatchModel).MatchId == e.MatchId);
+                    adapter.Contents[index] = m;
+                    adapter.NotifyItemChanged(index);
+                }
             }
-
         }
 
-        private void MatchTimeUpdated(int matchId)
+        protected override void MatchTimeUpdated(int matchId)
         {
 
             Match m = UoW.MatchRepo.GetMatchById(matchId);
 
-            string newTime = UIHelper.GetMatchTime(m.Time,m.State);
-            var textView = (Activity.FindViewById(Resource.Id.matchesList1).FindViewWithTag(matchId.ToString() + "time") as TextView);
+            var match = adapter.Contents.FirstOrDefault(c => (c as LiveMatchModel).MatchId == matchId) as LiveMatchModel;
 
-            Activity.RunOnUiThread(() => {
-                textView.Text = newTime;
-            });
+            match.Time = UIHelper.GetMatchTime(m.Time, m.State);
+
+            int index = adapter.Contents.FindIndex(c => (c as LiveMatchModel).MatchId == matchId);
+
+            adapter.NotifyItemChanged(index);
+
         }
 
     }

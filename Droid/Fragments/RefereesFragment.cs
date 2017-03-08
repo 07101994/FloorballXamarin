@@ -85,11 +85,5 @@ namespace Floorball.Droid.Fragments
 
             adapter.Swap(ActualReferees.ToList());
         }
-
-        public override void listItemSelected(string s)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

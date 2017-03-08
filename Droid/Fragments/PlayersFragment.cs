@@ -17,6 +17,7 @@ using Floorball.Droid.Activities;
 using Newtonsoft.Json;
 using Android.Support.V7.Widget;
 using Floorball.Droid.Utils;
+using System.Threading.Tasks;
 
 namespace Floorball.Droid.Fragments
 {
@@ -85,10 +86,18 @@ namespace Floorball.Droid.Fragments
 
         }
 
-
-        public override void listItemSelected(string s)
+        protected override void UpdateStarted()
         {
-            throw new NotImplementedException();
+            View.FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Visible;
+            View.FindViewById<TextView>(Resource.Id.notification).Text = "Frissítés folyamatban..";
         }
+
+        protected async override void UpdateEnded()
+        {
+            View.FindViewById<TextView>(Resource.Id.notification).Text = "Frissítve";
+            await Task.Delay(3000);
+            View.FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
+        }
+
     }
 }

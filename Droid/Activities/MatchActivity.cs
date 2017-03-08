@@ -45,8 +45,6 @@ namespace Floorball.Droid.Activities
 
         public Stadium Stadium { get; set; }
 
-        public int RealEventCount { get; set; }
-
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -80,10 +78,7 @@ namespace Floorball.Droid.Activities
 
         private List<MatchEventModel> CreateEvents()
         {
-
             var events = new List<MatchEventModel>();
-
-            RealEventCount = 0;
 
             foreach (var e in Events)
             {
@@ -130,20 +125,6 @@ namespace Floorball.Droid.Activities
             return events;
         }
 
-        private void CreateReferees()
-        {
-            //ViewGroup refereeLayout = FindViewById<LinearLayout>(Resource.Id.refereesLayout);
-
-            //foreach (var referee in Referees)
-            //{
-            //    ViewGroup refereeItem = LayoutInflater.Inflate(Resource.Layout.RefereeItem, refereeLayout, false) as ViewGroup;
-            //    refereeItem.FindViewById<TextView>(Resource.Id.refereeName).Text = referee.Name;
-
-            //    refereeLayout.AddView(refereeItem);
-            //}
-
-        }
-
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
 
@@ -151,7 +132,6 @@ namespace Floorball.Droid.Activities
             {
                 case Android.Resource.Id.Home:
 
-                    //NavUtils.NavigateUpFromSameTask(this);
                     Finish();
                     return true;
 
@@ -180,20 +160,6 @@ namespace Floorball.Droid.Activities
 
         protected override void InitActivityProperties()
         {
-            //FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name + " " + Match.Round.ToString() + ". forduló";
-            //FindViewById<TextView>(Resource.Id.date).Text = Match.Date.ToShortDateString();
-            //FindViewById<TextView>(Resource.Id.stadium).Text = Stadium.Name;
-
-            //FindViewById<TextView>(Resource.Id.homeTeamName).Text = HomeTeam.Name;
-            //FindViewById<TextView>(Resource.Id.awayTeamName).Text = AwayTeam.Name;
-
-            //FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
-            //FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
-
-            //FindViewById<TextView>(Resource.Id.actualTime).Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes.ToString() + ":" + Match.Time.Seconds.ToString();
-
-            //SetTeamImage(HomeTeam, FindViewById<ImageView>(Resource.Id.homeTeamImage));
-            //SetTeamImage(AwayTeam, FindViewById<ImageView>(Resource.Id.awayTeamImage));
 
         }
 

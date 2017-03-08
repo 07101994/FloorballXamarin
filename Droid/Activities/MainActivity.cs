@@ -63,12 +63,15 @@ namespace Floorball.Droid.Activities
 
         public SortedSet<CountriesEnum> Countries { get; set; }
 
-        protected override async void OnCreate (Bundle savedInstanceState)
+        private DateTime lastSyncDate;
+        private ISharedPreferences prefs;
+
+        protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
             
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
-            DateTime lastSyncDate = DateTime.Parse(prefs.GetString("LastSyncDate", "1900-12-12"));
+            prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            lastSyncDate = DateTime.Parse(prefs.GetString("LastSyncDate", "1900-12-12"));
             //lastSyncDate = new DateTime(1900,12,12);
 
             //Init country from preference
@@ -83,6 +86,26 @@ namespace Floorball.Droid.Activities
             //Initialize the drawerlayout
             InitDrawerlayout();
 
+            if (!IsFirstLaunch(lastSyncDate))
+            {
+                //Initialize properties from database
+                InitProperties();
+
+                //Change to first (actual fragment)
+                ChangeFragments(0);
+            }
+            
+        }
+        
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            Start();
+        }
+
+        private async void Start()
+        {
             try
             {
                 Task<DateTime> lastSyncDateTask;
@@ -91,7 +114,7 @@ namespace Floorball.Droid.Activities
                 {
                     //Init the whole local DB
                     lastSyncDateTask = Manager.InitLocalDatabase();
-                    
+
                     //Show app initializing
                     var dialog = ShowInitializing(Resources.GetString(Resource.String.initDownload));
 
@@ -113,24 +136,17 @@ namespace Floorball.Droid.Activities
                 }
                 else
                 {
-                    //Initialize properties from database
-                    InitProperties();
-
-                    //Change to first (actual fragment)
-                    ChangeFragments(0);
+                    await Task.Delay(1000);
 
                     //Check is there any remote database updates and update local DB
                     Task<bool> isUpdated = Updater.Updater.Instance.UpdateDatabaseFromServer(lastSyncDate);
 
-                    //Show app updating
-                    ShowUpdating();
+                    ////Show app updating
+                    //ShowUpdating();
 
                     if (await isUpdated)
                     {
                         lastSyncDate = Updater.Updater.Instance.LastSyncDate;
-                        FindViewById<TextView>(Resource.Id.notification).Text = "Frissítve";
-                        await Task.Delay(3000);
-                        FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Gone;
                     }
                     else
                     {
@@ -143,9 +159,8 @@ namespace Floorball.Droid.Activities
             }
             catch (Exception ex)
             {
-                //ShowAlertDialog(ex);
+                ShowAlertDialog(ex);
             }
-
         }
 
         private void InitDrawerlayout()
@@ -163,9 +178,7 @@ namespace Floorball.Droid.Activities
 
             MenuOpened = true;
         }
-
         
-
         private bool IsFirstLaunch(DateTime lastSyncDate)
         {
             return lastSyncDate.CompareTo(new DateTime(1900,12,12)) == 0;
@@ -235,11 +248,11 @@ namespace Floorball.Droid.Activities
                     break;
 
                 case 1:
-                    fragment = Fragments.ListFragment.Instance(UoW.LeagueRepo.GetAllYear().Select(l => new ListModel { Text = l.ToString(), Object = l}),"leagues");
+                    fragment = Fragments.ListFragment.Instance(UoW.LeagueRepo.GetAllYear().Select(l => new ListModel { Text = l.ToString(), Object = l}),"leagues", "Bajnokság idények");
                     break;
 
                 case 2:
-                    fragment = Fragments.ListFragment.Instance(UoW.LeagueRepo.GetAllYear().Select(l => new ListModel { Text = l.ToString(), Object = l }),"teams");
+                    fragment = Fragments.ListFragment.Instance(UoW.LeagueRepo.GetAllYear().Select(l => new ListModel { Text = l.ToString(), Object = l }),"teams", "Csapat idények");
                     break;
 
                 case 3:

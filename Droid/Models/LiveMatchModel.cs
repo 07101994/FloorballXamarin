@@ -17,11 +17,27 @@ namespace Floorball.Droid.Models
         public int MatchId { get; set; }
         public string HomeTeam { get; set; }
         public string AwayTeam { get; set; }
+        public int HomeTeamId { get; set; }
+        public int AwayTeamId { get; set; }
         public DateTime Date { get; set; }
         public string Time { get; set; }
-        public string HomeScore { get; set; }
-        public string AwayScore { get; set; }
+        public string HomeScoreText
+        {
+            get
+            {
+                return HomeScore.ToString();
+            }
+        }
+        public string AwayScoreText
+        {
+            get
+            {
+                return AwayScore.ToString();
+            }
+        }
         public StateEnum State { get; set; }
 
+        public int HomeScore { get; set; }
+        public int AwayScore { get; set; }
     }
 }

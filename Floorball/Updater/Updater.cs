@@ -25,6 +25,12 @@ namespace Floorball.Updater
 
         public DateTime SyncDate { get; set; }
 
+        public delegate void UpdateEventhandler();
+        public event UpdateEventhandler UpdateStarted;
+        public event UpdateEventhandler UpdateEnded;
+
+        public bool IsSyncing { get; set; }
+
         public static Updater Instance
         {
             get
@@ -51,12 +57,37 @@ namespace Floorball.Updater
         /// <returns></returns>
         public async Task<bool> UpdateDatabaseFromServer(DateTime date)
         {
-            if (await GetUpdates(date))
+            try
             {
-                UpdateDatabase();
-                return true;
+                IsSyncing = true;
+                RaiseEvent(UpdateStarted);
+                await Task.Delay(5000);
+                if (await GetUpdates(date))
+                {
+                    UpdateDatabase();
+                    RaiseEvent(UpdateEnded);
+                    return true;
+                }
+                RaiseEvent(UpdateEnded);
+                return false;
             }
-            return false;
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                IsSyncing = false;
+            }
+            
+        }
+
+        private void RaiseEvent(UpdateEventhandler e)
+        {
+            if (e != null)
+            {
+                e();
+            }
         }
 
         /// <summary>

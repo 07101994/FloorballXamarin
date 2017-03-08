@@ -72,8 +72,8 @@ namespace Floorball.Droid.Adapters
                         Time = UIHelper.GetMatchTime(actualMatch.Time, actualMatch.State),
                         HomeTeam = homeTeam.Name,
                         AwayTeam = awayTeam.Name,
-                        HomeScore = actualMatch.GoalsH.ToString(),
-                        AwayScore = actualMatch.GoalsA.ToString(),
+                        HomeScore = actualMatch.GoalsH,
+                        AwayScore = actualMatch.GoalsA,
                         MatchId = actualMatch.Id,
                         State = actualMatch.State
                     });
@@ -126,11 +126,10 @@ namespace Floorball.Droid.Adapters
                     var vh2 = holder as LiveMatchViewHolder;
                     vh2.Date.Text = matchModel.Date.ToString();
                     vh2.Time.Text = matchModel.Time;
-                    vh2.Time.Tag = matchModel.MatchId + "time";
                     vh2.HomeTeam.Text = matchModel.HomeTeam;
-                    vh2.HomeScore.Text = matchModel.HomeScore;
+                    vh2.HomeScore.Text = matchModel.HomeScoreText;
                     vh2.AwayTeam.Text = matchModel.AwayTeam;
-                    vh2.AwayScore.Text = matchModel.AwayScore;
+                    vh2.AwayScore.Text = matchModel.AwayScoreText;
 
                     if (matchModel.State == StateEnum.Playing)
                     {

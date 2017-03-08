@@ -161,9 +161,6 @@
     <Compile Include="Fragments\LeagueStatisticsFragment.cs" />
     <Compile Include="Fragments\LeagueTableFragment.cs" />
     <Compile Include="Fragments\MainFragment.cs" />
-    <Compile Include="Fragments\PlayerListFragment.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Fragments\PlayersFragment.cs" />
     <Compile Include="Fragments\RefereesFragment.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
@@ -304,22 +301,13 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_drop_up_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_menu_black_24dp.png" />
     <AndroidResource Include="Resources\drawable\shadow.axml" />
-    <AndroidResource Include="Resources\layout\ScrollableCardList.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\Stat.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\StatLine.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\Empty.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\SearchListFragment.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\RefereeItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\DrawerHeader.axml">
@@ -335,9 +323,6 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\HomeEventCard.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\ActualFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\LeagueNameWithFlag.axml">
@@ -390,6 +375,15 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\MatchDetail.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\RecycleViewWithHeader.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ProgressBar.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ActualFragment.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
