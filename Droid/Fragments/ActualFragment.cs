@@ -102,17 +102,17 @@ namespace Floorball.Droid.Fragments
                     var m = match as LiveMatchModel;
                     if (e.TeamId == m.HomeTeamId)
                     {
-                        m.HomeScore++;
                         (adapter.Contents.FirstOrDefault(c => (c as LiveMatchModel).MatchId == e.MatchId) as LiveMatchModel).HomeScore++;
                     }
                     else
                     {
-                        m.AwayScore++;
                         (adapter.Contents.FirstOrDefault(c => (c as LiveMatchModel).MatchId == e.MatchId) as LiveMatchModel).AwayScore++;
                     }
-                    int index = adapter.Contents.FindIndex(c => (c as LiveMatchModel).MatchId == e.MatchId);
-                    adapter.Contents[index] = m;
-                    adapter.NotifyItemChanged(index);
+                   
+                    Activity.RunOnUiThread(() =>
+                    {
+                        adapter.NotifyDataSetChanged();
+                    }); 
                 }
             }
         }
@@ -127,9 +127,11 @@ namespace Floorball.Droid.Fragments
             match.Time = UIHelper.GetMatchTime(m.Time, m.State);
 
             int index = adapter.Contents.FindIndex(c => (c as LiveMatchModel).MatchId == matchId);
-
-            adapter.NotifyItemChanged(index);
-
+            adapter.Contents[index] = match;
+            Activity.RunOnUiThread(() =>
+            {
+                adapter.NotifyDataSetChanged(); ;
+            });
         }
 
     }

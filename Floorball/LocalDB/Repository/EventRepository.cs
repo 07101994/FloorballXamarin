@@ -69,8 +69,28 @@ namespace Floorball.LocalDB.Repository
                     ChangeStatisticFromPlayer(playerId, teamId, type, db, "increase");
                 }
 
+                if (type == "G")
+                {
+                    AddGoalToMatch(matchId,teamId, db);
+                }
+
                 return e.Id;
             }
+        }
+
+        private void AddGoalToMatch(int matchId, int teamId, SQLiteConnection db)
+        {
+            Match m = db.Get<Match>(matchId);
+            if (teamId == m.HomeTeamId)
+            {
+                m.GoalsH++;
+            }
+            else
+            {
+                m.GoalsA++;
+            }
+
+            db.Update(m);
         }
 
         public void AddEvents(List<EventModel> model)
@@ -157,12 +177,7 @@ namespace Floorball.LocalDB.Repository
                 stat.Number--;
             }
 
-            //db.Insert(stat);
             db.Update(stat);
-            //db.Statistics.Attach(stat);
-
-            //var entry = db.Entry(stat);
-            //entry.Property(e => e.Number).IsModified = true;
 
         }
 

@@ -26,12 +26,27 @@ namespace Floorball.Droid.Fragments
             // Create your fragment here
             UoW = new UnitOfWork();
 
+        }
+
+        public override void OnStart()
+        {
+            base.OnStart();
+
             //Events with SignalR
             FloorballClient.Instance.MatchStarted += MatchStarted;
             FloorballClient.Instance.MatchEnded += MatchEnded;
             FloorballClient.Instance.NewEventAdded += NewEventAdded;
             FloorballClient.Instance.MatchTimeUpdated += MatchTimeUpdated;
+        }
 
+        public override void OnStop()
+        {
+            base.OnStop();
+
+            FloorballClient.Instance.MatchStarted -= MatchStarted;
+            FloorballClient.Instance.MatchEnded -= MatchEnded;
+            FloorballClient.Instance.NewEventAdded -= NewEventAdded;
+            FloorballClient.Instance.MatchTimeUpdated -= MatchTimeUpdated;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

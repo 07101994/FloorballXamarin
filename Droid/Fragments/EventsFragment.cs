@@ -22,7 +22,7 @@ using Floorball.Droid.Utils;
 
 namespace Floorball.Droid.Fragments
 {
-    public class EventsFragment : Fragment
+    public class EventsFragment : MainFragment
     {
         RecyclerView recyclerView;
         EventsAdapter adapter;
@@ -30,6 +30,7 @@ namespace Floorball.Droid.Fragments
         public Match Match { get; set; }
         public Team HomeTeam { get; set; }
         public Team AwayTeam { get; set; }
+        public List<MatchEventModel> Events { get; set; }
 
         public static EventsFragment Instance(IEnumerable<MatchEventModel> events, Match match, Team homeTeam, Team awayTeam)
         {
@@ -51,10 +52,11 @@ namespace Floorball.Droid.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
-            adapter = new EventsAdapter(Arguments.GetObject<IEnumerable<MatchEventModel>>("events"));
+            Events = Arguments.GetObject<IEnumerable<MatchEventModel>>("events").ToList();
             Match = Arguments.GetObject<Match>("match");
             HomeTeam = Arguments.GetObject<Team>("homeTeam");
             AwayTeam = Arguments.GetObject<Team>("awayTeam");
+            adapter = new EventsAdapter(Events);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -68,7 +70,7 @@ namespace Floorball.Droid.Fragments
             root.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
             root.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
 
-            root.FindViewById<TextView>(Resource.Id.actualTime).Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes.ToString() + ":" + Match.Time.Seconds.ToString();
+            root.FindViewById<TextView>(Resource.Id.actualTime).Text = UIHelper.GetMatchFullTime(Match.Time);
 
             SetTeamImage(HomeTeam, root.FindViewById<ImageView>(Resource.Id.homeTeamImage));
             SetTeamImage(AwayTeam, root.FindViewById<ImageView>(Resource.Id.awayTeamImage));
@@ -97,6 +99,83 @@ namespace Floorball.Droid.Fragments
             {
                 imageView.SetImageResource(Resource.Drawable.ball);
                 imageView.Alpha = 125;
+            }
+        }
+
+        protected override void MatchTimeUpdated(int matchId)
+        {
+            if (matchId == Match.Id)
+            {
+                Match m = UoW.MatchRepo.GetMatchById(matchId);
+                Match.Time = m.Time;
+                Activity.RunOnUiThread(() =>
+                {
+                    View.FindViewById<TextView>(Resource.Id.actualTime).Text = UIHelper.GetMatchFullTime(Match.Time);
+                });
+            }
+        }
+
+        protected override void NewEventAdded(int eventId)
+        {
+            Event e = UoW.EventRepo.GetEventById(eventId);
+
+            if (e.Type != "A")
+            {
+                var eventModel = new MatchEventModel { Id = e.Id };
+
+                eventModel.Player = UoW.PlayerRepo.GetPlayerById(e.PlayerId).ShortName;
+
+                if (e.TeamId == HomeTeam.Id)
+                {
+                    eventModel.ViewType = 0;
+                }
+                else
+                {
+                    eventModel.ViewType = 1;
+                }
+
+                if (e.Type == "P2" || e.Type == "P10")
+                {
+                    eventModel.ResourceId = Resource.Drawable.ic_numeric_2_box_grey600_24dp;
+                }
+                else
+                {
+                    if (e.Type == "P5")
+                    {
+                        eventModel.ResourceId = Resource.Drawable.ic_numeric_2_box_grey600_24dp;
+                    }
+                    else
+                    {
+                        if (e.Type == "G")
+                        {
+                            if (e.TeamId == HomeTeam.Id)
+                            {
+                                Match.GoalsH++;
+                                Activity.RunOnUiThread(() =>
+                                {
+                                    View.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
+                                });
+                            }
+                            else
+                            {
+                                Match.GoalsA++;
+                                Activity.RunOnUiThread(() =>
+                                {
+                                    View.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
+                                });
+                            }
+                            eventModel.ResourceId = Resource.Drawable.ball;
+                        }
+                    }
+                }
+
+                eventModel.Time = e.Time;
+                Events.Add(eventModel);
+                Events = Events.OrderByDescending(ev => ev.Time).ToList();
+                Activity.RunOnUiThread(() =>
+                {
+                    adapter.Swap(Events.ToList());
+                });
             }
         }
     }
