@@ -33,7 +33,7 @@ namespace Floorball.Droid.ViewHolders
             AwayTeam = itemView.FindViewById<TextView>(Resource.Id.awayTeamName);
             HomeScore = itemView.FindViewById<TextView>(Resource.Id.homeTeamScore);
             AwayScore = itemView.FindViewById<TextView>(Resource.Id.awayTeamScore);
-            Progress = itemView.FindViewById<View>(Resource.Id.progressbar);
+            Progress = itemView.FindViewById<View>(Resource.Id.actualProgress);
 
             itemView.Click += (sender, e) => listener(adapter.ListItems[AdapterPosition]);
 

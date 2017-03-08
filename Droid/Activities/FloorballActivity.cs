@@ -12,18 +12,23 @@ using Android.Support.V7.App;
 using Android.App;
 using Floorball.Droid.Fragments;
 using System.Threading.Tasks;
+using Floorball.Signalr;
+using Microsoft.AspNet.SignalR.Client;
 
 namespace Floorball.Droid.Activities
 {
     [Activity(Label = "FloorballActivity")]
     public abstract class FloorballActivity : AppCompatActivity, IDialogInterfaceOnClickListener
     {
+        protected static bool IsStarted { get; set; }
 
         public UnitOfWork UoW { get; set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            IsStarted = false;
 
         }
 
@@ -33,6 +38,16 @@ namespace Floorball.Droid.Activities
 
             Updater.Updater.Instance.UpdateStarted += UpdateStarted;
             Updater.Updater.Instance.UpdateEnded += UpdateEnded;
+
+            //Events with SignalR
+            FloorballClient.Instance.MatchStarted += MatchStartedHandler;
+            FloorballClient.Instance.MatchEnded += MatchEndedHandler;
+            FloorballClient.Instance.NewEventAdded += NewEventAddedHandler;
+            FloorballClient.Instance.MatchTimeUpdated += MatchTimeUpdatedHandler;
+            FloorballClient.Instance.Connecting += ConnectingHandler;
+            FloorballClient.Instance.Connected += ConnectedHandler;
+            FloorballClient.Instance.Disconnected += DisconenctedHandler;
+            FloorballClient.Instance.Reconnecting += ReconnectingHandler;
 
             CheckIsSyncing();
 
@@ -44,19 +59,129 @@ namespace Floorball.Droid.Activities
 
             Updater.Updater.Instance.UpdateStarted -= UpdateStarted;
             Updater.Updater.Instance.UpdateEnded -= UpdateEnded;
+
+            FloorballClient.Instance.MatchStarted -= MatchStartedHandler;
+            FloorballClient.Instance.MatchEnded -= MatchEndedHandler;
+            FloorballClient.Instance.NewEventAdded -= NewEventAddedHandler;
+            FloorballClient.Instance.MatchTimeUpdated -= MatchTimeUpdatedHandler;
+            FloorballClient.Instance.Connecting -= ConnectingHandler;
+            FloorballClient.Instance.Connected -= ConnectedHandler;
+            FloorballClient.Instance.Disconnected -= DisconenctedHandler;
+            FloorballClient.Instance.Reconnecting -= ReconnectingHandler;
+
         }
 
-        protected async virtual void UpdateEnded()
+        protected virtual void ReconnectingHandler()
         {
-            FindViewById<TextView>(Resource.Id.notification).Text = "Frissítve";
+            RunOnUiThread(Reconnecting);
+        }
+
+        protected virtual void Reconnecting()
+        {
+            ShowProgressBar("Újracsatlakozás...");
+        }
+
+        protected virtual void DisconenctedHandler()
+        {
+            RunOnUiThread(Disconencted);
+        }
+
+        protected virtual void Disconencted()
+        {
+            HideProgressBar("Nincs csatlakozva");
+        }
+
+        protected virtual void ConnectedHandler()
+        {
+            RunOnUiThread(Connected);
+            
+        }
+
+        protected virtual void Connected()
+        {
+            if (!Updater.Updater.Instance.IsSyncing)
+            {
+                HideProgressBar("Csatlakozva");
+            }
+        }
+
+        protected virtual void ConnectingHandler()
+        {
+            RunOnUiThread(Connecting);
+        }
+
+        protected virtual void Connecting()
+        {
+            ShowProgressBar("Csatlakozás");
+        }
+
+        private void MatchTimeUpdatedHandler(int id)
+        {
+            RunOnUiThread(() => MatchTimeUpdated(id));
+        }
+
+        protected virtual void MatchTimeUpdated(int id)
+        {
+            
+        }
+
+        private void NewEventAddedHandler(int id)
+        {
+            RunOnUiThread(() => NewEventAdded(id));
+        }
+
+        protected virtual void NewEventAdded(int id)
+        {
+            
+        }
+
+        private void MatchEndedHandler(int id)
+        {
+            RunOnUiThread(() => MatchEnded(id));
+        }
+
+        protected virtual void MatchEnded(int id)
+        {
+            
+        }
+
+        private void MatchStartedHandler(int id)
+        {
+            RunOnUiThread(() => MatchStarted(id));
+            
+        }
+
+        protected virtual void MatchStarted(int id)
+        {
+            
+        }
+
+        protected void ShowProgressBar(string text)
+        {
+            FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Visible;
+            FindViewById<TextView>(Resource.Id.notification).Text = text;
+        }
+
+        protected async void HideProgressBar(string text)
+        {
+            FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Visible;
+            FindViewById<TextView>(Resource.Id.notification).Text = text;
             await Task.Delay(3000);
             FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
+            IsStarted = false;
+        }
+
+        protected virtual void UpdateEnded()
+        {
+            if (!(FloorballClient.Instance.ConnectionState == ConnectionState.Connecting || FloorballClient.Instance.ConnectionState == ConnectionState.Reconnecting))
+            {
+                HideProgressBar("Csatlakozva");
+            }
         }
 
         protected virtual void UpdateStarted()
         {
-            FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Visible;
-            FindViewById<TextView>(Resource.Id.notification).Text = "Frissítés folyamatban..";
+            ShowProgressBar("Csatlakozás...");
         }
 
         public void OnClick(IDialogInterface dialog, int which)
@@ -84,12 +209,6 @@ namespace Floorball.Droid.Activities
         protected void DismisInitializing(ProgressDialog dialog)
         {
             dialog.Dismiss();
-        }
-
-        protected void ShowUpdating()
-        {
-            FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Visible;
-            FindViewById<TextView>(Resource.Id.notification).Text = "Frissítés folyamatban..";
         }
 
         protected void ShowAlertDialog(Exception ex)
@@ -187,8 +306,26 @@ namespace Floorball.Droid.Activities
             }
             else
             {
-                FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
+                if (FloorballClient.Instance.ConnectionState == ConnectionState.Connecting)
+                {
+                    Connecting();
+                }
+                else
+                {
+                    if (FloorballClient.Instance.ConnectionState == ConnectionState.Reconnecting)
+                    {
+                        Reconnecting();
+                    }
+                    else
+                    {
+                        if (!IsStarted)
+                        {
+                            FindViewById<View>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
+                        }
+                    }
+                }
             }
+            
         }
     }
 }

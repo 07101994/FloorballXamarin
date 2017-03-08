@@ -4,6 +4,7 @@ using Floorball.REST;
 using FloorballServer.Models.Floorball;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -59,6 +60,11 @@ namespace Floorball.Updater
         {
             try
             {
+                if (!CrossConnectivity.Current.IsConnected)
+                {
+                    return false;
+                }
+
                 IsSyncing = true;
                 RaiseEvent(UpdateStarted);
                 await Task.Delay(10000);

@@ -30,14 +30,10 @@ using Floorball.Droid.Models;
 
 namespace Floorball.Droid.Activities
 {
-    public interface IListItemSelected
-    {
-       void ListItemSelected(string s);
-    }
 
     [Activity(Label = "Floorball", MainLauncher = true, Icon = "@mipmap/ic_launcher")]
     //[Activity(Label = "Floorball")]
-    public class MainActivity : FloorballActivity, IListItemSelected, ISharedPreferencesOnSharedPreferenceChangeListener
+    public class MainActivity : FloorballActivity, ISharedPreferencesOnSharedPreferenceChangeListener
     {
         public string[] MenuTitles { get; set; }
 
@@ -79,16 +75,18 @@ namespace Floorball.Droid.Activities
 
             //Set content view
             SetContentView(Resource.Layout.Main);
-
+            
             //Initialize the toolbar
             InitToolbar();
 
             //Initialize the drawerlayout
             InitDrawerlayout();
 
+            //Get updates and connect to signalr
             Init();
-            
+
         }
+       
 
         private async void Init()
         {
@@ -119,6 +117,7 @@ namespace Floorball.Droid.Activities
 
                     //Change to first (actual fragment)
                     ChangeFragments(0);
+
                 }
                 else
                 {
@@ -128,29 +127,34 @@ namespace Floorball.Droid.Activities
                     //Change to first (actual fragment)
                     ChangeFragments(0);
 
-                    //Check is there any remote database updates and update local DB
-                    Task<bool> isUpdated = Updater.Updater.Instance.UpdateDatabaseFromServer(lastSyncDate);
-
-                    ////Show app updating
-                    //ShowUpdating();
-
-                    if (await isUpdated)
-                    {
-                        lastSyncDate = Updater.Updater.Instance.LastSyncDate;
-                    }
-                    else
-                    {
-                        throw new Exception("Error during updating from database!");
-                    }
+                    //Get updates from server
+                    GetUpdates();
+                    
                 }
 
                 //Save to sharedpreference
                 SaveSyncDate(prefs, lastSyncDate);
+
+                //Connect to signalr
+                ConnectToSignalRServer();
+
             }
             catch (Exception ex)
             {
                 ShowAlertDialog(ex);
             }
+        }
+
+        private async void GetUpdates()
+        {
+            //Check is there any remote database updates and update local DB
+            Task<bool> isUpdated = Updater.Updater.Instance.UpdateDatabaseFromServer(lastSyncDate);
+
+            if (await isUpdated)
+            {
+                lastSyncDate = Updater.Updater.Instance.LastSyncDate;
+            }
+           
         }
 
         private void InitDrawerlayout()
@@ -234,7 +238,6 @@ namespace Floorball.Droid.Activities
             {
                 case 0:
                     fragment = ActualFragment.Instance(ActualMatches.Where(m => m.State == StateEnum.Playing), ActualMatches.Where(m => m.State != StateEnum.Playing),ActualTeams, Leagues);
-                    //ConnectToSignalRServer();
                     break;
 
                 case 1:
@@ -272,19 +275,15 @@ namespace Floorball.Droid.Activities
             {
                 try
                 {
-                    FindViewById<ProgressBar>(Resource.Id.progressbar).Visibility = ViewStates.Visible;
-                    FindViewById<TextView>(Resource.Id.notification).Text = "Csatlakozás szerverhez..";
-                    FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Visible;
-                    await FloorballClient.Instance.Connect(Countries);
-                    FindViewById<TextView>(Resource.Id.notification).Text = "Csatlakozva";
-                    FindViewById<ProgressBar>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
-                    await Task.Delay(3000);
-                    FindViewById<TextView>(Resource.Id.notification).Visibility = ViewStates.Gone;
+                    if (!(await FloorballClient.Instance.Connect(Countries)))
+                    {
+                        IsStarted = true;
+                        RunOnUiThread(() => HideProgressBar("Nincs csatlakozva!"));
+                    }
                 }
                 catch (Exception)
                 {
-                    FindViewById<ProgressBar>(Resource.Id.progressbar).Visibility = ViewStates.Gone;
-                    FindViewById<TextView>(Resource.Id.notification).Text = "Nem sikerült csatlakozni";
+                    RunOnUiThread(() => HideProgressBar("Nincs csatlakozva!"));
                 }
             }
         }
@@ -306,30 +305,7 @@ namespace Floorball.Droid.Activities
         {
             if (ActionBarDrawerToggle.OnOptionsItemSelected(item))
             {
-                //Console.WriteLine("Klikk.");
-                //if (MenuOpened)
-                //{
-                //    SupportActionBar.SetTitle(Resource.String.menu);
-                //    MenuOpened = false;
-                //}
-                //else
-                //{
-                //    SupportActionBar.SetTitle(Resource.String.league);
-                //    MenuOpened = true;
-                //}
                 return true;
-                //if (!HomeEnabled)
-                //{
-                //    return false;
-                //}
-                //else
-                //{
-                //    //drawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);
-                //    //SupportActionBar.SetHomeButtonEnabled(false);
-                //    //SupportActionBar.SetDisplayHomeAsUpEnabled(false);
-                //    HomeEnabled = false;
-                //    return true;
-                //}
             }
             return base.OnOptionsItemSelected(item);
         }
@@ -338,7 +314,6 @@ namespace Floorball.Droid.Activities
         {
             if (ActionBarDrawerToggle.IsMoving)
             {
-                //SupportActionBar.Title = ActivityTitle;
                 FindViewById<TextView>(Resource.Id.toolbarTitle).Text = ActivityTitle;
                 drawerLayout.CloseDrawers();
             }
@@ -346,7 +321,6 @@ namespace Floorball.Droid.Activities
             {
                 if (drawerLayout.IsDrawerOpen(GravityCompat.Start))
                 {
-                    //SupportActionBar.SetTitle(Resource.String.league);
                     drawerLayout.CloseDrawers();
                 }
                 else
@@ -356,12 +330,6 @@ namespace Floorball.Droid.Activities
             }
 
 
-        }
-
-        public void ListItemSelected(string s)
-        {
-
-            //fragment.listItemSelected(s);
         }
 
         private List<Team> GetActualTeams(IEnumerable<Match> actualMatches)

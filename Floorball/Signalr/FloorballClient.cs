@@ -1,11 +1,13 @@
 ﻿using Floorball.LocalDB;
 using FloorballServer.Models.Floorball;
 using Microsoft.AspNet.SignalR.Client;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Plugin.Connectivity.Abstractions;
 
 namespace Floorball.Signalr
 {
@@ -25,9 +27,17 @@ namespace Floorball.Signalr
         public event ChangedEventHandler NewEventAdded;
         public event ChangedEventHandler MatchTimeUpdated;
 
+        public delegate void ConnectionHandler();
+        public event ConnectionHandler Connecting;
+        public event ConnectionHandler Connected;
+        public event ConnectionHandler Disconnected;
+        public event ConnectionHandler Reconnecting;
+
         private static FloorballClient instance;
 
         public UnitOfWork UoW { get; set; }
+
+        private HubConnection HubConnection;
 
         public static FloorballClient Instance
         {
@@ -47,33 +57,81 @@ namespace Floorball.Signalr
             ConnectionState = ConnectionState.Disconnected;
             OldConnectionState = ConnectionState.Disconnected;
             UoW = new UnitOfWork();
+            CrossConnectivity.Current.ConnectivityChanged += ConnectivityChanged;
         }
 
-        public async Task Connect(SortedSet<CountriesEnum> countries)
+        public async Task<bool> Connect(SortedSet<CountriesEnum> countries)
         {
+            HubConnection = new HubConnection(connectionString, CreateQueryStringData(countries));
+            HubConnection.Error += HubConnectionError;
+            HubConnection.StateChanged += HubConnectionStateChanged;
 
-            var hubConnection = new HubConnection(connectionString, CreateQueryStringData(countries));
-            hubConnection.Error += HubConnectionError;
-            hubConnection.StateChanged += HubConnectionStateChanged;
-
-            IHubProxy hubProxy = hubConnection.CreateHubProxy("FloorballHub");
-
+            IHubProxy hubProxy = HubConnection.CreateHubProxy("FloorballHub");
+            
             RegisterClientMethods(hubProxy);
 
-            await hubConnection.Start();
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                RaiseConnectionEvent(Disconnected);
+                return false;
+            }
 
+            await ConnectIfCan(CrossConnectivity.Current.IsConnected);
+            return true;
         }
 
-        private void HubConnectionStateChanged(StateChange connectionState)
+        private async Task ConnectIfCan(bool isConnected)
+        {
+            if (isConnected && ConnectionState == ConnectionState.Disconnected)
+            {
+                RaiseConnectionEvent(Connecting);
+                await HubConnection.Start();
+            }
+        }
+
+        private void RaiseConnectionEvent(ConnectionHandler e)
+        {
+            if (e != null)
+            {
+                e();
+            }
+            
+        }
+
+        private async void HubConnectionStateChanged(StateChange connectionState)
         {
             OldConnectionState = connectionState.OldState;
             ConnectionState = connectionState.NewState;   
             
             if (connectionState.NewState == ConnectionState.Disconnected)
             {
-                var i = 0;
+                RaiseConnectionEvent(Disconnected);
+                if (CrossConnectivity.Current.IsConnected)
+                {
+                    RaiseConnectionEvent(Connecting);
+                    await HubConnection.Start();
+                }
+            }
+            else
+            {
+                if (connectionState.NewState == ConnectionState.Connected)
+                {
+                    RaiseConnectionEvent(Connected);
+                }
+                else
+                {
+                    if (connectionState.NewState == ConnectionState.Reconnecting)
+                    {
+                        RaiseConnectionEvent(Reconnecting);
+                    }
+                }
             }
              
+        }
+
+        private async void ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            await ConnectIfCan(e.IsConnected);
         }
 
         private void HubConnectionError(Exception exception)

@@ -85,6 +85,14 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Plugin.Connectivity, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugin.Connectivity.2.3.0\lib\Xamarin.iOS10\Plugin.Connectivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Plugin.Connectivity.Abstractions, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugin.Connectivity.2.3.0\lib\Xamarin.iOS10\Plugin.Connectivity.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\Xamarin.iOS10\RestSharp.dll</HintPath>
       <Private>True</Private>
@@ -235,20 +243,15 @@
     <Compile Include="Controller\YearsViewController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controller\" />
-    <Folder Include="Resources\" />
-    <Folder Include="Resources\Images.xcassets\Phx.imageset\" />
-    <Folder Include="Settings.bundle\en.lproj\" />
-    <Folder Include="Settings.bundle\hu.lproj\" />
-    <Folder Include="Resources\Images.xcassets\redcard.imageset\" />
+    <Folder Include="Resources\Images.xcassets\10minutes.imageset\" />
     <Folder Include="Resources\Images.xcassets\2minutes.imageset\" />
     <Folder Include="Resources\Images.xcassets\5minutes.imageset\" />
-    <Folder Include="Resources\Images.xcassets\10minutes.imageset\" />
+    <Folder Include="Resources\Images.xcassets\AppIcon.imageset\" />
     <Folder Include="Resources\Images.xcassets\goal.imageset\" />
-    <Folder Include="View\" />
     <Folder Include="Resources\Images.xcassets\logo.imageset\" />
     <Folder Include="Resources\Images.xcassets\menu.imageset\" />
-    <Folder Include="Resources\Images.xcassets\AppIcon.imageset\" />
+    <Folder Include="Resources\Images.xcassets\Phx.imageset\" />
+    <Folder Include="Resources\Images.xcassets\redcard.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
