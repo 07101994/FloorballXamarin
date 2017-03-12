@@ -20,7 +20,14 @@ namespace Floorball.Droid.Models
         public int HomeTeamId { get; set; }
         public int AwayTeamId { get; set; }
         public DateTime Date { get; set; }
-        public string Time { get; set; }
+        public string TimeText
+        {
+            get
+            {
+                return UIHelper.GetMatchTime(Time, State);
+            }
+        }
+        public TimeSpan Time { get; set; }
         public string HomeScoreText
         {
             get

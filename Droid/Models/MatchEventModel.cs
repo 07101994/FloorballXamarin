@@ -19,6 +19,7 @@ namespace Floorball.Droid.Models
         public string Player { get; set; }
         public int ResourceId { get; set; }
         public int ViewType { get; set; }
-       
+        public bool IsGoal { get; set; }
+
     }
 }

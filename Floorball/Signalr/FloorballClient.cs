@@ -25,6 +25,7 @@ namespace Floorball.Signalr
         public event ChangedEventHandler MatchStarted;
         public event ChangedEventHandler MatchEnded;
         public event ChangedEventHandler NewEventAdded;
+        public event ChangedEventHandler EventDeleted;
         public event ChangedEventHandler MatchTimeUpdated;
 
         public delegate void ConnectionHandler();
@@ -163,8 +164,18 @@ namespace Floorball.Signalr
         {
 
             hubProxy.On<EventModel>("AddEventToMatch", AddEventToMatch);
+            hubProxy.On<int>("RemoveEventToFrom", RemoveEventFromMatch);
             hubProxy.On<int,StateEnum>("ChangeMatchState", ChangeMatchState);
             hubProxy.On<int,TimeSpan>("UpdateMatchTime", UpdateMatchTime);
+
+        }
+
+        private void RemoveEventFromMatch(int eventId)
+        {
+            //db
+            UoW.EventRepo.RemoveEvent(eventId);
+
+            //ui
 
         }
 

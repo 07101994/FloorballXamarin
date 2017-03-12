@@ -98,11 +98,11 @@ namespace Floorball.LocalDB.Repository
 
                 foreach (var d in dict)
                 {
-                    Match match = matches.SingleOrDefault(m => m.Id == d.Key);
+                    Match match = matches.FirstOrDefault(m => m.Id == d.Key);
 
                     foreach (var refereeId in d.Value)
                     {
-                        Referee referee = referees.SingleOrDefault(r => r.Id == refereeId);
+                        Referee referee = referees.FirstOrDefault(r => r.Id == refereeId);
 
                         referee.Matches.Add(match);
                         match.Referees.Add(referee);

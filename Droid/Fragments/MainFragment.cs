@@ -33,20 +33,48 @@ namespace Floorball.Droid.Fragments
             base.OnStart();
 
             //Events with SignalR
-            FloorballClient.Instance.MatchStarted += MatchStarted;
-            FloorballClient.Instance.MatchEnded += MatchEnded;
-            FloorballClient.Instance.NewEventAdded += NewEventAdded;
-            FloorballClient.Instance.MatchTimeUpdated += MatchTimeUpdated;
+            //FloorballClient.Instance.MatchStarted += MatchStarted;
+            //FloorballClient.Instance.MatchEnded += MatchEnded;
+            //FloorballClient.Instance.NewEventAdded += NewEventAdded;
+            //FloorballClient.Instance.EventDeleted += EventDeleted;
+            //FloorballClient.Instance.MatchTimeUpdated += MatchTimeUpdated;
         }
+
 
         public override void OnStop()
         {
             base.OnStop();
 
-            FloorballClient.Instance.MatchStarted -= MatchStarted;
-            FloorballClient.Instance.MatchEnded -= MatchEnded;
-            FloorballClient.Instance.NewEventAdded -= NewEventAdded;
-            FloorballClient.Instance.MatchTimeUpdated -= MatchTimeUpdated;
+            //FloorballClient.Instance.MatchStarted -= MatchStarted;
+            //FloorballClient.Instance.MatchEnded -= MatchEnded;
+            //FloorballClient.Instance.NewEventAdded -= NewEventAdded;
+            //FloorballClient.Instance.EventDeleted -= EventDeleted;
+            //FloorballClient.Instance.MatchTimeUpdated -= MatchTimeUpdated;
+        }
+
+        public override void OnViewCreated(View view, Bundle savedInstanceState)
+        {
+            base.OnViewCreated(view, savedInstanceState);
+
+            Updater.Updater.Instance.UpdateStarted += UpdateStarted;
+            Updater.Updater.Instance.UpdateEnded += UpdateEnded;
+
+            FloorballClient.Instance.MatchStarted += MatchStarted;
+            FloorballClient.Instance.MatchEnded += MatchEnded;
+            FloorballClient.Instance.NewEventAdded += NewEventAdded;
+            FloorballClient.Instance.EventDeleted += EventDeleted;
+            FloorballClient.Instance.MatchTimeUpdated += MatchTimeUpdated;
+
+        }
+
+        protected virtual void UpdateEnded()
+        {
+            
+        }
+
+        protected virtual void UpdateStarted()
+        {
+            
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -55,10 +83,24 @@ namespace Floorball.Droid.Fragments
             return base.OnCreateView(inflater, container, savedInstanceState);
         }
 
+        public override void OnDestroyView()
+        {
+            base.OnDestroyView();
+
+            Updater.Updater.Instance.UpdateStarted -= UpdateStarted;
+            Updater.Updater.Instance.UpdateEnded -= UpdateEnded;
+
+            FloorballClient.Instance.MatchStarted -= MatchStarted;
+            FloorballClient.Instance.MatchEnded -= MatchEnded;
+            FloorballClient.Instance.NewEventAdded -= NewEventAdded;
+            FloorballClient.Instance.EventDeleted -= EventDeleted;
+            FloorballClient.Instance.MatchTimeUpdated -= MatchTimeUpdated;
+        }
+
         protected virtual void MatchStarted(int matchId) { }
         protected virtual void MatchEnded(int matchId) { }
         protected virtual void NewEventAdded(int eventId) { }
         protected virtual void MatchTimeUpdated(int matchId) { }
-
+        protected virtual void EventDeleted(int eventId) { }
     }
 }

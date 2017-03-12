@@ -51,13 +51,13 @@ namespace Floorball.Droid.Activities
 
         public IEnumerable<League> Leagues { get; set; }
 
-        public IEnumerable<Match> ActualMatches { get; set; }
+        public List<Match> ActualMatches { get; set; }
 
         public IEnumerable<Team> ActualTeams { get; set; }
 
         public IEnumerable<Team> Teams { get; set; }
 
-        public SortedSet<CountriesEnum> Countries { get; set; }
+        public static SortedSet<CountriesEnum> Countries { get; set; }
 
         private DateTime lastSyncDate;
         private ISharedPreferences prefs;
@@ -86,7 +86,6 @@ namespace Floorball.Droid.Activities
             Init();
 
         }
-       
 
         private async void Init()
         {
@@ -97,7 +96,7 @@ namespace Floorball.Droid.Activities
                 if (IsFirstLaunch(lastSyncDate))
                 {
                     //Init the whole local DB
-                    lastSyncDateTask = Manager.InitLocalDatabase();
+                    lastSyncDateTask = Manager.Instance.InitLocalDatabase();
 
                     //Show app initializing
                     var dialog = ShowInitializing(Resources.GetString(Resource.String.initDownload));
@@ -364,7 +363,7 @@ namespace Floorball.Droid.Activities
             //Initialize properties from database
             Leagues = UoW.LeagueRepo.GetAllLeague().Where(l => Countries.Contains(l.Country)) ?? new List<League>();
             Teams = UoW.TeamRepo.GetAllTeam().Where(t => Countries.Contains(t.Country)) ?? new List<Team>();
-            ActualMatches = UoW.MatchRepo.GetActualMatches(Leagues).OrderBy(a => a.LeagueId).ThenBy(a => a.Date) ?? new List<Match>().OrderBy(a => a.LeagueId);
+            ActualMatches = UoW.MatchRepo.GetActualMatches(Leagues).OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList() ?? new List<Match>().OrderBy(a => a.LeagueId).ToList();
             ActualTeams = GetActualTeams(ActualMatches) ?? new List<Team>();
         }
 
@@ -372,6 +371,43 @@ namespace Floorball.Droid.Activities
         {
             throw new NotImplementedException();
         }
+
+        protected override void NewEventAdded(int id)
+        {
+            base.NewEventAdded(id);
+
+            var e = UoW.EventRepo.GetEventById(id);
+            
+            var match = ActualMatches.FirstOrDefault(m => m.Id == e.MatchId);
+            if (match != null)
+            {
+                if (e.Type == "G")
+                {
+                    if (e.TeamId == match.HomeTeamId)
+                    {
+                        match.GoalsH++;
+                    }
+                    else
+                    {
+                        match.GoalsA++;
+                    }
+                }
+                match.Time = match.Time < e.Time ? e.Time : match.Time;
+            }
+        }
+
+        protected override void MatchTimeUpdated(int id)
+        {
+            base.MatchTimeUpdated(id);
+
+            var m = UoW.MatchRepo.GetMatchById(id);
+            var match = ActualMatches.FirstOrDefault(m1 => m1.Id == id);
+            if (match != null)
+            {
+                match.Time = m.Time;
+            }
+        }
+
     }
 }
 

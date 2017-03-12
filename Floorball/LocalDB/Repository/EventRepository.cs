@@ -66,28 +66,29 @@ namespace Floorball.LocalDB.Repository
 
                 if (playerId != -1 && type != "I" && type != "B")
                 {
-                    ChangeStatisticFromPlayer(playerId, teamId, type, db, "increase");
+                    ChangeStatisticFromPlayer(playerId, teamId, type, db, "up");
                 }
 
-                if (type == "G")
+                if (type == "G" && !Manager.Instance.IsInit)
                 {
-                    AddGoalToMatch(matchId,teamId, db);
+                    ChangeMatchGoals(db,matchId,teamId, time, "up");
                 }
 
                 return e.Id;
             }
         }
 
-        private void AddGoalToMatch(int matchId, int teamId, SQLiteConnection db)
+        private void ChangeMatchGoals(SQLiteConnection db, int matchId, int teamId, TimeSpan time, string direction)
         {
             Match m = db.Get<Match>(matchId);
+            m.Time = m.Time < time ? time : m.Time;
             if (teamId == m.HomeTeamId)
             {
-                m.GoalsH++;
+                m.GoalsH = direction == "up" ? (short)(m.GoalsH + 1) : (short)(m.GoalsH - 1);
             }
             else
             {
-                m.GoalsA++;
+                m.GoalsA = direction == "up" ? (short)(m.GoalsA + 1) : (short)(m.GoalsA - 1);
             }
 
             db.Update(m);
@@ -117,7 +118,7 @@ namespace Floorball.LocalDB.Repository
             {
                 var e = db.GetWithChildren<Event>(eventId);
 
-                if (e.Type == "G")
+                if (e != null)
                 {
                     int t;
 
@@ -134,28 +135,16 @@ namespace Floorball.LocalDB.Repository
                         t = awayTeam.Id;
                     }
 
-                    ChangeStatisticFromPlayer(e.PlayerId, t, e.Type, db, "reduce");
+                    ChangeStatisticFromPlayer(e.PlayerId, t, e.Type, db, "down");
 
-                    var e1 = db.GetAllWithChildren<Event>().Where(ev => ev.MatchId == e.MatchId && ev.Time == e.Time && ev.Type == "A").First();
-
-                    var match1 = db.GetWithChildren<Match>(e1.MatchId);
-                    var homeTeam1 = db.GetWithChildren<Team>(match1.HomeTeamId);
-                    var awayTeam1 = db.GetWithChildren<Team>(match1.AwayTeamId);
-
-
-                    if (homeTeam1.Players.Select(p => p.RegNum).Contains(e1.PlayerId))
+                    if (e.Type == "G" && !Manager.Instance.IsInit)
                     {
-                        t = homeTeam1.Id;
-                    }
-                    else
-                    {
-                        t = awayTeam1.Id;
+                        ChangeMatchGoals(db, e.MatchId, e.TeamId, e.Time, "down");
                     }
 
-                    db.Delete(e1);
+                    db.Delete(e);
+
                 }
-
-                db.Delete(e);
             }
         }
 
@@ -168,7 +157,7 @@ namespace Floorball.LocalDB.Repository
 
             Statistic stat = db.GetAllWithChildren<Statistic>().Where(s => s.PlayerRegNum == playerId && s.TeamId == teamId && s.Name == type).First();
 
-            if (direction == "increase")
+            if (direction == "up")
             {
                 stat.Number++;
             }

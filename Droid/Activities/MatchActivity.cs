@@ -113,6 +113,7 @@ namespace Floorball.Droid.Activities
                             if (e.Type == "G")
                             {
                                 eventModel.ResourceId = Resource.Drawable.ball;
+                                eventModel.IsGoal = true;
                             }
                         }
                     }

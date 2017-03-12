@@ -64,6 +64,13 @@ namespace Floorball.Droid.Fragments
             // Use this to return your custom view for this Fragment
             View root = inflater.Inflate(Resource.Layout.Events, container, false);
 
+            root = InitView(root);
+
+            return root;
+        }
+
+        private View InitView(View root)
+        {
             root.FindViewById<TextView>(Resource.Id.homeTeamName).Text = HomeTeam.Name;
             root.FindViewById<TextView>(Resource.Id.awayTeamName).Text = AwayTeam.Name;
 
@@ -117,6 +124,8 @@ namespace Floorball.Droid.Fragments
 
         protected override void NewEventAdded(int eventId)
         {
+            base.NewEventAdded(eventId);
+
             Event e = UoW.EventRepo.GetEventById(eventId);
 
             if (e.Type != "A")
@@ -124,6 +133,13 @@ namespace Floorball.Droid.Fragments
                 var eventModel = new MatchEventModel { Id = e.Id };
 
                 eventModel.Player = UoW.PlayerRepo.GetPlayerById(e.PlayerId).ShortName;
+
+                Match.Time = Match.Time < e.Time ? e.Time : Match.Time;
+
+                Activity.RunOnUiThread(() =>
+                {
+                    View.FindViewById<TextView>(Resource.Id.actualTime).Text = UIHelper.GetMatchFullTime(Match.Time);
+                });
 
                 if (e.TeamId == HomeTeam.Id)
                 {
@@ -137,6 +153,7 @@ namespace Floorball.Droid.Fragments
                 if (e.Type == "P2" || e.Type == "P10")
                 {
                     eventModel.ResourceId = Resource.Drawable.ic_numeric_2_box_grey600_24dp;
+                    
                 }
                 else
                 {
@@ -148,6 +165,7 @@ namespace Floorball.Droid.Fragments
                     {
                         if (e.Type == "G")
                         {
+                            eventModel.IsGoal = true;
                             if (e.TeamId == HomeTeam.Id)
                             {
                                 Match.GoalsH++;
@@ -178,5 +196,103 @@ namespace Floorball.Droid.Fragments
                 });
             }
         }
+
+        protected override void EventDeleted(int eventId)
+        {
+            base.EventDeleted(eventId);
+
+            var removed = Events.FirstOrDefault(e => e.Id == eventId);
+
+            if (removed != null)
+            {
+                if (removed.IsGoal)
+                {
+                    if (removed.ViewType == 0)
+                    {
+                        Match.GoalsH++;
+                        Activity.RunOnUiThread(() =>
+                        {
+                            View.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
+                        });
+                    }
+                    else
+                    {
+                        Match.GoalsA++;
+                        Activity.RunOnUiThread(() =>
+                        {
+                            View.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
+                        });
+                    }
+                }
+                
+                Activity.RunOnUiThread(() => { Events.Remove(removed); });
+            }
+
+        }
+
+        protected override void UpdateEnded()
+        {
+            base.UpdateEnded();
+
+            var events = UoW.EventRepo.GetEventsByMatch(Match.Id).OrderByDescending(e => e.Time);
+            Match = UoW.MatchRepo.GetMatchById(Match.Id);
+            HomeTeam = UoW.TeamRepo.GetTeamById(Match.HomeTeamId);
+            AwayTeam = UoW.TeamRepo.GetTeamById(Match.AwayTeamId);
+            Events = CreateEvents(events);
+
+            Activity.RunOnUiThread(() => InitView(View));
+
+        }
+
+        private List<MatchEventModel> CreateEvents(IEnumerable<Event> events)
+        {
+            var eventmodels = new List<MatchEventModel>();
+
+            foreach (var e in events)
+            {
+                if (e.Type != "A")
+                {
+                    var eventModel = new MatchEventModel { Id = e.Id };
+
+                    if (e.TeamId == HomeTeam.Id)
+                    {
+                        eventModel.Player = HomeTeam.Players.Where(p => p.RegNum == e.PlayerId).First().ShortName;
+                        eventModel.ViewType = 0;
+                    }
+                    else
+                    {
+                        eventModel.Player = AwayTeam.Players.Where(p => p.RegNum == e.PlayerId).First().ShortName;
+                        eventModel.ViewType = 1;
+                    }
+
+
+                    if (e.Type == "P2" || e.Type == "P10")
+                    {
+                        eventModel.ResourceId = Resource.Drawable.ic_numeric_2_box_grey600_24dp;
+                    }
+                    else
+                    {
+                        if (e.Type == "P5")
+                        {
+                            eventModel.ResourceId = Resource.Drawable.ic_numeric_2_box_grey600_24dp;
+                        }
+                        else
+                        {
+                            if (e.Type == "G")
+                            {
+                                eventModel.ResourceId = Resource.Drawable.ball;
+                                eventModel.IsGoal = true;
+                            }
+                        }
+                    }
+
+                    eventModel.Time = e.Time;
+                    eventmodels.Add(eventModel);
+                }
+            }
+
+            return eventmodels;
+        }
+
     }
 }

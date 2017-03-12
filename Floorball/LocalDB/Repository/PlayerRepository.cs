@@ -175,11 +175,11 @@ namespace Floorball.LocalDB.Repository
 
                 foreach (var d in dict)
                 {
-                    Team team = teams.SingleOrDefault(t => t.Id == d.Key);
+                    Team team = teams.FirstOrDefault(t => t.Id == d.Key);
 
                     foreach (var palyerId in d.Value)
                     {
-                        Player player = players.SingleOrDefault(p => p.RegNum == palyerId);
+                        Player player = players.FirstOrDefault(p => p.RegNum == palyerId);
 
                         player.Teams.Add(team);
                         team.Players.Add(player);
@@ -204,11 +204,11 @@ namespace Floorball.LocalDB.Repository
 
                 foreach (var d in dict)
                 {
-                    Match match = matches.SingleOrDefault(m => m.Id == d.Key);
+                    Match match = matches.FirstOrDefault(m => m.Id == d.Key);
 
                     foreach (var playerId in d.Value)
                     {
-                        Player player = players.SingleOrDefault(p => p.RegNum == playerId);
+                        Player player = players.FirstOrDefault(p => p.RegNum == playerId);
 
                         player.Matches.Add(match);
                         match.Players.Add(player);

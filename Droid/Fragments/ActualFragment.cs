@@ -34,6 +34,11 @@ namespace Floorball.Droid.Fragments
         RecyclerView recyclerView;
         ActualAdapter adapter;
 
+        public IEnumerable<League> Leagues { get; set; }
+        public IEnumerable<Team> Teams { get; set; }
+        public IEnumerable<Match> LiveMatches { get; set; }
+        public IEnumerable<Match> SoonMatches { get; set; }
+
         public static ActualFragment Instance(IEnumerable<Match> liveMatches, IEnumerable<Match> soonMatches, IEnumerable<Team> teams, IEnumerable<League> leagues)
         {
             var fragment = new ActualFragment();
@@ -52,12 +57,12 @@ namespace Floorball.Droid.Fragments
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your fragment here
-            adapter = new ActualAdapter(Arguments.GetObject<IEnumerable<Match>>("liveMatches"),
-                Arguments.GetObject<IEnumerable<Match>>("soonMatches"),
-                Arguments.GetObject<IEnumerable<Team>>("teams"),
-                Arguments.GetObject<IEnumerable<League>>("leagues"),
-                Context);
+            Leagues = Arguments.GetObject<IEnumerable<League>>("leagues");
+            Teams = Arguments.GetObject<IEnumerable<Team>>("teams");
+            LiveMatches = Arguments.GetObject<IEnumerable<Match>>("liveMatches");
+            SoonMatches = Arguments.GetObject<IEnumerable<Match>>("soonMatches");
+
+            adapter = new ActualAdapter(LiveMatches, SoonMatches, Teams, Leagues, Context);
             adapter.ClickedObject += Adapter_ClickedObject;
             
         }
@@ -92,6 +97,16 @@ namespace Floorball.Droid.Fragments
 
         protected override void NewEventAdded(int eventId)
         {
+            UpdateGoals(eventId, 1);
+        }
+
+        protected override void EventDeleted(int eventId)
+        {
+            UpdateGoals(eventId, -1);
+        }
+
+        private void UpdateGoals(int eventId, int count)
+        {
             Event e = UoW.EventRepo.GetEventById(eventId);
 
             if (e.Type == "G")
@@ -100,19 +115,20 @@ namespace Floorball.Droid.Fragments
                 if (match != null)
                 {
                     var m = match as LiveMatchModel;
+                    m.Time = m.Time < e.Time ? e.Time : m.Time;
                     if (e.TeamId == m.HomeTeamId)
                     {
-                        (adapter.Contents.FirstOrDefault(c => (c as LiveMatchModel).MatchId == e.MatchId) as LiveMatchModel).HomeScore++;
+                        m.HomeScore += count;
                     }
                     else
                     {
-                        (adapter.Contents.FirstOrDefault(c => (c as LiveMatchModel).MatchId == e.MatchId) as LiveMatchModel).AwayScore++;
+                        m.AwayScore += count;
                     }
-                   
+
                     Activity.RunOnUiThread(() =>
                     {
                         adapter.NotifyDataSetChanged();
-                    }); 
+                    });
                 }
             }
         }
@@ -124,7 +140,7 @@ namespace Floorball.Droid.Fragments
 
             var match = adapter.Contents.FirstOrDefault(c => (c as LiveMatchModel).MatchId == matchId) as LiveMatchModel;
 
-            match.Time = UIHelper.GetMatchTime(m.Time, m.State);
+            match.Time = m.Time;
 
             int index = adapter.Contents.FindIndex(c => (c as LiveMatchModel).MatchId == matchId);
             adapter.Contents[index] = match;
@@ -134,5 +150,39 @@ namespace Floorball.Droid.Fragments
             });
         }
 
+        protected override void UpdateEnded()
+        {
+            base.UpdateEnded();
+
+            var ActualMatches = UoW.MatchRepo.GetActualMatches(Leagues).OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList() ?? new List<Match>().OrderBy(a => a.LeagueId).ToList();
+            LiveMatches = ActualMatches.Where(m => m.State == StateEnum.Playing);
+            SoonMatches = ActualMatches.Where(m => m.State != StateEnum.Playing);
+            Teams = GetActualTeams(ActualMatches) ?? new List<Team>();
+            Leagues = UoW.LeagueRepo.GetAllLeague().Where(l => MainActivity.Countries.Contains(l.Country)) ?? new List<League>();
+
+            Activity.RunOnUiThread(() =>
+            {
+                adapter = new ActualAdapter(LiveMatches, SoonMatches, Teams, Leagues, Context);
+                adapter.ClickedObject += Adapter_ClickedObject;
+                View.FindViewById<RecyclerView>(Resource.Id.recyclerView).SetAdapter(adapter);
+
+            });
+
+        }
+        
+
+        private List<Team> GetActualTeams(IEnumerable<Match> actualMatches)
+        {
+            List<Team> teams = new List<Team>();
+
+            foreach (var match in actualMatches)
+            {
+
+                teams.Add(UoW.TeamRepo.GetTeamById(match.HomeTeamId));
+                teams.Add(UoW.TeamRepo.GetTeamById(match.AwayTeamId));
+            }
+
+            return teams;
+        }
     }
 }

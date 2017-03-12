@@ -69,7 +69,7 @@ namespace Floorball.Droid.Adapters
                     Contents.Add(new LiveMatchModel
                     {
                         Date = actualMatch.Date,
-                        Time = UIHelper.GetMatchTime(actualMatch.Time, actualMatch.State),
+                        Time = actualMatch.Time,
                         HomeTeam = homeTeam.Name,
                         AwayTeam = awayTeam.Name,
                         HomeScore = actualMatch.GoalsH,
@@ -125,7 +125,7 @@ namespace Floorball.Droid.Adapters
 
                     var vh2 = holder as LiveMatchViewHolder;
                     vh2.Date.Text = matchModel.Date.ToString();
-                    vh2.Time.Text = matchModel.Time;
+                    vh2.Time.Text = matchModel.TimeText;
                     vh2.HomeTeam.Text = matchModel.HomeTeam;
                     vh2.HomeScore.Text = matchModel.HomeScoreText;
                     vh2.AwayTeam.Text = matchModel.AwayTeam;
@@ -216,5 +216,6 @@ namespace Floorball.Droid.Adapters
             };
             colorAnimation.Start();
         }
+
     }
 }
