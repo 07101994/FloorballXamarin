@@ -8,15 +8,6 @@
   <include
       layout="@layout/toolbar" />
   <include layout="@layout/progressbar"/>
-
-  <TextView
-      android:id="@+id/notification"
-      android:layout_width="match_parent"
-      android:layout_height="10dp"
-      android:textSize="10sp"
-      android:visibility="invisible"
-      android:gravity="center" />
-
   <FrameLayout
       android:id="@+id/content_frame"
       android:layout_width="match_parent"

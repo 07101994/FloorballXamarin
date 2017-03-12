@@ -152,6 +152,7 @@
     <Compile Include="Adapters\LeagueMatchesAdapter.cs" />
     <Compile Include="Adapters\LeaguesAdapter.cs" />
     <Compile Include="Adapters\MatchesAdapter.cs" />
+    <Compile Include="Adapters\MatchPlayersAdapter.cs" />
     <Compile Include="Adapters\PlayersAdapter.cs" />
     <Compile Include="Adapters\PlayerStatsAdapter.cs" />
     <Compile Include="Adapters\RefereesAdapter.cs" />
@@ -186,9 +187,11 @@
     <Compile Include="Models\MatchDetailModel.cs" />
     <Compile Include="Models\MatchesModel.cs" />
     <Compile Include="Models\MatchEvents.cs" />
+    <Compile Include="Models\MatchPlayersModel.cs" />
     <Compile Include="Models\MatchResultModel.cs" />
     <Compile Include="Models\PlayerStatModel.cs" />
     <Compile Include="Models\MatchEventModel.cs" />
+    <Compile Include="Models\PlayerWithEventsModel.cs" />
     <Compile Include="Utils\Extensions.cs" />
     <Compile Include="Utils\MyActionBarDrawerToggle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -202,6 +205,7 @@
     <Compile Include="ViewHolders\LeagueHeaderViewHolder.cs" />
     <Compile Include="ViewHolders\LeagueContentViewHolder.cs" />
     <Compile Include="ViewHolders\LiveMatchViewHolder.cs" />
+    <Compile Include="ViewHolders\MatchPlayerViewHolder.cs" />
     <Compile Include="ViewHolders\MatchViewHolder.cs" />
     <Compile Include="ViewHolders\PlayerViewHolder.cs" />
     <Compile Include="ViewHolders\RefereeViewHolder.cs" />
@@ -380,10 +384,10 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Events.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\MatchDetail.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\RecycleViewWithHeader.axml">
       <SubType>AndroidResource</SubType>
@@ -392,6 +396,15 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ActualFragment.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PlayerWithMatchStat.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\MatchStat.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\MatchPlayerItem.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

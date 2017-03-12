@@ -76,7 +76,7 @@ namespace Floorball.Droid.Adapters
                     break;
                 case FragmentType.MatchDetails:
                     var matchDetailModel = data.ToObject<MatchDetailModel>();
-                    fr = MatchDetailFragment.Instance(matchDetailModel.League,matchDetailModel.Match,matchDetailModel.Stadium);
+                    fr = MatchDetailFragment.Instance(matchDetailModel.League,matchDetailModel.Match,matchDetailModel.Stadium, matchDetailModel.HomePlayers, matchDetailModel.AwayPlayers, matchDetailModel.Events);
                     break;
                 case FragmentType.MatchReferees:
                     var refereesModel = data.ToObject<IEnumerable<ListModel>>();

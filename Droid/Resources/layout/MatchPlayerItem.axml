@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:weightSum="7">
+
+  <include
+    android:id="@+id/homePlayerStat"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="3"
+    layout="@layout/PlayerWithMatchStat"/>
+
+  <TextView
+    android:id="@+id/number"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="center"
+    />
+
+  <include
+    android:id="@+id/awayPlayerStat"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="3"
+    layout="@layout/PlayerWithMatchStat"/>
+  
+</LinearLayout>

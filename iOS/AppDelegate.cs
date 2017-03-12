@@ -102,7 +102,7 @@ namespace Floorball.iOS
 				Task<DateTime> lastSyncDateTask;
 
 				//Init the whole local DB
-				lastSyncDateTask = Manager.InitLocalDatabase();
+				lastSyncDateTask = Manager.Instance.InitLocalDatabase();
 
 				//Show app initializing
 				//ShowControllerFromSoryBoard("Init");

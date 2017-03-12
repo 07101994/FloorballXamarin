@@ -67,7 +67,7 @@ namespace Floorball.Droid.Activities
             {
                 var tabModels = new List<TabbedViewPagerModel>();
                 tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Events, TabTitle = "Események", Data = new MatchEvents { Events = CreateEvents(), Match = Match, HomeTeam = HomeTeam, AwayTeam = AwayTeam } });
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchDetails, TabTitle = "Részletek", Data = new MatchDetailModel { League = League, Match = Match, Stadium = Stadium } });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchDetails, TabTitle = "Részletek", Data = new MatchDetailModel { League = League, Match = Match, Stadium = Stadium, Events = Events, AwayPlayers = AwayTeamPlayers, HomePlayers = HomeTeamPlayers } });
                 tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchReferees, TabTitle = "Játékvezetők", Data = Referees.Select(r => new ListModel { Text = r.Name, Object = r}) });
 
                 Android.Support.V4.App.Fragment fr = TabbedViewPagerFragment.Instance(tabModels);

@@ -12,6 +12,8 @@ using Android.Widget;
 using Floorball.LocalDB.Tables;
 using Floorball.Droid.Utils;
 using Android.Support.V4.App;
+using Floorball.Droid.Adapters;
+using Android.Support.V7.Widget;
 
 namespace Floorball.Droid.Fragments
 {
@@ -20,14 +22,23 @@ namespace Floorball.Droid.Fragments
         public Match Match { get; set; }
         public League League { get; set; }
         public Stadium Stadium { get; set; }
+        public IEnumerable<Player> HomePlayers { get; set; }
+        public IEnumerable<Player> AwayPlayers { get; set; }
+        public IEnumerable<Event> Events { get; set; }
 
-        public static MatchDetailFragment Instance(League league, Match match, Stadium stadium)
+        MatchPlayersAdapter adapter;
+        RecyclerView recyclerView;
+
+        public static MatchDetailFragment Instance(League league, Match match, Stadium stadium, IEnumerable<Player> homePlayers, IEnumerable<Player> awayPlayers, IEnumerable<Event> events)
         {
             var fragment = new MatchDetailFragment();
             Bundle args = new Bundle();
             args.PutObject("league", league);
             args.PutObject("match", match);
             args.PutObject("stadium", stadium);
+            args.PutObject("homePlayers", homePlayers);
+            args.PutObject("awayPlayers", awayPlayers);
+            args.PutObject("events", events);
 
             fragment.Arguments = args;
 
@@ -42,6 +53,12 @@ namespace Floorball.Droid.Fragments
             Match = Arguments.GetObject<Match>("match");
             League = Arguments.GetObject<League>("league");
             Stadium = Arguments.GetObject<Stadium>("stadium");
+            HomePlayers = Arguments.GetObject<IEnumerable<Player>>("homePlayers");
+            AwayPlayers = Arguments.GetObject<IEnumerable<Player>>("awayPlayers");
+            Events = Arguments.GetObject<IEnumerable<Event>>("events");
+
+            adapter = new MatchPlayersAdapter(HomePlayers, AwayPlayers, Events);
+
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -52,6 +69,10 @@ namespace Floorball.Droid.Fragments
             root.FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name + " " + Match.Round.ToString() + ". forduló";
             root.FindViewById<TextView>(Resource.Id.date).Text = Match.Date.ToShortDateString();
             root.FindViewById<TextView>(Resource.Id.stadium).Text = Stadium.Name;
+
+            recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            recyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
+            recyclerView.SetAdapter(adapter);
 
             return root;
         }
