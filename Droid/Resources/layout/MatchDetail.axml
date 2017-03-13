@@ -4,22 +4,84 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-   <TextView
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Bajnokság"
+      android:gravity="center"
+      android:textSize="30dp"
+    />
+
+  <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="20dp"
+    android:layout_gravity="center"
+    >
+
+    <ImageView
+        android:id="@+id/countryFlag"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:layout_marginRight="10dp"/>
+    
+    <TextView
         android:id="@+id/leagueName"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center" />
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:gravity="center" />
-    <TextView
-        android:id="@+id/stadium"
+
+
+  </LinearLayout>
+  
+  
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Dátum"
+      android:gravity="center"
+      android:textSize="30dp"
+    />
+
+  <TextView
+      android:id="@+id/date"
+      android:layout_width="match_parent"
+      android:layout_height="20dp"
+      android:gravity="center" />
+
+  <TextView
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:text="Helyszín"
+     android:gravity="center"
+     android:textSize="30dp"
+    />
+
+  <TextView
+        android:id="@+id/stadiumName"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:gravity="center" />
 
-  <include layout="@layout/recycleview"/>
-  
+  <TextView
+        android:id="@+id/stadiumAddress"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center" />
+
+  <TextView
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:text="Játékvezetők"
+     android:gravity="center"
+     android:textSize="30dp"
+    />
+
+  <LinearLayout
+        android:id="@+id/refereees_container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>

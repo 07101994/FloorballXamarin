@@ -89,25 +89,7 @@ namespace Floorball.Droid.Fragments
             return root;
         }
 
-        private void SetTeamImage(Team team, ImageView imageView)
-        {
-            try
-            {
-                var bitmap = BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(team.ImageName)));
-
-                if (bitmap == null)
-                {
-                    throw new Exception("Image not found!");
-                }
-
-                imageView.SetImageBitmap(bitmap);
-            }
-            catch (Exception)
-            {
-                imageView.SetImageResource(Resource.Drawable.ball);
-                imageView.Alpha = 125;
-            }
-        }
+        
 
         protected override void MatchTimeUpdated(int matchId)
         {

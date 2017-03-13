@@ -16,28 +16,28 @@ using Floorball.Droid.ViewHolders;
 
 namespace Floorball.Droid.Adapters
 {
-    public class MatchPlayersAdapter : BaseRecyclerViewAdapter<MatchPlayersModel>
+    public class MatchPlayersAdapter : BaseRecyclerViewAdapter<MatchPlayerItemModel>
     {
 
-        public MatchPlayersAdapter(IEnumerable<Player> homePlayers, IEnumerable<Player> awayPlayers, IEnumerable<Event> events) : base(new List<MatchPlayersModel>()) 
+        public MatchPlayersAdapter(IEnumerable<Player> homePlayers, IEnumerable<Player> awayPlayers, IEnumerable<Event> events) : base(new List<MatchPlayerItemModel>()) 
         {
             List<PlayerWithEventsModel> homePlayersWithEvents = CreatePlayerEventsModel(homePlayers, events);
             List<PlayerWithEventsModel> awayPlayersWithEvents = CreatePlayerEventsModel(awayPlayers, events);
 
-            ListItems = homePlayersWithEvents.Zip(awayPlayersWithEvents, (h, a) => new MatchPlayersModel { HomePlayer = h, AwayPlayer = a }).ToList();
+            ListItems = homePlayersWithEvents.Zip(awayPlayersWithEvents, (h, a) => new MatchPlayerItemModel { HomePlayer = h, AwayPlayer = a }).ToList();
 
             if (homePlayersWithEvents.Count < awayPlayersWithEvents.Count)
             {
                 for (int i = homePlayersWithEvents.Count; i < awayPlayersWithEvents.Count; i++)
                 {
-                    ListItems.Add(new MatchPlayersModel { AwayPlayer = awayPlayersWithEvents[i] });
+                    ListItems.Add(new MatchPlayerItemModel { AwayPlayer = awayPlayersWithEvents[i] });
                 }
             }
             else
             {
                 for (int i = awayPlayersWithEvents.Count; i < homePlayersWithEvents.Count; i++)
                 {
-                    ListItems.Add(new MatchPlayersModel { HomePlayer = homePlayersWithEvents[i] });
+                    ListItems.Add(new MatchPlayerItemModel { HomePlayer = homePlayersWithEvents[i] });
                 }
             }
 

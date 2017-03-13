@@ -164,7 +164,8 @@
     <Compile Include="Fragments\AppInitFragment.cs" />
     <Compile Include="Fragments\EventsFragment.cs" />
     <Compile Include="Fragments\LeagueMatchesFragmentcs.cs" />
-    <Compile Include="Fragments\MatchDetailFragment.cs" />
+    <Compile Include="Fragments\MatchDetailsFragment.cs" />
+    <Compile Include="Fragments\MatchPlayersFragment.cs" />
     <Compile Include="Fragments\MatchesFragment.cs" />
     <Compile Include="Fragments\LeaguesFragment.cs" />
     <Compile Include="Fragments\LeagueStatisticsFragment.cs" />
@@ -185,9 +186,10 @@
     <Compile Include="Models\LiveMatchModel.cs" />
     <Compile Include="Models\LiveMatchModelBase.cs" />
     <Compile Include="Models\MatchDetailModel.cs" />
+    <Compile Include="Models\MatchPlayersModel.cs" />
     <Compile Include="Models\MatchesModel.cs" />
     <Compile Include="Models\MatchEvents.cs" />
-    <Compile Include="Models\MatchPlayersModel.cs" />
+    <Compile Include="Models\MatchPlayerItemModel.cs" />
     <Compile Include="Models\MatchResultModel.cs" />
     <Compile Include="Models\PlayerStatModel.cs" />
     <Compile Include="Models\MatchEventModel.cs" />
@@ -341,7 +343,7 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ActualTile.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ViewPagerWithTabs.axml">
       <SubType>AndroidResource</SubType>
@@ -372,7 +374,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\CenterHeader.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Settings.axml">
       <SubType>AndroidResource</SubType>
@@ -386,7 +388,7 @@
     <AndroidResource Include="Resources\layout\Events.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\MatchDetail.axml">
+    <AndroidResource Include="Resources\layout\MatchPlayers.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\RecycleViewWithHeader.axml">
@@ -396,7 +398,7 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ActualFragment.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\PlayerWithMatchStat.axml">
       <SubType>AndroidResource</SubType>
@@ -405,6 +407,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\MatchPlayerItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\MatchDetail.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

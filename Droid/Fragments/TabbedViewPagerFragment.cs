@@ -22,7 +22,7 @@ namespace Floorball.Droid.Fragments
 {
     public enum FragmentType
     {
-        Leagues, Players, LeagueMatches, TeamMatches, LeagueStats, LeagueTable, Teams, Events, MatchDetails, MatchReferees
+        Leagues, Players, LeagueMatches, TeamMatches, LeagueStats, LeagueTable, Teams, Events, MatccPlayers, MatchDetail
     }
 
     public class TabbedViewPagerFragment : Fragment

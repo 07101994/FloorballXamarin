@@ -18,8 +18,5 @@ namespace Floorball.Droid.Models
         public Match Match { get; set; }
         public League League { get; set; }
         public Stadium Stadium { get; set; }
-        public IEnumerable<Event> Events { get; set; }
-        public IEnumerable<Player> HomePlayers { get; set; }
-        public IEnumerable<Player> AwayPlayers { get; set; }
     }
 }

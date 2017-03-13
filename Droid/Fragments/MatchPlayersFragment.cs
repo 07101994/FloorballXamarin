@@ -14,30 +14,29 @@ using Floorball.Droid.Utils;
 using Android.Support.V4.App;
 using Floorball.Droid.Adapters;
 using Android.Support.V7.Widget;
+using Floorball.Util;
 
 namespace Floorball.Droid.Fragments
 {
-    public class MatchDetailFragment : Fragment
+    public class MatchPlayersFragment : MainFragment
     {
         public Match Match { get; set; }
-        public League League { get; set; }
-        public Stadium Stadium { get; set; }
         public IEnumerable<Player> HomePlayers { get; set; }
         public IEnumerable<Player> AwayPlayers { get; set; }
         public IEnumerable<Event> Events { get; set; }
+        public Team HomeTeam { get; set; }
+        public Team AwayTeam { get; set; }
 
         MatchPlayersAdapter adapter;
         RecyclerView recyclerView;
 
-        public static MatchDetailFragment Instance(League league, Match match, Stadium stadium, IEnumerable<Player> homePlayers, IEnumerable<Player> awayPlayers, IEnumerable<Event> events)
+        public static MatchPlayersFragment Instance(Team homeTeam, Team awayTeam, Match match, IEnumerable<Event> events)
         {
-            var fragment = new MatchDetailFragment();
+            var fragment = new MatchPlayersFragment();
             Bundle args = new Bundle();
-            args.PutObject("league", league);
             args.PutObject("match", match);
-            args.PutObject("stadium", stadium);
-            args.PutObject("homePlayers", homePlayers);
-            args.PutObject("awayPlayers", awayPlayers);
+            args.PutObject("homeTeam", homeTeam);
+            args.PutObject("awayTeam", awayTeam);
             args.PutObject("events", events);
 
             fragment.Arguments = args;
@@ -51,24 +50,32 @@ namespace Floorball.Droid.Fragments
 
             // Create your fragment here
             Match = Arguments.GetObject<Match>("match");
-            League = Arguments.GetObject<League>("league");
-            Stadium = Arguments.GetObject<Stadium>("stadium");
-            HomePlayers = Arguments.GetObject<IEnumerable<Player>>("homePlayers");
-            AwayPlayers = Arguments.GetObject<IEnumerable<Player>>("awayPlayers");
+            HomeTeam = Arguments.GetObject<Team>("homeTeam");
+            AwayTeam = Arguments.GetObject<Team>("awayTeam");
+            HomePlayers = HomeTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.RegNum));
+            AwayPlayers = AwayTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.RegNum));
             Events = Arguments.GetObject<IEnumerable<Event>>("events");
 
             adapter = new MatchPlayersAdapter(HomePlayers, AwayPlayers, Events);
-
+            
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
-            View root = inflater.Inflate(Resource.Layout.MatchDetail, container, false);
+            View root = inflater.Inflate(Resource.Layout.MatchPlayers, container, false);
 
-            root.FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name + " " + Match.Round.ToString() + ". forduló";
-            root.FindViewById<TextView>(Resource.Id.date).Text = Match.Date.ToShortDateString();
-            root.FindViewById<TextView>(Resource.Id.stadium).Text = Stadium.Name;
+            root.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
+            root.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
+            root.FindViewById<TextView>(Resource.Id.homeTeamName).Text = HomeTeam.Name;
+            root.FindViewById<TextView>(Resource.Id.awayTeamName).Text = AwayTeam.Name;
+
+            SetTeamImage(HomeTeam, root.FindViewById<ImageView>(Resource.Id.homeTeamImage));
+            SetTeamImage(AwayTeam, root.FindViewById<ImageView>(Resource.Id.awayTeamImage));
+
+            //root.FindViewById<TextView>(Resource.Id.leagueName).Text = League.Name + " " + Match.Round.ToString() + ". forduló";
+            //root.FindViewById<TextView>(Resource.Id.date).Text = Match.Date.ToShortDateString();
+            //root.FindViewById<TextView>(Resource.Id.stadium).Text = Stadium.Name;
 
             recyclerView = root.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             recyclerView.SetLayoutManager(new LinearLayoutManager(Activity));

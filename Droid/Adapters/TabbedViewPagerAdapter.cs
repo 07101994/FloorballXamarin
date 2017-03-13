@@ -74,13 +74,13 @@ namespace Floorball.Droid.Adapters
                     var eventModels = data.ToObject<MatchEvents>();
                     fr = EventsFragment.Instance(eventModels.Events,eventModels.Match,eventModels.HomeTeam,eventModels.AwayTeam);
                     break;
-                case FragmentType.MatchDetails:
-                    var matchDetailModel = data.ToObject<MatchDetailModel>();
-                    fr = MatchDetailFragment.Instance(matchDetailModel.League,matchDetailModel.Match,matchDetailModel.Stadium, matchDetailModel.HomePlayers, matchDetailModel.AwayPlayers, matchDetailModel.Events);
+                case FragmentType.MatccPlayers:
+                    var matchPlayersModel = data.ToObject<MatchPlayersModel>();
+                    fr = MatchPlayersFragment.Instance(matchPlayersModel.HomeTeam, matchPlayersModel.AwayTeam, matchPlayersModel.Match, matchPlayersModel.Events);
                     break;
-                case FragmentType.MatchReferees:
-                    var refereesModel = data.ToObject<IEnumerable<ListModel>>();
-                    fr = Fragments.ListFragment.Instance(refereesModel,"referees");
+                case FragmentType.MatchDetail:
+                    var matchDetailModel = data.ToObject<MatchDetailModel>();
+                    fr = MatchDetailsFragment.Instance(matchDetailModel.Match, matchDetailModel.League, matchDetailModel.Stadium);
                     break;
                 default:
                     break;

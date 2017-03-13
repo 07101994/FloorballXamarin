@@ -59,5 +59,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)UnitOfWork.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updater\UpdateData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updater\Updater.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\KeyEquilityComparer.cs" />
   </ItemGroup>
 </Project>

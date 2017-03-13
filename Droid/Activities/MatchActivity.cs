@@ -18,6 +18,7 @@ using Android.Graphics;
 using System.IO;
 using Floorball.Droid.Models;
 using Floorball.Droid.Fragments;
+using Floorball.Util;
 
 namespace Floorball.Droid.Activities
 {
@@ -67,8 +68,8 @@ namespace Floorball.Droid.Activities
             {
                 var tabModels = new List<TabbedViewPagerModel>();
                 tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Events, TabTitle = "Események", Data = new MatchEvents { Events = CreateEvents(), Match = Match, HomeTeam = HomeTeam, AwayTeam = AwayTeam } });
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchDetails, TabTitle = "Részletek", Data = new MatchDetailModel { League = League, Match = Match, Stadium = Stadium, Events = Events, AwayPlayers = AwayTeamPlayers, HomePlayers = HomeTeamPlayers } });
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchReferees, TabTitle = "Játékvezetők", Data = Referees.Select(r => new ListModel { Text = r.Name, Object = r}) });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatccPlayers, TabTitle = "Játékosok", Data = new MatchPlayersModel { Events = Events, HomeTeam = HomeTeam, AwayTeam = AwayTeam, Match = Match } });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchDetail, TabTitle = "Részletek", Data = new MatchDetailModel { Match = Match, League = League, Stadium = Stadium } });
 
                 Android.Support.V4.App.Fragment fr = TabbedViewPagerFragment.Instance(tabModels);
                 Android.Support.V4.App.FragmentTransaction ft = SupportFragmentManager.BeginTransaction();
@@ -150,8 +151,8 @@ namespace Floorball.Droid.Activities
             Match = UoW.MatchRepo.GetMatchById(Intent.GetIntExtra("id", 2));
             HomeTeam = UoW.TeamRepo.GetTeamById(Match.HomeTeamId);
             AwayTeam = UoW.TeamRepo.GetTeamById(Match.AwayTeamId);
-            HomeTeamPlayers = HomeTeam.Players;
-            AwayTeamPlayers = AwayTeam.Players;
+            HomeTeamPlayers = HomeTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.RegNum));
+            AwayTeamPlayers = AwayTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.RegNum));
             League = UoW.LeagueRepo.GetLeagueById(Match.LeagueId);
             Stadium = UoW.StadiumRepo.GetStadiumById(Match.StadiumId);
             Referees = Match.Referees;
