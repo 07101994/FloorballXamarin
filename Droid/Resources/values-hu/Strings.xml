@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, Click Me!</string>
-	<string name="app_name">Floorball.Droid</string>
 
+  <!--Hungarian-->
+  
+  <!--Menu-->
   <string name="menu">Menü</string>
   <string name="league">Bajnokságok</string>
   <string name="actual">Aktuális</string>
@@ -11,8 +12,8 @@
   <string name="teams">Csapatok</string>
   <string name="settings">Beállítások</string>
 
-
-  <string name="positionLabel">H</string>
+  <!--LeagueActivity-->
+  <string name="positionLabel">#</string>
   <string name="matchLabel">M</string>
   <string name="teamNameLabel">Csapat</string>
   <string name="winLabel">GY</string>
@@ -25,17 +26,22 @@
   <string name="assistLabel">A</string>
   <string name="penaltyLabel">K</string>
 
-
+  <!--TeamActivity-->
   <string name="trainerLabel">Edző</string>
   <string name="stadionLabel">Stadion</string>
   <string name="playersTab">Játékosok</string>
   <string name="matchesTab">Mérkőzések</string>
 
+  <!--SeachText-->
   <string name="playerSearchHint">Név</string>
 
+  <!--ActualFragment-->
   <string name="noActualLiveMatches">Nincs élő meccs</string>
   <string name="noActualMatches">3 napon belül nincs meccs</string>
+  <string name="live">Élő</string>
+  <string name="soon">Hamarosan</string>
 
+  <!--Countries-->
   <string name="countries">Országok</string>
   <string name="hungary">Magyarország</string>
   <string name="sweden">Svédország</string>
@@ -43,14 +49,47 @@
   <string name="switzerland">Svájc</string>
   <string name="czech">Csehország</string>
 
-  <string name="live">Élő</string>
-  <string name="soon">Hamarosan</string>
-
+  <!--AlertDialog-->
   <string name="errorDialogTitle">Hiba történt</string>
   <string name="errorDialogButton">Ok</string>
 
+  <!--Initialization-->
   <string name="initDownload">Adatok letöltése folyamatban...</string>
   <string name="initDismiss">Sikeres inicializálás!</string>
   <string name="initPrepare">Adatok előkészítése folyamatban...</string>
+
+  <!--MatchActivity-->
+  <string name="leagueLabel">Bajnokság</string>
+  <string name="dateLabel">Dátum</string>
+  <string name="placeLabel">Helyszín</string>
+  <string name="refereesLabel">Játékvezetők</string>
+
+  <!--YearChooser-->
+  <string name="leagueSeasons">Bajnokság idények</string>
+  <string name="teamSeasons">Csapat idények</string>
+
+  <!--Updater-->
+  <string name="connecting">Csatlakozás...</string>
+  <string name="reconnecting">Újracsatlakozás...</string>
+  <string name="disconnected">Lecsatlakozva</string>
+  <string name="connected">Csatlakozva</string>
+
+  <!--LeagueActivity-->
+  <string name="leagueMatches">Mérkőzések</string>
+  <string name="leagueTable">Tabella</string>
+  <string name="leagueStats">Statisztikák</string>
+
+  <!--MatchActivity-->
+  <string name="matchEvents">Események</string>
+  <string name="matchPlayers">Játékosok</string>
+  <string name="matchDetails">Részletek</string>
   
+  <!--TeamActivity-->
+  <string name="teamMatches">Mérkőzések</string>
+  <string name="teamPlayers">Játékosok</string>
+
+  <!--Sex-->
+  <string name="men">Férfi</string>
+  <string name="women">Női</string>
+
 </resources>

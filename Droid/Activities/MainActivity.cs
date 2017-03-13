@@ -57,8 +57,6 @@ namespace Floorball.Droid.Activities
 
         public IEnumerable<Team> Teams { get; set; }
 
-        public static SortedSet<CountriesEnum> Countries { get; set; }
-
         private DateTime lastSyncDate;
         private ISharedPreferences prefs;
 
@@ -240,11 +238,11 @@ namespace Floorball.Droid.Activities
                     break;
 
                 case 1:
-                    fragment = Fragments.ListFragment.Instance(UoW.LeagueRepo.GetAllYear().Select(l => new ListModel { Text = l.ToString(), Object = l}),"leagues", "Bajnokság idények");
+                    fragment = Fragments.ListFragment.Instance(UoW.LeagueRepo.GetAllYear().Select(l => new ListModel { Text = l.ToString(), Object = l}),"leagues", Resources.GetString(Resource.String.leagueSeasons));
                     break;
 
                 case 2:
-                    fragment = Fragments.ListFragment.Instance(UoW.LeagueRepo.GetAllYear().Select(l => new ListModel { Text = l.ToString(), Object = l }),"teams", "Csapat idények");
+                    fragment = Fragments.ListFragment.Instance(UoW.LeagueRepo.GetAllYear().Select(l => new ListModel { Text = l.ToString(), Object = l }),"teams", Resources.GetString(Resource.String.teamSeasons));
                     break;
 
                 case 3:

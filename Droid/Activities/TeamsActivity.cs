@@ -44,8 +44,8 @@ namespace Floorball.Droid.Activities
                 IEnumerable<League> leagues = UoW.LeagueRepo.GetAllLeague();
 
                 var tabModels = new List<TabbedViewPagerModel>();
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Teams, TabTitle = "férfi", Data = new TeamsModel { Teams = teams.Where(t => t.Sex == "ferfi").ToList(), Leagues = leagues.ToList() } });
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Teams, TabTitle = "női", Data = new TeamsModel { Teams = teams.Where(l => l.Sex == "noi").ToList(), Leagues = leagues.ToList() } } );
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Teams, TabTitle = Resources.GetString(Resource.String.men), Data = new TeamsModel { Teams = teams.Where(t => t.Sex == "ferfi").ToList(), Leagues = leagues.ToList() } });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Teams, TabTitle = Resources.GetString(Resource.String.women), Data = new TeamsModel { Teams = teams.Where(l => l.Sex == "noi").ToList(), Leagues = leagues.ToList() } } );
 
                 Android.Support.V4.App.Fragment fr = TabbedViewPagerFragment.Instance(tabModels);
                 Android.Support.V4.App.FragmentTransaction ft = SupportFragmentManager.BeginTransaction();

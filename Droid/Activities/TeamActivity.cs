@@ -58,8 +58,8 @@ namespace Floorball.Droid.Activities
             if (savedInstanceState == null)
             {
                 var tabModels = new List<TabbedViewPagerModel>();
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Players, TabTitle = "játékosok", Data = Players.Select(p => new ListModel { Text = p.Name, Object = p }) } );
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.TeamMatches, TabTitle = "mérkőzések", Data = new MatchesModel { Matches = Matches, TeamId = Team.Id, Teams = UoW.TeamRepo.GetTeamsByMatches(Matches), Leagues = UoW.LeagueRepo.GetLeaguesByMatches(Matches) } });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Players, TabTitle = Resources.GetString(Resource.String.teamPlayers), Data = Players.Select(p => new ListModel { Text = p.Name, Object = p }) } );
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.TeamMatches, TabTitle = Resources.GetString(Resource.String.teamMatches), Data = new MatchesModel { Matches = Matches, TeamId = Team.Id, Teams = UoW.TeamRepo.GetTeamsByMatches(Matches), Leagues = UoW.LeagueRepo.GetLeaguesByMatches(Matches) } });
 
                 Android.Support.V4.App.Fragment fr = TabbedViewPagerFragment.Instance(tabModels);
                 Android.Support.V4.App.FragmentTransaction ft = SupportFragmentManager.BeginTransaction();

@@ -24,6 +24,8 @@ namespace Floorball.Droid.Activities
 
         public UnitOfWork UoW { get; set; }
 
+        public static SortedSet<CountriesEnum> Countries { get; set; }
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -78,7 +80,7 @@ namespace Floorball.Droid.Activities
 
         protected virtual void Reconnecting()
         {
-            ShowProgressBar("Újracsatlakozás...");
+            ShowProgressBar(Resources.GetString(Resource.String.reconnecting));
         }
 
         protected virtual void DisconenctedHandler()
@@ -88,7 +90,7 @@ namespace Floorball.Droid.Activities
 
         protected virtual void Disconencted()
         {
-            HideProgressBar("Nincs csatlakozva");
+            HideProgressBar(Resources.GetString(Resource.String.disconnected));
         }
 
         protected virtual void ConnectedHandler()
@@ -101,7 +103,7 @@ namespace Floorball.Droid.Activities
         {
             if (!Updater.Updater.Instance.IsSyncing)
             {
-                HideProgressBar("Csatlakozva");
+                HideProgressBar(Resources.GetString(Resource.String.connected));
             }
         }
 
@@ -112,7 +114,7 @@ namespace Floorball.Droid.Activities
 
         protected virtual void Connecting()
         {
-            ShowProgressBar("Csatlakozás");
+            ShowProgressBar(Resources.GetString(Resource.String.connecting));
         }
 
         private void MatchTimeUpdatedHandler(int id)
@@ -175,13 +177,13 @@ namespace Floorball.Droid.Activities
         {
             if (!(FloorballClient.Instance.ConnectionState == ConnectionState.Connecting || FloorballClient.Instance.ConnectionState == ConnectionState.Reconnecting))
             {
-                HideProgressBar("Csatlakozva");
+                HideProgressBar(Resources.GetString(Resource.String.connected));
             }
         }
 
         protected virtual void UpdateStarted()
         {
-            ShowProgressBar("Csatlakozás...");
+            ShowProgressBar(Resources.GetString(Resource.String.connecting));
         }
 
         public void OnClick(IDialogInterface dialog, int which)

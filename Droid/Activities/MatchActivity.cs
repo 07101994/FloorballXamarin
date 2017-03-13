@@ -66,9 +66,9 @@ namespace Floorball.Droid.Activities
             if (savedInstanceState == null)
             {
                 var tabModels = new List<TabbedViewPagerModel>();
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Events, TabTitle = "Események", Data = new MatchEvents { Events = CreateEvents(), Match = Match, HomeTeam = HomeTeam, AwayTeam = AwayTeam } });
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatccPlayers, TabTitle = "Játékosok", Data = new MatchPlayersModel { Events = Events, HomeTeam = HomeTeam, AwayTeam = AwayTeam, Match = Match } });
-                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchDetail, TabTitle = "Részletek", Data = new MatchDetailModel { Match = Match, League = League, Stadium = Stadium } });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.Events, TabTitle = Resources.GetString(Resource.String.matchEvents), Data = new MatchEvents { Events = CreateEvents(), Match = Match, HomeTeam = HomeTeam, AwayTeam = AwayTeam } });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatccPlayers, TabTitle = Resources.GetString(Resource.String.matchPlayers), Data = new MatchPlayersModel { Events = Events, HomeTeam = HomeTeam, AwayTeam = AwayTeam, Match = Match } });
+                tabModels.Add(new TabbedViewPagerModel { FragmentType = FragmentType.MatchDetail, TabTitle = Resources.GetString(Resource.String.matchDetails), Data = new MatchDetailModel { Match = Match, League = League, Stadium = Stadium } });
 
                 Android.Support.V4.App.Fragment fr = TabbedViewPagerFragment.Instance(tabModels);
                 Android.Support.V4.App.FragmentTransaction ft = SupportFragmentManager.BeginTransaction();

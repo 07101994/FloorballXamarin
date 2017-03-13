@@ -14,6 +14,7 @@ using Floorball.Droid.Models;
 using Floorball.LocalDB.Tables;
 using Floorball.Droid.ViewHolders;
 using Android.Animation;
+using Android.Content.Res;
 
 namespace Floorball.Droid.Adapters
 {
@@ -28,13 +29,13 @@ namespace Floorball.Droid.Adapters
             Teams = teams;
             Leagues = leagues;
             Context = ctx;
-
-            Init("Élő", liveMatches);
-            Init("Hamarosan", soonMatches);
+            
+            Init(Context.Resources.GetString(Resource.String.live), Context.Resources.GetString(Resource.String.noActualLiveMatches), liveMatches);
+            Init(Context.Resources.GetString(Resource.String.soon), Context.Resources.GetString(Resource.String.noActualMatches), soonMatches);
 
         }
 
-        private void Init(string title, IEnumerable<Match> matches)
+        private void Init(string title, string noMatchString, IEnumerable<Match> matches)
         {
             ListItems.Add(new ListItem { Index = MainHeaders.Count, Type = 0 });
             MainHeaders.Add(new HeaderModel { Title = title });
@@ -44,7 +45,7 @@ namespace Floorball.Droid.Adapters
             if (matches.Count() == 0)
             {
                 ListItems.Add(new ListItem { Index = Contents.Count, Type = 3 });
-                Contents.Add(new LiveMatchModelBase { Text = "3 napon belül nincs meccs." });
+                Contents.Add(new LiveMatchModelBase { Text = noMatchString });
             }
 
             while (i < matches.Count())

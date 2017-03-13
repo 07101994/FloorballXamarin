@@ -268,13 +268,10 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values-mdpi\dimens.xml" />
-    <AndroidResource Include="Resources\values-mdpi\Arrays.xml">
+    <AndroidResource Include="Resources\values\Arrays.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\values-mdpi\colors.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\values-mdpi\Strings.xml">
+    <AndroidResource Include="Resources\values\colors.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values-mdpi\Style.axml">
@@ -576,6 +573,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-hu\Strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <Import Project="..\Floorball\Floorball.projitems" Label="Shared" Condition="Exists('..\Floorball\Floorball.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
