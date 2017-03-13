@@ -38,14 +38,13 @@ namespace Floorball.Droid.Activities
 
         public League League { get; set; }
 
-        public IEnumerable<Event> Events { get; set; }
-
-        public IEnumerable<EventMessage> EventMessages { get; set; }
+        public IEnumerable<LocalDB.Tables.Event> Events { get; set; }
 
         public IEnumerable<Referee> Referees { get; set; }
 
         public Stadium Stadium { get; set; }
 
+        public List<EventMessage> EventMessages { get; set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -89,12 +88,12 @@ namespace Floorball.Droid.Activities
 
                     if (e.TeamId == HomeTeam.Id)
                     {
-                        eventModel.Player = HomeTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().ShortName;
+                        eventModel.Player = HomeTeamPlayers.Where(p => p.RegNum == e.PlayerId).First();
                         eventModel.ViewType = 0;
                     }
                     else
                     {
-                        eventModel.Player = AwayTeamPlayers.Where(p => p.RegNum == e.PlayerId).First().ShortName;
+                        eventModel.Player = AwayTeamPlayers.Where(p => p.RegNum == e.PlayerId).First();
                         eventModel.ViewType = 1;
                     }
 
@@ -115,11 +114,19 @@ namespace Floorball.Droid.Activities
                             {
                                 eventModel.ResourceId = Resource.Drawable.ball;
                                 eventModel.IsGoal = true;
+
+                                var assist = Events.FirstOrDefault(a => a.Time == e.Time && a.Type == "A");
+                                if (assist != null)
+                                {
+                                    var player = assist.TeamId == HomeTeam.Id ? HomeTeamPlayers.Where(p => p.RegNum == e.PlayerId).First() : AwayTeamPlayers.Where(p => p.RegNum == e.PlayerId).First();
+                                    eventModel.Assist = new MatchEventModel { ResourceId = Resource.Drawable.ball , Player = player };
+                                }
                             }
                         }
                     }
 
                     eventModel.Time = e.Time;
+                    eventModel.EventMessage = EventMessages.First(em => em.Id == e.EventMessageId);
                     events.Add(eventModel);
                 }
             }
@@ -156,8 +163,8 @@ namespace Floorball.Droid.Activities
             League = UoW.LeagueRepo.GetLeagueById(Match.LeagueId);
             Stadium = UoW.StadiumRepo.GetStadiumById(Match.StadiumId);
             Referees = Match.Referees;
-            EventMessages = UoW.EventMessageRepo.GetAllEventMessage();
             Events = UoW.EventRepo.GetEventsByMatch(Match.Id).OrderByDescending(e => e.Time);
+            EventMessages = UoW.EventMessageRepo.GetAllEventMessage().ToList();
         }
 
         protected override void InitActivityProperties()

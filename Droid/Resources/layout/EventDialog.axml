@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+  <LinearLayout
+    android:id="@+id/firstEvent"
+    android:layout_height="40dp"
+    android:layout_width="match_parent">
+    <ImageView
+        android:id="@+id/eventImage"
+        android:layout_height="match_parent"
+        android:layout_width="40dp"
+        android:scaleType="centerInside"
+        android:layout_marginRight="10dp"/>
+    <TextView
+          android:id="@+id/playerName"
+          android:layout_height="match_parent"
+          android:layout_width="wrap_content"
+          android:gravity="center" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/secondEvent"
+    android:layout_height="40dp"
+    android:layout_width="match_parent">
+    <ImageView
+        android:id="@+id/eventImage"
+        android:layout_height="match_parent"
+        android:layout_width="40dp"
+        android:scaleType="centerInside"
+        android:layout_marginRight="10dp"/>
+    <TextView
+          android:id="@+id/playerName"
+          android:layout_height="match_parent"
+          android:layout_width="wrap_content"
+          android:gravity="center" />
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/message"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:ellipsize="none"
+    android:maxLines="100"
+    android:scrollHorizontally="false"
+    android:layout_marginLeft="8dp"
+    android:layout_marginBottom="8dp"
+    />
+  
+  
+</LinearLayout>

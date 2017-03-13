@@ -19,7 +19,7 @@ namespace Floorball.Droid.Adapters
     public class MatchPlayersAdapter : BaseRecyclerViewAdapter<MatchPlayerItemModel>
     {
 
-        public MatchPlayersAdapter(IEnumerable<Player> homePlayers, IEnumerable<Player> awayPlayers, IEnumerable<Event> events) : base(new List<MatchPlayerItemModel>()) 
+        public MatchPlayersAdapter(IEnumerable<Player> homePlayers, IEnumerable<Player> awayPlayers, IEnumerable<LocalDB.Tables.Event> events) : base(new List<MatchPlayerItemModel>()) 
         {
             List<PlayerWithEventsModel> homePlayersWithEvents = CreatePlayerEventsModel(homePlayers, events);
             List<PlayerWithEventsModel> awayPlayersWithEvents = CreatePlayerEventsModel(awayPlayers, events);
@@ -43,7 +43,7 @@ namespace Floorball.Droid.Adapters
 
         }
 
-        private List<PlayerWithEventsModel> CreatePlayerEventsModel(IEnumerable<Player> players, IEnumerable<Event> events)
+        private List<PlayerWithEventsModel> CreatePlayerEventsModel(IEnumerable<Player> players, IEnumerable<LocalDB.Tables.Event> events)
         {
             List<PlayerWithEventsModel> model = new List<PlayerWithEventsModel>();
 

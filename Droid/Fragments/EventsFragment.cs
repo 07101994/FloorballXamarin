@@ -31,6 +31,7 @@ namespace Floorball.Droid.Fragments
         public Team HomeTeam { get; set; }
         public Team AwayTeam { get; set; }
         public List<MatchEventModel> Events { get; set; }
+        public IEnumerable<EventMessage> EventMessages { get; set; }
 
         public static EventsFragment Instance(IEnumerable<MatchEventModel> events, Match match, Team homeTeam, Team awayTeam)
         {
@@ -51,12 +52,27 @@ namespace Floorball.Droid.Fragments
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your fragment here
+            EventMessages = UoW.EventMessageRepo.GetAllEventMessage();
+
             Events = Arguments.GetObject<IEnumerable<MatchEventModel>>("events").ToList();
             Match = Arguments.GetObject<Match>("match");
             HomeTeam = Arguments.GetObject<Team>("homeTeam");
             AwayTeam = Arguments.GetObject<Team>("awayTeam");
             adapter = new EventsAdapter(Events);
+            adapter.ClickedObject += Adapter_ClickedObject;
+        }
+
+        private void Adapter_ClickedObject(object sender, object e)
+        {
+            FragmentTransaction ft = Activity.SupportFragmentManager.BeginTransaction();
+            Fragment prev = Activity.SupportFragmentManager.FindFragmentByTag("eventdialog");
+            if (prev != null)
+            {
+                ft.Remove(prev);
+            }
+
+            DialogFragment dialog = EventDialogFragment.Instance(e as MatchEventModel);
+            dialog.Show(ft, "dialog");
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -89,8 +105,6 @@ namespace Floorball.Droid.Fragments
             return root;
         }
 
-        
-
         protected override void MatchTimeUpdated(int matchId)
         {
             if (matchId == Match.Id)
@@ -112,9 +126,9 @@ namespace Floorball.Droid.Fragments
 
             if (e.Type != "A")
             {
-                var eventModel = new MatchEventModel { Id = e.Id };
+                var eventModel = new Models.MatchEventModel { Id = e.Id };
 
-                eventModel.Player = UoW.PlayerRepo.GetPlayerById(e.PlayerId).ShortName;
+                eventModel.Player = UoW.PlayerRepo.GetPlayerById(e.PlayerId);
 
                 Match.Time = Match.Time < e.Time ? e.Time : Match.Time;
 
@@ -165,11 +179,17 @@ namespace Floorball.Droid.Fragments
                                 });
                             }
                             eventModel.ResourceId = Resource.Drawable.ball;
+                            var assist = UoW.EventRepo.GetAssisByGoal(e.Id);
+                            if (assist != null)
+                            {
+                                eventModel.Assist = new MatchEventModel { ResourceId = Resource.Drawable.ball, Player = Match.Players.First(p => p.RegNum == assist.PlayerId) };
+                            }
                         }
                     }
                 }
 
                 eventModel.Time = e.Time;
+                eventModel.EventMessage = UoW.EventMessageRepo.GetEventMessageById(e.EventMessageId);
                 Events.Add(eventModel);
                 Events = Events.OrderByDescending(ev => ev.Time).ToList();
                 Activity.RunOnUiThread(() =>
@@ -226,27 +246,26 @@ namespace Floorball.Droid.Fragments
 
         }
 
-        private List<MatchEventModel> CreateEvents(IEnumerable<Event> events)
+        private List<Models.MatchEventModel> CreateEvents(IEnumerable<LocalDB.Tables.Event> events)
         {
-            var eventmodels = new List<MatchEventModel>();
+            var eventmodels = new List<Models.MatchEventModel>();
 
             foreach (var e in events)
             {
                 if (e.Type != "A")
                 {
-                    var eventModel = new MatchEventModel { Id = e.Id };
+                    var eventModel = new Models.MatchEventModel { Id = e.Id };
 
                     if (e.TeamId == HomeTeam.Id)
                     {
-                        eventModel.Player = HomeTeam.Players.Where(p => p.RegNum == e.PlayerId).First().ShortName;
+                        eventModel.Player = HomeTeam.Players.Where(p => p.RegNum == e.PlayerId).First();
                         eventModel.ViewType = 0;
                     }
                     else
                     {
-                        eventModel.Player = AwayTeam.Players.Where(p => p.RegNum == e.PlayerId).First().ShortName;
+                        eventModel.Player = AwayTeam.Players.Where(p => p.RegNum == e.PlayerId).First();
                         eventModel.ViewType = 1;
                     }
-
 
                     if (e.Type == "P2" || e.Type == "P10")
                     {

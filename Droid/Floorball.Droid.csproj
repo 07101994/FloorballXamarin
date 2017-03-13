@@ -162,6 +162,7 @@
     <Compile Include="Adapters\ListAdapter.cs" />
     <Compile Include="Fragments\ActualFragment.cs" />
     <Compile Include="Fragments\AppInitFragment.cs" />
+    <Compile Include="Fragments\EventDialogFragment.cs" />
     <Compile Include="Fragments\EventsFragment.cs" />
     <Compile Include="Fragments\LeagueMatchesFragmentcs.cs" />
     <Compile Include="Fragments\MatchDetailsFragment.cs" />
@@ -411,6 +412,9 @@
     </AndroidResource>
     <AndroidResource Include="Resources\layout\MatchDetail.axml">
       <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\EventDialog.axml">
+      <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>

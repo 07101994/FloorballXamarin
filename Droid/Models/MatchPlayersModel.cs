@@ -15,7 +15,7 @@ namespace Floorball.Droid.Models
 {
     public class MatchPlayersModel
     {
-        public IEnumerable<Event> Events { get; set; }
+        public IEnumerable<LocalDB.Tables.Event> Events { get; set; }
         public Match Match { get; set; }
         public Team HomeTeam { get; set; }
         public Team AwayTeam { get; set; }

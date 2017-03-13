@@ -28,7 +28,7 @@ namespace Floorball.Droid.Activities
 
         public Referee Referee { get; set; }
 
-        public IEnumerable<Event> Events { get; set; }
+        public IEnumerable<LocalDB.Tables.Event> Events { get; set; }
 
         public IEnumerable<League> Leagues { get; set; }
 
@@ -63,7 +63,7 @@ namespace Floorball.Droid.Activities
 
             foreach (var league in Leagues)
             {
-                List<Event> leagueEvents = new List<Event>();
+                List<LocalDB.Tables.Event> leagueEvents = new List<LocalDB.Tables.Event>();
                 IEnumerable<int> leagueMatchIds = Matches.Where(m => m.LeagueId == league.Id).Select(m => m.Id);
                 foreach (var e in Events)
                 {
@@ -114,7 +114,7 @@ namespace Floorball.Droid.Activities
 
             Referee = Intent.GetObject<Referee>("referee");
             Matches = UoW.MatchRepo.GetMatchesByReferee(Referee.Id);
-            List<Event> events = new List<Event>();
+            List<LocalDB.Tables.Event> events = new List<LocalDB.Tables.Event>();
             Matches.Select(m => UoW.EventRepo.GetEventsByMatch(m.Id)).ToList().ForEach(e => events.AddRange(e));
             Events = events;
             Leagues = UoW.LeagueRepo.GetLeaguesByReferee(Referee.Id).OrderByDescending(l => l.Year);

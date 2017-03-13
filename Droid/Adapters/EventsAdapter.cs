@@ -29,8 +29,8 @@ namespace Floorball.Droid.Adapters
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            var vh = holder as EventViewHolder;
-            vh.Player.Text = ListItems[position].Player;
+            var vh = holder as EventViewHolder<MatchEventModel>;
+            vh.Player.Text = ListItems[position].Player.ShortName;
             vh.Time.Text = UIHelper.GetMatchFullTime(ListItems[position].Time);
             vh.Image.SetImageResource(ListItems[position].ResourceId);
 
@@ -49,7 +49,7 @@ namespace Floorball.Droid.Adapters
                 itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.AwayEventItem, parent, false);
             }
             
-            return new EventViewHolder(itemView); ;
+            return new EventViewHolder<MatchEventModel>(itemView,OnClickObject,this); ;
         }
     }
 }

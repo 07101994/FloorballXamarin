@@ -44,6 +44,17 @@ namespace Floorball.LocalDB.Repository
 
 		}
 
+        public Event GetAssisByGoal(int eventid)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                var goal = db.Get<Event>(eventid);
+
+                return db.GetAllWithChildren<Event>(e => e.Time == goal.Time && e.Type == "A" && e.MatchId == goal.MatchId).First();
+            }
+
+        }
+
         #endregion
 
         #region POST

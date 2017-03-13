@@ -17,7 +17,7 @@ namespace Floorball.Droid.Models
     {
         public string Name { get; set; }
         public string Number { get; set; }
-        public IEnumerable<Event> Events { get; set; }
+        public IEnumerable<LocalDB.Tables.Event> Events { get; set; }
 
         public int Goals
         {

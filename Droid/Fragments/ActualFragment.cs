@@ -107,7 +107,7 @@ namespace Floorball.Droid.Fragments
 
         private void UpdateGoals(int eventId, int count)
         {
-            Event e = UoW.EventRepo.GetEventById(eventId);
+            LocalDB.Tables.Event e = UoW.EventRepo.GetEventById(eventId);
 
             if (e.Type == "G")
             {
