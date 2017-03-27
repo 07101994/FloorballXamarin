@@ -70,6 +70,14 @@ namespace Floorball.LocalDB.Repository
 			return teams;
 		}
 
+        public IEnumerable<Team> GetTeamsByLeagues(List<int> leagueids)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                return db.GetAllWithChildren<Team>(t => leagueids.Contains(t.LeagueId));
+            }
+        }
+
         #endregion
 
 

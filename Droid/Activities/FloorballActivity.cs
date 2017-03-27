@@ -14,6 +14,7 @@ using Floorball.Droid.Fragments;
 using System.Threading.Tasks;
 using Floorball.Signalr;
 using Microsoft.AspNet.SignalR.Client;
+using Floorball.LocalDB.Tables;
 
 namespace Floorball.Droid.Activities
 {
@@ -24,7 +25,7 @@ namespace Floorball.Droid.Activities
 
         public UnitOfWork UoW { get; set; }
 
-        public static SortedSet<CountriesEnum> Countries { get; set; }
+        protected IEnumerable<League> Leagues { get; set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -244,36 +245,16 @@ namespace Floorball.Droid.Activities
             editor.Apply();
         }
 
-        protected SortedSet<CountriesEnum> GetCountriesFromSharedPreference(ISharedPreferences prefs)
+        protected SortedSet<string> GetLeaguesFromSharedPreference(ISharedPreferences prefs)
         {
-            SortedSet<CountriesEnum> countries = new SortedSet<CountriesEnum>();
+            SortedSet<string> leagues = new SortedSet<string>();
 
-            if (prefs.GetBoolean(Resources.GetString(Resource.String.hungary), false))
+            foreach (var country in Enum.GetValues(typeof(CountriesEnum)).Cast<CountriesEnum>())
             {
-                countries.Add(CountriesEnum.HU);
+                leagues.UnionWith(prefs.GetStringSet(country.ToString().ToLower(), new List<string>()).ToList());
             }
 
-            if (prefs.GetBoolean(Resources.GetString(Resource.String.sweden), false))
-            {
-                countries.Add(CountriesEnum.SE);
-            }
-
-            if (prefs.GetBoolean(Resources.GetString(Resource.String.finnland), false))
-            {
-                countries.Add(CountriesEnum.FL);
-            }
-
-            if (prefs.GetBoolean(Resources.GetString(Resource.String.switzerland), false))
-            {
-                countries.Add(CountriesEnum.SW);
-            }
-
-            if (prefs.GetBoolean(Resources.GetString(Resource.String.czech), false))
-            {
-                countries.Add(CountriesEnum.CZ);
-            }
-
-            return countries;
+            return leagues;
         }
 
         protected virtual void InitProperties()

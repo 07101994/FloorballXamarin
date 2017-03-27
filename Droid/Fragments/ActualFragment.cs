@@ -158,7 +158,6 @@ namespace Floorball.Droid.Fragments
             LiveMatches = ActualMatches.Where(m => m.State == StateEnum.Playing);
             SoonMatches = ActualMatches.Where(m => m.State != StateEnum.Playing);
             Teams = GetActualTeams(ActualMatches) ?? new List<Team>();
-            Leagues = UoW.LeagueRepo.GetAllLeague().Where(l => MainActivity.Countries.Contains(l.Country)) ?? new List<League>();
 
             Activity.RunOnUiThread(() =>
             {

@@ -1,31 +1,51 @@
-﻿<PreferenceScreen  xmlns:android="http://schemas.android.com/apk/res/android">
-  <!-- opens a subscreen of settings -->
+﻿<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:title="@string/settings"
+       >
 
   <PreferenceCategory
-    android:title="@string/countries"
+    android:title="@string/leagues"
     >
 
-    <CheckBoxPreference
-             android:key="@string/hungary"
-             android:title="@string/hungary"/>
+    <PreferenceScreen
+          android:key="leaguesSettings"
+          android:title="@string/countries">
+      <PreferenceCategory
+              android:key="countriesCategory"
+              android:title="@string/countries" />
+    </PreferenceScreen>
 
-    <CheckBoxPreference
-             android:key="@string/sweden"
-             android:title="@string/sweden"/>
+  </PreferenceCategory>
 
-    <CheckBoxPreference
-             android:key="@string/finnland"
-             android:title="@string/finnland"/>
+  <PreferenceCategory
+    android:title="@string/notification"
+    >
 
-    <CheckBoxPreference
-                 android:key="@string/switzerland"
-                 android:title="@string/switzerland"/>
+    <PreferenceScreen
+      android:key="notificationSettings"
+      android:title="@string/notification"
+      >
+      <PreferenceCategory
+              android:key="notificationCategory"
+              android:title="@string/notification" />
 
-    <CheckBoxPreference
-                 android:key="@string/czech"
-                 android:title="@string/czech"/>
+      <android.support.v14.preference.MultiSelectListPreference
+        android:key="starts"
+        android:title="@string/notifyStart"
+        />
 
+      <android.support.v14.preference.MultiSelectListPreference
+       android:key="event"
+       android:title="@string/notifyEvent"
+        />
 
+      <android.support.v14.preference.MultiSelectListPreference
+       android:key="today"
+       android:title="@string/notifyToday"
+        />
+      
+    </PreferenceScreen>
+    
   </PreferenceCategory>
   
 </PreferenceScreen>

@@ -84,6 +84,14 @@ namespace Floorball.LocalDB.Repository
             return leagues;
         }
 
+        public List<League> GetLeaguesByIds(List<int> leagueIds)
+        {
+            using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                return db.GetAllWithChildren<League>(l => leagueIds.Contains(l.Id));
+            }
+        }
+
         #endregion
 
         #region POST

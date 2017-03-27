@@ -2,7 +2,7 @@
 <resources>
 
   <!--English-->
-  
+
   <!--Menu-->
   <string name="menu">Menu</string>
   <string name="league">Leagues</string>
@@ -40,14 +40,14 @@
   <string name="noActualMatches">No match in 3 days</string>
   <string name="live">Live</string>
   <string name="soon">Soon</string>
-  
+
   <!--Countries-->
   <string name="countries">Countries</string>
-  <string name="hungary">Hungary</string>
-  <string name="sweden">Sweden</string>
-  <string name="finnland">Finnland</string>
-  <string name="switzerland">Switzerland</string>
-  <string name="czech">Czech Republic</string>
+  <string name="hu">Hungary</string>
+  <string name="se">Sweden</string>
+  <string name="fl">Finnland</string>
+  <string name="sw">Switzerland</string>
+  <string name="cz">Czech Republic</string>
 
   <!--AlertDialog-->
   <string name="errorDialogTitle">Error occured</string>
@@ -78,7 +78,7 @@
   <string name="leagueMatches">Matches</string>
   <string name="leagueTable">Table</string>
   <string name="leagueStats">Stats</string>
-  
+
   <!--MatchActivity-->
   <string name="matchEvents">Events</string>
   <string name="matchPlayers">Players</string>
@@ -91,5 +91,13 @@
   <!--Sex-->
   <string name="men">Men</string>
   <string name="women">Women</string>
-  
+
+  <!--Preference-->
+  <string name="leagues">Leagues</string>
+  <string name="countries">Chooes country</string>
+  <string name="notification">Notification settings</string>
+  <string name="notifyStart">Notify match start in 1 hour</string>
+  <string name="notifyEvent">Notify event occured on match</string>
+  <string name="notifyToday">Notify today matchesr</string>
+
 </resources>

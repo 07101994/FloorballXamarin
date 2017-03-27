@@ -13,7 +13,6 @@ using Floorball.REST;
 using Floorball.Updater;
 using System.Linq;
 using Android.Content;
-using Android.Preferences;
 using System.Globalization;
 using Floorball.LocalDB;
 using Floorball.LocalDB.Tables;
@@ -27,13 +26,16 @@ using Floorball.Droid.Utils;
 using Floorball.Signalr;
 using Microsoft.AspNet.SignalR.Client;
 using Floorball.Droid.Models;
+using Firebase.Iid;
+using Floorball.Droid.Utils.Notification;
+using Android.Support.V7.Preferences;
 
 namespace Floorball.Droid.Activities
 {
 
     [Activity(Label = "Floorball", MainLauncher = true, Icon = "@mipmap/ic_launcher")]
     //[Activity(Label = "Floorball")]
-    public class MainActivity : FloorballActivity, ISharedPreferencesOnSharedPreferenceChangeListener
+    public class MainActivity : FloorballActivity, ISharedPreferencesOnSharedPreferenceChangeListener, PreferenceFragmentCompat.IOnPreferenceStartScreenCallback
     {
         public string[] MenuTitles { get; set; }
 
@@ -49,13 +51,13 @@ namespace Floorball.Droid.Activities
 
         private MyActionBarDrawerToggle ActionBarDrawerToggle { get; set; }
 
-        public IEnumerable<League> Leagues { get; set; }
-
         public List<Match> ActualMatches { get; set; }
 
         public IEnumerable<Team> ActualTeams { get; set; }
 
         public IEnumerable<Team> Teams { get; set; }
+
+        public SortedSet<string> LeagueIds { get; set; }
 
         private DateTime lastSyncDate;
         private ISharedPreferences prefs;
@@ -65,11 +67,12 @@ namespace Floorball.Droid.Activities
 			base.OnCreate (savedInstanceState);
             
             prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            prefs.RegisterOnSharedPreferenceChangeListener(this);
             lastSyncDate = DateTime.Parse(prefs.GetString("LastSyncDate", "1900-12-12"));
             //lastSyncDate = new DateTime(1900,12,12);
 
             //Init country from preference
-            Countries = GetCountriesFromSharedPreference(prefs);
+            LeagueIds = GetLeaguesFromSharedPreference(prefs);
 
             //Set content view
             SetContentView(Resource.Layout.Main);
@@ -82,6 +85,12 @@ namespace Floorball.Droid.Activities
 
             //Get updates and connect to signalr
             Init();
+
+            //Check play services
+            if (FirebaseNotificationService.Instance(this).IsPlayServicesAvailable())
+            {
+               
+            }
 
         }
 
@@ -138,6 +147,7 @@ namespace Floorball.Droid.Activities
             }
             catch (Exception ex)
             {
+                var strace = ex.StackTrace;
                 ShowAlertDialog(ex);
             }
         }
@@ -272,7 +282,7 @@ namespace Floorball.Droid.Activities
             {
                 try
                 {
-                    if (!(await FloorballClient.Instance.Connect(Countries)))
+                    if (!(await FloorballClient.Instance.Connect(LeagueIds)))
                     {
                         IsStarted = true;
                         RunOnUiThread(() => HideProgressBar("Nincs csatlakozva!"));
@@ -304,7 +314,12 @@ namespace Floorball.Droid.Activities
             {
                 return true;
             }
-            return base.OnOptionsItemSelected(item);
+
+            SupportFragmentManager.PopBackStackImmediate();
+
+            SetDrawerState(true);
+
+            return false;
         }
 
         public override void OnBackPressed()
@@ -322,6 +337,8 @@ namespace Floorball.Droid.Activities
                 }
                 else
                 {
+                    SetDrawerState(true);
+
                     base.OnBackPressed();
                 }
             }
@@ -345,22 +362,19 @@ namespace Floorball.Droid.Activities
 
         public void OnSharedPreferenceChanged(ISharedPreferences sharedPreferences, string key)
         {
-            if (Countries.Select(c => c.ToString()).Contains(key))
-            {
-                if (sharedPreferences.GetBoolean(key,false))
-                {
-                    Countries.Add(key.ToEnum<CountriesEnum>());
-                }
-            }
+            LeagueIds = GetLeaguesFromSharedPreference(prefs);
+            InitProperties();
         }
 
         protected override void InitProperties()
         {
             base.InitProperties();
 
+            var leagueIds = LeagueIds.Select(l => Convert.ToInt32(l)).ToList();
+
             //Initialize properties from database
-            Leagues = UoW.LeagueRepo.GetAllLeague().Where(l => Countries.Contains(l.Country)) ?? new List<League>();
-            Teams = UoW.TeamRepo.GetAllTeam().Where(t => Countries.Contains(t.Country)) ?? new List<Team>();
+            Leagues = UoW.LeagueRepo.GetLeaguesByIds(leagueIds) ?? new List<League>();
+            Teams = UoW.TeamRepo.GetTeamsByLeagues(leagueIds) ?? new List<Team>();
             ActualMatches = UoW.MatchRepo.GetActualMatches(Leagues).OrderBy(a => a.LeagueId).ThenBy(a => a.Date).ToList() ?? new List<Match>().OrderBy(a => a.LeagueId).ToList();
             ActualTeams = GetActualTeams(ActualMatches) ?? new List<Team>();
         }
@@ -406,6 +420,55 @@ namespace Floorball.Droid.Activities
             }
         }
 
+        public bool OnPreferenceStartScreen(PreferenceFragmentCompat caller, PreferenceScreen pref)
+        {
+
+            var ft = SupportFragmentManager.BeginTransaction();
+
+            PreferenceFragmentCompat fragment;
+
+            if (pref.Key == "leaguesSettings")
+            {
+                fragment = ChooseLeaguesSettingsFragment.Instance(Leagues);
+            }
+            else
+            {
+                fragment = ChooseNotificationsSettingsFragment.Instance();
+            }
+
+            Bundle args = new Bundle();
+
+            args.PutString(PreferenceFragmentCompat.ArgPreferenceRoot, pref.Key);
+            fragment.Arguments = args;
+            ft.Replace(Resource.Id.content_frame, fragment, pref.Key).AddToBackStack(null).Commit();
+
+            SetDrawerState(false);
+
+            return true;
+
+        }
+
+        private void SetDrawerState(bool isEnabled)
+        {
+            if (isEnabled)
+            {
+                SupportActionBar.SetHomeButtonEnabled(false);
+                drawerLayout.SetDrawerLockMode(DrawerLayout.LockModeUnlocked);
+                ActionBarDrawerToggle.OnDrawerStateChanged(DrawerLayout.LockModeUnlocked);
+                ActionBarDrawerToggle.DrawerIndicatorEnabled = true;
+                ActionBarDrawerToggle.SyncState();
+            }
+            else
+            {
+                SupportActionBar.SetHomeButtonEnabled(true);
+                drawerLayout.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);
+                ActionBarDrawerToggle.OnDrawerStateChanged(DrawerLayout.LockModeLockedClosed);
+                ActionBarDrawerToggle.DrawerIndicatorEnabled = false;
+                ActionBarDrawerToggle.SyncState();
+            }
+        }
+
+        
     }
 }
 

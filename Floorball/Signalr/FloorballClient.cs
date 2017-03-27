@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Plugin.Connectivity.Abstractions;
+using Newtonsoft.Json;
 
 namespace Floorball.Signalr
 {
@@ -61,9 +62,9 @@ namespace Floorball.Signalr
             CrossConnectivity.Current.ConnectivityChanged += ConnectivityChanged;
         }
 
-        public async Task<bool> Connect(SortedSet<CountriesEnum> countries)
+        public async Task<bool> Connect(SortedSet<string> leagueIds)
         {
-            HubConnection = new HubConnection(connectionString, CreateQueryStringData(countries));
+            HubConnection = new HubConnection(connectionString, CreateQueryStringData(leagueIds));
             HubConnection.Error += HubConnectionError;
             HubConnection.StateChanged += HubConnectionStateChanged;
 
@@ -140,22 +141,11 @@ namespace Floorball.Signalr
             string msg = exception.Message;
         }
 
-        private Dictionary<string,string> CreateQueryStringData(SortedSet<CountriesEnum> countries)
+        private Dictionary<string,string> CreateQueryStringData(SortedSet<string> leagueIds)
         {
             var quersStringData = new Dictionary<string, string>();
-            string countriesQueryString = "";
 
-            foreach (var country in countries)
-            {
-                countriesQueryString += country.ToString() + ";";
-            }
-
-            if (countriesQueryString.Length > 0)
-            {
-                countriesQueryString = countriesQueryString.Remove(countriesQueryString.Length - 1);
-            }
-
-            quersStringData.Add("countries", countriesQueryString);
+            quersStringData.Add("leagues", JsonConvert.SerializeObject(leagueIds));
 
             return quersStringData;
         }

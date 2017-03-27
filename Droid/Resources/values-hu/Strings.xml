@@ -43,11 +43,11 @@
 
   <!--Countries-->
   <string name="countries">Országok</string>
-  <string name="hungary">Magyarország</string>
-  <string name="sweden">Svédország</string>
-  <string name="finnland">Finnország</string>
-  <string name="switzerland">Svájc</string>
-  <string name="czech">Csehország</string>
+  <string name="hu">Magyarország</string>
+  <string name="se">Svédország</string>
+  <string name="fl">Finnország</string>
+  <string name="sw">Svájc</string>
+  <string name="cz">Csehország</string>
 
   <!--AlertDialog-->
   <string name="errorDialogTitle">Hiba történt</string>
@@ -91,5 +91,13 @@
   <!--Sex-->
   <string name="men">Férfi</string>
   <string name="women">Női</string>
+
+  <!--Preference-->
+  <string name="leagues">Bajnokságok</string>
+  <string name="countries">Ország választása</string>
+  <string name="notification">Értesítések</string>
+  <string name="notifyStart">Meccs kezdete 1 órán belül</string>
+  <string name="notifyEvent">Meccsen esemény történt</string>
+  <string name="notifyToday">Mai napon lévő meccsek</string>
 
 </resources>
