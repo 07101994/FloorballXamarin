@@ -30,7 +30,7 @@
               android:title="@string/notification" />
 
       <android.support.v14.preference.MultiSelectListPreference
-        android:key="starts"
+        android:key="start"
         android:title="@string/notifyStart"
         />
 

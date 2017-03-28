@@ -13,10 +13,11 @@ using Android.Widget;
 using Android.Support.V7.Preferences;
 using Android.Support.V14.Preferences;
 using Floorball.LocalDB.Tables;
+using Firebase.Messaging;
 
 namespace Floorball.Droid.Fragments
 {
-    public class ChooseNotificationsSettingsFragment : PreferenceFragmentCompat
+    public class ChooseNotificationsSettingsFragment : PreferenceFragmentCompat, ISharedPreferencesOnSharedPreferenceChangeListener
     {
 
         public IEnumerable<League> Leagues { get; set; }
@@ -37,6 +38,7 @@ namespace Floorball.Droid.Fragments
             Leagues = UoW.LeagueRepo.GetAllLeague();
 
             var pref = PreferenceManager.GetDefaultSharedPreferences(Activity);
+            pref.RegisterOnSharedPreferenceChangeListener(this);
 
             var allLeague = new List<string>();
 
@@ -54,7 +56,7 @@ namespace Floorball.Droid.Fragments
             var filteredLeagues = Leagues.ToList();
             filteredLeagues.RemoveAll(l => !allLeague.Contains(l.Id.ToString()));
 
-            UpdateNotification("starts", filteredLeagues);
+            UpdateNotification("start", filteredLeagues);
             UpdateNotification("event", filteredLeagues);
             UpdateNotification("today", filteredLeagues);
 
@@ -63,7 +65,14 @@ namespace Floorball.Droid.Fragments
         public override void OnCreatePreferences(Bundle savedInstanceState, string rootKey)
         {
             SetPreferencesFromResource(Resource.Xml.Settings, rootKey);
+        }
 
+        public void OnSharedPreferenceChanged(ISharedPreferences sharedPreferences, string key)
+        {
+            foreach (var id in sharedPreferences.GetStringSet(key, new List<string>()))
+            {
+                FirebaseMessaging.Instance.SubscribeToTopic(key + "_" + id);
+            }
         }
 
         private void UpdateNotification(string key, List<League> filteredLeagues)
