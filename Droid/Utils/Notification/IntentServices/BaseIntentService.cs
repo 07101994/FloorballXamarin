@@ -36,7 +36,7 @@ namespace Floorball.Droid.Utils.Notification.IntentServices
                 .SetContentTitle(title)
                 .SetContentText(body)
                 .SetStyle(new NotificationCompat.BigTextStyle().BigText(body))
-                .SetAutoCancel(false)
+                .SetAutoCancel(true)
                 .SetSmallIcon(Resource.Mipmap.ic_launcher)
                 .SetLargeIcon(BitmapFactory.DecodeResource(Resources, Resource.Mipmap.ic_launcher))
                 .SetSound(defaultSoundUri)

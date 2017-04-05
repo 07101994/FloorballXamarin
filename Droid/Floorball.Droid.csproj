@@ -208,6 +208,7 @@
     <Compile Include="Adapters\TeamMatchesAdapter.cs" />
     <Compile Include="Adapters\TeamsAdapter.cs" />
     <Compile Include="Adapters\ListAdapter.cs" />
+    <Compile Include="FloorballAppication.cs" />
     <Compile Include="Fragments\ActualFragment.cs" />
     <Compile Include="Fragments\AppInitFragment.cs" />
     <Compile Include="Fragments\ChooseNotificationsSettingsFragment.cs" />

@@ -39,6 +39,8 @@ namespace Floorball.Droid.Activities
         {
             base.OnResume();
 
+            FloorballAppication.IsInBackround = false;
+
             Updater.Updater.Instance.UpdateStarted += UpdateStarted;
             Updater.Updater.Instance.UpdateEnded += UpdateEnded;
 
@@ -59,6 +61,8 @@ namespace Floorball.Droid.Activities
         protected override void OnPause()
         {
             base.OnPause();
+
+            FloorballAppication.IsInBackround = true;
 
             Updater.Updater.Instance.UpdateStarted -= UpdateStarted;
             Updater.Updater.Instance.UpdateEnded -= UpdateEnded;

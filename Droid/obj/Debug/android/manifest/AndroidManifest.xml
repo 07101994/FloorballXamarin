@@ -10,7 +10,7 @@
   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
   <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
   <uses-permission android:name="com.resitomi.floorball.permission.C2D_MESSAGE" />
-  <application android:label="Floorball" android:theme="@style/MyTheme" android:name="android.app.Application" android:allowBackup="true" android:debuggable="true">
+  <application android:label="Floorball" android:theme="@style/MyTheme" android:name="md58adaae2011559344c2f7ddd23db14084.FloorballAppication" android:allowBackup="true" android:debuggable="true">
     <receiver android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" android:exported="false" />
     <receiver android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:exported="true" android:permission="com.google.android.c2dm.permission.SEND">
       <intent-filter>
@@ -31,6 +31,7 @@
         <action android:name="com.google.firebase.MESSAGING_EVENT" />
       </intent-filter>
     </service>
+    <service android:enabled="true" android:exported="true" android:name="md5d6e3da0197d3ee95ea585d0c5424a4be.EventIntentService" />
     <activity android:label="LeagueActivity" android:name="md5d2583f8f42cd9f57caad90f29bc80c4a.LeagueActivity" />
     <activity android:label="LeaguesActivity" android:name="md5d2583f8f42cd9f57caad90f29bc80c4a.LeaguesActivity" />
     <activity android:label="MatchActivity" android:name="md5d2583f8f42cd9f57caad90f29bc80c4a.MatchActivity">

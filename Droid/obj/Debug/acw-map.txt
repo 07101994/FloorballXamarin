@@ -1,3 +1,7 @@
+Floorball.Droid.FloorballAppication, Floorball.Droid;md58adaae2011559344c2f7ddd23db14084.FloorballAppication
+Floorball.Droid.FloorballAppication, Floorball.Droid, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md58adaae2011559344c2f7ddd23db14084.FloorballAppication
+Floorball.Droid.FloorballAppication;md58adaae2011559344c2f7ddd23db14084.FloorballAppication
+floorball.droid.FloorballAppication;md58adaae2011559344c2f7ddd23db14084.FloorballAppication
 Floorball.Droid.ViewHolders.EventViewHolder`1, Floorball.Droid;md5034c8dcdf23316d594267ee4aeb2de00.EventViewHolder_1
 Floorball.Droid.ViewHolders.EventViewHolder`1, Floorball.Droid, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5034c8dcdf23316d594267ee4aeb2de00.EventViewHolder_1
 Floorball.Droid.ViewHolders.EventViewHolder`1;md5034c8dcdf23316d594267ee4aeb2de00.EventViewHolder_1

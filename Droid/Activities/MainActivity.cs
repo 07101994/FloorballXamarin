@@ -29,6 +29,7 @@ using Floorball.Droid.Models;
 using Firebase.Iid;
 using Floorball.Droid.Utils.Notification;
 using Android.Support.V7.Preferences;
+using Floorball.Droid.Utils.Notification.IntentServices;
 
 namespace Floorball.Droid.Activities
 {
@@ -94,6 +95,7 @@ namespace Floorball.Droid.Activities
                     Log.Debug("Refreshed Token:", FirebaseInstanceId.Instance.Token);
                 }
             }
+            StartService(new Intent(this, typeof(EventIntentService)));
 
         }
 
