@@ -19,10 +19,14 @@ using System.IO;
 using Floorball.Droid.Models;
 using Floorball.Droid.Fragments;
 using Floorball.Util;
+using Floorball.Droid.Utils;
+using Floorball.Signalr;
+using FloorballServer.Models.Floorball;
 
 namespace Floorball.Droid.Activities
 {
-    [Activity(Label = "MatchActivity")]//, MainLauncher = true, Icon = "@mipmap/ball")]
+    [Activity(Label = "MatchActivity")]
+    [IntentFilter(new[] { "Activity_Match" }, Categories = new[] { "android.intent.category.DEFAULT" })]
     public class MatchActivity : FloorballActivity
     {
 
@@ -38,7 +42,7 @@ namespace Floorball.Droid.Activities
 
         public League League { get; set; }
 
-        public IEnumerable<LocalDB.Tables.Event> Events { get; set; }
+        public IEnumerable<Event> Events { get; set; }
 
         public IEnumerable<Referee> Referees { get; set; }
 
@@ -155,7 +159,18 @@ namespace Floorball.Droid.Activities
         {
             base.InitProperties();
 
-            Match = UoW.MatchRepo.GetMatchById(Intent.GetIntExtra("id", 2));
+            EventModel e = Intent.GetObject<EventModel>("entity");
+
+            if (e != null)
+            {
+                FloorballClient.Instance.AddEventToMatch(e);
+                Match = UoW.MatchRepo.GetMatchById(e.MatchId);
+            }
+            else
+            {
+                Match = UoW.MatchRepo.GetMatchById(Intent.GetIntExtra("id", 2));
+            }
+
             HomeTeam = UoW.TeamRepo.GetTeamById(Match.HomeTeamId);
             AwayTeam = UoW.TeamRepo.GetTeamById(Match.AwayTeamId);
             HomeTeamPlayers = HomeTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.RegNum));
@@ -163,7 +178,7 @@ namespace Floorball.Droid.Activities
             League = UoW.LeagueRepo.GetLeagueById(Match.LeagueId);
             Stadium = UoW.StadiumRepo.GetStadiumById(Match.StadiumId);
             Referees = Match.Referees;
-            Events = UoW.EventRepo.GetEventsByMatch(Match.Id).OrderByDescending(e => e.Time);
+            Events = UoW.EventRepo.GetEventsByMatch(Match.Id).OrderByDescending(ev => ev.Time);
             EventMessages = UoW.EventMessageRepo.GetAllEventMessage().ToList();
         }
 

@@ -71,7 +71,7 @@ namespace Floorball.Droid.Fragments
         {
             foreach (var id in sharedPreferences.GetStringSet(key, new List<string>()))
             {
-                FirebaseMessaging.Instance.SubscribeToTopic(key + "_" + id);
+                FirebaseMessaging.Instance.SubscribeToTopic("event_" + id);
             }
         }
 

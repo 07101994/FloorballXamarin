@@ -89,7 +89,10 @@ namespace Floorball.Droid.Activities
             //Check play services
             if (FirebaseNotificationService.Instance(this).IsPlayServicesAvailable())
             {
-               
+                if (FirebaseInstanceId.Instance.Token != null)
+                {
+                    Log.Debug("Refreshed Token:", FirebaseInstanceId.Instance.Token);
+                }
             }
 
         }

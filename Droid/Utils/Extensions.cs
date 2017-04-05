@@ -36,7 +36,32 @@ namespace Floorball.Droid.Utils
 
         public static T GetObject<T>(this Intent intent, string key)
         {
-            return JsonConvert.DeserializeObject<T>(intent.GetStringExtra(key));
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(intent.GetStringExtra(key));
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
         }
+    }
+
+    public static class JavaExtension
+    {
+
+        public static Java.Lang.Object[] ToJavaArray(this List<string> list)
+        {
+            Java.Lang.Object[] array = new Java.Lang.Object[list.Count];
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                array[i] = new Java.Lang.String(list[i]);
+            }
+
+            return array;
+        }
+
+
     }
 }

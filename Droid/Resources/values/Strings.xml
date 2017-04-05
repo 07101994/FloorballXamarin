@@ -98,6 +98,13 @@
   <string name="notification">Notification settings</string>
   <string name="notifyStart">Notify match start in 1 hour</string>
   <string name="notifyEvent">Notify event occured on match</string>
-  <string name="notifyToday">Notify today matchesr</string>
+  <string name="notifyToday">Notify today matches</string>
+
+  <!--NotificationBody-->
+  <string name="homeGoalBody">[%1$s] %2$s - %3$s %4$s \'%5$s %6$d (%7$s)</string>
+  <string name="awayGoalBody">%1$s %2$s - %3$s [%4$s] \'%5$s %6$s (%7$s)</string>
+
+  <!--NotificationTitle-->
+  <string name="goalTitle">Gool!</string>
 
 </resources>

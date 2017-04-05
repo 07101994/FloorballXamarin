@@ -100,4 +100,11 @@
   <string name="notifyEvent">Meccsen esemény történt</string>
   <string name="notifyToday">Mai napon lévő meccsek</string>
 
+  <!--NotificationBody-->
+  <string name="homeGoalBody">[%1$s] %2$s - %3$s %4$s \'%5$s %6$d (%7$s)</string>
+  <string name="awayGoalBody">%1$s %2$s - %3$s [%4$s] \'%5$s %6$s (%7$s)</string>
+  
+  <!--NotificationTitle-->
+  <string name="goalTitle">Góól!</string>
+  
 </resources>

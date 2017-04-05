@@ -11,10 +11,12 @@ using Android.Views;
 using Android.Widget;
 using Firebase.Messaging;
 using Android.Util;
+using Floorball.Droid.Activities;
+using Floorball.Droid.Utils.Notification.IntentServices;
 
 namespace Floorball.Droid.Utils.Notification
 {
-    [Service]
+    [Service(Enabled =  true, Exported = true)]
     [IntentFilter(new[] { "com.google.firebase.MESSAGING_EVENT" })]
     class FloorballFirebaseMessagingService : FirebaseMessagingService
     {
@@ -22,9 +24,31 @@ namespace Floorball.Droid.Utils.Notification
         public override void OnMessageReceived(RemoteMessage message)
         {
             base.OnMessageReceived(message);
-            //Log.Debug("MESSAGING","Message received: " + message.Data["msg"]);
+
+            StartService(CreateIntent(message.Data));
             
+
         }
 
+        private Intent CreateIntent(IDictionary<string,string> message)
+        {
+            Intent intent = null;
+
+            switch (message["messageType"])
+            {
+                case "newEvent":
+
+                    intent = new Intent(this, typeof(EventIntentService));
+                    intent.PutObject("entity", message["entity"]);
+                    intent.PutObject("bodyArgs", message["titleArgs"]);
+                    intent.PutObject("titleArgs", message["bodyArgs"]);
+
+                    break;
+                default:
+                    break;
+            }
+
+            return intent;
+        }
     }
 }

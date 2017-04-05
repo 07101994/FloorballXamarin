@@ -256,6 +256,8 @@
     <Compile Include="Models\TeamsModel.cs" />
     <Compile Include="Utils\Notification\FirebaseNotificationService.cs" />
     <Compile Include="Utils\Notification\FloorballFirebaseMessagingService.cs" />
+    <Compile Include="Utils\Notification\IntentServices\BaseIntentService.cs" />
+    <Compile Include="Utils\Notification\IntentServices\EventIntentService.cs" />
     <Compile Include="ViewHolders\EventViewHolder.cs" />
     <Compile Include="ViewHolders\HeaderViewHolder.cs" />
     <Compile Include="ViewHolders\LeagueHeaderViewHolder.cs" />

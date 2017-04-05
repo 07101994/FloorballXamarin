@@ -166,6 +166,7 @@ namespace Floorball.Signalr
             UoW.EventRepo.RemoveEvent(eventId);
 
             //ui
+            EventDeleted?.Invoke(eventId);
 
         }
 
@@ -175,17 +176,17 @@ namespace Floorball.Signalr
             UoW.MatchRepo.UpdateMatchTime(matchId, newTime);
 
             //ui
-            MatchTimeUpdated(matchId);
+            MatchTimeUpdated?.Invoke(matchId);
 
         }
 
-        private void AddEventToMatch(EventModel e)
+        public void AddEventToMatch(EventModel e)
         {
             //db
             UoW.EventRepo.AddEvent(e.Id,e.MatchId,e.Type,e.Time,e.PlayerId,e.EventMessageId,e.TeamId);
 
             //ui
-            NewEventAdded(e.Id);
+            NewEventAdded?.Invoke(e.Id);
 
         }
 
@@ -198,17 +199,18 @@ namespace Floorball.Signalr
             switch (state)
             {
                 case StateEnum.Confirmed:
-                    
+
                     break;
                 case StateEnum.Playing:
-                    MatchStarted(matchId);
+                    MatchStarted?.Invoke(matchId);
                     break;
                 case StateEnum.Ended:
-                    MatchEnded(matchId);
+                    MatchEnded?.Invoke(matchId);
                     break;
                 default:
                     break;
             }
+            
         }
     }
 }

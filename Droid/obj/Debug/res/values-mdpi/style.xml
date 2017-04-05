@@ -1,0 +1,27 @@
+<resources><style name="MyTheme" parent="@style/Theme.AppCompat.Light.NoActionBar"><!--<item name="android:actionBarStyle">@style/MyActionBarTheme</item>--><!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:windowTranslucentStatus">true</item>--><item name="preferenceTheme">@style/PreferenceThemeOverlay</item></style><!--<style name="MyActionBarTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+
+    <item name="android:background">@color/primary_dark</item>
+    <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
+  </style>
+
+  <style name="MyTheme.ActionBar.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+  
+    <item name="android:textColor">@color/icons</item>
+  
+  </style>--><!--<style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+    <item name="tabMaxWidth">0dp</item>
+    <item name="tabIndicatorColor">?attr/colorAccent</item>
+    <item name="tabIndicatorHeight">2dp</item>
+    <item name="tabPaddingStart">12dp</item>
+    <item name="tabPaddingEnd">12dp</item>
+    <item name="tabBackground">?attr/selectableItemBackground</item>
+    <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
+    <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+  </style>
+  <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">?android:textColorSecondary</item>
+    <item name="textAllCaps">true</item>
+  </style>--></resources>

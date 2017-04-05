@@ -3741,14 +3741,17 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080028
 			public const int abc_toolbar_collapse_description = 2131230760;
 			
-			// aapt resource value: 0x7f080042
-			public const int actual = 2131230786;
+			// aapt resource value: 0x7f080045
+			public const int actual = 2131230789;
 			
 			// aapt resource value: 0x7f080037
 			public const int appbar_scrolling_view_behavior = 2131230775;
 			
-			// aapt resource value: 0x7f080051
-			public const int assistLabel = 2131230801;
+			// aapt resource value: 0x7f080054
+			public const int assistLabel = 2131230804;
+			
+			// aapt resource value: 0x7f080084
+			public const int awayGoalBody = 2131230852;
 			
 			// aapt resource value: 0x7f080038
 			public const int bottom_sheet_behavior = 2131230776;
@@ -3816,203 +3819,218 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080013
 			public const int common_signin_button_text_long = 2131230739;
 			
+			// aapt resource value: 0x7f080073
+			public const int connected = 2131230835;
+			
 			// aapt resource value: 0x7f080070
-			public const int connected = 2131230832;
-			
-			// aapt resource value: 0x7f08006d
-			public const int connecting = 2131230829;
-			
-			// aapt resource value: 0x7f08005c
-			public const int countries = 2131230812;
-			
-			// aapt resource value: 0x7f080061
-			public const int cz = 2131230817;
-			
-			// aapt resource value: 0x7f080068
-			public const int dateLabel = 2131230824;
-			
-			// aapt resource value: 0x7f08004c
-			public const int defeatLabel = 2131230796;
-			
-			// aapt resource value: 0x7f08006f
-			public const int disconnected = 2131230831;
-			
-			// aapt resource value: 0x7f08004b
-			public const int drawLabel = 2131230795;
-			
-			// aapt resource value: 0x7f080063
-			public const int errorDialogButton = 2131230819;
-			
-			// aapt resource value: 0x7f080062
-			public const int errorDialogTitle = 2131230818;
+			public const int connecting = 2131230832;
 			
 			// aapt resource value: 0x7f08005f
-			public const int fl = 2131230815;
+			public const int countries = 2131230815;
+			
+			// aapt resource value: 0x7f080064
+			public const int cz = 2131230820;
+			
+			// aapt resource value: 0x7f08006b
+			public const int dateLabel = 2131230827;
+			
+			// aapt resource value: 0x7f08003e
+			public const int default_web_client_id = 2131230782;
+			
+			// aapt resource value: 0x7f08004f
+			public const int defeatLabel = 2131230799;
+			
+			// aapt resource value: 0x7f080072
+			public const int disconnected = 2131230834;
+			
+			// aapt resource value: 0x7f08004e
+			public const int drawLabel = 2131230798;
+			
+			// aapt resource value: 0x7f080066
+			public const int errorDialogButton = 2131230822;
+			
+			// aapt resource value: 0x7f080065
+			public const int errorDialogTitle = 2131230821;
+			
+			// aapt resource value: 0x7f08003f
+			public const int firebase_database_url = 2131230783;
+			
+			// aapt resource value: 0x7f080062
+			public const int fl = 2131230818;
 			
 			// aapt resource value: 0x7f08003c
 			public const int gcm_defaultSenderId = 2131230780;
 			
-			// aapt resource value: 0x7f08004d
-			public const int goalsLabel = 2131230797;
+			// aapt resource value: 0x7f080085
+			public const int goalTitle = 2131230853;
 			
-			// aapt resource value: 0x7f08003e
-			public const int google_api_key = 2131230782;
+			// aapt resource value: 0x7f080050
+			public const int goalsLabel = 2131230800;
+			
+			// aapt resource value: 0x7f080040
+			public const int google_api_key = 2131230784;
 			
 			// aapt resource value: 0x7f08003d
 			public const int google_app_id = 2131230781;
 			
-			// aapt resource value: 0x7f08003f
-			public const int google_crash_reporting_api_key = 2131230783;
-			
-			// aapt resource value: 0x7f08005d
-			public const int hu = 2131230813;
-			
-			// aapt resource value: 0x7f080065
-			public const int initDismiss = 2131230821;
-			
-			// aapt resource value: 0x7f080064
-			public const int initDownload = 2131230820;
-			
-			// aapt resource value: 0x7f080066
-			public const int initPrepare = 2131230822;
-			
 			// aapt resource value: 0x7f080041
-			public const int league = 2131230785;
+			public const int google_crash_reporting_api_key = 2131230785;
+			
+			// aapt resource value: 0x7f080042
+			public const int google_storage_bucket = 2131230786;
+			
+			// aapt resource value: 0x7f080083
+			public const int homeGoalBody = 2131230851;
+			
+			// aapt resource value: 0x7f080060
+			public const int hu = 2131230816;
+			
+			// aapt resource value: 0x7f080068
+			public const int initDismiss = 2131230824;
 			
 			// aapt resource value: 0x7f080067
-			public const int leagueLabel = 2131230823;
-			
-			// aapt resource value: 0x7f080071
-			public const int leagueMatches = 2131230833;
-			
-			// aapt resource value: 0x7f08006b
-			public const int leagueSeasons = 2131230827;
-			
-			// aapt resource value: 0x7f080073
-			public const int leagueStats = 2131230835;
-			
-			// aapt resource value: 0x7f080072
-			public const int leagueTable = 2131230834;
-			
-			// aapt resource value: 0x7f08007b
-			public const int leagues = 2131230843;
-			
-			// aapt resource value: 0x7f08005a
-			public const int live = 2131230810;
-			
-			// aapt resource value: 0x7f080076
-			public const int matchDetails = 2131230838;
-			
-			// aapt resource value: 0x7f080074
-			public const int matchEvents = 2131230836;
-			
-			// aapt resource value: 0x7f080048
-			public const int matchLabel = 2131230792;
-			
-			// aapt resource value: 0x7f080075
-			public const int matchPlayers = 2131230837;
-			
-			// aapt resource value: 0x7f080056
-			public const int matchesTab = 2131230806;
-			
-			// aapt resource value: 0x7f080079
-			public const int men = 2131230841;
-			
-			// aapt resource value: 0x7f080040
-			public const int menu = 2131230784;
-			
-			// aapt resource value: 0x7f080058
-			public const int noActualLiveMatches = 2131230808;
-			
-			// aapt resource value: 0x7f080059
-			public const int noActualMatches = 2131230809;
-			
-			// aapt resource value: 0x7f08007c
-			public const int notification = 2131230844;
-			
-			// aapt resource value: 0x7f08007e
-			public const int notifyEvent = 2131230846;
-			
-			// aapt resource value: 0x7f08007d
-			public const int notifyStart = 2131230845;
-			
-			// aapt resource value: 0x7f08007f
-			public const int notifyToday = 2131230847;
-			
-			// aapt resource value: 0x7f080052
-			public const int penaltyLabel = 2131230802;
+			public const int initDownload = 2131230823;
 			
 			// aapt resource value: 0x7f080069
-			public const int placeLabel = 2131230825;
-			
-			// aapt resource value: 0x7f08004f
-			public const int playerNameLabel = 2131230799;
-			
-			// aapt resource value: 0x7f080057
-			public const int playerSearchHint = 2131230807;
-			
-			// aapt resource value: 0x7f080043
-			public const int players = 2131230787;
-			
-			// aapt resource value: 0x7f080055
-			public const int playersTab = 2131230805;
-			
-			// aapt resource value: 0x7f08004e
-			public const int pointsLabel = 2131230798;
-			
-			// aapt resource value: 0x7f080047
-			public const int positionLabel = 2131230791;
-			
-			// aapt resource value: 0x7f08006e
-			public const int reconnecting = 2131230830;
+			public const int initPrepare = 2131230825;
 			
 			// aapt resource value: 0x7f080044
-			public const int referees = 2131230788;
+			public const int league = 2131230788;
 			
 			// aapt resource value: 0x7f08006a
-			public const int refereesLabel = 2131230826;
+			public const int leagueLabel = 2131230826;
 			
-			// aapt resource value: 0x7f080050
-			public const int scoreLabel = 2131230800;
+			// aapt resource value: 0x7f080074
+			public const int leagueMatches = 2131230836;
 			
-			// aapt resource value: 0x7f08005e
-			public const int se = 2131230814;
+			// aapt resource value: 0x7f08006e
+			public const int leagueSeasons = 2131230830;
+			
+			// aapt resource value: 0x7f080076
+			public const int leagueStats = 2131230838;
+			
+			// aapt resource value: 0x7f080075
+			public const int leagueTable = 2131230837;
+			
+			// aapt resource value: 0x7f08007e
+			public const int leagues = 2131230846;
+			
+			// aapt resource value: 0x7f08005d
+			public const int live = 2131230813;
+			
+			// aapt resource value: 0x7f080079
+			public const int matchDetails = 2131230841;
+			
+			// aapt resource value: 0x7f080077
+			public const int matchEvents = 2131230839;
+			
+			// aapt resource value: 0x7f08004b
+			public const int matchLabel = 2131230795;
+			
+			// aapt resource value: 0x7f080078
+			public const int matchPlayers = 2131230840;
+			
+			// aapt resource value: 0x7f080059
+			public const int matchesTab = 2131230809;
+			
+			// aapt resource value: 0x7f08007c
+			public const int men = 2131230844;
+			
+			// aapt resource value: 0x7f080043
+			public const int menu = 2131230787;
+			
+			// aapt resource value: 0x7f08005b
+			public const int noActualLiveMatches = 2131230811;
+			
+			// aapt resource value: 0x7f08005c
+			public const int noActualMatches = 2131230812;
+			
+			// aapt resource value: 0x7f08007f
+			public const int notification = 2131230847;
+			
+			// aapt resource value: 0x7f080081
+			public const int notifyEvent = 2131230849;
+			
+			// aapt resource value: 0x7f080080
+			public const int notifyStart = 2131230848;
+			
+			// aapt resource value: 0x7f080082
+			public const int notifyToday = 2131230850;
+			
+			// aapt resource value: 0x7f080055
+			public const int penaltyLabel = 2131230805;
+			
+			// aapt resource value: 0x7f08006c
+			public const int placeLabel = 2131230828;
+			
+			// aapt resource value: 0x7f080052
+			public const int playerNameLabel = 2131230802;
+			
+			// aapt resource value: 0x7f08005a
+			public const int playerSearchHint = 2131230810;
+			
+			// aapt resource value: 0x7f080046
+			public const int players = 2131230790;
+			
+			// aapt resource value: 0x7f080058
+			public const int playersTab = 2131230808;
+			
+			// aapt resource value: 0x7f080051
+			public const int pointsLabel = 2131230801;
+			
+			// aapt resource value: 0x7f08004a
+			public const int positionLabel = 2131230794;
+			
+			// aapt resource value: 0x7f080071
+			public const int reconnecting = 2131230833;
+			
+			// aapt resource value: 0x7f080047
+			public const int referees = 2131230791;
+			
+			// aapt resource value: 0x7f08006d
+			public const int refereesLabel = 2131230829;
+			
+			// aapt resource value: 0x7f080053
+			public const int scoreLabel = 2131230803;
+			
+			// aapt resource value: 0x7f080061
+			public const int se = 2131230817;
 			
 			// aapt resource value: 0x7f080029
 			public const int search_menu_title = 2131230761;
 			
-			// aapt resource value: 0x7f080046
-			public const int settings = 2131230790;
+			// aapt resource value: 0x7f080049
+			public const int settings = 2131230793;
 			
-			// aapt resource value: 0x7f08005b
-			public const int soon = 2131230811;
+			// aapt resource value: 0x7f08005e
+			public const int soon = 2131230814;
 			
-			// aapt resource value: 0x7f080054
-			public const int stadionLabel = 2131230804;
+			// aapt resource value: 0x7f080057
+			public const int stadionLabel = 2131230807;
 			
 			// aapt resource value: 0x7f08002a
 			public const int status_bar_notification_info_overflow = 2131230762;
 			
-			// aapt resource value: 0x7f080060
-			public const int sw = 2131230816;
+			// aapt resource value: 0x7f080063
+			public const int sw = 2131230819;
 			
-			// aapt resource value: 0x7f080077
-			public const int teamMatches = 2131230839;
+			// aapt resource value: 0x7f08007a
+			public const int teamMatches = 2131230842;
 			
-			// aapt resource value: 0x7f080049
-			public const int teamNameLabel = 2131230793;
+			// aapt resource value: 0x7f08004c
+			public const int teamNameLabel = 2131230796;
 			
-			// aapt resource value: 0x7f080078
-			public const int teamPlayers = 2131230840;
+			// aapt resource value: 0x7f08007b
+			public const int teamPlayers = 2131230843;
 			
-			// aapt resource value: 0x7f08006c
-			public const int teamSeasons = 2131230828;
+			// aapt resource value: 0x7f08006f
+			public const int teamSeasons = 2131230831;
 			
-			// aapt resource value: 0x7f080045
-			public const int teams = 2131230789;
+			// aapt resource value: 0x7f080048
+			public const int teams = 2131230792;
 			
-			// aapt resource value: 0x7f080053
-			public const int trainerLabel = 2131230803;
+			// aapt resource value: 0x7f080056
+			public const int trainerLabel = 2131230806;
 			
 			// aapt resource value: 0x7f080014
 			public const int v7_preference_off = 2131230740;
@@ -4020,11 +4038,11 @@ namespace Floorball.Droid
 			// aapt resource value: 0x7f080015
 			public const int v7_preference_on = 2131230741;
 			
-			// aapt resource value: 0x7f08004a
-			public const int winLabel = 2131230794;
+			// aapt resource value: 0x7f08004d
+			public const int winLabel = 2131230797;
 			
-			// aapt resource value: 0x7f08007a
-			public const int women = 2131230842;
+			// aapt resource value: 0x7f08007d
+			public const int women = 2131230845;
 			
 			static String()
 			{

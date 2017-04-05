@@ -196,16 +196,19 @@ namespace Floorball.Droid.Adapters
         {
             int colorTo, colorFrom;
 
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
-            {
-                colorFrom = Context.Resources.GetColor(Resource.Color.green, Context.ApplicationContext.Theme);
-                colorTo = Context.Resources.GetColor(Resource.Color.red, Context.ApplicationContext.Theme);
-            }
-            else
-            {
-                colorFrom = Context.Resources.GetColor(Resource.Color.green);
-                colorTo = Context.Resources.GetColor(Resource.Color.red);
-            }
+            colorFrom = Context.Resources.GetColor(Resource.Color.green);
+            colorTo = Context.Resources.GetColor(Resource.Color.red);
+
+            //if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+            //{
+            //    colorFrom = Context.Resources.GetColor(Resource.Color.green, Context.ApplicationContext.Theme);
+            //    colorTo = Context.Resources.GetColor(Resource.Color.red, Context.ApplicationContext.Theme);
+            //}
+            //else
+            //{
+            //    colorFrom = Context.Resources.GetColor(Resource.Color.green);
+            //    colorTo = Context.Resources.GetColor(Resource.Color.red);
+            //}
                 
             ValueAnimator colorAnimation = ValueAnimator.OfObject(new ArgbEvaluator(), colorFrom, colorTo);
             colorAnimation.SetDuration(1000);
