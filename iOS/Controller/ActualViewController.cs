@@ -59,7 +59,7 @@ namespace Floorball.iOS
 			{
 				try
 				{
-					await FloorballClient.Instance.Connect(null);
+					//await FloorballClient.Instance.Connect(null);
 
 				}
 				catch (Exception ex)

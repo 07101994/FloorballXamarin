@@ -92,6 +92,14 @@ namespace Floorball.LocalDB.Repository
             }
         }
 
+		public List<League> GetLeaguesByCountry(CountriesEnum country)
+		{
+			using (var db = new SQLiteConnection(Platform, DatabasePath))
+            {
+                return db.GetAllWithChildren<League>(l => l.Country == country);
+            }
+		}
+
         #endregion
 
         #region POST

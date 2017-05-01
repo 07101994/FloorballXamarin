@@ -8,7 +8,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Country</string>
+			<string>Leagues</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -16,7 +16,21 @@
 			<key>Title</key>
 			<string>Select</string>
 			<key>File</key>
-			<string>Countries</string>
+			<string>Leagues</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Notifications</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>NotificationsSelect</string>
+			<key>File</key>
+			<string>Notifications</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>

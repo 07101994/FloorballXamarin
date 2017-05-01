@@ -95,6 +95,13 @@ namespace Floorball.iOS
 
 					break;
 
+				case 6:
+
+					newContent = Storyboard.InstantiateViewController("SettingsNav") as UINavigationController;
+					(newContent.ViewControllers[0] as MainSettingsViewController).Root = Root;
+
+					break;
+
 				default:
 					return;
 			}

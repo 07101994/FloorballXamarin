@@ -18,14 +18,24 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>SW</string>
+			<string>SE</string>
 			<key>DefaultValue</key>
 			<string>FalseValue</string>
 			<key>Key</key>
-			<string>SW</string>
+			<string>SE</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>FL</string>
+			<key>DefaultValue</key>
+			<string>FalseValue</string>
+			<key>Key</key>
+			<string>FL</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>
-	<string>Countries</string>
+	<string>Leagues</string>
 </dict>
 </plist>
