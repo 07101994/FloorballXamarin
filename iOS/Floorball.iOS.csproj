@@ -249,6 +249,22 @@
     <Compile Include="Controller\NotificationChooserViewController.designer.cs">
       <DependentUpon>NotificationChooserViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\MatchEventTabViewController.cs" />
+    <Compile Include="Controller\MatchEventTabViewController.designer.cs">
+      <DependentUpon>MatchEventTabViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\MatchPlayersViewController.cs" />
+    <Compile Include="Controller\MatchPlayersViewController.designer.cs">
+      <DependentUpon>MatchPlayersViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\MatchDetailsViewController.cs" />
+    <Compile Include="Controller\MatchDetailsViewController.designer.cs">
+      <DependentUpon>MatchDetailsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\MatchStatsViewController.cs" />
+    <Compile Include="Controller\MatchStatsViewController.designer.cs">
+      <DependentUpon>MatchStatsViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images.xcassets\10minutes.imageset\" />
@@ -262,10 +278,11 @@
     <Folder Include="Resources\Images.xcassets\redcard.imageset\" />
     <Folder Include="Resources\base.lproj\" />
     <Folder Include="Resources\hu.lproj\" />
-    <Folder Include="Base.lproj\" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterfaceDefinition Include="Base.lproj\Main.storyboard" />
+    <Folder Include="Resources\Images.xcassets\hu.imageset\" />
+    <Folder Include="Resources\Images.xcassets\sw.imageset\" />
+    <Folder Include="Resources\Images.xcassets\se.imageset\" />
+    <Folder Include="Resources\Images.xcassets\fl.imageset\" />
+    <Folder Include="Resources\Images.xcassets\cz.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\Contents.json">
@@ -328,6 +345,16 @@
     <ImageAsset Include="Resources\Images.xcassets\AppIcon-1.appiconset\ball.png">
       <InProject>false</InProject>
     </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\hu.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\hu.imageset\hu.png" />
+    <ImageAsset Include="Resources\Images.xcassets\sw.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\sw.imageset\sw.png" />
+    <ImageAsset Include="Resources\Images.xcassets\se.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\se.imageset\se.png" />
+    <ImageAsset Include="Resources\Images.xcassets\fl.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\fl.imageset\fl.png" />
+    <ImageAsset Include="Resources\Images.xcassets\cz.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\cz.imageset\cz.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Settings.bundle\Root.plist" />
@@ -341,6 +368,10 @@
     <BundleResource Include="Resources\base.lproj\Localizable.strings" />
     <BundleResource Include="Resources\base.lproj\Main.strings" />
     <BundleResource Include="Resources\hu.lproj\Main.strings" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Resources\base.lproj\Main.storyboard" />
+    <InterfaceDefinition Include="Resources\Controller\MatchStatsViewController.xib" />
   </ItemGroup>
   <Import Project="..\Floorball\Floorball.projitems" Label="Shared" Condition="Exists('..\Floorball\Floorball.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

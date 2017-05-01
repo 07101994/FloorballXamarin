@@ -1,9 +1,9 @@
 ﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="iOS/Resources/hu.lproj/Main.strings">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Floorball/PlayerWithEventsModel.cs">
     <Files>
-      <File FileName="iOS/Main.cs" Line="18" Column="5" />
-      <File FileName="iOS/Controller/MatchEventsViewController.cs" Line="74" Column="12" />
-      <File FileName="iOS/Controller/ActualViewController.cs" Line="49" Column="8" />
+      <File FileName="iOS/Main.cs" Line="21" Column="24" />
+      <File FileName="iOS/Controller/MatchEventsViewController.cs" Line="45" Column="21" />
+      <File FileName="iOS/Controller/ActualViewController.cs" Line="238" Column="12" />
       <File FileName="iOS/Controller/MenuViewController.cs" Line="104" Column="6" />
       <File FileName="iOS/AppDelegate.cs" Line="178" Column="13" />
       <File FileName="iOS/Controller/LeagueViewController.cs" Line="41" Column="4" />
@@ -16,7 +16,7 @@
       <File FileName="iOS/Controller/InitViewController.cs" Line="23" Column="1" />
       <File FileName="iOS/Info.plist" />
       <File FileName="Floorball/UIHelper.cs" Line="1" Column="1" />
-      <File FileName="iOS/Controller/MatchViewController.cs" Line="65" Column="21" />
+      <File FileName="iOS/Controller/MatchViewController.cs" Line="126" Column="26" />
       <File FileName="iOS/Settings.bundle/en.lproj/Leagues.strings" Line="3" Column="1" />
       <File FileName="iOS/Settings.bundle/en.lproj/Root.strings" Line="4" Column="34" />
       <File FileName="iOS/Settings.bundle/Leagues.plist" />
@@ -34,6 +34,11 @@
       <File FileName="iOS/Resources/base.lproj/Localizable.strings" Line="33" Column="25" />
       <File FileName="iOS/Resources/base.lproj/Main.strings" Line="1" Column="1" />
       <File FileName="iOS/Resources/hu.lproj/Main.strings" Line="1" Column="1" />
+      <File FileName="iOS/Controller/MatchEventTabViewController.cs" Line="56" Column="35" />
+      <File FileName="iOS/Controller/MatchPlayersViewController.cs" Line="20" Column="49" />
+      <File FileName="iOS/Controller/MatchDetailsViewController.cs" Line="36" Column="4" />
+      <File FileName="iOS/Controller/MatchStatsViewController.cs" Line="38" Column="4" />
+      <File FileName="Floorball/PlayerWithEventsModel.cs" Line="13" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.Floorball.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.6F9EC742-0234-43BE-9574-9BDE9233F4C6" />

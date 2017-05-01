@@ -60,5 +60,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Updater\UpdateData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Updater\Updater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Util\KeyEquilityComparer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayerWithEventsModel.cs" />
   </ItemGroup>
 </Project>
