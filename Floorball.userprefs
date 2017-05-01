@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="iOS/Controller/NotificationChooserViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="iOS/Resources/hu.lproj/Main.strings">
     <Files>
       <File FileName="iOS/Main.cs" Line="18" Column="5" />
       <File FileName="iOS/Controller/MatchEventsViewController.cs" Line="74" Column="12" />
@@ -24,12 +24,16 @@
       <File FileName="iOS/Settings.bundle/Notifications.plist" />
       <File FileName="iOS/Controller/MainSettingsViewController.cs" Line="10" Column="47" />
       <File FileName="iOS/Controller/PlayersContainerViewController.cs" Line="25" Column="3" />
-      <File FileName="iOS/Controller/CountriesViewController.cs" Line="73" Column="23" />
+      <File FileName="iOS/Controller/CountriesViewController.cs" Line="67" Column="19" />
       <File FileName="iOS/Controller/LeagueTableViewController.cs" Line="50" Column="75" />
-      <File FileName="iOS/Controller/LeagueChooserViewController.cs" Line="45" Column="4" />
+      <File FileName="iOS/Controller/LeagueChooserViewController.cs" Line="16" Column="4" />
       <File FileName="Floorball/LocalDB/Repository/LeagueRepository.cs" Line="95" Column="33" />
       <File FileName="iOS/Controller/LeagueChooserViewController.designer.cs" Line="1" Column="1" />
-      <File FileName="iOS/Controller/NotificationChooserViewController.cs" Line="1" Column="1" />
+      <File FileName="iOS/Controller/NotificationChooserViewController.cs" Line="17" Column="4" />
+      <File FileName="iOS/Resources/hu.lproj/Localizable.strings" Line="1" Column="1" />
+      <File FileName="iOS/Resources/base.lproj/Localizable.strings" Line="33" Column="25" />
+      <File FileName="iOS/Resources/base.lproj/Main.strings" Line="1" Column="1" />
+      <File FileName="iOS/Resources/hu.lproj/Main.strings" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.Floorball.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.6F9EC742-0234-43BE-9574-9BDE9233F4C6" />

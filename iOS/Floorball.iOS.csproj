@@ -260,12 +260,12 @@
     <Folder Include="Resources\Images.xcassets\menu.imageset\" />
     <Folder Include="Resources\Images.xcassets\Phx.imageset\" />
     <Folder Include="Resources\Images.xcassets\redcard.imageset\" />
+    <Folder Include="Resources\base.lproj\" />
+    <Folder Include="Resources\hu.lproj\" />
+    <Folder Include="Base.lproj\" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="Main.storyboard" />
-    <InterfaceDefinition Include="Resources\Controller\CountriesViewController.xib" />
-    <InterfaceDefinition Include="Resources\Controller\LeagueChooserViewController.xib" />
-    <InterfaceDefinition Include="Resources\Controller\NotificationChooserViewController.xib" />
+    <InterfaceDefinition Include="Base.lproj\Main.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\Contents.json">
@@ -337,6 +337,10 @@
     <BundleResource Include="Settings.bundle\en.lproj\Leagues.strings" />
     <BundleResource Include="Settings.bundle\hu.lproj\Leagues.strings" />
     <BundleResource Include="Settings.bundle\Notifications.plist" />
+    <BundleResource Include="Resources\hu.lproj\Localizable.strings" />
+    <BundleResource Include="Resources\base.lproj\Localizable.strings" />
+    <BundleResource Include="Resources\base.lproj\Main.strings" />
+    <BundleResource Include="Resources\hu.lproj\Main.strings" />
   </ItemGroup>
   <Import Project="..\Floorball\Floorball.projitems" Label="Shared" Condition="Exists('..\Floorball\Floorball.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
