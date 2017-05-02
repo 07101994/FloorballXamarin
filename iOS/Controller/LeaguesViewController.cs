@@ -16,6 +16,8 @@ namespace Floorball.iOS
 
 		public List<List<League>> LeaguesByCountry { get; set; }
 
+		private const int headerHeight = 40;
+
 		public LeaguesViewController() : base("LeaguesViewController", null)
 		{
 		}
@@ -31,8 +33,9 @@ namespace Floorball.iOS
 
 			InitProperties();
 
-
 			TableView.TableFooterView = new UIView(CGRect.Empty);
+
+			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
 			
 		}
 
@@ -52,9 +55,16 @@ namespace Floorball.iOS
 			return LeaguesByCountry.Count;
 		}
 
-		public override string TitleForHeader(UITableView tableView, nint section)
+		public override UIView GetViewForHeader(UITableView tableView, nint section)
 		{
-			return LeaguesByCountry.ElementAt(Convert.ToInt16(section)).First().Country.ToString();
+			var league = LeaguesByCountry.ElementAt(Convert.ToInt16(section)).First();
+
+			return UIHelper.MakeImageWithLabelInSectionHeader(headerHeight, league.Country.ToString().ToLower(), league.Country.ToFriendlyString());	
+		}
+
+		public override nfloat GetHeightForHeader(UITableView tableView, nint section)
+		{
+			return headerHeight;
 		}
 
 		public override nint RowsInSection(UITableView tableView, nint section)

@@ -1,16 +1,16 @@
 ﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="iOS/Controller/MatchEventsViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="iOS/Controller/RefereesContainerViewController.cs">
     <Files>
-      <File FileName="iOS/Main.cs" Line="21" Column="24" />
-      <File FileName="iOS/Controller/ActualViewController.cs" Line="238" Column="12" />
-      <File FileName="iOS/Controller/MenuViewController.cs" Line="104" Column="6" />
+      <File FileName="iOS/Main.cs" Line="19" Column="1" />
+      <File FileName="iOS/Controller/ActualViewController.cs" Line="42" Column="77" />
+      <File FileName="iOS/Controller/MenuViewController.cs" Line="75" Column="12" />
       <File FileName="iOS/AppDelegate.cs" Line="178" Column="13" />
-      <File FileName="iOS/Controller/LeagueViewController.cs" Line="41" Column="4" />
-      <File FileName="iOS/Controller/LeaguesViewController.cs" Line="1" Column="1" />
-      <File FileName="iOS/Controller/YearsViewController.cs" Line="59" Column="48" />
+      <File FileName="iOS/Controller/LeagueViewController.cs" Line="41" Column="1" />
+      <File FileName="iOS/Controller/LeaguesViewController.cs" Line="65" Column="3" />
+      <File FileName="iOS/Controller/YearsViewController.cs" Line="24" Column="4" />
       <File FileName="iOS/Controller/TeamPlayersViewController.cs" Line="29" Column="45" />
       <File FileName="iOS/Controller/TeamMatchesViewController.cs" Line="35" Column="3" />
-      <File FileName="iOS/Controller/RefereesViewController.cs" Line="24" Column="3" />
+      <File FileName="iOS/Controller/RefereesViewController.cs" Line="83" Column="5" />
       <File FileName="iOS/Controller/PlayersViewController.cs" Line="56" Column="4" />
       <File FileName="iOS/Controller/InitViewController.cs" Line="23" Column="1" />
       <File FileName="iOS/Info.plist" />
@@ -39,7 +39,15 @@
       <File FileName="iOS/View/MatchPlayerStatView.cs" Line="21" Column="4" />
       <File FileName="iOS/View/LiveMatchCell.cs" Line="1" Column="1" />
       <File FileName="iOS/View/MatchPlayerStatView.designer.cs" Line="1" Column="1" />
-      <File FileName="iOS/Controller/MatchEventsViewController.cs" Line="65" Column="46" />
+      <File FileName="iOS/Controller/MatchEventsViewController.cs" Line="65" Column="89" />
+      <File FileName="iOS/Helper/UIHelper.cs" Line="56" Column="130" />
+      <File FileName="iOS/Controller/MatchViewController.cs" Line="43" Column="21" />
+      <File FileName="iOS/Controller/TeamsViewController.cs" Line="67" Column="34" />
+      <File FileName="iOS/Controller/LeagueMatchesViewController.cs" Line="32" Column="4" />
+      <File FileName="iOS/Controller/TeamViewController.cs" Line="39" Column="79" />
+      <File FileName="iOS/Controller/SexChooserViewController.cs" Line="30" Column="79" />
+      <File FileName="iOS/Controller/MainSettingsViewController.cs" Line="36" Column="1" />
+      <File FileName="iOS/Controller/RefereesContainerViewController.cs" Line="63" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.Floorball.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.6F9EC742-0234-43BE-9574-9BDE9233F4C6" />

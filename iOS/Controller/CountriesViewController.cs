@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CoreGraphics;
 using Foundation;
 using Newtonsoft.Json;
 using UIKit;
@@ -41,6 +42,10 @@ namespace Floorball.iOS
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
+
+			TableView.TableFooterView = new UIView(CGRect.Empty);
+
+			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
 		}
 
 		public override void DidReceiveMemoryWarning()

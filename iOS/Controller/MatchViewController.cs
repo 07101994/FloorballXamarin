@@ -46,7 +46,7 @@ namespace Floorball.iOS
 				InitProperties();
 			}
 
-			NavigationItem.Title = "Match";
+			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
 		}
 
 		partial void SegmentChanged(UISegmentedControl sender)

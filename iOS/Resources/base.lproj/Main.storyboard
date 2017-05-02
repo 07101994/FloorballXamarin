@@ -128,7 +128,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.60784313725490191" green="0.71372549019607845" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.6071668267250061" green="0.71382367610931396" blue="0.61571109294891357" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="1548" rowHeight="44" style="IBUITableViewCellStyleDefault" id="1546">
                                         <rect key="frame" x="0.0" y="327" width="375" height="44"/>
@@ -944,7 +944,13 @@
                             <outlet property="delegate" destination="0pG-Sk-sQX" id="juC-99-BYI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Settings" id="lct-nz-kiE"/>
+                    <navigationItem key="navigationItem" title="Settings" id="lct-nz-kiE">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="d8B-oZ-w29">
+                            <connections>
+                                <action selector="MenuPressed:" destination="0pG-Sk-sQX" id="eNp-S9-OiQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Ch-vp-XCJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3239,6 +3245,6 @@
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="jPl-Lc-GCI"/>
+        <segue reference="70s-t0-4Zz"/>
     </inferredMetricsTieBreakers>
 </document>

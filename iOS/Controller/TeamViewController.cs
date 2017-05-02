@@ -36,6 +36,8 @@ namespace Floorball.iOS
 
 			MatchesContainer.Hidden = true;
 
+			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
+
 		}
 
 		public override void DidReceiveMemoryWarning()

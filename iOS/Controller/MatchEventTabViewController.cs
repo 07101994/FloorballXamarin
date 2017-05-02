@@ -47,7 +47,7 @@ namespace Floorball.iOS
 
 			HomsScore.Text = Match.GoalsH.ToString();
 			AwayScore.Text = Match.GoalsA.ToString();
-			Time.Text = UIHelper.GetMatchTime(Match.Time, Match.State);
+			Time.Text = Floorball.UIHelper.GetMatchTime(Match.Time, Match.State);
 		
 		}
 

@@ -269,6 +269,7 @@
     <Compile Include="View\MatchPlayerStatView.designer.cs">
       <DependentUpon>MatchPlayerStatView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\UIHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images.xcassets\10minutes.imageset\" />
@@ -287,6 +288,7 @@
     <Folder Include="Resources\Images.xcassets\se.imageset\" />
     <Folder Include="Resources\Images.xcassets\fl.imageset\" />
     <Folder Include="Resources\Images.xcassets\cz.imageset\" />
+    <Folder Include="Helper\" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\Contents.json">

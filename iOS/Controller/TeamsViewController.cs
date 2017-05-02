@@ -18,6 +18,8 @@ namespace Floorball.iOS
 
 		public List<List<Team>> TeamsByLeague { get; set; }
 
+		private const int headerHeight = 40;
+
 		public TeamsViewController() : base("TeamsViewController", null)
 		{
 		}
@@ -33,7 +35,11 @@ namespace Floorball.iOS
 			// Perform any additional setup after loading the view, typically from a nib.
 
 			InitProperties();
+
 			TableView.TableFooterView = new UIView(CGRect.Empty);
+
+			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
+
 			
 		}
 
@@ -54,14 +60,21 @@ namespace Floorball.iOS
 			return TeamsByLeague.Count;
 		}
 
-		public override string TitleForHeader(UITableView tableView, nint section)
+		public override UIView GetViewForHeader(UITableView tableView, nint section)
 		{
-			return AppDelegate.SharedAppDelegate.UoW.LeagueRepo.GetLeagueById(TeamsByLeague.ElementAt(Convert.ToInt16(section)).First().LeagueId).Name;
+			var league = AppDelegate.SharedAppDelegate.UoW.LeagueRepo.GetLeagueById(TeamsByLeague.ElementAt(Convert.ToInt16(section)).First().LeagueId);
+
+			return UIHelper.MakeImageWithLabelInSectionHeader(headerHeight, league.Country.ToString().ToLower(), league.Name);
 		}
 
 		public override nint RowsInSection(UITableView tableView, nint section)
 		{
 			return TeamsByLeague.ElementAt(Convert.ToInt16(section)).Count;
+		}
+
+		public override nfloat GetHeightForHeader(UITableView tableView, nint section)
+		{
+			return headerHeight;
 		}
 
 		public override UITableViewCell GetCell(UITableView tableView, Foundation.NSIndexPath indexPath)

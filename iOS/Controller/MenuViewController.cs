@@ -70,6 +70,7 @@ namespace Floorball.iOS
 
 					newContent = Storyboard.InstantiateViewController("LeaguesNav") as UINavigationController;
 					(newContent.ViewControllers[0] as YearsViewController).Root = Root;
+					(newContent.ViewControllers[0] as YearsViewController).NavTitle = "League Seasons";
 
 					break;
 	
@@ -77,6 +78,7 @@ namespace Floorball.iOS
 
 					newContent = Storyboard.InstantiateViewController("TeamsNav") as UINavigationController;
 					(newContent.ViewControllers[0] as YearsViewController).Root = Root;
+					(newContent.ViewControllers[0] as YearsViewController).NavTitle = "Team Seasons";
 
 					break;
 

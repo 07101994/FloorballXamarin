@@ -39,6 +39,8 @@ namespace Floorball.iOS
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
+			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
+
 			//Init properties
 			InitProperties();
 
@@ -197,20 +199,11 @@ namespace Floorball.iOS
 
 			cell.Date.Text = match.Date.ToString();
 			cell.Time.LineBreakMode = UILineBreakMode.WordWrap;
-			cell.Time.Text = UIHelper.GetMatchTime(match.Time, match.State).Replace("\\n", " ");
+			cell.Time.Text = Floorball.UIHelper.GetMatchTime(match.Time, match.State).Replace("\\n", " ");
 			cell.HomeTeam.Text = homeTeam.Name;
 			cell.HomeScore.Text = match.GoalsH.ToString();
 			cell.AwayTeam.Text = awayTeam.Name;
 			cell.AwayScore.Text = match.GoalsA.ToString();
-
-			//(cell.ContentView.ViewWithTag(0) as UILabel).Text = match.Date.ToString();
-			//(cell.ContentView.ViewWithTag(2) as UILabel).LineBreakMode = UILineBreakMode.WordWrap;
-			//(cell.ContentView.ViewWithTag(2) as UILabel).Text = UIHelper.GetMatchTime(match.Time, match.State).Replace("\\n"," ");
-			//(cell.ContentView.ViewWithTag(3) as UILabel).Text = homeTeam.Name;
-			//(cell.ContentView.ViewWithTag(4) as UILabel).Text = match.GoalsH.ToString();
-			//(cell.ContentView.ViewWithTag(5) as UILabel).Text = awayTeam.Name;
-			//(cell.ContentView.ViewWithTag(6) as UILabel).Text = match.GoalsA.ToString();
-
 
 			return cell;
 		}
@@ -255,9 +248,7 @@ namespace Floorball.iOS
 
 			var match = AppDelegate.SharedAppDelegate.UoW.MatchRepo.GetMatchById(id);
 
-			var newTime = UIHelper.GetMatchTime(match.Time, match.State);
-
-
+			var newTime = Floorball.UIHelper.GetMatchTime(match.Time, match.State);
 
 			
 		}

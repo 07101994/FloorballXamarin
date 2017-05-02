@@ -26,6 +26,8 @@ namespace Floorball.iOS
 			// Perform any additional setup after loading the view, typically from a nib.
 
 			Year.Text = Date.Year + "-" + Date.AddYears(1).Year;
+
+			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
 			
 		}
 
@@ -41,7 +43,7 @@ namespace Floorball.iOS
 			{
 				var vc = segue.DestinationViewController as TeamsViewController;
 				vc.Teams = AppDelegate.SharedAppDelegate.UoW.TeamRepo.GetTeamsByYear(Date);
-				vc.ActualTeams = vc.Teams.Where(t => t.Sex == "férfi");
+				vc.ActualTeams = vc.Teams.Where(t => t.Sex == "ferfi");
 				Embedded = vc;
 			} 
 			else
@@ -67,7 +69,7 @@ namespace Floorball.iOS
 
 					if (sender.SelectedSegment == 0)
 					{
-						teamsVC.Update("férfi");
+						teamsVC.Update("ferfi");
 					}
 					else
 					{
