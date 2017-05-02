@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Floorball.LocalDB.Tables;
+using Floorball.Util;
 using UIKit;
 
 namespace Floorball.iOS
@@ -56,7 +58,10 @@ namespace Floorball.iOS
 
 			if (segue.Identifier == "MatchStats")
 			{
-
+				var vc = segue.DestinationViewController as MatchStatsViewController;
+				vc.HomePlayers = HomeTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.RegNum));
+            	vc.AwayPlayers = AwayTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.RegNum));
+				vc.Events = Events;
 
 
 			}

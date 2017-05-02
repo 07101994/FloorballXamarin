@@ -62,7 +62,7 @@ namespace Floorball.iOS
 				(cell.ViewWithTag(201) as UILabel).Text = AwayTeam.Players.First(p => p.RegNum == e.PlayerId).ShortName;
 			}
 
-			(cell.ViewWithTag(200) as UILabel).Text = e.Time.Minutes + ":" + e.Time.Seconds;
+			(cell.ViewWithTag(200) as UILabel).Text =  UIHelper.GetMatchFullTime(e.Time);
 
 			cell = SetImage(cell, e);
 
@@ -71,7 +71,7 @@ namespace Floorball.iOS
 
 		public override nfloat GetHeightForRow(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
-			return 90;
+			return 45;
 		}
 
 		private UITableViewCell SetImage(UITableViewCell cell, Event e)

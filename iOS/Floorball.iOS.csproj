@@ -265,6 +265,10 @@
     <Compile Include="Controller\MatchStatsViewController.designer.cs">
       <DependentUpon>MatchStatsViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\MatchPlayerStatView.cs" />
+    <Compile Include="View\MatchPlayerStatView.designer.cs">
+      <DependentUpon>MatchPlayerStatView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images.xcassets\10minutes.imageset\" />
@@ -371,7 +375,6 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\base.lproj\Main.storyboard" />
-    <InterfaceDefinition Include="Resources\Controller\MatchStatsViewController.xib" />
   </ItemGroup>
   <Import Project="..\Floorball\Floorball.projitems" Label="Shared" Condition="Exists('..\Floorball\Floorball.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
