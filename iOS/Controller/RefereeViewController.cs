@@ -29,8 +29,9 @@ namespace Floorball.iOS
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 
-			NavigationItem.Title = Referee.Name;
+			//NavigationItem.Title = Referee.Name;
 			TableView.TableFooterView = new UIView(CGRect.Empty);
+			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
 
 		}
 

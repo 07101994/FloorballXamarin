@@ -25,6 +25,7 @@ namespace Floorball.iOS
 			TableView.TableFooterView = new UIView(CGRect.Empty);
 
 			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
+			//NavigationItem.BackBarButtonItem = new UIBarButtonItem(
 
 		}
 

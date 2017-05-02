@@ -25,6 +25,10 @@ namespace Floorball.iOS
 
 		public bool HasSoonMatch { get; set; }
 
+		public List<int> SoonIndexes { get; set; }
+
+		public List<int> LiveIndexes { get; set; }
+
         public ActualViewController() : base("ActualViewController", null)
 		{
 		}
@@ -33,6 +37,7 @@ namespace Floorball.iOS
 		{
 
 		}
+
 
 		public override void ViewDidLoad()
 		{
@@ -48,7 +53,7 @@ namespace Floorball.iOS
 			Subscribe();
 
 			//Connect to server
-			ConnectToServer();
+			//ConnectToServer();
 
 			TableView.TableFooterView = new UIView(CGRect.Empty);
 
@@ -61,10 +66,10 @@ namespace Floorball.iOS
 			{
 				try
 				{
-					//await FloorballClient.Instance.Connect(null);
+					await FloorballClient.Instance.Connect(null);
 
 				}
-				catch (Exception ex)
+				catch (Exception)
 				{
 
 				}
@@ -82,11 +87,11 @@ namespace Floorball.iOS
 		
 		}
 
-		private void InitProperties()
+		public void InitProperties()
 		{
 			var matches = AppDelegate.SharedAppDelegate.UoW.MatchRepo.GetActualMatches(AppDelegate.SharedAppDelegate.UoW.LeagueRepo.GetAllLeague());
 
-			SoonMatches = matches.Where(m => m.State != StateEnum.Playing);
+			SoonMatches = matches.Where(m => m.State != StateEnum.Playing).OrderBy(m => m.LeagueId);
 
 			if (SoonMatches.Count() == 0)
 			{
@@ -96,9 +101,12 @@ namespace Floorball.iOS
 			{
 				HasSoonMatch = true;
 				SoonTeams = AppDelegate.SharedAppDelegate.UoW.TeamRepo.GetTeamsByMatches(SoonMatches);
+
+				SoonIndexes = CreateIndexes(SoonMatches);
+
 			}
 
-			LiveMatches = matches.Where(m => m.State == StateEnum.Playing);
+			LiveMatches = matches.Where(m => m.State == StateEnum.Playing).OrderBy(m => m.LeagueId);
 
 			if (LiveMatches.Count() == 0)
 			{
@@ -108,9 +116,28 @@ namespace Floorball.iOS
 			{
 				HasLiveMatch = true;
 				LiveTeams = AppDelegate.SharedAppDelegate.UoW.TeamRepo.GetTeamsByMatches(LiveMatches);
+
+				LiveIndexes = CreateIndexes(LiveMatches);
+
 			}
 
+		}
 
+		private List<int> CreateIndexes(IEnumerable<Match> matches)
+		{
+			var indexes = new List<int>();
+
+			indexes.Add(0);
+
+			for (int i = 1; i<matches.Count(); i++)
+			{
+				if (matches.ElementAt(i - 1).LeagueId != matches.ElementAt(i).LeagueId)
+				{
+					indexes.Add(i + indexes.Count);
+				}
+			}
+
+			return indexes;
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -148,7 +175,39 @@ namespace Floorball.iOS
 
 		public override nfloat GetHeightForRow(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
-			return 120;
+			if (indexPath.Section == 0)
+			{
+				if (!HasLiveMatch)
+				{
+					return 40;
+				}
+				else
+				{
+					if (LiveIndexes.Contains(indexPath.Row))
+					{
+						return 40;
+					}
+					return 120;
+
+				}
+
+			} 
+			else
+			{
+				if (!HasSoonMatch)
+				{
+					return 40;
+				} 
+				else
+				{
+					if (SoonIndexes.Contains(indexPath.Row))
+					{
+						return 40;
+					}
+					return 120;
+
+				}
+			}
 		}
 
 		public override nint RowsInSection(UITableView tableView, nint section)
@@ -160,7 +219,7 @@ namespace Floorball.iOS
 					return 1;
 				}
 
-				return LiveMatches.Count();
+				return LiveMatches.Count() + LiveMatches.DistinctBy(m => m.LeagueId).Count();
 			}
 
 			if (!HasSoonMatch)
@@ -168,7 +227,7 @@ namespace Floorball.iOS
 				return 1;
 			}
 
-			return SoonMatches.Count();
+			return SoonMatches.Count() + SoonMatches.DistinctBy(m => m.LeagueId).Count();
 		}
 
 		public override UITableViewCell GetCell(UITableView tableView, Foundation.NSIndexPath indexPath)
@@ -178,7 +237,6 @@ namespace Floorball.iOS
 				return tableView.DequeueReusableCell("NoMatchCell");
 			}
 
-			LiveMatchCell cell = tableView.DequeueReusableCell("LiveMatchCell", indexPath) as LiveMatchCell;
 
 			Match match;
 			Team homeTeam;
@@ -186,16 +244,67 @@ namespace Floorball.iOS
 
 			if (indexPath.Section == 0)
 			{
-				match = LiveMatches.ElementAt(indexPath.Row);
-				homeTeam = LiveTeams.First(t => t.Id == match.HomeTeamId);
-				awayTeam = LiveTeams.First(t => t.Id == match.AwayTeamId);
+
+				if (LiveIndexes.Contains(indexPath.Row))
+				{
+
+					return CreateLeagueNameCell(tableView,indexPath, LiveIndexes);
+				}
+				else
+				{
+
+					LiveMatchCell cell = tableView.DequeueReusableCell("LiveMatchCell", indexPath) as LiveMatchCell;
+
+					match = LiveMatches.ElementAt(indexPath.Row - LiveIndexes.Where(i => i < indexPath.Row).Count());
+					homeTeam = LiveTeams.First(t => t.Id == match.HomeTeamId);
+					awayTeam = LiveTeams.First(t => t.Id == match.AwayTeamId);
+
+					return CreateActualTile(cell, match, homeTeam, awayTeam);
+
+				}
+
+
 			}
 			else
 			{
-				match = SoonMatches.ElementAt(indexPath.Row);
- 				homeTeam = SoonTeams.First(t => t.Id == match.HomeTeamId);
-				awayTeam = SoonTeams.First(t => t.Id == match.AwayTeamId);	
+
+				if (SoonIndexes.Contains(indexPath.Row))
+				{
+					return CreateLeagueNameCell(tableView, indexPath, SoonIndexes);
+					
+				}
+				else
+				{
+					LiveMatchCell cell = tableView.DequeueReusableCell("LiveMatchCell", indexPath) as LiveMatchCell;
+
+					match = SoonMatches.ElementAt(indexPath.Row - SoonIndexes.Where(i => i < indexPath.Row).Count());
+	 				homeTeam = SoonTeams.First(t => t.Id == match.HomeTeamId);
+					awayTeam = SoonTeams.First(t => t.Id == match.AwayTeamId);
+
+					return CreateActualTile(cell, match, homeTeam, awayTeam);
+
+				}
+
 			}
+
+		}
+
+		private UITableViewCell CreateLeagueNameCell(UITableView tableView, Foundation.NSIndexPath indexPath, List<int> indexes)
+		{
+			var cell = tableView.DequeueReusableCell("LeagueNameCell", indexPath);
+
+			var match = LiveMatches.DistinctBy(m => m.LeagueId).ElementAt(indexes.IndexOf(indexPath.Row));
+
+			var league = AppDelegate.SharedAppDelegate.UoW.LeagueRepo.GetLeagueById(match.LeagueId);
+
+			(cell.ViewWithTag(101) as UIImageView).Image = UIImage.FromBundle(league.Country.ToString().ToLower());
+			(cell.ViewWithTag(102) as UILabel).Text = league.Name;
+
+			return cell;
+		}
+
+		private LiveMatchCell CreateActualTile(LiveMatchCell cell, Match match, Team homeTeam, Team awayTeam)
+		{
 
 			cell.Date.Text = match.Date.ToString();
 			cell.Time.LineBreakMode = UILineBreakMode.WordWrap;
@@ -215,17 +324,15 @@ namespace Floorball.iOS
 
 				case "MatchFromActual":
 
-
-					//var bc1 = segue.DestinationViewController as MatchViewController;
-
 					var vc = segue.DestinationViewController as MatchViewController;
+
 					if (TableView.IndexPathForSelectedRow.Section == 0)
 					{
-						vc.Match = LiveMatches.ElementAt(TableView.IndexPathForSelectedRow.Row);
+						vc.Match = LiveMatches.ElementAt(TableView.IndexPathForSelectedRow.Row - LiveIndexes.Where(i => i < TableView.IndexPathForSelectedRow.Row).Count());
 					} 
 					else
 					{
-						vc.Match = SoonMatches.ElementAt(TableView.IndexPathForSelectedRow.Row);
+						vc.Match = SoonMatches.ElementAt(TableView.IndexPathForSelectedRow.Row - SoonIndexes.Where(i => i < TableView.IndexPathForSelectedRow.Row).Count());
 					}
 
 					break;

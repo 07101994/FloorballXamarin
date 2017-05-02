@@ -28,8 +28,7 @@ namespace Floorball.iOS
 			// Perform any additional setup after loading the view, typically from a nib.
 
 			TableView.TableFooterView = new UIView(CGRect.Empty);
-
-
+			
 		}
 
 
@@ -64,7 +63,8 @@ namespace Floorball.iOS
 			var referee = Referees.ElementAt(indexPath.Row);
 			var leagues = AppDelegate.SharedAppDelegate.UoW.LeagueRepo.GetLeaguesByReferee(referee.Id);
 
-			var vc = Storyboard.InstantiateViewController("RefereeViewController") as RefereeViewController;
+			var vc = Storyboard.InstantiateViewController("RefereeContainerViewController") as RefereeContainerViewController;
+
 			vc.Referee = referee;
 			vc.Leagues = leagues;
 			vc.StatsByLeague = CreateStatsByLeague(leagues);

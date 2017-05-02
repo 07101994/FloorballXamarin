@@ -33,7 +33,7 @@ namespace Floorball.iOS
 		{
 			var cell = tableView.DequeueReusableCell("CountryCell", indexPath);
 
-			cell.TextLabel.Text = countries[indexPath.Row];
+			cell.TextLabel.Text = countries[indexPath.Row].ToEnum<CountriesEnum>().ToFriendlyString();
 
 			return cell;
 		}

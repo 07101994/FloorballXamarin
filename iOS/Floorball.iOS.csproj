@@ -270,6 +270,14 @@
       <DependentUpon>MatchPlayerStatView.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\UIHelper.cs" />
+    <Compile Include="Controller\PlayerContainerViewController.cs" />
+    <Compile Include="Controller\PlayerContainerViewController.designer.cs">
+      <DependentUpon>PlayerContainerViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\RefereeContainerViewController.cs" />
+    <Compile Include="Controller\RefereeContainerViewController.designer.cs">
+      <DependentUpon>RefereeContainerViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images.xcassets\10minutes.imageset\" />

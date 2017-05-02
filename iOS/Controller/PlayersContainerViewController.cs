@@ -29,6 +29,8 @@ namespace Floorball.iOS
 			// Perform any additional setup after loading the view, typically from a nib.
 
 			//InitProperties();
+			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
+			
 		}
 
 		public override void DidReceiveMemoryWarning()

@@ -1,16 +1,16 @@
 ﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="iOS/Controller/RefereesContainerViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="iOS/Controller/RefereeContainerViewController.cs">
     <Files>
-      <File FileName="iOS/Main.cs" Line="19" Column="1" />
-      <File FileName="iOS/Controller/ActualViewController.cs" Line="42" Column="77" />
-      <File FileName="iOS/Controller/MenuViewController.cs" Line="75" Column="12" />
+      <File FileName="iOS/Main.cs" Line="23" Column="1" />
+      <File FileName="iOS/Controller/ActualViewController.cs" Line="47" Column="79" />
+      <File FileName="iOS/Controller/MenuViewController.cs" Line="74" Column="8" />
       <File FileName="iOS/AppDelegate.cs" Line="178" Column="13" />
       <File FileName="iOS/Controller/LeagueViewController.cs" Line="41" Column="1" />
       <File FileName="iOS/Controller/LeaguesViewController.cs" Line="65" Column="3" />
-      <File FileName="iOS/Controller/YearsViewController.cs" Line="24" Column="4" />
+      <File FileName="iOS/Controller/YearsViewController.cs" Line="34" Column="4" />
       <File FileName="iOS/Controller/TeamPlayersViewController.cs" Line="29" Column="45" />
       <File FileName="iOS/Controller/TeamMatchesViewController.cs" Line="35" Column="3" />
-      <File FileName="iOS/Controller/RefereesViewController.cs" Line="83" Column="5" />
+      <File FileName="iOS/Controller/RefereesViewController.cs" Line="31" Column="4" />
       <File FileName="iOS/Controller/PlayersViewController.cs" Line="56" Column="4" />
       <File FileName="iOS/Controller/InitViewController.cs" Line="23" Column="1" />
       <File FileName="iOS/Info.plist" />
@@ -20,13 +20,13 @@
       <File FileName="iOS/Settings.bundle/Leagues.plist" />
       <File FileName="iOS/Settings.bundle/hu.lproj/Leagues.strings" Line="6" Column="1" />
       <File FileName="iOS/Settings.bundle/Notifications.plist" />
-      <File FileName="iOS/Controller/PlayersContainerViewController.cs" Line="25" Column="3" />
-      <File FileName="iOS/Controller/CountriesViewController.cs" Line="67" Column="19" />
+      <File FileName="iOS/Controller/PlayersContainerViewController.cs" Line="32" Column="79" />
+      <File FileName="iOS/Controller/CountriesViewController.cs" Line="51" Column="49" />
       <File FileName="iOS/Controller/LeagueTableViewController.cs" Line="50" Column="74" />
-      <File FileName="iOS/Controller/LeagueChooserViewController.cs" Line="16" Column="4" />
+      <File FileName="iOS/Controller/LeagueChooserViewController.cs" Line="131" Column="3" />
       <File FileName="Floorball/LocalDB/Repository/LeagueRepository.cs" Line="95" Column="33" />
       <File FileName="iOS/Controller/LeagueChooserViewController.designer.cs" Line="1" Column="1" />
-      <File FileName="iOS/Controller/NotificationChooserViewController.cs" Line="17" Column="4" />
+      <File FileName="iOS/Controller/NotificationChooserViewController.cs" Line="28" Column="6" />
       <File FileName="iOS/Resources/hu.lproj/Localizable.strings" Line="1" Column="1" />
       <File FileName="iOS/Resources/base.lproj/Localizable.strings" Line="33" Column="25" />
       <File FileName="iOS/Resources/base.lproj/Main.strings" Line="1" Column="1" />
@@ -46,8 +46,13 @@
       <File FileName="iOS/Controller/LeagueMatchesViewController.cs" Line="32" Column="4" />
       <File FileName="iOS/Controller/TeamViewController.cs" Line="39" Column="79" />
       <File FileName="iOS/Controller/SexChooserViewController.cs" Line="30" Column="79" />
-      <File FileName="iOS/Controller/MainSettingsViewController.cs" Line="36" Column="1" />
-      <File FileName="iOS/Controller/RefereesContainerViewController.cs" Line="63" Column="3" />
+      <File FileName="iOS/Controller/MainSettingsViewController.cs" Line="39" Column="3" />
+      <File FileName="iOS/Controller/RefereesContainerViewController.cs" Line="34" Column="4" />
+      <File FileName="iOS/Controller/RootViewController.cs" Line="34" Column="7" />
+      <File FileName="iOS/Controller/PlayerViewController.cs" Line="67" Column="4" />
+      <File FileName="iOS/Controller/RefereeViewController.cs" Line="33" Column="57" />
+      <File FileName="iOS/Controller/PlayerContainerViewController.cs" Line="1" Column="1" />
+      <File FileName="iOS/Controller/RefereeContainerViewController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.Floorball.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.6F9EC742-0234-43BE-9574-9BDE9233F4C6" />

@@ -31,6 +31,7 @@ namespace Floorball.iOS
 			{
 				var actualNavController = Storyboard.InstantiateViewController("ActualNav") as UINavigationController;
 				(actualNavController.ViewControllers[0] as ActualViewController).Root = this;
+				//(actualNavController.ViewControllers[0] as ActualViewController).InitProperties();
 				activeController = actualNavController;;
 			}
 

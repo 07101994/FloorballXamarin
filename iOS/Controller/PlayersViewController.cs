@@ -64,7 +64,7 @@ namespace Floorball.iOS
 
 			var player = ActualPlayers.ElementAt(indexPath.Row);
 
-			var vc = Storyboard.InstantiateViewController("PlayerViewController") as PlayerViewController;
+			var vc = Storyboard.InstantiateViewController("PlayerContainerViewController") as PlayerContainerViewController;
 			vc.Player = player;
 			vc.Teams = AppDelegate.SharedAppDelegate.UoW.TeamRepo.GetTeamsByPlayer(player.RegNum);
 			vc.StatisticsByTeam = AppDelegate.SharedAppDelegate.UoW.StatiscticRepo.GetStatisticsByPlayer(player.RegNum).GroupBy(s => s.TeamId).Select(s => s.ToList()).ToList();

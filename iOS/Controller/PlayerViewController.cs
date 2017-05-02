@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using Floorball.LocalDB.Tables;
 using UIKit;
 
@@ -33,7 +34,10 @@ namespace Floorball.iOS
 
 			//InitProperties();
 
-			NavigationItem.Title = Player.Name;
+			//NavigationItem.Title = Player.Name;
+			TableView.TableFooterView = new UIView(CGRect.Empty);
+			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
+			
 
 		}
 
