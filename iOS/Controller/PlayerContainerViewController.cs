@@ -31,6 +31,8 @@ namespace Floorball.iOS
 
 			PlayerName.Text = Player.Name;
 
+			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
+
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -49,7 +51,7 @@ namespace Floorball.iOS
 				vc.Player = Player;
 				vc.Teams = Teams;
 				vc.StatisticsByTeam = StatisticsByTeam;
-
+				vc.MatchCounts = MatchCounts;
 
 			}
 		}

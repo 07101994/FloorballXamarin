@@ -29,6 +29,8 @@ namespace Floorball.iOS
 
 			RefereeName.Text = Referee.Name;
 
+			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
+
 		}
 
 		public override void DidReceiveMemoryWarning()
