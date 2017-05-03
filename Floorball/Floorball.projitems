@@ -61,5 +61,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Updater\Updater.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Util\KeyEquilityComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PlayerWithEventsModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Colors\Red.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Colors\Green.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Colors\LightGreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Colors\MediumGreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Colors\Purple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Colors\Brown.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Colors\" />
   </ItemGroup>
 </Project>

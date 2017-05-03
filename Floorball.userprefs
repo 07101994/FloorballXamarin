@@ -1,10 +1,10 @@
 ﻿<Properties StartupConfiguration="{4B538E93-7FDC-4640-82E3-6F18D71E2574}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="iOS/Controller/TeamViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="iOS/Controller/ActualViewController.cs">
     <Files>
       <File FileName="iOS/Main.cs" Line="23" Column="1" />
-      <File FileName="iOS/Controller/ActualViewController.cs" Line="172" Column="4" />
+      <File FileName="iOS/Controller/ActualViewController.cs" Line="270" Column="8" />
       <File FileName="iOS/Controller/MenuViewController.cs" Line="74" Column="8" />
-      <File FileName="iOS/AppDelegate.cs" Line="178" Column="13" />
+      <File FileName="iOS/AppDelegate.cs" Line="59" Column="4" />
       <File FileName="iOS/Controller/LeagueViewController.cs" Line="39" Column="79" />
       <File FileName="iOS/Controller/LeaguesViewController.cs" Line="65" Column="3" />
       <File FileName="iOS/Controller/YearsViewController.cs" Line="34" Column="4" />
@@ -14,7 +14,6 @@
       <File FileName="iOS/Controller/PlayersViewController.cs" Line="67" Column="59" />
       <File FileName="iOS/Controller/InitViewController.cs" Line="23" Column="1" />
       <File FileName="iOS/Info.plist" />
-      <File FileName="Floorball/UIHelper.cs" Line="42" Column="8" />
       <File FileName="iOS/Settings.bundle/en.lproj/Leagues.strings" Line="3" Column="1" />
       <File FileName="iOS/Settings.bundle/en.lproj/Root.strings" Line="4" Column="34" />
       <File FileName="iOS/Settings.bundle/Leagues.plist" />
@@ -44,7 +43,7 @@
       <File FileName="iOS/Controller/MatchViewController.cs" Line="43" Column="21" />
       <File FileName="iOS/Controller/TeamsViewController.cs" Line="67" Column="34" />
       <File FileName="iOS/Controller/LeagueMatchesViewController.cs" Line="32" Column="4" />
-      <File FileName="iOS/Controller/TeamViewController.cs" Line="78" Column="12" />
+      <File FileName="iOS/Controller/TeamViewController.cs" Line="64" Column="29" />
       <File FileName="iOS/Controller/SexChooserViewController.cs" Line="30" Column="79" />
       <File FileName="iOS/Controller/MainSettingsViewController.cs" Line="39" Column="3" />
       <File FileName="iOS/Controller/RefereesContainerViewController.cs" Line="34" Column="4" />
@@ -55,10 +54,17 @@
       <File FileName="iOS/Controller/RefereeContainerViewController.cs" Line="32" Column="79" />
       <File FileName="Droid/Adapters/PlayerStatsAdapter.cs" Line="41" Column="61" />
       <File FileName="Droid/Activities/TeamActivity.cs" Line="75" Column="104" />
+      <File FileName="iOS/Helper/ColorHelper.cs" Line="14" Column="37" />
+      <File FileName="Floorball/Colors/Red.cs" Line="7" Column="3" />
+      <File FileName="Floorball/Colors/Green.cs" Line="6" Column="3" />
+      <File FileName="Floorball/Colors/LightGreen.cs" Line="6" Column="3" />
+      <File FileName="Floorball/Colors/MediumGreen.cs" Line="12" Column="3" />
+      <File FileName="Floorball/Colors/Purple.cs" Line="9" Column="28" />
+      <File FileName="Floorball/Colors/Brown.cs" Line="10" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.Floorball.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.6F9EC742-0234-43BE-9574-9BDE9233F4C6" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.ItemProperties.Floorball.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

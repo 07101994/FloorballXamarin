@@ -5,6 +5,7 @@ using CoreGraphics;
 using Floorball.LocalDB.Tables;
 using Floorball.Signalr;
 using UIKit;
+using Floorball.iOS;
 
 namespace Floorball.iOS
 {
@@ -56,7 +57,8 @@ namespace Floorball.iOS
 			//ConnectToServer();
 
 			TableView.TableFooterView = new UIView(CGRect.Empty);
-
+			TableView.BackgroundView = null;
+			TableView.BackgroundColor = UIColor.Clear.FromHex(LightGreen.hex);
 
 		}
 
@@ -161,6 +163,8 @@ namespace Floorball.iOS
 
 			UITableViewCell cell = tableView.DequeueReusableCell("HeaderCell");
 
+			cell.BackgroundColor = UIColor.Clear.FromHex(LightGreen.hex);
+
 			if (section == 0)
 			{
 				(cell.ViewWithTag(200) as UILabel).Text = "Live";
@@ -234,7 +238,11 @@ namespace Floorball.iOS
 		{
 			if ((indexPath.Section == 0 && !HasLiveMatch) || (indexPath.Section == 1 && !HasSoonMatch))
 			{
-				return tableView.DequeueReusableCell("NoMatchCell");
+				var cell = tableView.DequeueReusableCell("NoMatchCell");
+
+				cell.BackgroundColor = UIColor.Clear.FromHex(LightGreen.hex);
+
+				return cell;
 			}
 
 
@@ -255,9 +263,20 @@ namespace Floorball.iOS
 
 					LiveMatchCell cell = tableView.DequeueReusableCell("LiveMatchCell", indexPath) as LiveMatchCell;
 
+					cell.BackgroundColor = UIColor.Clear.FromHex(LightGreen.hex);
+
+					var color = cell.ViewWithTag(500).BackgroundColor;
+
+					//cell.ViewWithTag(500).BackgroundColor = cell.ViewWithTag(500).BackgroundColor.ColorWithAlpha((float)0.5);r
+
 					match = LiveMatches.ElementAt(indexPath.Row - LiveIndexes.Where(i => i < indexPath.Row).Count());
 					homeTeam = LiveTeams.First(t => t.Id == match.HomeTeamId);
 					awayTeam = LiveTeams.First(t => t.Id == match.AwayTeamId);
+
+					if (match.State == StateEnum.Playing)
+					{
+						AnimateView(cell.ViewWithTag(800), true);
+					}
 
 					return CreateActualTile(cell, match, homeTeam, awayTeam);
 
@@ -277,6 +296,8 @@ namespace Floorball.iOS
 				{
 					LiveMatchCell cell = tableView.DequeueReusableCell("LiveMatchCell", indexPath) as LiveMatchCell;
 
+					cell.BackgroundColor = UIColor.Clear.FromHex(LightGreen.hex);
+
 					match = SoonMatches.ElementAt(indexPath.Row - SoonIndexes.Where(i => i < indexPath.Row).Count());
 	 				homeTeam = SoonTeams.First(t => t.Id == match.HomeTeamId);
 					awayTeam = SoonTeams.First(t => t.Id == match.AwayTeamId);
@@ -292,6 +313,8 @@ namespace Floorball.iOS
 		private UITableViewCell CreateLeagueNameCell(UITableView tableView, Foundation.NSIndexPath indexPath, List<int> indexes)
 		{
 			var cell = tableView.DequeueReusableCell("LeagueNameCell", indexPath);
+
+			cell.BackgroundColor = UIColor.Clear.FromHex(LightGreen.hex);
 
 			var match = LiveMatches.DistinctBy(m => m.LeagueId).ElementAt(indexes.IndexOf(indexPath.Row));
 
@@ -340,6 +363,26 @@ namespace Floorball.iOS
 
 				default:
 					break;
+			}
+		}
+
+		private void AnimateView(UIView view, bool direction)
+		{
+
+			UIView.Animate(1.0, () => MakeAnimation(view, direction), () => AnimateView(view, !direction));
+
+		}
+
+		void MakeAnimation (UIView view, bool direction)
+		{
+			if (direction)
+			{
+				view.Layer.BackgroundColor = UIColor.Clear.FromHex(Green.hex).CGColor;
+			} 
+			else
+			{
+				view.Layer.BackgroundColor = UIColor.Clear.FromHex(Red.hex).CGColor;
+
 			}
 		}
 

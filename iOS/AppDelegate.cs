@@ -51,6 +51,12 @@ namespace Floorball.iOS
 
 			Window.TintColor = UIColor.FromRGB( (float)(58/255.0f), (float)(65/255.0f), (float)(85/255.0));
 
+			UILabel.Appearance.TextColor = UIColor.Clear.FromHex(Purple.hex);
+			UISwitch.Appearance.TintColor = UIColor.Clear.FromHex(Brown.hex);
+			UISwitch.Appearance.OnTintColor = UIColor.Clear.FromHex(Brown.hex);
+			UISegmentedControl.Appearance.TintColor = UIColor.Clear.FromHex(Brown.hex);
+			//UITableViewCell.Appearance.BackgroundColor = UIColor.Clear.FromHex(LightGreen.hex);
+
 			return true;
 		}
 

@@ -278,6 +278,7 @@
     <Compile Include="Controller\RefereeContainerViewController.designer.cs">
       <DependentUpon>RefereeContainerViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\ColorHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images.xcassets\10minutes.imageset\" />
