@@ -34,6 +34,9 @@ namespace Floorball.iOS
 			CoachName.Text = Team.Coach;
 			StadiumName.Text = AppDelegate.SharedAppDelegate.UoW.StadiumRepo.GetStadiumById(Team.StadiumId).Name;
 
+			SetTeamImage();
+
+
 			MatchesContainer.Hidden = true;
 
 			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
@@ -44,6 +47,23 @@ namespace Floorball.iOS
 		{
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.
+		}
+
+		private void SetTeamImage()
+		{
+
+			var image = UIImage.FromFile(ImageManager.GetImagePath(Team.ImageName));
+
+			if (image == null)
+			{
+				TeamImage.Image = UIImage.FromBundle("goal");
+				TeamImage.Alpha = (float)0.5;
+			} 
+			else
+			{
+				TeamImage.Image = image;
+			}
+
 		}
 
 		public override void PrepareForSegue(UIStoryboardSegue segue, Foundation.NSObject sender)

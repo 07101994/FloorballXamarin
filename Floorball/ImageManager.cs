@@ -11,7 +11,7 @@ namespace Floorball
         {
             string documentsPath = GetImagesPath();
 
-            using (var fs = new BinaryWriter(new FileStream(System.IO.Path.Combine(documentsPath,name), FileMode.Append)))
+            using (var fs = new BinaryWriter(new FileStream(Path.Combine(documentsPath,name), FileMode.Append)))
             {
                 fs.Write(image);
             }
@@ -22,7 +22,7 @@ namespace Floorball
         {
             string directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
-            if (!Directory.Exists(System.IO.Path.Combine(directoryPath,"TeamImages")))
+            if (!Directory.Exists(Path.Combine(directoryPath,"TeamImages")))
             {
                 Directory.CreateDirectory(directoryPath);
             }
