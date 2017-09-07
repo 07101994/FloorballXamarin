@@ -279,6 +279,7 @@
       <DependentUpon>RefereeContainerViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\ColorHelper.cs" />
+    <Compile Include="Resources\base.lproj\LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images.xcassets\10minutes.imageset\" />
