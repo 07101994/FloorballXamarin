@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace Floorball.REST.RequestModels
 {
-    public class HTTPGetRequestModel<T1> : RequestModel
+    public class HTTPGetRequestModel : RequestModel
     {
-        public T1 Response { get; set; }
 
         public Dictionary<string, string> QueryParams { get; set; }
     }

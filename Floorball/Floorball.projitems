@@ -75,6 +75,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)REST\RequestModels\HTTPPostRequestModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RequestModels\HTTPPutRequestModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RequestModels\HTTPDeleteRequestModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\IRESTManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Colors\" />

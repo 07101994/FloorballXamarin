@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Net;
+using System.Threading.Tasks;
 using Floorball.Exceptions;
+using Floorball.REST.RequestModels;
 using Newtonsoft.Json;
 using RestSharp;
 
 namespace Floorball.REST
 {
-    public abstract class RESTManagerBase
+    public abstract class RESTManagerBase : IRESTManager
     {
 		protected static FloorballSerializer deserial = new FloorballSerializer(new JsonSerializer());
 		protected static string ServerURL = "https://floorball.azurewebsites.net";
@@ -28,5 +30,17 @@ namespace Floorball.REST
 				}
 			}
 		}
+
+        public abstract HTTPDeleteRequestModel Delete(HTTPDeleteRequestModel request);
+        public abstract Task<HTTPDeleteRequestModel> DeleteAsync(HTTPDeleteRequestModel request);
+
+        public abstract T Get<T>(HTTPGetRequestModel request);
+        public abstract Task<T> GetAsync<T>(HTTPGetRequestModel request);
+
+        public abstract T2 Post<T1, T2>(HTTPPostRequestModel<T1> request);
+        public abstract Task<T2> PostAsync<T1, T2>(HTTPPostRequestModel<T1> request);
+
+        public abstract T2 Put<T1, T2>(HTTPPutRequestModel<T1> request);
+        public abstract Task<T2> PutAsync<T1, T2>(HTTPPutRequestModel<T1> request);
     }
 }

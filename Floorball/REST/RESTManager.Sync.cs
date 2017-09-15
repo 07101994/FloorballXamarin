@@ -6,7 +6,7 @@ namespace Floorball.REST
 {
     public partial class RESTManager : RESTManagerBase
 	{
-		public HTTPGetRequestModel<T1> Get<T1>(HTTPGetRequestModel<T1> request)
+		public override T Get<T>(HTTPGetRequestModel request)
 		{
 
 			try
@@ -17,9 +17,8 @@ namespace Floorball.REST
 
 				CheckError(response, request.ErrorMsg);
 
-				request.Response = deserial.Deserialize<T1>(response);
+				return deserial.Deserialize<T>(response);
 
-				return request;
 			}
 			catch (Exception ex)
 			{
@@ -28,7 +27,7 @@ namespace Floorball.REST
 
 		}
 
-		public HTTPPostRequestModel<T1, T2> Post<T1, T2>(HTTPPostRequestModel<T1, T2> request)
+		public override T2 Post<T1, T2>(HTTPPostRequestModel<T1> request)
 		{
 
 
@@ -40,9 +39,8 @@ namespace Floorball.REST
 
 				CheckError(response, request.ErrorMsg);
 
-				request.Response = deserial.Deserialize<T2>(response);
+				return deserial.Deserialize<T2>(response);
 
-				return request;
 			}
 			catch (Exception ex)
 			{
@@ -52,7 +50,7 @@ namespace Floorball.REST
 
 		}
 
-		public HTTPPutRequestModel<T1, T2> Put<T1, T2>(HTTPPutRequestModel<T1, T2> request)
+		public override T2 Put<T1, T2>(HTTPPutRequestModel<T1> request)
 		{
 
 			try
@@ -63,9 +61,7 @@ namespace Floorball.REST
 
 				CheckError(response, request.ErrorMsg);
 
-				request.Response = deserial.Deserialize<T2>(response);
-
-				return request;
+				return deserial.Deserialize<T2>(response);
 			}
 			catch (Exception ex)
 			{
@@ -74,7 +70,7 @@ namespace Floorball.REST
 
 		}
 
-		public HTTPDeleteRequestModel Delete(HTTPDeleteRequestModel request)
+		public override HTTPDeleteRequestModel Delete(HTTPDeleteRequestModel request)
 		{
 
 			try

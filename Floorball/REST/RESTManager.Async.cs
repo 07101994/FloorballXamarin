@@ -8,7 +8,7 @@ namespace Floorball.REST
     public partial class RESTManager : RESTManagerBase
     {
 
-        public async Task<HTTPGetRequestModel<T1>> GetAsync<T1>(HTTPGetRequestModel<T1> request)
+        public override async Task<T> GetAsync<T>(HTTPGetRequestModel request)
         {
 
             try
@@ -19,9 +19,8 @@ namespace Floorball.REST
 
                 CheckError(response, request.ErrorMsg);
 
-                request.Response = deserial.Deserialize<T1>(response);
+                return deserial.Deserialize<T>(response);
 
-                return request;
             }
             catch (Exception ex)
             {
@@ -30,7 +29,7 @@ namespace Floorball.REST
 
         }
 
-        public async Task<HTTPPostRequestModel<T1, T2>> PostAsync<T1, T2>(HTTPPostRequestModel<T1, T2> request) {
+        public override async Task<T2> PostAsync<T1, T2>(HTTPPostRequestModel<T1> request) {
 
 
 			try
@@ -41,9 +40,7 @@ namespace Floorball.REST
 
 				CheckError(response, request.ErrorMsg);
 
-				request.Response = deserial.Deserialize<T2>(response);
-
-				return request;
+                return deserial.Deserialize<T2>(response);
 			}
 			catch (Exception ex)
 			{
@@ -53,7 +50,7 @@ namespace Floorball.REST
 
         }
 
-		public async Task<HTTPPutRequestModel<T1, T2>> PutAsync<T1, T2>(HTTPPutRequestModel<T1, T2> request)
+		public override async Task<T2> PutAsync<T1, T2>(HTTPPutRequestModel<T1> request)
 		{
 
 			try
@@ -64,9 +61,8 @@ namespace Floorball.REST
 
 				CheckError(response, request.ErrorMsg);
 
-				request.Response = deserial.Deserialize<T2>(response);
+				return deserial.Deserialize<T2>(response);
 
-				return request;
 			}
 			catch (Exception ex)
 			{
@@ -75,7 +71,7 @@ namespace Floorball.REST
 
 		}
 
-		public async Task<HTTPDeleteRequestModel> DeleteAsync(HTTPDeleteRequestModel request)
+		public override async Task<HTTPDeleteRequestModel> DeleteAsync(HTTPDeleteRequestModel request)
 		{
 
 			try
@@ -94,7 +90,5 @@ namespace Floorball.REST
 			}
 
 		}
-
-
-	}
+    }
 }

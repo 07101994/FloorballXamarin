@@ -10,10 +10,11 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Floorball.REST.RequestModels;
 
 namespace Floorball.REST
 {
-    class RESTHelper
+    public class RESTHelper
     {
         private static FloorballSerializer deserial = new FloorballSerializer(new JsonSerializer());
         private static string ServerURL = "https://floorball.azurewebsites.net";
@@ -21,22 +22,21 @@ namespace Floorball.REST
         //private static string ServerURL = "http://192.168.173.1:8088";
         //private static string ServerURL = "http://192.168.173.1:8088";
 
+        private static IRESTManager Network;
+
+        static RESTHelper()
+        {
+            Network = new RESTManager();
+        }
+
 
         public async static Task<List<PlayerModel>> GetPlayersAsync()
         {
-            try
-            {
-                FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/players", Method.GET) as RestResponse;
-
-                CheckError(response, "Nem sikerült a játékosok lekérdezése!");
-
-                return deserial.Deserialize<List<PlayerModel>>(response);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return await Network.GetAsync<List<PlayerModel>>(new HTTPGetRequestModel() 
+            { 
+                Url = "/api/floorball/players", 
+                ErrorMsg = "Error during getting players from server!" 
+            });
 
         }
 
@@ -63,7 +63,7 @@ namespace Floorball.REST
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", leagueId.ToString() } };
                 RestResponse response = await client.ExecuteRequestAsync("/api/floorball/leagues/{id}/teams", Method.GET, urlParams) as RestResponse;
 
-                CheckError(response,"Nem sikerült a csapatok lekérdezése a bajnoksághoz!");
+                CheckError(response, "Nem sikerült a csapatok lekérdezése a bajnoksághoz!");
 
                 return deserial.Deserialize<List<TeamModel>>(response);
             }
