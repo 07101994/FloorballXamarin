@@ -21,7 +21,7 @@ namespace Floorball.REST
             AddHandler("*+json", FloorballSerializer.Instance);
         }
 
-        public async Task<IRestResponse> ExecuteRequest(string path, Method method, Dictionary<string, string> urlParams = null, Dictionary<string, string> queryParams = null, object body = null, Dictionary<string, string> headers = null)
+        public async Task<IRestResponse> ExecuteRequestAsync(string path, Method method, Dictionary<string, string> urlParams = null, Dictionary<string, string> queryParams = null, object body = null, Dictionary<string, string> headers = null)
         {
             RestResponse response;
 
@@ -76,7 +76,64 @@ namespace Floorball.REST
             return response;
         }
 
-        private IRestResponse ExecuteGET(Dictionary<string, string> queryParams)
+		public IRestResponse ExecuteRequest(string path, Method method, Dictionary<string, string> urlParams = null, Dictionary<string, string> queryParams = null, object body = null, Dictionary<string, string> headers = null)
+		{
+			RestResponse response;
+
+			request = new RestRequest(path, method);
+			request.RequestFormat = DataFormat.Json;
+			request.JsonSerializer = FloorballSerializer.Instance;
+			if (urlParams != null)
+			{
+				foreach (var urlParam in urlParams)
+				{
+					request.AddUrlSegment(urlParam.Key, urlParam.Value);
+				}
+			}
+			if (headers != null)
+			{
+				foreach (var header in headers)
+				{
+					request.AddHeader(header.Key, header.Value);
+				}
+			}
+
+			switch (method)
+			{
+				case Method.GET:
+					response = ExecuteGET(queryParams) as RestResponse;
+					break;
+				case Method.POST:
+					response = ExecutePOST(body) as RestResponse;
+					break;
+				case Method.PUT:
+					response = ExecutePUT() as RestResponse;
+					break;
+				case Method.DELETE:
+					response = ExecuteDELETE() as RestResponse;
+					break;
+				default:
+					return null;
+			}
+
+			if (response.ErrorException != null)
+			{
+				throw response.ErrorException;
+			}
+			else
+			{
+				if (response.StatusCode.ToString()[0] == '4')
+				{
+					throw new Exception(response.Content);
+				}
+			}
+
+			return response;
+		}
+
+
+
+		private IRestResponse ExecuteGET(Dictionary<string, string> queryParams)
         {
             if (queryParams != null)
             {

@@ -67,8 +67,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)Colors\MediumGreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Colors\Purple.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Colors\Brown.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RESTManager.Async.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RESTManager.Sync.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RESTManagerBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RequestModels\RequestModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RequestModels\HTTPGetRequestModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RequestModels\HTTPPostRequestModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RequestModels\HTTPPutRequestModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RequestModels\HTTPDeleteRequestModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Colors\" />
+    <Folder Include="$(MSBuildThisFileDirectory)REST\RequestModels\" />
   </ItemGroup>
 </Project>

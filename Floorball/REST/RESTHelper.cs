@@ -21,12 +21,13 @@ namespace Floorball.REST
         //private static string ServerURL = "http://192.168.173.1:8088";
         //private static string ServerURL = "http://192.168.173.1:8088";
 
+
         public async static Task<List<PlayerModel>> GetPlayersAsync()
         {
             try
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/players", Method.GET) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/players", Method.GET) as RestResponse;
 
                 CheckError(response, "Nem sikerült a játékosok lekérdezése!");
 
@@ -60,7 +61,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", leagueId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/leagues/{id}/teams", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/leagues/{id}/teams", Method.GET, urlParams) as RestResponse;
 
                 CheckError(response,"Nem sikerült a csapatok lekérdezése a bajnoksághoz!");
 
@@ -79,7 +80,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", teamId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/teams/{id}", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/teams/{id}", Method.GET, urlParams) as RestResponse;
 
                 CheckError(response, "Nem sikerült a csapat lekérdezése!");
 
@@ -98,7 +99,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", leagueId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/leagues/{id}/matches", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/leagues/{id}/matches", Method.GET, urlParams) as RestResponse;
 
                 CheckError(response, "Nem sikerült a meccsek lekérdezése a bajnoksághoz!");
 
@@ -116,7 +117,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", matchId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/matches/{id}", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/matches/{id}", Method.GET, urlParams) as RestResponse;
 
                 CheckError(response, "Nem sikerült a mérkőzés lekérdezése!");
 
@@ -135,7 +136,7 @@ namespace Floorball.REST
             try
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/referees", Method.GET) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/referees", Method.GET) as RestResponse;
 
                 CheckError(response,"Nem sikerült a bírók lekérdezése!");
 
@@ -154,7 +155,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", refereeId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/referees/{id}", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/referees/{id}", Method.GET, urlParams) as RestResponse;
 
                 CheckError(response, "Nem sikerült a bíró lekérdezése!");
 
@@ -173,7 +174,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", teamId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/teams/{id}/players", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/teams/{id}/players", Method.GET, urlParams) as RestResponse;
 
                 CheckError(response, "Nem sikerült a csapat játékosainak a lekérdezése!");
 
@@ -192,7 +193,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", leagueId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/leagues/{id}/players", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/leagues/{id}/players", Method.GET, urlParams) as RestResponse;
 
                 CheckError(response,"Nem sikerül a játékosokat lekérdezni a bajnoksághoz!");
 
@@ -213,7 +214,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", refereeId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/referees/{id}/matches", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/referees/{id}/matches", Method.GET, urlParams) as RestResponse;
 
                 CheckError(response, "Nem sikerült a bíróhoz tartozó meccsek lekérdezése!");
 
@@ -299,7 +300,7 @@ namespace Floorball.REST
             try
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/leagues", Method.GET) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/leagues", Method.GET) as RestResponse;
 
                 CheckError(response, "Nem sikerült a bajnokságok lekérdezése!");
 
@@ -317,7 +318,7 @@ namespace Floorball.REST
             try
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/stadiums", Method.GET) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/stadiums", Method.GET) as RestResponse;
 
                 CheckError(response, "Nem sikerült a stadionok lekérdezése");
 
@@ -335,7 +336,7 @@ namespace Floorball.REST
             try
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/matches", Method.GET) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/matches", Method.GET) as RestResponse;
 
                 CheckError(response,"Nem sikerült a mérkőzések lekérdezése!");
 
@@ -353,7 +354,7 @@ namespace Floorball.REST
             try
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/events", Method.GET) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/events", Method.GET) as RestResponse;
 
                 CheckError(response, "Nem sikerült az események lekérdezése!");
 
@@ -371,7 +372,7 @@ namespace Floorball.REST
             try
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/eventmessages", Method.GET) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/eventmessages", Method.GET) as RestResponse;
 
                 CheckError(response, "Nem sikerült az eseményüzenetek lekérdezése!");
 
@@ -389,7 +390,7 @@ namespace Floorball.REST
             try
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/statistics", Method.GET) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/statistics", Method.GET) as RestResponse;
 
                 CheckError(response, "Nem sikerült a statisztikák lekérdezése");
 
@@ -408,7 +409,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> queryParams = new Dictionary<string, string>() { { "withImage", withImage.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/teams", Method.GET, null, queryParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/teams", Method.GET, null, queryParams) as RestResponse;
 
                 CheckError(response, "Nem sikerült a csapatok lekérdezése!");
 
@@ -426,7 +427,7 @@ namespace Floorball.REST
             try
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/years", Method.GET) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/years", Method.GET) as RestResponse;
 
                 CheckError(response, "Nem sikerült az évek lekérdezése!");
 
@@ -445,7 +446,7 @@ namespace Floorball.REST
             try
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/matches/actual", Method.GET) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/matches/actual", Method.GET) as RestResponse;
 
                 CheckError(response, "Nem sikerült az aktuális mérkőzések lekérdezése!");
 
@@ -463,7 +464,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", leagueId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/leagues/{id}/rounds", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/leagues/{id}/rounds", Method.GET, urlParams) as RestResponse;
 
                 CheckError(response, "Nem sikerült a fordulók lekérdezése!");
 
@@ -482,7 +483,7 @@ namespace Floorball.REST
             {
 
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/players/teams", Method.GET) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/players/teams", Method.GET) as RestResponse;
 
                 CheckError(response, "Nem sikerült a játékos, csapat lekérdezése!");
 
@@ -500,7 +501,7 @@ namespace Floorball.REST
             {
 
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/players/matches", Method.GET) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/players/matches", Method.GET) as RestResponse;
 
                 CheckError(response, "Nem sikerült a játékosok, meccsek lekérdezése");
 
@@ -517,7 +518,7 @@ namespace Floorball.REST
             try
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
-                RestResponse response = await client.ExecuteRequest("/api/floorball/referees/matches", Method.GET) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/referees/matches", Method.GET) as RestResponse;
 
                 CheckError(response, "Nem sikerült a bírók, mérkőzések lekérdezése!");
 
@@ -535,7 +536,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", leagueId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/leagues/{id}/statistics", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/leagues/{id}/statistics", Method.GET, urlParams) as RestResponse;
 
                 return deserial.Deserialize<List<StatisticModel>>(response);
             }
@@ -553,7 +554,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", eventId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/events/{id}", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/events/{id}", Method.GET, urlParams) as RestResponse;
 
                 return deserial.Deserialize<EventModel>(response);
             }
@@ -571,7 +572,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", matchId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/matches/{id}/events", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/matches/{id}/events", Method.GET, urlParams) as RestResponse;
 
                 return deserial.Deserialize<List<EventModel>>(response);
             }
@@ -589,7 +590,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> queryParams = new Dictionary<string, string>() { { "categoryNumber", category.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/eventmessages", Method.GET, null, queryParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/eventmessages", Method.GET, null, queryParams) as RestResponse;
 
                 return deserial.Deserialize<List<EventMessageModel>>(response);
             }
@@ -607,7 +608,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> queryParams = new Dictionary<string, string>() { { "year", year } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/leagues", Method.GET, null, queryParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/leagues", Method.GET, null, queryParams) as RestResponse;
 
                 return deserial.Deserialize<List<LeagueModel>>(response);
             }
@@ -844,7 +845,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", eventId.ToString() } };
-                await client.ExecuteRequest("/api/floorball/events/{id}", Method.DELETE, urlParams);
+                await client.ExecuteRequestAsync("/api/floorball/events/{id}", Method.DELETE, urlParams);
 
             }
             catch (Exception)
@@ -861,7 +862,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> urlParams = new Dictionary<string, string>() { { "id", matchId.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/matches/{id}/players", Method.GET, urlParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/matches/{id}/players", Method.GET, urlParams) as RestResponse;
 
                 return deserial.Deserialize<List<PlayerModel>>(response);
             }
@@ -879,7 +880,7 @@ namespace Floorball.REST
             {
                 FloorballRESTClient client = new FloorballRESTClient(ServerURL);
                 Dictionary<string, string> queryParams = new Dictionary<string, string>() { { "date", date.ToString() } };
-                RestResponse response = await client.ExecuteRequest("/api/floorball/updates", Method.GET, null, queryParams) as RestResponse;
+                RestResponse response = await client.ExecuteRequestAsync("/api/floorball/updates", Method.GET, null, queryParams) as RestResponse;
 
                 CheckError(response,"Nem sikerült a frissíések letöltése!");
 
