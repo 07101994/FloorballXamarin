@@ -13,6 +13,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Floorball.REST.RequestModels;
+using Floorball.REST.RESTHelpers;
 
 namespace Floorball.LocalDB
 {
@@ -20,6 +22,7 @@ namespace Floorball.LocalDB
     {
 
         public bool IsInit { get; set; }
+        private IRESTManager Network;
 
         private static Manager Current { get; set; }
 
@@ -38,7 +41,7 @@ namespace Floorball.LocalDB
 
         protected Manager()
         {
-
+            Network = new RESTManager();
         }
 
         private ISQLitePlatform Platform
@@ -176,7 +179,8 @@ namespace Floorball.LocalDB
 
             await Task.WhenAll(tasks);
 
-            Database db = new Database {
+            Database db = new Database
+            {
                 EventMessages = eventMessagesTask.Result,
                 Leagues = leaguesTask.Result,
                 Referees = refereesTask.Result,
