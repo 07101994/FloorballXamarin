@@ -49,5 +49,10 @@
         <image name="goal" width="237" height="213"/>
         <image name="logo" width="225" height="225"/>
         <image name="menu" width="50" height="50"/>
+        <image name="hu" width="16" height="11"/>
+        <image name="sw" width="11" height="11"/>
+        <image name="se" width="16" height="11"/>
+        <image name="fl" width="16" height="11"/>
+        <image name="cz" width="16" height="11"/>
     </resources>
 </document>

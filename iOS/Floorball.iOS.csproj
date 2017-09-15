@@ -279,7 +279,6 @@
       <DependentUpon>RefereeContainerViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\ColorHelper.cs" />
-    <Compile Include="Resources\base.lproj\LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images.xcassets\10minutes.imageset\" />
@@ -371,6 +370,7 @@
     <ImageAsset Include="Resources\Images.xcassets\fl.imageset\fl.png" />
     <ImageAsset Include="Resources\Images.xcassets\cz.imageset\Contents.json" />
     <ImageAsset Include="Resources\Images.xcassets\cz.imageset\cz.png" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Settings.bundle\Root.plist" />
@@ -387,6 +387,7 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\base.lproj\Main.storyboard" />
+    <InterfaceDefinition Include="Resources\base.lproj\LaunchScreen.storyboard" />
   </ItemGroup>
   <Import Project="..\Floorball\Floorball.projitems" Label="Shared" Condition="Exists('..\Floorball\Floorball.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -25,6 +25,7 @@ namespace Floorball.iOS
 
 		public Stadium Stadium { get; set; }
 
+		bool initialized;
 
 		public MatchViewController() : base("MatchViewController", null)
 		{
@@ -40,28 +41,40 @@ namespace Floorball.iOS
 			// Perform any additional setup after loading the view, typically from a nib.
 
 			//Init properties
-			//InitProperties();
+			if (!initialized)
+			{
+				InitProperties();
+			}
 
-			//Init outlets
-			InitOutlets();
-
-			NavigationItem.Title = "Match";
+			NavigationItem.TitleView = UIHelper.MakeImageWithLabel("logo","Floorball");
 		}
 
-		private void InitOutlets()
+		partial void SegmentChanged(UISegmentedControl sender)
 		{
-			LeagueName.Text = League.Name + " " + Match.Round + ". forduló";
-			MatchDate.Text = Match.Date.ToShortDateString();
-			StadiumName.Text = Stadium.Name;
-
-			HomeTeamName.Text = HomeTeam.Name;
-			AwayTeamName.Text = AwayTeam.Name;
-			//HomeTeamImage.Image = new UIImage("phx.png");
-			//AwayTeamImage.Image = new UIImage("phx.png");
-
-
-			Result.Text = Match.GoalsH + " - " + Match.GoalsA;
-			ActualTime.Text = Match.Time.Hours == 1 ? "Vége" : Match.Time.Minutes + ":" + Match.Time.Seconds;
+			if (sender.SelectedSegment == 0)
+			{
+				EventsContainer.Hidden = false;
+				PlayersContainer.Hidden = true;
+				DetailsContainer.Hidden = true;
+			} 
+			else
+			{
+				if (sender.SelectedSegment == 1)
+				{
+					EventsContainer.Hidden = true;
+					PlayersContainer.Hidden = false;
+					DetailsContainer.Hidden = true;
+				} 
+				else
+				{
+					if (sender.SelectedSegment == 2)
+					{
+						EventsContainer.Hidden = true;
+						PlayersContainer.Hidden = true;
+						DetailsContainer.Hidden = false;
+					}
+				}
+			}
 		}
 
 		private void InitProperties()
@@ -84,16 +97,42 @@ namespace Floorball.iOS
 
 		public override void PrepareForSegue(UIStoryboardSegue segue, Foundation.NSObject sender)
 		{
+			if (!initialized)
+			{
+				InitProperties();
+				initialized = true;
+			}
+
+
 			switch (segue.Identifier)
 			{
-				case "MatchEvents":
+				case "MatchEventsTab":
 
-					InitProperties();
-
-					var vc = segue.DestinationViewController as MatchEventsViewController;
-					vc.Events = Events.Where(e => e.Type != "A");
+					var vc = segue.DestinationViewController as MatchEventTabViewController;
+					vc.Match = Match;
 					vc.HomeTeam = HomeTeam;
 					vc.AwayTeam = AwayTeam;
+					vc.Events = Events;
+
+
+					break;
+
+				case "MatchPlayers":
+
+					var vc1 = segue.DestinationViewController as MatchPlayersViewController;
+					vc1.Match = Match;
+					vc1.HomeTeam = HomeTeam;
+					vc1.AwayTeam = AwayTeam;
+					vc1.Events = Events;
+
+					break;
+
+				case "MatchDetails":
+
+					var vc2 = segue.DestinationViewController as MatchDetailsViewController;
+					vc2.Stadium = Stadium;
+					vc2.League = League;
+					vc2.Match = Match;
 
 					break;
 
