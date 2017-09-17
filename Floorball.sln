@@ -7,11 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Floorball.iOS", "iOS\Floorb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Floorball.Droid", "Droid\Floorball.Droid.csproj", "{EE636AAF-E2BC-43FF-9F66-E6179ABA39E8}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Floorball", "Floorball\Floorball.shproj", "{DD88CBCF-2643-4F58-A969-69300252E30F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F7C55866-1BAB-47FD-A2D9-5E7973EBA1FB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloorballPCL", "FloorballPCL\FloorballPCL.csproj", "{67724CC9-1D48-4A77-B7F2-94040D36A2D1}"
+EndProject
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Floorball", "Floorball\Floorball.shproj", "{3718E3B8-3307-4ACE-97A3-0749F191197E}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

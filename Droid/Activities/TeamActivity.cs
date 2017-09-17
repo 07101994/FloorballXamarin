@@ -72,7 +72,7 @@ namespace Floorball.Droid.Activities
         {
             try
             {
-                var bitmap = BitmapFactory.DecodeStream(File.OpenRead(ImageManager.GetImagePath(Team.ImageName)));
+                var bitmap = BitmapFactory.DecodeStream(File.OpenRead(UnitOfWork.ImageManager.GetImagePath(Team.ImageName)));
 
                 if (bitmap == null)
                 {

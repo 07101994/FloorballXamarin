@@ -30,8 +30,6 @@ namespace Floorball.Droid.Activities
 
         public IEnumerable<LocalDB.Tables.Event> Events { get; set; }
 
-        public IEnumerable<League> Leagues { get; set; }
-
         public IEnumerable<Match> Matches { get; set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
