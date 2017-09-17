@@ -66,22 +66,25 @@
     <Compile Include="$(MSBuildThisFileDirectory)Colors\MediumGreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Colors\Purple.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Colors\Brown.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)REST\RESTManager.Async.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)REST\RESTManager.Sync.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)REST\RESTManagerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RequestModels\RequestModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RequestModels\HTTPGetRequestModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RequestModels\HTTPPostRequestModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RequestModels\HTTPPutRequestModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RequestModels\HTTPDeleteRequestModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)REST\IRESTManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RESTHelpers\RESTHelper.POST.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RESTHelpers\RESTHelper.GET.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)REST\RESTHelpers\RESTHelperBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RESTHelpers\RESTHelper.PUT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RESTHelpers\RESTHelper.DELETE.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RESTManagers\IRESTManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RESTManagers\RESTManager.Async.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RESTManagers\RESTManager.Sync.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)REST\RESTManagers\RESTManagerBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Colors\" />
     <Folder Include="$(MSBuildThisFileDirectory)REST\RequestModels\" />
     <Folder Include="$(MSBuildThisFileDirectory)REST\RESTHelpers\" />
+    <Folder Include="$(MSBuildThisFileDirectory)REST\RESTManagers\" />
   </ItemGroup>
 </Project>

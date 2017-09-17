@@ -3,8 +3,6 @@ using Floorball.Model;
 using Floorball.Updater;
 using FloorballServer.Models.Floorball;
 using Newtonsoft.Json;
-using RestSharp;
-using RestSharp.Deserializers;
 using System;
 using System.Collections.Generic;
 using System.Net;

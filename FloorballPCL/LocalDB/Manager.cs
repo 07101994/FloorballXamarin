@@ -13,9 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Floorball.REST.RequestModels;
 using Floorball.REST.RESTHelpers;
-using Floorball.REST.RESTManagers;
 
 namespace Floorball.LocalDB
 {
@@ -23,77 +21,81 @@ namespace Floorball.LocalDB
     {
 
         public bool IsInit { get; set; }
-        private IRESTManager Network;
 
         private static Manager Current { get; set; }
 
+        private ISQLitePlatform Platform { get; set; }
+        private string DatabasePath { get; set; }
+
         public static Manager Instance
         {
-            get
+            get 
             {
-                if (Current == null)
-                {
+				if (Current == null)
+				{
                     Current = new Manager();
-                }
+				}
 
-                return Current;
+				return Current;
             }
+            
         }
 
         protected Manager()
         {
-            Network = new RESTManager();
+            Platform = UnitOfWork.Platform;
+            DatabasePath = UnitOfWork.DatabasePath;
         }
 
-        private ISQLitePlatform Platform
-        {
-            get
-            {
-#if __IOS__
+//        private ISQLitePlatform Platform
+//        {
+//            get
+//            {
+//#if __IOS__
 
-                return new SQLite.Net.Platform.XamarinIOS.SQLitePlatformIOS();
+//                return new SQLite.Net.Platform.XamarinIOS.SQLitePlatformIOS();
 
-#else
+//#else
 
-#if __ANDROID__
+//#if __ANDROID__
 
-                return new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
-#endif
-#endif
-            }
-        }
+//                return new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
+//#endif
+//#endif
+//            }
+//        }
 
-        private string DatabasePath
-        {
-            get
-            {
-                var sqliteFilename = "Floorball.db3";
+//        private string DatabasePath
+//        {
+//            get
+//            {
+//                var sqliteFilename = "Floorball.db3";
 
-#if __IOS__
+//#if __IOS__
 
-                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
-                string libraryPath = Path.Combine(documentsPath, "..", "Library"); // Library folder
-                var path = Path.Combine(libraryPath, sqliteFilename);
+//                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
+//                string libraryPath = Path.Combine(documentsPath, "..", "Library"); // Library folder
+//                var path = Path.Combine(libraryPath, sqliteFilename);
                 
-#else
+//#else
 
-#if __ANDROID__
+//#if __ANDROID__
         
-                string documentsPath = Environment.GetFolderPath (Environment.SpecialFolder.Personal); // Documents folder
+//                string documentsPath = Environment.GetFolderPath (Environment.SpecialFolder.Personal); // Documents folder
         
-                var path = Path.Combine(documentsPath, sqliteFilename);
+//                var path = Path.Combine(documentsPath, sqliteFilename);
 
-#else
+//#else
         
-                // WinPhone
+//                // WinPhone
         
-                var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, sqliteFilename);
+//                var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, sqliteFilename);
 
-#endif
-#endif
-                return path;
-            }
-        }
+//#endif
+//#endif
+        //        return path;
+        //    }
+        //}
 
         private void CreateDatabase()
         {
@@ -180,8 +182,7 @@ namespace Floorball.LocalDB
 
             await Task.WhenAll(tasks);
 
-            Database db = new Database
-            {
+            Database db = new Database {
                 EventMessages = eventMessagesTask.Result,
                 Leagues = leaguesTask.Result,
                 Referees = refereesTask.Result,

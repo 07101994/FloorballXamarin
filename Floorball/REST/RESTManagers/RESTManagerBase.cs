@@ -6,7 +6,7 @@ using Floorball.REST.RequestModels;
 using Newtonsoft.Json;
 using RestSharp;
 
-namespace Floorball.REST
+namespace Floorball.REST.RESTManagers
 {
     public abstract class RESTManagerBase : IRESTManager
     {

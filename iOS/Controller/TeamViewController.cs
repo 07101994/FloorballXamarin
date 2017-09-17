@@ -52,7 +52,7 @@ namespace Floorball.iOS
 		private void SetTeamImage()
 		{
 
-			var image = UIImage.FromFile(ImageManager.GetImagePath(Team.ImageName));
+			var image = UIImage.FromFile(UnitOfWork.ImageManager.GetImagePath(Team.ImageName));
 
 			if (image == null)
 			{

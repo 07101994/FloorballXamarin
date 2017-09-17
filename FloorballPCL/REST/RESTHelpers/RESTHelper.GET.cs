@@ -16,7 +16,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<PlayerModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/players",
+				Url = "api/floorball/players",
 				ErrorMsg = "Error during getting players from server!"
 			});
 
@@ -26,7 +26,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<LeagueModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/leagues",
+				Url = "api/floorball/leagues",
 				ErrorMsg = "Error during getting leagues from server!"
 			});
 
@@ -36,7 +36,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<RefereeModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/referees",
+				Url = "api/floorball/referees",
 				ErrorMsg = "Error during getting referees from server!"
 			});
 
@@ -46,7 +46,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<TeamModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/teams",
+				Url = "api/floorball/teams",
 				ErrorMsg = "Error during getting teams from server!"
 			});
 
@@ -56,7 +56,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<MatchModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/matches",
+				Url = "api/floorball/matches",
 				ErrorMsg = "Error during getting matches from server!"
 			});
 
@@ -67,7 +67,7 @@ namespace Floorball.REST.RESTHelpers
 
 			return await Network.GetAsync<UpdateModel>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/updates",
+				Url = "api/floorball/updates",
 				QueryParams = new Dictionary<string, string>() { { "date", date.ToString() } },
 				ErrorMsg = "Error during getting updates from server!"
 			});
@@ -80,7 +80,7 @@ namespace Floorball.REST.RESTHelpers
 
 			return await Network.GetAsync<List<StadiumModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/stadiums",
+				Url = "api/floorball/stadiums",
 				ErrorMsg = "Error during getting stadiums from server!"
 			});
 
@@ -90,7 +90,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<EventModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/events",
+				Url = "api/floorball/events",
 				ErrorMsg = "Error during getting events from server!"
 			});
 		}
@@ -99,7 +99,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<EventMessageModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/eventmessages",
+				Url = "api/floorball/eventmessages",
 				ErrorMsg = "Error during getting event messages from server!"
 			});
 
@@ -109,7 +109,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<StatisticModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/statistics",
+				Url = "api/floorball/statistics",
 				ErrorMsg = "Error during getting statistics from server!"
 			});
 
@@ -121,7 +121,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<Dictionary<int, List<int>>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/players/teams",
+				Url = "api/floorball/players/teams",
 				ErrorMsg = "Error during getting players for teams!"
 			});
 
@@ -132,7 +132,7 @@ namespace Floorball.REST.RESTHelpers
 
 			return await Network.GetAsync<Dictionary<int, List<int>>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/players/matches",
+				Url = "api/floorball/players/matches",
 				ErrorMsg = "Error during getting players for matches!"
 			});
 
@@ -143,7 +143,7 @@ namespace Floorball.REST.RESTHelpers
 
 			return await Network.GetAsync<Dictionary<int, List<int>>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/referees/matches",
+				Url = "api/floorball/referees/matches",
 				ErrorMsg = "Error during getting referees for matches!"
 			});
 
@@ -153,7 +153,7 @@ namespace Floorball.REST.RESTHelpers
 		{
             return await Network.GetAsync<List<TeamModel>>(new HTTPGetRequestModel()
             {
-                Url = "/api/floorball/leagues/{id}/teams",
+                Url = "api/floorball/leagues/{id}/teams",
                 UrlParams = new Dictionary<string, string>() { { "id", leagueId.ToString() } },
                 ErrorMsg = "Error during getting teams to league!"
             });
@@ -164,7 +164,7 @@ namespace Floorball.REST.RESTHelpers
 		{
             return await Network.GetAsync<TeamModel>(new HTTPGetRequestModel()
             {
-                Url = "/api/floorball/teams/{id}",
+                Url = "api/floorball/teams/{id}",
                 UrlParams = new Dictionary<string, string>() { { "id", teamId.ToString() } },
                 ErrorMsg = "Error during getting team!"
             });
@@ -175,7 +175,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<MatchModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/leagues/{id}/matches",
+				Url = "api/floorball/leagues/{id}/matches",
 				UrlParams = new Dictionary<string, string>() { { "id", leagueId.ToString() } },
 				ErrorMsg = "Error during getting matches for league!"
 			});
@@ -186,7 +186,7 @@ namespace Floorball.REST.RESTHelpers
 
             return await Network.GetAsync<MatchModel>(new HTTPGetRequestModel()
             {
-                Url = "/api/floorball/matches/{id}",
+                Url = "api/floorball/matches/{id}",
                 UrlParams = new Dictionary<string, string>() { { "id", matchId.ToString() } },
                 ErrorMsg = "Error during getting match!"
             });
@@ -197,7 +197,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<RefereeModel>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/referees/{id}",
+				Url = "api/floorball/referees/{id}",
 				UrlParams = new Dictionary<string, string>() { { "id", refereeId.ToString() } },
 				ErrorMsg = "Error during getting referee!"
 			});
@@ -208,7 +208,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<PlayerModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/teams/{id}/players",
+				Url = "api/floorball/teams/{id}/players",
 				UrlParams = new Dictionary<string, string>() { { "id", teamId.ToString() } },
 				ErrorMsg = "Error during getting players for team!"
 			});
@@ -219,7 +219,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<PlayerModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/leagues/{id}/players",
+				Url = "api/floorball/leagues/{id}/players",
 				UrlParams = new Dictionary<string, string>() { { "id", leagueId.ToString() } },
 				ErrorMsg = "Error during getting players for league!"
 			});
@@ -232,7 +232,7 @@ namespace Floorball.REST.RESTHelpers
         {
 			return await Network.GetAsync<List<MatchModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/referees/{id}/matches",
+				Url = "api/floorball/referees/{id}/matches",
 				UrlParams = new Dictionary<string, string>() { { "id", refereeId.ToString() } },
 				ErrorMsg = "Error during getting matches for referee!"
 			});
@@ -243,7 +243,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<PlayerModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/matches/{id}/players",
+				Url = "api/floorball/matches/{id}/players",
 				UrlParams = new Dictionary<string, string>() { { "id", matchId.ToString() } },
 				ErrorMsg = "Error during getting players for match!"
 			});
@@ -254,7 +254,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<string>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/years",
+				Url = "api/floorball/years",
 				ErrorMsg = "Error during getting players for match!"
 			});
 		}
@@ -264,7 +264,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<MatchModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/matches/actual",
+				Url = "api/floorball/matches/actual",
 				ErrorMsg = "Error during getting actual matches from server!"
 			});
 			
@@ -274,7 +274,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<int>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/leagues/{id}/rounds",
+				Url = "api/floorball/leagues/{id}/rounds",
                 UrlParams =  new Dictionary<string, string>() { { "id", leagueId.ToString() } },
 				ErrorMsg = "Error during getting rounds number of the league!"
 			});
@@ -284,7 +284,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<StatisticModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/leagues/{id}/statistics",
+				Url = "api/floorball/leagues/{id}/statistics",
 				UrlParams = new Dictionary<string, string>() { { "id", leagueId.ToString() } },
 				ErrorMsg = "Error during getting statistics for league!"
 			});
@@ -294,7 +294,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<EventModel>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/events/{id}",
+				Url = "api/floorball/events/{id}",
 				UrlParams = new Dictionary<string, string>() { { "id", eventId.ToString() } },
 				ErrorMsg = "Error during getting event!"
 			});
@@ -305,7 +305,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<EventModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/matches/{id}/events",
+				Url = "api/floorball/matches/{id}/events",
 				UrlParams = new Dictionary<string, string>() { { "id", matchId.ToString() } },
 				ErrorMsg = "Error during getting events for match!"
 			});
@@ -315,7 +315,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<EventMessageModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/eventmessages",
+				Url = "api/floorball/eventmessages",
 				QueryParams = new Dictionary<string, string>() { { "categoryNumber", category.ToString() } },
 				ErrorMsg = "Error during getting eventmessages for category!"
 			});
@@ -325,7 +325,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<List<LeagueModel>>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/leagues",
+				Url = "api/floorball/leagues",
 				QueryParams = new Dictionary<string, string>() { { "year", year } },
 				ErrorMsg = "Error during getting leagues!"
 			});
@@ -335,7 +335,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<LeagueModel>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/leagues/{id}",
+				Url = "api/floorball/leagues/{id}",
 				UrlParams = new Dictionary<string, string>() { { "id", leagueId.ToString() } },
 				ErrorMsg = "Error during getting league!"
 			});
@@ -345,7 +345,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<PlayerModel>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/players/{id}",
+				Url = "api/floorball/players/{id}",
 				UrlParams = new Dictionary<string, string>() { { "id", playerId.ToString() } },
 				ErrorMsg = "Error during getting player!"
 			});
@@ -355,7 +355,7 @@ namespace Floorball.REST.RESTHelpers
 		{
 			return await Network.GetAsync<EventMessageModel>(new HTTPGetRequestModel()
 			{
-				Url = "/api/floorball/eventmessages/{id}",
+				Url = "api/floorball/eventmessages/{id}",
 				UrlParams = new Dictionary<string, string>() { { "id", eventMessageId.ToString() } },
 				ErrorMsg = "Error during getting eventmessage!"
 			});

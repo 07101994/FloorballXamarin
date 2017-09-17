@@ -2,23 +2,10 @@
 using System.Threading.Tasks;
 using Floorball.REST.RequestModels;
 
-namespace Floorball.REST
+namespace Floorball.REST.RESTManagers
 {
     public interface IRESTManager
     {
-		
-  //      RequestModel Get<T>(RequestModel request);
-		//Task<RequestModel> GetAsync<T>(RequestModel request);
-
-		//RequestModel Post<T1,T2>(RequestModel request);
-		//Task<RequestModel> PostAsync<T1,T2>(RequestModel request);
-
-		//RequestModel Put<T1,T2>(RequestModel request);
-		//Task<RequestModel> PutAsync<T1,T2>(RequestModel request);
-
-		//RequestModel Delete(RequestModel request);
-		//Task<RequestModel> DeleteAsync(RequestModel request);
-
 		 HTTPDeleteRequestModel Delete(HTTPDeleteRequestModel request);
 		 Task<HTTPDeleteRequestModel> DeleteAsync(HTTPDeleteRequestModel request);
 

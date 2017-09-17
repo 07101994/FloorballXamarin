@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Floorball.REST.RequestModels;
 using RestSharp;
 
-namespace Floorball.REST
+namespace Floorball.REST.RESTManagers
 {
     public partial class RESTManager : RESTManagerBase
     {
