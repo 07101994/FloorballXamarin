@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Floorball.REST.RequestModels;
 using Floorball.REST.RESTHelpers;
+using FloorballPCL.Model;
 
 namespace Floorball.REST.RESTHelpers
 {
@@ -133,5 +134,20 @@ namespace Floorball.REST.RESTHelpers
 			});
 
         }
+
+        public static async Task<UserModel> LoginAsync(string userName, string password) 
+        {
+            return await Network.PostAsync<UserModel, UserModel>(new HTTPPostRequestModel<UserModel>
+            {
+				Url = "/api/floorball/login",
+				ErrorMsg = "Error during login!",
+				Body = new UserModel
+				{
+                    UserName = userName,
+                    Password = password
+				}
+            });
+        }
+
     }
 }

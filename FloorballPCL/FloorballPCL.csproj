@@ -102,6 +102,7 @@
     <Compile Include="LocalDB\UnitOfWork.cs" />
     <Compile Include="IImageManager.cs" />
     <Compile Include="LocalDB\IDBManager.cs" />
+    <Compile Include="Model\UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
