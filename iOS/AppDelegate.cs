@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Floorball.iOS.Helper;
 using Floorball.LocalDB;
+using Floorball.REST;
+using Floorball.REST.RESTManagers;
 using Foundation;
 using SidebarNavigation;
 using UIKit;
@@ -17,15 +20,24 @@ namespace Floorball.iOS
 		public SortedSet<CountriesEnum> Countries { get; set; }
 		public DateTime LastSyncDate { get; set; }
 		public UnitOfWork UoW { get; set; }
+        public IRESTManager Network { get; set; }
 
 		public override UIWindow Window { get; set; }
 
-		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+
+        static AppDelegate()
+        {
+            UnitOfWork.ImageManager = new ImageManager();
+            UnitOfWork.DBManager = new DBManager();
+        }
+
+        public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 
 			UoW = new UnitOfWork();
+            Network = new RESTManager();
 
 			var settings = NSUserDefaults.StandardUserDefaults;
 
@@ -127,7 +139,7 @@ namespace Floorball.iOS
 				(Window.RootViewController as RootViewController).InitStopped();
 				
 			}
-			catch (Exception)
+			catch (Exception ex )
 			{
 			}
 

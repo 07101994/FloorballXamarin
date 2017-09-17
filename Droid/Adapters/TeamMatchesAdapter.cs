@@ -19,8 +19,6 @@ namespace Floorball.Droid.Adapters
         public TeamMatchesAdapter(IEnumerable<Team> teams, IEnumerable<Match> matches, IEnumerable<League> leagues, int teamId)
         {
 
-            int i = 0;
-
             foreach (var league in leagues)
             {
                 ListItems.Add(new ListItem { Index = MainHeaders.Count, Type = 0 });
