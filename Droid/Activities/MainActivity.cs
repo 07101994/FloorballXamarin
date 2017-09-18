@@ -138,9 +138,14 @@ namespace Floorball.Droid.Activities
                     //Change to first (actual fragment)
                     ChangeFragments(0);
 
-                    //Get updates from server
-                    GetUpdates();
-                    
+                    try
+                    {
+						//Get updates from server
+						GetUpdates();
+					}
+                    catch (Exception)
+                    {
+                    }
                 }
 
                 //Save to sharedpreference
@@ -152,7 +157,6 @@ namespace Floorball.Droid.Activities
             }
             catch (Exception ex)
             {
-                var strace = ex.StackTrace;
                 ShowAlertDialog(ex);
             }
         }
@@ -160,12 +164,9 @@ namespace Floorball.Droid.Activities
         private async void GetUpdates()
         {
             //Check is there any remote database updates and update local DB
-            Task<bool> isUpdated = Updater.Updater.Instance.UpdateDatabaseFromServer(lastSyncDate);
+            await Updater.Updater.Instance.UpdateDatabaseFromServer(lastSyncDate);
 
-            if (await isUpdated)
-            {
-                lastSyncDate = Updater.Updater.Instance.LastSyncDate;
-            }
+            lastSyncDate = Updater.Updater.Instance.LastSyncDate;
            
         }
 

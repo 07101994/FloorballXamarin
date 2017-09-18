@@ -72,37 +72,30 @@ namespace Floorball.iOS
 			return true;
 		}
 
-		private async void UpdateAppAsync(NSUserDefaults settings)
+		async void UpdateAppAsync(NSUserDefaults settings)
 		{
 			try
 			{
 
 				//Check is there any remote database updates and update local DB
-				Task<bool> isUpdated = Updater.Updater.Instance.UpdateDatabaseFromServer(LastSyncDate);
+				await Updater.Updater.Instance.UpdateDatabaseFromServer(LastSyncDate);
+
+				LastSyncDate = Updater.Updater.Instance.LastSyncDate;
+				
+                //update last sync date
+				settings.SetString(LastSyncDate.ToString(), "lastSyncDate");
 
 				//ShowControllerFromSoryBoard("Root");
 				//Window.MakeKeyAndVisible();
 
-				if (await isUpdated) 
-				{
-					LastSyncDate = Updater.Updater.Instance.LastSyncDate;
-					//update last sync date
-					settings.SetString(LastSyncDate.ToString(), "lastSyncDate");
-				
-				} 
-				else
-				{
-					throw new Exception("Error during updating from database!");
-				}
-
 			}
 			catch (Exception)
 			{
-
+                //ShowErrorMessage(ex.Message);
 			}
 		}
 
-		private void ShowControllerFromSoryBoard(string controllerID)
+		void ShowControllerFromSoryBoard(string controllerID)
 		{
 
 			var storyBoard = UIStoryboard.FromName("Main", null);
@@ -139,8 +132,9 @@ namespace Floorball.iOS
 				(Window.RootViewController as RootViewController).InitStopped();
 				
 			}
-			catch (Exception ex )
+			catch (Exception ex)
 			{
+                ShowErrorMessage(ex.Message);
 			}
 
 		}
@@ -184,7 +178,7 @@ namespace Floorball.iOS
 			}
 		}
 
-		private SortedSet<CountriesEnum> GetCountriesFromSettings(NSUserDefaults settings)
+		SortedSet<CountriesEnum> GetCountriesFromSettings(NSUserDefaults settings)
 		{
 			var countries = new SortedSet<CountriesEnum> ();
 
@@ -203,7 +197,7 @@ namespace Floorball.iOS
 			return countries;
 		}
 
-		private DateTime GetLastSyncDate(NSUserDefaults settings)
+		DateTime GetLastSyncDate(NSUserDefaults settings)
 		{
 			var lastSyncDate = settings.StringForKey("lastSyncDate");
 
@@ -214,6 +208,14 @@ namespace Floorball.iOS
 			}
 
 			return new DateTime(1900,12,12);
+		}
+
+		public void ShowErrorMessage(string message)
+		{
+			var alert = UIAlertController.Create("Error", message, UIAlertControllerStyle.Alert);
+			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null));
+			Window.RootViewController.PresentViewController(alert, true, null);
+
 		}
 	}
 }

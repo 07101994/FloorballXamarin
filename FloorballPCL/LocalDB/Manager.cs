@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Floorball.REST.RESTHelpers;
+using Floorball.Exceptions;
 
 namespace Floorball.LocalDB
 {
@@ -105,32 +106,53 @@ namespace Floorball.LocalDB
 
         public async Task InitDatabaseFromServerAsync()
         {
-            List<Task> tasks = new List<Task>();
+            Task<List<EventMessageModel>> eventMessagesTask;
+            Task<List<LeagueModel>> leaguesTask;
+            Task<List<RefereeModel>> refereesTask;
+            Task<List<PlayerModel>> playersTask;
+            Task<List<StadiumModel>> stadiumsTask;
+            Task<List<TeamModel>> teamsTask;
+            Task<List<MatchModel>> matchesTask;
+            Task<Dictionary<int, List<int>>> playersAndTeamsTask;
+            Task<Dictionary<int, List<int>>> playersAndMatchesTask;
+            Task<Dictionary<int, List<int>>> refereesAndMatchesTask;
+            Task<List<EventModel>> eventsTask;
 
-            Task<List<EventMessageModel>> eventMessagesTask = RESTHelper.GetEventMessagesAsync();
-            tasks.Add(eventMessagesTask);
-            Task<List<LeagueModel>> leaguesTask = RESTHelper.GetLeaguesAsync();
-            tasks.Add(leaguesTask);
-            Task<List<RefereeModel>> refereesTask = RESTHelper.GetRefereesAsync();
-            tasks.Add(refereesTask);
-            Task<List<PlayerModel>> playersTask = RESTHelper.GetPlayersAsync();
-            tasks.Add(playersTask);
-            Task<List<StadiumModel>> stadiumsTask = RESTHelper.GetStadiumsAsync();
-            tasks.Add(stadiumsTask);
-            Task<List<TeamModel>> teamsTask = RESTHelper.GetTeamsAsync(true);
-            tasks.Add(teamsTask);
-            Task<List<MatchModel>> matchesTask = RESTHelper.GetMatchesAsync();
-            tasks.Add(matchesTask);
-            Task<Dictionary<int, List<int>>> playersAndTeamsTask = RESTHelper.GetPlayersAndTeamsAsync();
-            tasks.Add(playersAndTeamsTask);
-            Task<Dictionary<int, List<int>>> playersAndMatchesTask = RESTHelper.GetPlayersAndMatchesAsync();
-            tasks.Add(playersAndMatchesTask);
-            Task<Dictionary<int, List<int>>> refereesAndMatchesTask = RESTHelper.GetRefereesAndMatchesAsync();
-            tasks.Add(refereesAndMatchesTask);
-            Task<List<EventModel>> eventsTask = RESTHelper.GetEventsAsync();
-            tasks.Add(eventsTask);
+			try
+            {
+				List<Task> tasks = new List<Task>();
 
-            await Task.WhenAll(tasks);
+				eventMessagesTask = RESTHelper.GetEventMessagesAsync();
+				tasks.Add(eventMessagesTask);
+				leaguesTask = RESTHelper.GetLeaguesAsync();
+				tasks.Add(leaguesTask);
+				refereesTask = RESTHelper.GetRefereesAsync();
+				tasks.Add(refereesTask);
+				playersTask = RESTHelper.GetPlayersAsync();
+				tasks.Add(playersTask);
+				stadiumsTask = RESTHelper.GetStadiumsAsync();
+				tasks.Add(stadiumsTask);
+				teamsTask = RESTHelper.GetTeamsAsync(true);
+				tasks.Add(teamsTask);
+				matchesTask = RESTHelper.GetMatchesAsync();
+				tasks.Add(matchesTask);
+				playersAndTeamsTask = RESTHelper.GetPlayersAndTeamsAsync();
+				tasks.Add(playersAndTeamsTask);
+				playersAndMatchesTask = RESTHelper.GetPlayersAndMatchesAsync();
+				tasks.Add(playersAndMatchesTask);
+				refereesAndMatchesTask = RESTHelper.GetRefereesAndMatchesAsync();
+				tasks.Add(refereesAndMatchesTask);
+				eventsTask = RESTHelper.GetEventsAsync();
+				tasks.Add(eventsTask);
+
+				await Task.WhenAll(tasks);
+
+			}
+            catch (Exception ex)
+            {
+                throw new CommunicationException("Error during getting data from server!", ex);
+            }
+
 
             Database db = new Database {
                 EventMessages = eventMessagesTask.Result,
@@ -146,7 +168,14 @@ namespace Floorball.LocalDB
                 Events = eventsTask.Result
             };
 
-            await AddTablesAsync(db);
+            try
+            {
+                await AddTablesAsync(db);
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Error during database init!", ex);
+            }
 
         }
 

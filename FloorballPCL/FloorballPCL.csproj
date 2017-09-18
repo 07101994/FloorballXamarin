@@ -43,7 +43,7 @@
     <Compile Include="Colors\Purple.cs" />
     <Compile Include="Colors\Red.cs" />
     <Compile Include="Exceptions\CommunicationException.cs" />
-    <Compile Include="Exceptions\FloorballException.cs" />
+    <Compile Include="Exceptions\DatabaseException.cs" />
     <Compile Include="LocalDB\Database.cs" />
     <Compile Include="LocalDB\Manager.cs" />
     <Compile Include="LocalDB\Repository\EventMessageRepository.cs" />
@@ -103,6 +103,7 @@
     <Compile Include="IImageManager.cs" />
     <Compile Include="LocalDB\IDBManager.cs" />
     <Compile Include="Model\UserModel.cs" />
+    <Compile Include="Exceptions\FloorballException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Floorball.Exceptions
+namespace FloorballPCL.Exceptions
 {
-    class FloorballException : Exception
+    public abstract class FloorballException : Exception
     {
-
-        public FloorballException(string message, Exception innerException) : base(message, innerException) {}
-
-        public override string ToString()
+        protected FloorballException(string message, Exception innerException) : base(message, innerException) 
         {
-            return "Szerver hiba: " + Message;
+            Log();
         }
+
+        void Log()
+        {
+			//TODO: Log (Crashlytics)
+		}
 
     }
 }

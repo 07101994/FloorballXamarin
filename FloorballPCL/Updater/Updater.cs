@@ -59,26 +59,22 @@ namespace Floorball.Updater
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public async Task<bool> UpdateDatabaseFromServer(DateTime date)
+        public async Task UpdateDatabaseFromServer(DateTime date)
         {
             try
             {
-                if (!CrossConnectivity.Current.IsConnected)
+                if (CrossConnectivity.Current.IsConnected)
                 {
-                    return false;
-                }
+					IsSyncing = true;
 
-                IsSyncing = true;
-                RaiseEvent(UpdateStarted);
-                await Task.Delay(10000);
-                if (await GetUpdates(date))
-                {
-                    UpdateDatabase();
-                    RaiseEvent(UpdateEnded);
-                    return true;
+					RaiseEvent(UpdateStarted);
+
+					await Task.Delay(10000);
+
+					await GetUpdates(date);
+
+					UpdateDatabase();
                 }
-                RaiseEvent(UpdateEnded);
-                return false;
             }
             catch (Exception)
             {
@@ -86,6 +82,7 @@ namespace Floorball.Updater
             }
             finally
             {
+                RaiseEvent(UpdateEnded);
                 IsSyncing = false;
             }
             
@@ -104,20 +101,11 @@ namespace Floorball.Updater
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        private async Task<bool> GetUpdates(DateTime date)
+        private async Task GetUpdates(DateTime date)
         {
-            try
-            {
-                var updateModel = await RESTHelper.GetUpdatesAsync(date);
-                SyncDate = updateModel.UpdateTime;
-                UpdateDataList = updateModel.Updates;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-            return true;
+            var updateModel = await RESTHelper.GetUpdatesAsync(date);
+            SyncDate = updateModel.UpdateTime;
+            UpdateDataList = updateModel.Updates;
         }
 
         private bool UpdateDatabase()
