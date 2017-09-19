@@ -95,13 +95,10 @@ namespace Floorball.iOS
 			}
 		}
 
-		void ShowControllerFromSoryBoard(string controllerID)
+		void ShowControllerFromStoryBoard(string controllerID)
 		{
 
-			var storyBoard = UIStoryboard.FromName("Main", null);
-			var viewController = storyBoard.InstantiateViewController(controllerID);
-
-			Window.RootViewController = viewController;
+			Window.RootViewController = UIStoryboard.FromName("Main", null).InstantiateViewController(controllerID);
 
 		}
 

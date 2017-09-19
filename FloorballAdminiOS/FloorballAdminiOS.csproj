@@ -130,6 +130,10 @@
     <Compile Include="Helper\ImageManager.cs" />
     <Compile Include="Helper\DBManager.cs" />
     <Compile Include="Interactor\Interactor.cs" />
+    <Compile Include="UI\Matches\MatchViewCell.cs" />
+    <Compile Include="UI\Matches\MatchViewCell.designer.cs">
+      <DependentUpon>MatchViewCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloorballPCL\FloorballPCL.csproj">

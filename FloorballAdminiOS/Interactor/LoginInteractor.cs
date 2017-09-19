@@ -9,7 +9,8 @@ namespace FloorballAdminiOS.Interactor
 
         public async Task LoginAsync(string userName, string password) 
         {
-            await RESTHelper.LoginAsync(userName,password);
+            await Task.Delay(2000);
+            //await RESTHelper.LoginAsync(userName,password);
         }
 
     }
