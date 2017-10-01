@@ -96,6 +96,42 @@ namespace FloorballAdminiOS.UI.EntityChoose
 
 		}
 
+        public override void RowSelected(UITableView tableView, Foundation.NSIndexPath indexPath)
+        {
+            switch (Crud)
+            {
+                case UpdateType.Create:
+
+                    ShowCreateEntityVC(EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).Item2);
+
+                    break;
+
+				case UpdateType.Update:
+
+                    ShowChooseEntityVC(EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).Item2);
+
+					break;
+
+                default:
+                    break;
+            }
+
+
+        
+        }
+
+        private void ShowChooseEntityVC(string controllerId)
+        {
+            
+        }
+
+        private void ShowCreateEntityVC(string controllerId)
+        {
+			var controller = Storyboard.InstantiateViewController(controllerId) as EntityViewController;
+            controller.Crud = Crud;
+			NavigationController.PushViewController(controller, true);
+        }
+
         partial void MenuPressed(UIBarButtonItem sender)
         {
             Root.SideBarController.ToggleMenu();

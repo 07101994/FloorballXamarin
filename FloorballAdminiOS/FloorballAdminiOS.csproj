@@ -120,6 +120,7 @@
     <Folder Include="UI\EntityChoose\" />
     <Folder Include="Resources\Images.xcassets\logo.imageset\" />
     <Folder Include="Resources\Images.xcassets\menu.imageset\" />
+    <Folder Include="UI\League\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\base.lproj\Main.storyboard" />
@@ -170,12 +171,26 @@
     <Compile Include="UI\Menu\MenuViewController.designer.cs">
       <DependentUpon>MenuViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\League\LeagueViewContoller.cs" />
+    <Compile Include="UI\League\LeagueViewContoller.designer.cs">
+      <DependentUpon>LeagueViewContoller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EntityPresenter.cs" />
+    <Compile Include="UI\EntityScreen.cs" />
+    <Compile Include="UI\EntityViewController.cs" />
+    <Compile Include="UI\EntityViewController.designer.cs">
+      <DependentUpon>EntityViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UIFloorballPickerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloorballPCL\FloorballPCL.csproj">
       <Project>{67724CC9-1D48-4A77-B7F2-94040D36A2D1}</Project>
       <Name>FloorballPCL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\base.lproj\Localizable.strings" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

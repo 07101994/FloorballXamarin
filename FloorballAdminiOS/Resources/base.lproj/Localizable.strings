@@ -1,0 +1,82 @@
+﻿/*Menu*/
+"menu" = "Menü";
+"league" = "Bajnokságok";
+"actual" = "Aktuális";
+"players" = "Játékosok";
+"referees" = "Bírók";
+"teams" = "Csapatok";
+"settings" = "Beállítások";
+
+/*LeagueViewController*/
+"positionLabel" = "#";
+"matchLabel" = "M";
+"teamNameLabel" = "Csapat";
+"winLabel" = "GY";
+"drawLabel" = "D";
+"defeatLabel" = "V";
+"goalsLabel" = "GA";
+"pointsLabel" = "P";
+"playerNameLabel" = "Játékos";
+"scoreLabel" = "G";
+"assistLabel" = "A";
+"penaltyLabel" = "K";
+
+/*TeamViewController*/
+"trainerLabel" = "Edző";
+"stadionLabel" = "Stadion";
+"playersTab" = "Játékosok";
+"matchesTab" = "Mérkőzések";
+
+/*SearchText*/
+"playerSearchHint" = "Név";
+
+/*ActualViewController*/
+"noActualLiveMatches" = "Nincs élő meccs";
+"noActualMatches" = "3 napon belül nincs meccs";
+"live" = "Élő";
+"soon" = "Hamarosan";
+
+/*Countries*/
+"countries" = "Országok";
+"hu" = "Magyarország";
+"se" = "Svédország";
+"fl" = "Finnország";
+"sw" = "Svájc";
+"cz" = "Csehország";
+
+/*Initialization*/
+"initDownload" = "Adatok letöltése folyamatban...";
+"initDismiss" = "Sikeres inicializálás";
+"initPrepare" = "Adatok előkészítése folyamatban";
+
+/*MatchViewController*/
+"leagueLabel" = "Bajnokság";
+"dateLabel" = "Dátum";
+"placeLabel" = "Helyszín";
+"refereesLabel" = "Játékvezetők";
+"matchEvents" = "Eseméynek";
+"matchPlayers" = "Játékosok";
+"matchDetails" = "Részletek";
+
+/*YearChooser*/
+"leagueSeasons" = "Bajnokság idények";
+"teamSeasons" = "Csapat idények";
+
+/*Updater*/
+"connecting" = "Csatlakozás...";
+"reconnecting" = "Újracsatlakozás...";
+"disconnected" = "Lecsatlakozva";
+"connected" = "Csatlakozva";
+
+/*LeagueViewController*/
+"leagueMatches" = "Mérkőzések";
+"leagueTable" = "Tabella";
+"leagueStats" = "Statisztikák";
+
+/*TeamViewController*/
+"teamMatches" = "Mérkőzések";
+"teamPlayers" = "Játékosok";
+
+/*Gender*/
+"men" = "férfi";
+"women" = "női";

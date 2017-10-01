@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Floorball
 {
 	public class UIHelper
@@ -79,5 +81,16 @@ namespace Floorball
             return str;
         }
 
+        public static List<string> GetNumbers(int from, int to) 
+        {
+            List<string> numbers = new List<string>();
+
+            for (int i = from; i < to; i++)
+            {
+                numbers.Add(i.ToString());
+            }
+
+            return numbers;
+        }
 	}
 }
