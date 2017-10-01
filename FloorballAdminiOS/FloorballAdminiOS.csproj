@@ -86,10 +86,27 @@
     <Reference Include="SQLite.Net.Platform.XamarinIOS.Unified">
       <HintPath>..\packages\SQLite.Net-PCL.3.1.1\lib\Xamarin.iOS10\SQLite.Net.Platform.XamarinIOS.Unified.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin-Sidebar-Unified">
+      <HintPath>..\packages\SidebarNavigation.1.9.3\lib\Xamarin.iOS10\Xamarin-Sidebar-Unified.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\logo.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\logo.imageset\images.png" />
+    <ImageAsset Include="Resources\Images.xcassets\menu.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\menu.imageset\Menu-50.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -99,6 +116,10 @@
     <Folder Include="UI\Login\" />
     <Folder Include="Interactor\" />
     <Folder Include="Helper\" />
+    <Folder Include="UI\Menu\" />
+    <Folder Include="UI\EntityChoose\" />
+    <Folder Include="Resources\Images.xcassets\logo.imageset\" />
+    <Folder Include="Resources\Images.xcassets\menu.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\base.lproj\Main.storyboard" />
@@ -133,6 +154,21 @@
     <Compile Include="UI\Matches\MatchViewCell.cs" />
     <Compile Include="UI\Matches\MatchViewCell.designer.cs">
       <DependentUpon>MatchViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\RootViewController.cs" />
+    <Compile Include="UI\RootViewController.designer.cs">
+      <DependentUpon>RootViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EntityChoose\EntityChooserViewController.cs" />
+    <Compile Include="UI\EntityChoose\EntityChooserViewController.designer.cs">
+      <DependentUpon>EntityChooserViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EntityChoose\EntityChooserPresenter.cs" />
+    <Compile Include="UI\EntityChoose\EntityChooserScreen.cs" />
+    <Compile Include="Interactor\EntityChooserInteractor.cs" />
+    <Compile Include="UI\Menu\MenuViewController.cs" />
+    <Compile Include="UI\Menu\MenuViewController.designer.cs">
+      <DependentUpon>MenuViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

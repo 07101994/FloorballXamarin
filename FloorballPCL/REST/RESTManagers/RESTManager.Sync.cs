@@ -2,6 +2,7 @@
 using System.Net.Http;
 using Floorball.Exceptions;
 using Floorball.REST.RequestModels;
+using Newtonsoft.Json;
 
 namespace Floorball.REST.RESTManagers
 {
@@ -11,8 +12,11 @@ namespace Floorball.REST.RESTManagers
 		{
             try
             {
-				var response = client.GetAsync(CreateGetUri(request)).Result;
-				return response.EnsureSuccessStatusCode().Content.ReadAsAsync<T>().Result;
+                var response = client.GetAsync(CreateGetUri(request)).Result;
+
+                return JsonConvert.DeserializeObject<T>(response.EnsureSuccessStatusCode().Content.ReadAsStringAsync().Result);
+
+                //return response.EnsureSuccessStatusCode().Content.ReadAsAsync<T>().Result;
             }
             catch (Exception ex)
             {
@@ -25,7 +29,9 @@ namespace Floorball.REST.RESTManagers
             try
             {
 				var response = client.PostAsJsonAsync(CreatePostUri(request), request.Body).Result;
-				return response.EnsureSuccessStatusCode().Content.ReadAsAsync<T2>().Result;
+                return JsonConvert.DeserializeObject<T2>(response.EnsureSuccessStatusCode().Content.ReadAsStringAsync().Result);
+
+				//return response.EnsureSuccessStatusCode().Content.ReadAsAsync<T2>().Result;
             }
             catch (Exception ex)
             {
@@ -38,7 +44,9 @@ namespace Floorball.REST.RESTManagers
             try
             {
 				var response = client.PutAsJsonAsync(CreatePutUri(request), request.Body).Result;
-				return response.EnsureSuccessStatusCode().Content.ReadAsAsync<T2>().Result;
+				return JsonConvert.DeserializeObject<T2>(response.EnsureSuccessStatusCode().Content.ReadAsStringAsync().Result);
+
+                //return response.EnsureSuccessStatusCode().Content.ReadAsAsync<T2>().Result;
             }
             catch (Exception ex)
             {
@@ -52,7 +60,9 @@ namespace Floorball.REST.RESTManagers
             try
             {
 				var response = client.DeleteAsync(CreateDeleteUri(request)).Result;
-				return response.EnsureSuccessStatusCode().Content.ReadAsAsync<HTTPDeleteRequestModel>().Result;
+				return JsonConvert.DeserializeObject<HTTPDeleteRequestModel>(response.EnsureSuccessStatusCode().Content.ReadAsStringAsync().Result);
+
+                //return response.EnsureSuccessStatusCode().Content.ReadAsAsync<HTTPDeleteRequestModel>().Result;
             }
             catch (Exception ex)
             {

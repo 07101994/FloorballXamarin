@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreGraphics;
 using UIKit;
 
 namespace FloorballAdminiOS.UI.Matches
 {
     public partial class MatchesTableViewController : UITableViewController, MatchesScreen
     {
+
+        public RootViewController Root { get; set; }
 
         public MatchesPresenter MatchesPresenter { get; set; }
 
@@ -25,17 +28,39 @@ namespace FloorballAdminiOS.UI.Matches
             // Perform any additional setup after loading the view, typically from a nib.
 
             MatchesPresenter = new MatchesPresenter();
+            RefreshControl = new UIRefreshControl();
+            RefreshControl.ValueChanged += RefreshMatches;
 
         }
 
-		public async override void ViewDidAppear(bool animated)
+        private async void RefreshMatches(object sender, EventArgs e)
+        {
+            await Refresh();
+        }
+
+        public async override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
 			MatchesPresenter.AttachScreen(this);
 
+            await Refresh();
+		}
+
+        private async Task Refresh()
+        {
+
+            if (!RefreshControl.Refreshing) 
+            {
+                RefreshControl.BeginRefreshing();  
+                TableView.SetContentOffset(new CGPoint(0, TableView.ContentOffset.Y-RefreshControl.Frame.Size.Height),true);
+            }
+
 			await MatchesPresenter.InitAsync();
 			TableView.ReloadData();
-		}
+
+			RefreshControl.EndRefreshing();
+			
+        }
 
 		public override void ViewDidDisappear(bool animated)
 		{
@@ -73,8 +98,12 @@ namespace FloorballAdminiOS.UI.Matches
 			cell.AwayScore.Text = match.GoalsA.ToString();
 
 			return cell;
-		}
+        }
 
+		partial void MenuPressed(UIBarButtonItem sender)
+		{
+			Root.SideBarController.ToggleMenu();
+		}
     }
 }
 

@@ -9,15 +9,11 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace FloorballAdminiOS.UI.Matches
+namespace FloorballAdminiOS.UI
 {
-    [Register ("MatchesTableViewController")]
-    partial class MatchesTableViewController
+    [Register ("RootViewController")]
+    partial class RootViewController
     {
-        [Action ("MenuPressed:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void MenuPressed (UIKit.UIBarButtonItem sender);
-
         void ReleaseDesignerOutlets ()
         {
         }

@@ -36,7 +36,14 @@ namespace FloorballAdminiOS.UI.Matches
 
 		}
 
-		public override void DetachScreen()
+        public async Task RefreshMatches()
+        {
+            await InitAsync();
+
+            //Screen.RefreshEnded();
+        }
+
+        public override void DetachScreen()
 		{
 			base.DetachScreen();
 

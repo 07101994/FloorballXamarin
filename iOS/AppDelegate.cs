@@ -45,8 +45,8 @@ namespace Floorball.iOS
 			Countries = GetCountriesFromSettings(settings);
 
 			//Get Last Sync Date
-			LastSyncDate = GetLastSyncDate(settings);
-			//LastSyncDate = new DateTime(1900,12,12);
+			//LastSyncDate = GetLastSyncDate(settings);
+			LastSyncDate = new DateTime(1900,12,12);
 
 			//Window = new UIWindow(UIScreen.MainScreen.Bounds);
 			//Window.MakeKeyAndVisible();

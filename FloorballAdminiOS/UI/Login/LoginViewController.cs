@@ -54,7 +54,7 @@ namespace FloorballAdminiOS.UI.Login
 				await task;
 				LoginView.Hidden = true;
 
-                PresentViewController(UIStoryboard.FromName("Main", null).InstantiateViewController("NavViewController"),true,null);
+                PresentViewController(UIStoryboard.FromName("Main", null).InstantiateViewController("RootViewController"),true,null);
 			
             }
             catch (Exception ex)

@@ -9,10 +9,10 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace FloorballAdminiOS.UI.Matches
+namespace FloorballAdminiOS.UI.EntityChoose
 {
-    [Register ("MatchesTableViewController")]
-    partial class MatchesTableViewController
+    [Register ("EntityChooserViewController")]
+    partial class EntityChooserViewController
     {
         [Action ("MenuPressed:")]
         [GeneratedCode ("iOS Designer", "1.0")]
