@@ -205,6 +205,8 @@
       <DependentUpon>EntityDatePickerCell.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Entity\EntityTableViewModel.cs" />
+    <Compile Include="Helper\iOSHelper.cs" />
+    <Compile Include="UI\Entity\SegmentControlModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloorballPCL\FloorballPCL.csproj">

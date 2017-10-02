@@ -10,21 +10,15 @@ namespace FloorballAdminiOS.UI.League
 {
     public partial class LeagueViewContoller : EntityViewController
     {
-        
-        bool yearPickerVisible;
-        bool countryPickerVisible;
 
         public EntityPresenter<LeagueModel> EntityPresenter { get; set; }
 
         public LeagueViewContoller() : base("LeagueViewContoller", null)
         {
-            yearPickerVisible = false;
-            countryPickerVisible = false;
         }
 
 		public LeagueViewContoller(IntPtr handle) : base(handle)
         {
-            
 		}
 
         public override void ViewDidLoad()
@@ -32,33 +26,21 @@ namespace FloorballAdminiOS.UI.League
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
 
+            AddTableViewHeader(Crud == UpdateType.Create  ? "Add League" : "Update League");
+
             EntityPresenter = new EntityPresenter<LeagueModel>();
 
-            InitPicker(YearChooser, new UIFloorballPickerViewModel(UIHelper.GetNumbers(2014, 2018)));
-			InitPicker(CountryChooser, new UIFloorballPickerViewModel(GetCountries()));
+            Model.Add(new EntityTableViewModel { Label = "League Name", CellType = TableViewCellType.TextField, IsVisible = true, Model = "" });
+            Model.Add(new EntityTableViewModel { Label = "Gendre", CellType = TableViewCellType.SegmenControl, IsVisible = true, Model = new SegmentControlModel{Segments = new List<Tuple<string, string>>{ new Tuple<string, string>("men","men"), new Tuple<string, string>("women", "women") }} });
+            Model.Add(new EntityTableViewModel { Label = "Year", CellType = TableViewCellType.Label, IsVisible = true, Model = "" });
+            Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Model = UIHelper.GetNumbers(2012,2018)});
+			Model.Add(new EntityTableViewModel { Label = "Year2", CellType = TableViewCellType.Label, IsVisible = true, Model = "" });
+			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Model = UIHelper.GetNumbers(2023, 2030) });
+
+            TableView.ReloadData();
 
         }
 
-        List<string> GetCountries()
-        {
-            var countries = new List<string>();
-
-			foreach (CountriesEnum country in Enum.GetValues(typeof(CountriesEnum)))
-			{
-				countries.Add(NSBundle.MainBundle.LocalizedString(country.ToString().ToLower(), null));
-			}
-
-            return countries;
-        }
-
-        void InitPicker(UIPickerView pickerView, UIFloorballPickerViewModel pickerViewModel)
-        {
-            pickerViewModel.SelectionChanged += PickerSelected;
-			pickerView.Model = pickerViewModel;
-			pickerView.Hidden = true;
-			pickerView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-        }
 
         void PickerSelected(string val)
         {
@@ -69,56 +51,6 @@ namespace FloorballAdminiOS.UI.League
         {
             base.DidReceiveMemoryWarning();
             // Release any cached data, images, etc that aren't in use.
-        }
-
-        public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
-        {
-            var height = TableView.RowHeight;
-
-            if (indexPath.Row == 2) 
-            {
-                height = yearPickerVisible ? 216.0f : 0.0f;
-            } else if (indexPath.Row == 4)
-            {
-				height = countryPickerVisible ? 216.0f : 0.0f;
-            }
-
-            return height;
-        }
-
-        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
-        {
-            SelectedRow = indexPath.Row;
-
-			if (indexPath.Row == 1)
-			{
-                ChangePickerVisibility(YearChooser, !yearPickerVisible, out yearPickerVisible);
-                if (countryPickerVisible) 
-                {
-                    ChangePickerVisibility(CountryChooser, false, out countryPickerVisible);    
-                }
-			} else if (indexPath.Row == 3)
-            {
-                ChangePickerVisibility(CountryChooser, !countryPickerVisible, out countryPickerVisible);
-                if (yearPickerVisible) 
-                {
-                    ChangePickerVisibility(YearChooser, false, out yearPickerVisible);    
-                }
-            }
-
-            TableView.DeselectRow(indexPath, true);
-        }
-
-        void ChangePickerVisibility(UIPickerView pickerView, bool isVisible, out bool pickerVisibility)
-        {
-            pickerVisibility = isVisible;
-            TableView.BeginUpdates();
-            TableView.EndUpdates();
-            if (isVisible) {
-                pickerView.Alpha = 0.0f;
-			}
-            UIView.Animate(0.25,() => { pickerView.Alpha = isVisible ? 1.0f : 0.0f; }, () => { pickerView.Hidden =  !isVisible; } );
-
         }
 
         protected override void Save()

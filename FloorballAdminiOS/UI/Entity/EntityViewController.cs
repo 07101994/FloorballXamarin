@@ -12,7 +12,20 @@ namespace FloorballAdminiOS.UI.Entity
     public abstract partial class EntityViewController : UITableViewController
     {
 
-        public List<EntityTableViewModel> Model { get; set; }
+        private List<EntityTableViewModel> safeModel;
+
+        public  List<EntityTableViewModel> Model 
+        { 
+            get
+            {
+                if (safeModel == null) 
+                {
+                    safeModel = new List<EntityTableViewModel>();
+                }
+
+                return safeModel;
+            }
+        }
 
         public UpdateType Crud { get; set; }
 
@@ -34,8 +47,6 @@ namespace FloorballAdminiOS.UI.Entity
         {
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
-
-            AddTableViewHeader();
 
             AddSaveButton();
         }
@@ -61,14 +72,14 @@ namespace FloorballAdminiOS.UI.Entity
             Save();
         }
 
-        private void AddTableViewHeader()
+        protected void AddTableViewHeader(string headerText)
         {
 			TableView.TableFooterView = new UIView(CGRect.Empty);
 
 			var headerView = new UIView(new CGRect(0, 0, TableView.Frame.Size.Width, 44));
 
 			var header = new UILabel(new CGRect(0, 0, TableView.Frame.Size.Width, 44));
-			header.Text = "Add League";
+			header.Text = headerText;
 			header.TextAlignment = UITextAlignment.Center;
 
 			headerView.AddSubview(header);
@@ -80,6 +91,16 @@ namespace FloorballAdminiOS.UI.Entity
         public override nfloat GetHeightForHeader(UITableView tableView, nint section)
         {
             return 0;
+        }
+
+        public override nint NumberOfSections(UITableView tableView)
+        {
+            return 1;
+        }
+
+        public override nint RowsInSection(UITableView tableView, nint section)
+        {
+            return Model.Count();
         }
 
 		public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
@@ -97,11 +118,11 @@ namespace FloorballAdminiOS.UI.Entity
             {
                 case TableViewCellType.TextField:
 
-                    return GetTextFieldCell(tableView, model);
-                
+                    return SetNonSelectable(GetTextFieldCell(tableView, model));
+
                 case TableViewCellType.SegmenControl:
 
-                    return GetSegmentControlCell(tableView, model);
+                    return SetNonSelectable(GetSegmentControlCell(tableView, model));
 
                 case TableViewCellType.Label:
 
@@ -109,11 +130,11 @@ namespace FloorballAdminiOS.UI.Entity
 
                 case TableViewCellType.Picker:
 
-                    return GetPickerCell(tableView, model);
+                    return SetNonSelectable(GetPickerCell(tableView, model));
 
                 case TableViewCellType.DatePicker:
 
-                    return GetDatePickerCell(tableView, model);
+                    return SetNonSelectable(GetDatePickerCell(tableView, model));
 
                 default:
 
@@ -123,44 +144,61 @@ namespace FloorballAdminiOS.UI.Entity
 
         }
 
+        private UITableViewCell SetNonSelectable(UITableViewCell cell)
+        {
+            cell.SelectionStyle = UITableViewCellSelectionStyle.None;
+
+            return cell;
+        }
+
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
-            var previouslySelectedRow = SelectedRow;
-			SelectedRow = indexPath.Row;
 
-            var model = Model.ElementAt(indexPath.Row + 1);
-
-            if (model.CellType == TableViewCellType.Picker)
+            try
             {
+				var model = Model.ElementAt(indexPath.Row + 1);
 
-                var selectedCell = tableView.CellAt(NSIndexPath.FromRowSection(indexPath.Row + 1, 0)) as EntityPickerViewCell;
+				var previouslySelectedRow = SelectedRow;
+				SelectedRow = indexPath.Row;
 
-                model.IsVisible = !model.IsVisible;
+				if (model.CellType == TableViewCellType.Picker)
+				{
 
-                ChangePickerVisibility(selectedCell.PickerView, model.IsVisible);
+					var selectedCell = tableView.CellAt(NSIndexPath.FromRowSection(indexPath.Row + 1, 0)) as EntityPickerViewCell;
 
-                ChangePreviousVisibility(tableView, previouslySelectedRow);
+					model.IsVisible = !model.IsVisible;
 
-            } else if (model.CellType == TableViewCellType.DatePicker) {
+					ChangePickerVisibility(selectedCell.PickerView, model.IsVisible);
 
-				var selectedCell = tableView.CellAt(NSIndexPath.FromRowSection(indexPath.Row + 1, 0)) as EntityDatePickerCell;
+					ChangePreviousVisibility(tableView, previouslySelectedRow);
 
-				model.IsVisible = !model.IsVisible;
+				}
+				else if (model.CellType == TableViewCellType.DatePicker)
+				{
 
-				ChangePickerVisibility(selectedCell.DatePicker, model.IsVisible);
+					var selectedCell = tableView.CellAt(NSIndexPath.FromRowSection(indexPath.Row + 1, 0)) as EntityDatePickerCell;
 
-				ChangePreviousVisibility(tableView, previouslySelectedRow);
+					model.IsVisible = !model.IsVisible;
 
+					ChangePickerVisibility(selectedCell.DatePicker, model.IsVisible);
+
+					ChangePreviousVisibility(tableView, previouslySelectedRow);
+
+				}
+            }
+            catch (Exception) 
+            {
             }
 
-			TableView.DeselectRow(indexPath, true);
+            TableView.DeselectRow(indexPath, true);
 
         }
 
         private void ChangePreviousVisibility(UITableView tableView, int previouslySelectedRow)
         {
-			if (previouslySelectedRow != -1)
+			if (previouslySelectedRow != -1 && previouslySelectedRow != SelectedRow)
 			{
+                previouslySelectedRow++;
 
 				var previousModel = Model.ElementAt(previouslySelectedRow);
 
@@ -168,14 +206,14 @@ namespace FloorballAdminiOS.UI.Entity
 
 				if (previousModel.CellType == TableViewCellType.Picker)
 				{
-					var cell = tableView.CellAt(NSIndexPath.FromRowSection(previouslySelectedRow + 1, 0)) as EntityPickerViewCell;
+					var cell = tableView.CellAt(NSIndexPath.FromRowSection(previouslySelectedRow, 0)) as EntityPickerViewCell;
 
 					ChangePickerVisibility(cell.PickerView, previousModel.IsVisible);
 
 				}
 				else if (previousModel.CellType == TableViewCellType.Picker)
 				{
-					var cell = tableView.CellAt(NSIndexPath.FromRowSection(previouslySelectedRow + 1, 0)) as EntityDatePickerCell;
+					var cell = tableView.CellAt(NSIndexPath.FromRowSection(previouslySelectedRow, 0)) as EntityDatePickerCell;
 
 					ChangePickerVisibility(cell.DatePicker, previousModel.IsVisible);
 				}
@@ -199,6 +237,9 @@ namespace FloorballAdminiOS.UI.Entity
         {
             var cell = tableView.DequeueReusableCell("DatePickerCell") as EntityDatePickerCell;
 
+			cell.DatePicker.Hidden = true;
+			cell.DatePicker.TranslatesAutoresizingMaskIntoConstraints = false;
+
 			return cell;
         }
 
@@ -207,6 +248,8 @@ namespace FloorballAdminiOS.UI.Entity
             var cell = tableView.DequeueReusableCell("PickerViewCell") as EntityPickerViewCell;
 
             cell.PickerView.Model = model.Model as UIFloorballPickerViewModel;
+			cell.PickerView.Hidden = true;
+			cell.PickerView.TranslatesAutoresizingMaskIntoConstraints = false;
 
 			return cell;
         }
@@ -223,10 +266,22 @@ namespace FloorballAdminiOS.UI.Entity
 
         private UITableViewCell GetSegmentControlCell(UITableView tableView, EntityTableViewModel model)
         {
-			var cell = tableView.DequeueReusableCell("SegmenControlCell") as EntitySegmentControlCell;
+			var cell = tableView.DequeueReusableCell("SegmentControlCell") as EntitySegmentControlCell;
 
             cell.Label.Text = model.Label;
-            cell.SegmentControl.SelectedSegment = Convert.ToInt32(model.Model);
+
+            var segmentModel = model.Model as SegmentControlModel;
+
+            cell.SegmentControl.RemoveAllSegments();
+
+            int i = 0;
+
+            foreach (var segment in segmentModel.Segments)
+            {
+                cell.SegmentControl.InsertSegment(segment.Item1,i++,false);
+            }
+
+            cell.SegmentControl.SelectedSegment = segmentModel.Selected;
                 
 			return cell;
         }
