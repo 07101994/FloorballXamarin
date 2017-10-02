@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Floorball;
+using FloorballAdminiOS.UI.Entity;
 using FloorballServer.Models.Floorball;
 using Foundation;
 using UIKit;
@@ -9,8 +10,9 @@ namespace FloorballAdminiOS.UI.League
 {
     public partial class LeagueViewContoller : EntityViewController
     {
-        private bool yearPickerVisible;
-        private bool countryPickerVisible;
+        
+        bool yearPickerVisible;
+        bool countryPickerVisible;
 
         public EntityPresenter<LeagueModel> EntityPresenter { get; set; }
 
@@ -37,7 +39,7 @@ namespace FloorballAdminiOS.UI.League
 
         }
 
-        private List<string> GetCountries()
+        List<string> GetCountries()
         {
             var countries = new List<string>();
 
@@ -49,7 +51,7 @@ namespace FloorballAdminiOS.UI.League
             return countries;
         }
 
-        private void InitPicker(UIPickerView pickerView, UIFloorballPickerViewModel pickerViewModel)
+        void InitPicker(UIPickerView pickerView, UIFloorballPickerViewModel pickerViewModel)
         {
             pickerViewModel.SelectionChanged += PickerSelected;
 			pickerView.Model = pickerViewModel;
@@ -58,7 +60,7 @@ namespace FloorballAdminiOS.UI.League
 
         }
 
-        private void PickerSelected(string val)
+        void PickerSelected(string val)
         {
             //TODO            
         }

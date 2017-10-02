@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Floorball;
+using FloorballAdminiOS.UI.Entity;
 using UIKit;
 
 namespace FloorballAdminiOS.UI.EntityChoose

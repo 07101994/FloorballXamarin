@@ -121,6 +121,8 @@
     <Folder Include="Resources\Images.xcassets\logo.imageset\" />
     <Folder Include="Resources\Images.xcassets\menu.imageset\" />
     <Folder Include="UI\League\" />
+    <Folder Include="UI\Entity\" />
+    <Folder Include="UI\Entity\TableViewCells\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\base.lproj\Main.storyboard" />
@@ -175,13 +177,34 @@
     <Compile Include="UI\League\LeagueViewContoller.designer.cs">
       <DependentUpon>LeagueViewContoller.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\EntityPresenter.cs" />
-    <Compile Include="UI\EntityScreen.cs" />
-    <Compile Include="UI\EntityViewController.cs" />
-    <Compile Include="UI\EntityViewController.designer.cs">
+    <Compile Include="UI\Entity\EntityPresenter.cs" />
+    <Compile Include="UI\Entity\EntityScreen.cs" />
+    <Compile Include="UI\Entity\EntityViewController.cs" />
+    <Compile Include="UI\Entity\EntityViewController.designer.cs">
       <DependentUpon>EntityViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UIFloorballPickerViewModel.cs" />
+    <Compile Include="UI\Entity\UIFloorballPickerViewModel.cs" />
+    <Compile Include="UI\Entity\TableViewCells\EntityTextFieldCell.cs" />
+    <Compile Include="UI\Entity\TableViewCells\EntityTextFieldCell.designer.cs">
+      <DependentUpon>EntityTextFieldCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Entity\TableViewCells\EntitySegmentControlCell.cs" />
+    <Compile Include="UI\Entity\TableViewCells\EntitySegmentControlCell.designer.cs">
+      <DependentUpon>EntitySegmentControlCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Entity\TableViewCells\EntityLabelCell.cs" />
+    <Compile Include="UI\Entity\TableViewCells\EntityLabelCell.designer.cs">
+      <DependentUpon>EntityLabelCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Entity\TableViewCells\EntityPickerViewCell.cs" />
+    <Compile Include="UI\Entity\TableViewCells\EntityPickerViewCell.designer.cs">
+      <DependentUpon>EntityPickerViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Entity\TableViewCells\EntityDatePickerCell.cs" />
+    <Compile Include="UI\Entity\TableViewCells\EntityDatePickerCell.designer.cs">
+      <DependentUpon>EntityDatePickerCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Entity\EntityTableViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloorballPCL\FloorballPCL.csproj">

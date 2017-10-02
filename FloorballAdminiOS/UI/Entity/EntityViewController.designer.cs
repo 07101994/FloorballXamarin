@@ -9,7 +9,7 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace FloorballAdminiOS.UI
+namespace FloorballAdminiOS.UI.Entity
 {
     [Register("EntityViewController")]
     partial class EntityViewController
