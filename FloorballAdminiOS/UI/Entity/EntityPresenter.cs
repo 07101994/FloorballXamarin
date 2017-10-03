@@ -43,8 +43,10 @@ namespace FloorballAdminiOS.UI.Entity
             
         }
 
-
-
+        public async Task GetEntity(string errorMsg, string id)
+        {
+            await entityInteractor.GetEntityById(Url + "/{id}", errorMsg, id);
+        }
 
 
     }

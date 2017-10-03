@@ -4,29 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoreGraphics;
 using Floorball;
+using FloorballAdminiOS.UI.Delegate;
 using FloorballAdminiOS.UI.Entity.TableViewCells;
 using Foundation;
 using UIKit;
 
 namespace FloorballAdminiOS.UI.Entity
 {
-    public abstract partial class EntityViewController : UITableViewController
+    public partial class EntityViewController : UITableViewController
     {
 
-        private List<EntityTableViewModel> safeModel;
-
-        public  List<EntityTableViewModel> Model 
-        { 
-            get
-            {
-                if (safeModel == null) 
-                {
-                    safeModel = new List<EntityTableViewModel>();
-                }
-
-                return safeModel;
-            }
-        }
+        public List<EntityTableViewModel> Model { get; set; }
+       
+        public IDelegate VCDelegate { get; set; }
 
         public UpdateType Crud { get; set; }
 
@@ -35,21 +25,32 @@ namespace FloorballAdminiOS.UI.Entity
         public EntityViewController(string nibName, NSBundle bundle) : base(nibName, bundle)
         {
             SelectedRow = -1;
+            Model = new List<EntityTableViewModel>();
         }
 
 		public EntityViewController(IntPtr handle) : base(handle)
         {
             SelectedRow = -1;
+            Model = new List<EntityTableViewModel>();
 		}
 
-        protected abstract Task Save();
-
-        public override void ViewDidLoad()
+        public async override void ViewDidLoad()
         {
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
 
+            AddTableViewHeader(VCDelegate.GetTableHeader(Crud));
             AddSaveButton();
+
+            if (Crud == UpdateType.Update)
+            {
+                await VCDelegate.SetDataFromServer();
+            }
+
+            Model = VCDelegate.GetTableViewModel();
+
+            TableView.ReloadData();
+
         }
 
         private void AddSaveButton()
@@ -73,7 +74,8 @@ namespace FloorballAdminiOS.UI.Entity
             NavigationItem.RightBarButtonItem.Enabled = false;
             try
             {
-                await Save();
+                await VCDelegate.Save(Model);
+
             }
             catch (Exception ex)
             {

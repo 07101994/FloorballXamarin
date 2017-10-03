@@ -120,9 +120,9 @@
     <Folder Include="UI\EntityChoose\" />
     <Folder Include="Resources\Images.xcassets\logo.imageset\" />
     <Folder Include="Resources\Images.xcassets\menu.imageset\" />
-    <Folder Include="UI\League\" />
     <Folder Include="UI\Entity\" />
     <Folder Include="UI\Entity\TableViewCells\" />
+    <Folder Include="UI\Delegate\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\base.lproj\Main.storyboard" />
@@ -173,10 +173,6 @@
     <Compile Include="UI\Menu\MenuViewController.designer.cs">
       <DependentUpon>MenuViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\League\LeagueViewContoller.cs" />
-    <Compile Include="UI\League\LeagueViewContoller.designer.cs">
-      <DependentUpon>LeagueViewContoller.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Entity\EntityPresenter.cs" />
     <Compile Include="UI\Entity\EntityScreen.cs" />
     <Compile Include="UI\Entity\EntityViewController.cs" />
@@ -208,6 +204,10 @@
     <Compile Include="Helper\iOSHelper.cs" />
     <Compile Include="UI\Entity\SegmentControlModel.cs" />
     <Compile Include="Interactor\EntityInteractor.cs" />
+    <Compile Include="UI\Delegate\LeagueDelegate.cs" />
+    <Compile Include="UI\Delegate\IDelegate.cs" />
+    <Compile Include="UI\Delegate\BaseDelegate.cs" />
+    <Compile Include="UI\Delegate\MatchDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloorballPCL\FloorballPCL.csproj">

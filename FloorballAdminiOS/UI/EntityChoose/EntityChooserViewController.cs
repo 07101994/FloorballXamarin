@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Floorball;
+using FloorballAdminiOS.UI.Delegate;
 using FloorballAdminiOS.UI.Entity;
 using UIKit;
 
@@ -91,7 +92,7 @@ namespace FloorballAdminiOS.UI.EntityChoose
 		{
 			var cell = tableView.DequeueReusableCell("EntityCell", indexPath);
 
-            cell.TextLabel.Text = Opertaion + EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).Item2;
+            cell.TextLabel.Text = Opertaion + EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).Item1.ToString();
 
 			return cell;
 
@@ -103,13 +104,13 @@ namespace FloorballAdminiOS.UI.EntityChoose
             {
                 case UpdateType.Create:
 
-                    ShowCreateEntityVC(EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).Item2);
+                    ShowEntityVC(EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).Item2);
 
                     break;
 
 				case UpdateType.Update:
 
-                    ShowChooseEntityVC(EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).Item2);
+                    //ShowChooseEntityVC(EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).Item2);
 
 					break;
 
@@ -126,10 +127,11 @@ namespace FloorballAdminiOS.UI.EntityChoose
             
         }
 
-        private void ShowCreateEntityVC(string controllerId)
+        private void ShowEntityVC(IDelegate iDelegate)
         {
-			var controller = Storyboard.InstantiateViewController(controllerId) as EntityViewController;
+			var controller = Storyboard.InstantiateViewController("EntityViewController") as EntityViewController;
             controller.Crud = Crud;
+            controller.VCDelegate = iDelegate;
 			NavigationController.PushViewController(controller, true);
         }
 
