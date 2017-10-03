@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CoreGraphics;
 using Floorball;
 using FloorballAdminiOS.UI.Entity.TableViewCells;
@@ -41,7 +42,7 @@ namespace FloorballAdminiOS.UI.Entity
             SelectedRow = -1;
 		}
 
-        protected abstract void Save();
+        protected abstract Task Save();
 
         public override void ViewDidLoad()
         {
@@ -62,14 +63,23 @@ namespace FloorballAdminiOS.UI.Entity
             NavigationItem.RightBarButtonItem = button;
         }
 
-        private void SaveClicked(object sender, EventArgs e)
+        void SaveClicked(object sender, EventArgs e)
         {
-            AppDelegate.SharedAppDelegate.ShowConfirmationMessage(this,"Confirm", "Are you sure to save changes?",SavedHandler);
+            AppDelegate.SharedAppDelegate.ShowConfirmationMessage(this,"Confirm saving", "Are you sure to save changes?",SavedHandler);
         }
 
-        private void SavedHandler(UIAlertAction obj)
+        async void SavedHandler(UIAlertAction obj)
         {
-            Save();
+            NavigationItem.RightBarButtonItem.Enabled = false;
+            try
+            {
+                await Save();
+            }
+            catch (Exception ex)
+            {
+                NavigationItem.RightBarButtonItem.Enabled = true;
+                AppDelegate.SharedAppDelegate.ShowErrorMessage(this, ex.Message);
+            }
         }
 
         protected void AddTableViewHeader(string headerText)
@@ -144,7 +154,7 @@ namespace FloorballAdminiOS.UI.Entity
 
         }
 
-        private UITableViewCell SetNonSelectable(UITableViewCell cell)
+        UITableViewCell SetNonSelectable(UITableViewCell cell)
         {
             cell.SelectionStyle = UITableViewCellSelectionStyle.None;
 
@@ -201,7 +211,7 @@ namespace FloorballAdminiOS.UI.Entity
 
         }
 
-        private bool ChangePreviousVisibility(UITableView tableView, int previouslySelectedRow, UIView selectedCell, EntityTableViewModel selectedModel)
+        bool ChangePreviousVisibility(UITableView tableView, int previouslySelectedRow, UIView selectedCell, EntityTableViewModel selectedModel)
         {
 			if (previouslySelectedRow != -1 && previouslySelectedRow != SelectedRow)
 			{
@@ -269,9 +279,14 @@ namespace FloorballAdminiOS.UI.Entity
         {
             var cell = tableView.DequeueReusableCell("PickerViewCell") as EntityPickerViewCell;
 
-            cell.PickerView.Model = model.Model as UIFloorballPickerViewModel;
+            var pickerModel = model.Model as UIFloorballPickerViewModel;
+
+            pickerModel.SelectionChanged += PickerModel_SelectionChanged;
+
+            cell.PickerView.Model = pickerModel;
             cell.PickerView.Hidden = true;
 			cell.PickerView.TranslatesAutoresizingMaskIntoConstraints = false;
+
 
 			return cell;
         }
@@ -304,7 +319,12 @@ namespace FloorballAdminiOS.UI.Entity
             }
 
             cell.SegmentControl.SelectedSegment = segmentModel.Selected;
-                
+            cell.SegmentControl.ValueChanged += (sender, e) =>
+            {
+                segmentModel.Selected = Convert.ToInt32(((UISegmentedControl)sender).SelectedSegment); 
+            };
+
+
 			return cell;
         }
 
@@ -315,6 +335,11 @@ namespace FloorballAdminiOS.UI.Entity
 
             cell.Label.Text = model.Label;
             cell.TextField.Text = model.Model as string;
+
+            cell.TextField.ValueChanged += (sender, e) => 
+            {
+                model.Model = ((UITextField)sender).Text;
+            };
 
             return cell;
         }
@@ -332,6 +357,15 @@ namespace FloorballAdminiOS.UI.Entity
 			alert.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
 			PresentViewController(alert, true, null);
 		}
+
+        void PickerModel_SelectionChanged(string val)
+        {
+            Model.ElementAt(SelectedRow).Model = val;
+
+            TableView.ReloadRows(new NSIndexPath[] { NSIndexPath.FromRowSection(SelectedRow, 0) }, UITableViewRowAnimation.None);
+
+        }
+
     }
 }
 

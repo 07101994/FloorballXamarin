@@ -1,4 +1,6 @@
 ﻿using System;
+using Floorball;
+
 namespace FloorballAdminiOS.UI.Entity
 {
     public enum TableViewCellType {
@@ -15,6 +17,38 @@ namespace FloorballAdminiOS.UI.Entity
         public object Model { get; set; }
 
         public bool IsVisible { get; set; }
+
+        public int ModelAsInt 
+        {
+            get
+            {
+                return Convert.ToInt32(Model);
+            }
+        }
+
+        public string ModelAsString
+        {
+            get
+            {
+                return Model.ToString();   
+            }
+        }
+
+        public CountriesEnum ModelAsCountriesEnum
+        {
+            get
+            {
+                return Model.ToString().ToEnum<CountriesEnum>();
+            }
+        }
+
+        public DateTime ModelAsDateTime
+        {
+            get
+            {
+                return DateTime.Parse(Model.ToString());
+            }
+        }
 
     }
 }

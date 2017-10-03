@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Floorball;
 using FloorballAdminiOS.Helper;
 using FloorballAdminiOS.UI.Entity;
@@ -29,7 +30,7 @@ namespace FloorballAdminiOS.UI.League
 
             AddTableViewHeader(Crud == UpdateType.Create  ? "Add League" : "Update League");
 
-            EntityPresenter = new EntityPresenter<LeagueModel>();
+            EntityPresenter = new EntityPresenter<LeagueModel>("/api/floorball/leagues");
 
             Model.Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Model = "" });
             Model.Add(new EntityTableViewModel { Label = "Year", CellType = TableViewCellType.Label, IsVisible = true, Model = "" });
@@ -49,21 +50,28 @@ namespace FloorballAdminiOS.UI.League
 
         }
 
-
-        void PickerSelected(string val)
-        {
-            //TODO            
-        }
-
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
             // Release any cached data, images, etc that aren't in use.
         }
 
-        protected override void Save()
+        protected async override Task Save()
         {
-            
+
+            EntityPresenter.Model = new LeagueModel()
+            {
+                Name = Model[0].ModelAsString,
+                Year = Model[1].ModelAsDateTime,
+                Country = Model[3].ModelAsCountriesEnum,
+                type = Model[5].ModelAsString,
+                ClassName = Model[7].ModelAsString,
+                Rounds = Model[9].ModelAsInt,
+                Sex = Model[11].ModelAsString
+            };
+
+            await EntityPresenter.AddEntity("Error during adding league!");
+
         }
     }
 }

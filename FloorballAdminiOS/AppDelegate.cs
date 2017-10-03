@@ -72,13 +72,17 @@ namespace FloorballAdminiOS
 			}
 		}
 
-        public void ShowErrorMessage(string message)
+        public void ShowErrorMessage(UIViewController vc, string message)
         {
             var alert = UIAlertController.Create("Error",message,UIAlertControllerStyle.Alert);
             alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null));
             Window.RootViewController.PresentViewController(alert,true,null);
-
         }
+
+		public void ShowErrorMessage(string message)
+		{
+			ShowErrorMessage(Window.RootViewController, message);
+		}
 
         public void ShowConfirmationMessage(UIViewController vc, string title, string message, Action<UIAlertAction> handler)
         {
