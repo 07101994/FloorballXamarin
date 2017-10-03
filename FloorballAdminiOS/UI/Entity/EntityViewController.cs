@@ -163,26 +163,33 @@ namespace FloorballAdminiOS.UI.Entity
 
 				if (model.CellType == TableViewCellType.Picker)
 				{
+                    
+                    var selectedCell = tableView.CellAt(NSIndexPath.FromRowSection(indexPath.Row + 1, 0)) as EntityPickerViewCell;
 
-					var selectedCell = tableView.CellAt(NSIndexPath.FromRowSection(indexPath.Row + 1, 0)) as EntityPickerViewCell;
+                    if (!ChangePreviousVisibility(tableView, previouslySelectedRow, selectedCell.PickerView, model)) 
+                    {
 
-					model.IsVisible = !model.IsVisible;
+						model.IsVisible = !model.IsVisible;
 
-					ChangePickerVisibility(selectedCell.PickerView, model.IsVisible);
+						ChangePickerVisibility(selectedCell.PickerView, model.IsVisible);
 
-					ChangePreviousVisibility(tableView, previouslySelectedRow);
+					};
+					
 
 				}
 				else if (model.CellType == TableViewCellType.DatePicker)
 				{
 
-					var selectedCell = tableView.CellAt(NSIndexPath.FromRowSection(indexPath.Row + 1, 0)) as EntityDatePickerCell;
+                    var selectedCell = tableView.CellAt(NSIndexPath.FromRowSection(indexPath.Row + 1, 0)) as EntityDatePickerCell;
 
-					model.IsVisible = !model.IsVisible;
+                    if (!ChangePreviousVisibility(tableView, previouslySelectedRow, selectedCell.DatePicker, model))
+                    {
 
-					ChangePickerVisibility(selectedCell.DatePicker, model.IsVisible);
+						model.IsVisible = !model.IsVisible;
 
-					ChangePreviousVisibility(tableView, previouslySelectedRow);
+						ChangePickerVisibility(selectedCell.DatePicker, model.IsVisible);       
+
+                    }
 
 				}
             }
@@ -194,7 +201,7 @@ namespace FloorballAdminiOS.UI.Entity
 
         }
 
-        private void ChangePreviousVisibility(UITableView tableView, int previouslySelectedRow)
+        private bool ChangePreviousVisibility(UITableView tableView, int previouslySelectedRow, UIView selectedCell, EntityTableViewModel selectedModel)
         {
 			if (previouslySelectedRow != -1 && previouslySelectedRow != SelectedRow)
 			{
@@ -208,20 +215,24 @@ namespace FloorballAdminiOS.UI.Entity
 				{
 					var cell = tableView.CellAt(NSIndexPath.FromRowSection(previouslySelectedRow, 0)) as EntityPickerViewCell;
 
-					ChangePickerVisibility(cell.PickerView, previousModel.IsVisible);
+					ChangePickerVisibility(cell.PickerView, previousModel.IsVisible, selectedCell, selectedModel);
 
+                    return true;
 				}
 				else if (previousModel.CellType == TableViewCellType.Picker)
 				{
 					var cell = tableView.CellAt(NSIndexPath.FromRowSection(previouslySelectedRow, 0)) as EntityDatePickerCell;
 
-					ChangePickerVisibility(cell.DatePicker, previousModel.IsVisible);
-				}
+					ChangePickerVisibility(cell.DatePicker, previousModel.IsVisible, selectedCell, selectedModel);
 
+                    return true;
+				}
 			}
+
+            return false;
         }
 
-        void ChangePickerVisibility(UIView view, bool isVisible)
+        void ChangePickerVisibility(UIView view, bool isVisible, UIView view2 = null, EntityTableViewModel model = null)
         {
 
 			TableView.BeginUpdates();
@@ -230,7 +241,18 @@ namespace FloorballAdminiOS.UI.Entity
 			{
 				view.Alpha = 0.0f;
 			}
-			UIView.Animate(0.25, () => { view.Alpha = isVisible ? 1.0f : 0.0f; }, () => { view.Hidden = !isVisible; });
+            UIView.Animate(0.25, () => { view.Alpha = (isVisible ? 1.0f : 0.0f); }, () => 
+            {
+                view.Hidden = !isVisible;
+
+                if (view2 != null) 
+                {
+                    model.IsVisible = !model.IsVisible;
+
+                    ChangePickerVisibility(view2,model.IsVisible);    
+                } 
+
+            });
         }
 
         private UITableViewCell GetDatePickerCell(UITableView tableView, EntityTableViewModel model)
@@ -248,7 +270,7 @@ namespace FloorballAdminiOS.UI.Entity
             var cell = tableView.DequeueReusableCell("PickerViewCell") as EntityPickerViewCell;
 
             cell.PickerView.Model = model.Model as UIFloorballPickerViewModel;
-			cell.PickerView.Hidden = true;
+            cell.PickerView.Hidden = true;
 			cell.PickerView.TranslatesAutoresizingMaskIntoConstraints = false;
 
 			return cell;

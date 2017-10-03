@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Floorball;
+using FloorballAdminiOS.Helper;
 using FloorballAdminiOS.UI.Entity;
 using FloorballServer.Models.Floorball;
 using Foundation;
@@ -30,12 +31,19 @@ namespace FloorballAdminiOS.UI.League
 
             EntityPresenter = new EntityPresenter<LeagueModel>();
 
-            Model.Add(new EntityTableViewModel { Label = "League Name", CellType = TableViewCellType.TextField, IsVisible = true, Model = "" });
-            Model.Add(new EntityTableViewModel { Label = "Gendre", CellType = TableViewCellType.SegmenControl, IsVisible = true, Model = new SegmentControlModel{Segments = new List<Tuple<string, string>>{ new Tuple<string, string>("men","men"), new Tuple<string, string>("women", "women") }} });
+            Model.Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Model = "" });
             Model.Add(new EntityTableViewModel { Label = "Year", CellType = TableViewCellType.Label, IsVisible = true, Model = "" });
-            Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Model = UIHelper.GetNumbers(2012,2018)});
-			Model.Add(new EntityTableViewModel { Label = "Year2", CellType = TableViewCellType.Label, IsVisible = true, Model = "" });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Model = UIHelper.GetNumbers(2023, 2030) });
+            Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Model = new UIFloorballPickerViewModel(UIHelper.GetNumbers(2012,2018))});
+			Model.Add(new EntityTableViewModel { Label = "Country", CellType = TableViewCellType.Label, IsVisible = true, Model = "" });
+			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Model = new UIFloorballPickerViewModel(iOSHelper.GetCountries()) });
+			Model.Add(new EntityTableViewModel { Label = "Type", CellType = TableViewCellType.Label, IsVisible = true, Model = "" });
+			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Model = new UIFloorballPickerViewModel(iOSHelper.GetCountries()) });
+			Model.Add(new EntityTableViewModel { Label = "Class", CellType = TableViewCellType.Label, IsVisible = true, Model = "" });
+			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Model = new UIFloorballPickerViewModel(iOSHelper.GetCountries()) });
+			Model.Add(new EntityTableViewModel { Label = "Round", CellType = TableViewCellType.Label, IsVisible = true, Model = "" });
+			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Model = new UIFloorballPickerViewModel(iOSHelper.GetCountries()) });
+            Model.Add(new EntityTableViewModel { Label = "Gendre", CellType = TableViewCellType.SegmenControl, IsVisible = true, Model = new SegmentControlModel { Segments = new List<Tuple<string, string>> { new Tuple<string, string>("men", "men"), new Tuple<string, string>("women", "women") } } });
+
 
             TableView.ReloadData();
 
