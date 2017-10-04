@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoreGraphics;
 using Floorball;
-using FloorballAdminiOS.UI.Delegate;
 using FloorballAdminiOS.UI.Entity.TableViewCells;
 using Foundation;
 using UIKit;
@@ -15,8 +14,8 @@ namespace FloorballAdminiOS.UI.Entity
     {
 
         public List<EntityTableViewModel> Model { get; set; }
-       
-        public IDelegate VCDelegate { get; set; }
+
+        public EntityPresenter<EntityScreen> EntityPresenter { get; set; }
 
         public UpdateType Crud { get; set; }
 
@@ -39,15 +38,15 @@ namespace FloorballAdminiOS.UI.Entity
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
 
-            AddTableViewHeader(VCDelegate.GetTableHeader(Crud));
+            AddTableViewHeader(EntityPresenter.GetTableHeader(Crud));
             AddSaveButton();
 
             if (Crud == UpdateType.Update)
             {
-                await VCDelegate.SetDataFromServer();
+                await EntityPresenter.SetDataFromServer();
             }
 
-            Model = VCDelegate.GetTableViewModel();
+            Model = EntityPresenter.GetTableViewModel();
 
             TableView.ReloadData();
 
@@ -74,7 +73,7 @@ namespace FloorballAdminiOS.UI.Entity
             NavigationItem.RightBarButtonItem.Enabled = false;
             try
             {
-                await VCDelegate.Save(Model);
+                await EntityPresenter.Save(Model);
 
             }
             catch (Exception ex)

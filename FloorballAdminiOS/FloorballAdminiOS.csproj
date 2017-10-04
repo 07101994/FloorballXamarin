@@ -122,7 +122,13 @@
     <Folder Include="Resources\Images.xcassets\menu.imageset\" />
     <Folder Include="UI\Entity\" />
     <Folder Include="UI\Entity\TableViewCells\" />
-    <Folder Include="UI\Delegate\" />
+    <Folder Include="UI\Entity\League\" />
+    <Folder Include="Interactor\Entity\" />
+    <Folder Include="UI\Entity\Match\" />
+    <Folder Include="UI\Entity\Team\" />
+    <Folder Include="UI\Entity\Player\" />
+    <Folder Include="UI\Entity\Stadium\" />
+    <Folder Include="UI\Entity\Referee\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\base.lproj\Main.storyboard" />
@@ -204,14 +210,18 @@
     <Compile Include="Helper\iOSHelper.cs" />
     <Compile Include="UI\Entity\SegmentControlModel.cs" />
     <Compile Include="Interactor\EntityInteractor.cs" />
-    <Compile Include="UI\Delegate\LeagueDelegate.cs" />
-    <Compile Include="UI\Delegate\IDelegate.cs" />
-    <Compile Include="UI\Delegate\BaseDelegate.cs" />
-    <Compile Include="UI\Delegate\MatchDelegate.cs" />
-    <Compile Include="UI\Delegate\TeamDelegate.cs" />
-    <Compile Include="UI\Delegate\PlayerDelegate.cs" />
-    <Compile Include="UI\Delegate\RefereeDelegate.cs" />
-    <Compile Include="UI\Delegate\StadiumDelegate.cs" />
+    <Compile Include="UI\Entity\League\LeaguePresenter.cs" />
+    <Compile Include="Interactor\Entity\LeagueInteractor.cs" />
+    <Compile Include="UI\Entity\Match\MatchPresenter.cs" />
+    <Compile Include="Interactor\Entity\MatchInteractor.cs" />
+    <Compile Include="UI\Entity\Team\TeamPresenter.cs" />
+    <Compile Include="Interactor\Entity\TeamInteractor.cs" />
+    <Compile Include="Interactor\Entity\PlayerInteractor.cs" />
+    <Compile Include="Interactor\Entity\StadiumInteractor.cs" />
+    <Compile Include="Interactor\Entity\RefereeInteractor.cs" />
+    <Compile Include="UI\Entity\Player\PlayerPresenter.cs" />
+    <Compile Include="UI\Entity\Stadium\StadiumPresenter.cs" />
+    <Compile Include="UI\Entity\Referee\RefereePresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloorballPCL\FloorballPCL.csproj">

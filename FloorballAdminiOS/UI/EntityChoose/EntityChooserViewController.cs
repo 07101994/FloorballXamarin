@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Floorball;
-using FloorballAdminiOS.UI.Delegate;
 using FloorballAdminiOS.UI.Entity;
 using UIKit;
 
@@ -127,11 +126,11 @@ namespace FloorballAdminiOS.UI.EntityChoose
             
         }
 
-        private void ShowEntityVC(IDelegate iDelegate)
+        private void ShowEntityVC(EntityPresenter<EntityScreen> presenter)
         {
 			var controller = Storyboard.InstantiateViewController("EntityViewController") as EntityViewController;
             controller.Crud = Crud;
-            controller.VCDelegate = iDelegate;
+            controller.EntityPresenter = presenter;
 			NavigationController.PushViewController(controller, true);
         }
 

@@ -1,53 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Floorball;
 using Floorball.REST.RESTManagers;
 using FloorballAdminiOS.Interactor;
 
 namespace FloorballAdminiOS.UI.Entity
 {
-    public class EntityPresenter<T> : Presenter<EntityScreen>
+    public abstract class EntityPresenter<T> : Presenter<T>
     {
 
-        public T Model { get; set; }
+        public List<EntityTableViewModel> Model { get; set; }
 
-        EntityInteractor<T> entityInteractor;
-
-        public String Url { get; set; }
-
-        public EntityPresenter(string url)
+        public EntityPresenter()
         {
-            Url = url;
+            Model = new List<EntityTableViewModel>();
         }
 
-		public override void AttachScreen(EntityScreen screen)
-		{
-			base.AttachScreen(screen);
+        public string Url { get; set; }
 
-			entityInteractor = new EntityInteractor<T>();
+		//public T Model { get; set; }
 
-		}
+		//EntityInteractor<T> entityInteractor;
 
-		public override void DetachScreen()
-		{
-			base.DetachScreen();
+		public abstract List<EntityTableViewModel> GetTableViewModel();
 
-		}
+		public abstract string GetTableHeader(UpdateType crud);
 
-        public async Task AddEntity(string errorMsg)
-        {
-            await entityInteractor.AddEntity(Url, errorMsg, Model);
-        }
+		public abstract Task SetDataFromServer();
 
-        public async Task UpdateEntity()
-        {
-            
-        }
-
-        public async Task<T> GetEntity(string errorMsg, string id)
-        {
-            return await entityInteractor.GetEntityById(Url + "/{id}", errorMsg, id);
-        }
-
+		public abstract Task Save(List<EntityTableViewModel> model);
 
     }
 }

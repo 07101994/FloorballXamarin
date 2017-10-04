@@ -3,20 +3,33 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Floorball;
 using FloorballAdminiOS.Helper;
-using FloorballAdminiOS.UI.Entity;
+using FloorballAdminiOS.Interactor.Entity;
 using FloorballServer.Models.Floorball;
 
-namespace FloorballAdminiOS.UI.Delegate
+namespace FloorballAdminiOS.UI.Entity.League
 {
-    public class LeagueDelegate : BaseDelegate, IDelegate
+    public class LeaguePresenter : EntityPresenter<EntityScreen>
     {
-        
-        public EntityPresenter<LeagueModel> EntityPresenter { get; set; }
 
-        public List<EntityTableViewModel> GetTableViewModel()
+        LeagueInteractor leagueInteractor;
+
+        public override void AttachScreen(EntityScreen screen)
         {
-            if (Model.Count == 0) 
-            {
+            base.AttachScreen(screen);
+
+            leagueInteractor = new LeagueInteractor();
+            Url = "/api/floorball/leagues";
+        }
+
+        public override void DetachScreen()
+        {
+            base.DetachScreen();
+        }
+
+		public override List<EntityTableViewModel> GetTableViewModel()
+		{
+			if (Model.Count == 0)
+			{
 				Model.Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = "" });
 				Model.Add(new EntityTableViewModel { Label = "Year", CellType = TableViewCellType.Label, IsVisible = true, Value = "" });
 				Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(UIHelper.GetNumbers(2012, 2018)) });
@@ -32,25 +45,27 @@ namespace FloorballAdminiOS.UI.Delegate
 
 			}
 
-            return Model;
+			return Model;
 
 		}
 
-        public async Task SetDataFromServer()
-        {
-            await EntityPresenter.GetEntity("Error during getting league", "1");
-        }
+		public override async Task SetDataFromServer()
+		{
 
-        public string GetTableHeader(UpdateType crud)
-        {
-            return crud == UpdateType.Create ? "Add League" : "Update League";
-        }
+            await leagueInteractor.GetEntityById(Url, "Error during getting league", "1");
 
-        public async Task Save(List<EntityTableViewModel> model)
-        {
-            Model = model;
+		}
 
-			EntityPresenter.Model = new LeagueModel()
+		public override string GetTableHeader(UpdateType crud)
+		{
+			return crud == UpdateType.Create ? "Add League" : "Update League";
+		}
+
+		public override async Task Save(List<EntityTableViewModel> model)
+		{
+			Model = model;
+
+			var leagueModel = new LeagueModel()
 			{
 				Name = Model[0].ValueAsString,
 				Year = Model[2].PickerValueAsDateTime,
@@ -61,9 +76,9 @@ namespace FloorballAdminiOS.UI.Delegate
 				Sex = Model[12].SegmentModelSelectedValue
 			};
 
-			await EntityPresenter.AddEntity("Error during adding league!");
+            await leagueInteractor.AddEntity(Url, "Error during adding league!", leagueModel);
 
-            Model.Clear();
-        }
+			Model.Clear();
+		}
     }
 }

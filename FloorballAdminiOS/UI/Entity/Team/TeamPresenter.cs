@@ -3,25 +3,37 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Floorball;
 using FloorballAdminiOS.Helper;
-using FloorballAdminiOS.UI.Entity;
+using FloorballAdminiOS.Interactor.Entity;
 using FloorballServer.Models.Floorball;
 
-namespace FloorballAdminiOS.UI.Delegate
+namespace FloorballAdminiOS.UI.Entity.Team
 {
-    public class TeamDelegate : BaseDelegate, IDelegate
+    public class TeamPresenter : EntityPresenter<EntityScreen>
     {
+		TeamInteractor teamInteractor;
 
-        public EntityPresenter<TeamModel> EntityPresenter { get; set; }
+		public override void AttachScreen(EntityScreen screen)
+		{
+			base.AttachScreen(screen);
 
-        public string GetTableHeader(UpdateType crud)
+			teamInteractor = new TeamInteractor();
+			Url = "/api/floorball/teams";
+		}
+
+		public override void DetachScreen()
+		{
+			base.DetachScreen();
+		}
+
+        public override string GetTableHeader(UpdateType crud)
         {
             return crud == UpdateType.Create ? "Add Team" : "Update Team";
         }
 
-        public List<EntityTableViewModel> GetTableViewModel()
+        public override List<EntityTableViewModel> GetTableViewModel()
         {
-            if (Model.Count == 0)
-            {
+			if (Model.Count == 0)
+			{
 				Model.Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = "" });
 				Model.Add(new EntityTableViewModel { Label = "Gendre", CellType = TableViewCellType.SegmenControl, IsVisible = true, Value = new SegmentControlModel { Segments = new List<Tuple<string, string>> { new Tuple<string, string>("men", "men"), new Tuple<string, string>("women", "women") } } });
 				Model.Add(new EntityTableViewModel { Label = "Year", CellType = TableViewCellType.Label, IsVisible = true, Value = "" });
@@ -36,26 +48,26 @@ namespace FloorballAdminiOS.UI.Delegate
 				Model.Add(new EntityTableViewModel { Label = "TeamId", CellType = TableViewCellType.TextField, IsVisible = true, Value = "" });
 			}
 
-           	return Model;
+			return Model;
         }
 
-        public async Task Save(List<EntityTableViewModel> model)
+        public async override Task Save(List<EntityTableViewModel> model)
         {
 			Model = model;
 
-			EntityPresenter.Model = new TeamModel()
+			var teamModel = new TeamModel()
 			{
-				
+
 			};
 
-			await EntityPresenter.AddEntity("Error during adding team!");
+            await teamInteractor.AddEntity(Url,"Error during adding team!", teamModel);
 
-            Model.Clear();
+			Model.Clear();
         }
 
-        public async Task SetDataFromServer()
+        public async override Task SetDataFromServer()
         {
-            await EntityPresenter.GetEntity("Error during getting team", "1");
+            await teamInteractor.GetEntityById(Url, "Error during getting team", "1");
         }
     }
 }

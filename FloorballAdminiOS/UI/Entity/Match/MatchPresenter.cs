@@ -3,24 +3,37 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Floorball;
 using FloorballAdminiOS.Helper;
-using FloorballAdminiOS.UI.Entity;
+using FloorballAdminiOS.Interactor.Entity;
 using FloorballServer.Models.Floorball;
 
-namespace FloorballAdminiOS.UI.Delegate
+namespace FloorballAdminiOS.UI.Entity.Match
 {
-    public class MatchDelegate : BaseDelegate, IDelegate
+    public class MatchPresenter : EntityPresenter<EntityScreen>
     {
-        public EntityPresenter<MatchModel> EntityPresenter { get; set; }
+        MatchInteractor matchInteractor;
 
-        public string GetTableHeader(UpdateType crud)
+		public override void AttachScreen(EntityScreen screen)
+		{
+			base.AttachScreen(screen);
+
+			matchInteractor = new MatchInteractor();
+			Url = "/api/floorball/matches";
+		}
+
+		public override void DetachScreen()
+		{
+			base.DetachScreen();
+		}
+
+        public override string GetTableHeader(UpdateType crud)
         {
             return crud == UpdateType.Create ? "Add Match" : "Update Match";
         }
 
-        public List<EntityTableViewModel> GetTableViewModel()
+        public override List<EntityTableViewModel> GetTableViewModel()
         {
-            if (Model.Count == 0)
-            {
+			if (Model.Count == 0)
+			{
 				Model.Add(new EntityTableViewModel { Label = "League", CellType = TableViewCellType.Label, IsVisible = true, Value = "" });
 				Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(iOSHelper.GetCountries()) });
 				Model.Add(new EntityTableViewModel { Label = "Home Team", CellType = TableViewCellType.Label, IsVisible = true, Value = "" });
@@ -37,36 +50,37 @@ namespace FloorballAdminiOS.UI.Delegate
 				Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(iOSHelper.GetCountries()) });
 
 			}
-			
-            return Model;
+
+			return Model;
         }
 
-        public async Task Save(List<EntityTableViewModel> model)
+        public async override Task Save(List<EntityTableViewModel> model)
         {
 			Model = model;
 
-			EntityPresenter.Model = new MatchModel()
+			var matchModel = new MatchModel()
 			{
-                LeagueId = Model[1].PickerValueAsInt,
+				LeagueId = Model[1].PickerValueAsInt,
 				HomeTeamId = Model[3].PickerValueAsInt,
-                AwayTeamId = Model[5].PickerValueAsInt,
-                Round = Model[7].PickerValueAsShort,
-                Date = Model[9].PickerValueAsDateTime,
-                Time = Model[11].PickerValueAsTimeSpan,
-                StadiumId = Model[13].PickerValueAsInt,
-                State = StateEnum.Confirmed,
-                GoalsH = 0,
-                GoalsA = 0
+				AwayTeamId = Model[5].PickerValueAsInt,
+				Round = Model[7].PickerValueAsShort,
+				Date = Model[9].PickerValueAsDateTime,
+				Time = Model[11].PickerValueAsTimeSpan,
+				StadiumId = Model[13].PickerValueAsInt,
+				State = StateEnum.Confirmed,
+				GoalsH = 0,
+				GoalsA = 0
 			};
 
-			await EntityPresenter.AddEntity("Error during adding match!");
+            await matchInteractor.AddEntity(Url, "Error during adding match!", matchModel);
 
-            Model.Clear();
+			Model.Clear();
         }
 
-        public async Task SetDataFromServer()
+        public async override Task SetDataFromServer()
         {
-            await EntityPresenter.GetEntity("Error during getting match", "1");
+            await matchInteractor.GetEntityById(Url, "Error during getting match", "1");
+
         }
     }
 }
