@@ -208,6 +208,10 @@
     <Compile Include="UI\Delegate\IDelegate.cs" />
     <Compile Include="UI\Delegate\BaseDelegate.cs" />
     <Compile Include="UI\Delegate\MatchDelegate.cs" />
+    <Compile Include="UI\Delegate\TeamDelegate.cs" />
+    <Compile Include="UI\Delegate\PlayerDelegate.cs" />
+    <Compile Include="UI\Delegate\RefereeDelegate.cs" />
+    <Compile Include="UI\Delegate\StadiumDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloorballPCL\FloorballPCL.csproj">

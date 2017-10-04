@@ -281,7 +281,7 @@ namespace FloorballAdminiOS.UI.Entity
         {
             var cell = tableView.DequeueReusableCell("PickerViewCell") as EntityPickerViewCell;
 
-            var pickerModel = model.Model as UIFloorballPickerViewModel;
+            var pickerModel = model.Value as UIFloorballPickerViewModel;
 
             pickerModel.SelectionChanged += PickerModel_SelectionChanged;
 
@@ -298,7 +298,7 @@ namespace FloorballAdminiOS.UI.Entity
 			var cell = tableView.DequeueReusableCell("LabelCell") as EntityLabelCell;
 
             cell.Label.Text = model.Label;
-            cell.LabelChoosed.Text = model.Model as string;
+            cell.LabelChoosed.Text = model.Value as string;
 
 			return cell;
         }
@@ -309,7 +309,7 @@ namespace FloorballAdminiOS.UI.Entity
 
             cell.Label.Text = model.Label;
 
-            var segmentModel = model.Model as SegmentControlModel;
+            var segmentModel = model.Value as SegmentControlModel;
 
             cell.SegmentControl.RemoveAllSegments();
 
@@ -336,11 +336,11 @@ namespace FloorballAdminiOS.UI.Entity
             var cell = tableView.DequeueReusableCell("TextFieldCell") as EntityTextFieldCell;
 
             cell.Label.Text = model.Label;
-            cell.TextField.Text = model.Model as string;
+            cell.TextField.Text = model.Value as string;
 
             cell.TextField.ValueChanged += (sender, e) => 
             {
-                model.Model = ((UITextField)sender).Text;
+                model.Value = ((UITextField)sender).Text;
             };
 
             return cell;
@@ -362,7 +362,7 @@ namespace FloorballAdminiOS.UI.Entity
 
         void PickerModel_SelectionChanged(string val)
         {
-            Model.ElementAt(SelectedRow).Model = val;
+            Model.ElementAt(SelectedRow).Value = val;
 
             TableView.ReloadRows(new NSIndexPath[] { NSIndexPath.FromRowSection(SelectedRow, 0) }, UITableViewRowAnimation.None);
 

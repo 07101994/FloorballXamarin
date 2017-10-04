@@ -10,6 +10,9 @@ namespace FloorballAdminiOS.UI.Entity
     public class UIFloorballPickerViewModel : UIPickerViewModel
     {
         List<string> pickerModel;
+        List<object> selectedValues;
+
+        public object SelectedValue { get; set; }
 
         public event SelectionChangedEventHandler SelectionChanged;
 
@@ -17,9 +20,10 @@ namespace FloorballAdminiOS.UI.Entity
         {
         }
 
-		public UIFloorballPickerViewModel(List<string> pickerModel)
+		public UIFloorballPickerViewModel(List<string> pickerModel, List<object> selectedValues = null)
 		{
             this.pickerModel = pickerModel;
+            this.selectedValues = selectedValues;
 		}
 
 		public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
@@ -39,8 +43,10 @@ namespace FloorballAdminiOS.UI.Entity
 		
         public override void Selected(UIPickerView pickerView, nint row, nint component)
         {
+            int selectedRow = Convert.ToInt32(row);
 
-            SelectionChanged?.Invoke(pickerModel.ElementAt(Convert.ToInt32(row)));
+            SelectedValue = selectedValues[selectedRow];
+            SelectionChanged?.Invoke(pickerModel.ElementAt(selectedRow));
 
         }
     }
