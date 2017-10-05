@@ -11,6 +11,8 @@ namespace FloorballAdminiOS.UI.Entity.Referee
     {
         RefereeInteractor refereeInteractor;
 
+        RefereeModel referee;
+
 		public override void AttachScreen(EntityScreen screen)
 		{
 			base.AttachScreen(screen);
@@ -19,7 +21,12 @@ namespace FloorballAdminiOS.UI.Entity.Referee
 			Url = "/api/floorball/referees";
 		}
 
-		public override void DetachScreen()
+        public override void ClearModel()
+        {
+            Model.Clear();
+        }
+
+        public override void DetachScreen()
 		{
 			base.DetachScreen();
 		}
@@ -29,33 +36,39 @@ namespace FloorballAdminiOS.UI.Entity.Referee
             return crud == UpdateType.Create ? "Add Referee" : "Update Referee";
         }
 
-        public override List<EntityTableViewModel> GetTableViewModel()
+        public override List<EntityTableViewModel> SetTableViewModel()
         {
-			if (Model.Count == 0)
-			{
-				Model.Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = "" });
-			}
+            Model.Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = referee == null ? "" : referee.Name });
 
 			return Model;
         }
 
-        public async override Task Save(List<EntityTableViewModel> model)
+        protected async override Task Save()
         {
-			Model = model;
 
-			var refereeModel = new RefereeModel()
-			{
-
-			};
-
-            await refereeInteractor.AddEntity(Url, "Error during adding referee!", refereeModel);
+            await refereeInteractor.AddEntity(Url, "Error during adding referee!", referee);
 
 			Model.Clear();
         }
 
-        public async override Task SetDataFromServer()
+        public async override Task SetDataFromServer(UpdateType crud)
         {
-            await refereeInteractor.GetEntityById(Url,"Error during getting referee", "1");
+            if (crud == UpdateType.Update)
+            {
+                referee = await refereeInteractor.GetEntityById(Url, "Error during getting referee", "1");    
+            }
+
+            await Task.FromResult<object>(null);
+
+            SetTableViewModel();
+        }
+
+        protected override void Validate()
+        {
+			referee = new RefereeModel()
+			{
+
+			};
         }
     }
 }

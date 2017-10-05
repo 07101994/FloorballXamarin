@@ -33,5 +33,14 @@ namespace FloorballAdminiOS.Interactor
 			});
         }
 
+        public async Task<List<T1>> GetEntities<T1>(string url, string errorMsg)
+        {
+			return await Network.GetAsync<List<T1>>(new HTTPGetRequestModel()
+			{
+				Url = url,
+				ErrorMsg = errorMsg
+			});
+        }
+
     }
 }

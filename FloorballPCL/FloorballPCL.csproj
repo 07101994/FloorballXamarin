@@ -104,6 +104,7 @@
     <Compile Include="LocalDB\IDBManager.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Exceptions\FloorballException.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

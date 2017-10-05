@@ -11,6 +11,8 @@ namespace FloorballAdminiOS.UI.Entity.Player
     {
         PlayerInteractor playerInteractor;
 
+        PlayerModel player;
+
 		public override void AttachScreen(EntityScreen screen)
 		{
 			base.AttachScreen(screen);
@@ -19,7 +21,12 @@ namespace FloorballAdminiOS.UI.Entity.Player
 			Url = "/api/floorball/players";
 		}
 
-		public override void DetachScreen()
+        public override void ClearModel()
+        {
+            Model.Clear();
+        }
+
+        public override void DetachScreen()
 		{
 			base.DetachScreen();
 		}
@@ -29,37 +36,54 @@ namespace FloorballAdminiOS.UI.Entity.Player
             return crud == UpdateType.Create ? "Add Player" : "Update Player";
         }
 
-        public override List<EntityTableViewModel> GetTableViewModel()
+        public override List<EntityTableViewModel> SetTableViewModel()
         {
-			if (Model.Count == 0)
-			{
-				Model.Add(new EntityTableViewModel { Label = "First Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = "" });
-				Model.Add(new EntityTableViewModel { Label = "Last Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = "" });
-				Model.Add(new EntityTableViewModel { Label = "Birth Date", CellType = TableViewCellType.Label, IsVisible = true, Value = "" });
-				Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(UIHelper.GetNumbers(1950, 2012)) });
-			}
-
+			
+            Model.Add(new EntityTableViewModel { Label = "First Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = player == null ? "" : player.FirstName });
+            Model.Add(new EntityTableViewModel { Label = "Last Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = player == null ? "" : player.SecondName });
+            Model.Add(new EntityTableViewModel { Label = "Birth Date", CellType = TableViewCellType.Label, IsVisible = true, Value = player == null ? "" : player.BirthDate.ToString() });
+			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.DatePicker, IsVisible = false, Value = "" });
 
 			return Model;
         }
 
-        public async override Task Save(List<EntityTableViewModel> model)
+        protected async override Task Save()
         {
-			Model = model;
 
-			var playerModel = new PlayerModel()
-			{
-
-			};
-
-            await playerInteractor.AddEntity(Url, "Error during adding player!", playerModel);
+            await playerInteractor.AddEntity(Url, "Error during adding player!", player);
 
 			Model.Clear();
         }
 
-        public async override Task SetDataFromServer()
+        public async override Task SetDataFromServer(UpdateType crud)
         {
-            await playerInteractor.GetEntityById(Url, "Error during getting player", "1");
+            List<Task> tasks = new List<Task>();
+
+            Task<PlayerModel> playerTask = null;
+
+            if (crud == UpdateType.Update)
+            {
+                playerTask = playerInteractor.GetEntityById(Url, "Error during getting player", "1");    
+                tasks.Add(playerTask);
+            }
+
+            await Task.WhenAll(tasks);
+
+            if (crud == UpdateType.Update)
+            {
+                player = playerTask.Result;
+            }
+
+            SetTableViewModel();
+
+        }
+
+        protected override void Validate()
+        {
+			player = new PlayerModel()
+			{
+
+			};
         }
     }
 }

@@ -129,6 +129,7 @@
     <Folder Include="UI\Entity\Player\" />
     <Folder Include="UI\Entity\Stadium\" />
     <Folder Include="UI\Entity\Referee\" />
+    <Folder Include="Resources\hu.lproj\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\base.lproj\Main.storyboard" />
@@ -230,7 +231,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\hu.lproj\Localizable.strings" />
+    <BundleResource Include="Resources\hu.lproj\Main.strings" />
     <BundleResource Include="Resources\base.lproj\Localizable.strings" />
+    <BundleResource Include="Resources\base.lproj\Main.strings" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

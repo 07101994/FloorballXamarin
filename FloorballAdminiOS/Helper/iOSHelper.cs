@@ -10,14 +10,35 @@ namespace FloorballAdminiOS.Helper
 
 		public static List<string> GetCountries()
 		{
-			var countries = new List<string>();
+            return GetFromLocalizedString<CountriesEnum>();
+		}
 
-			foreach (CountriesEnum country in Enum.GetValues(typeof(CountriesEnum)))
+		public static List<string> GetLeagueTypes()
+		{
+            return GetFromLocalizedString<LeagueTypeEnum>();
+		}
+
+		public static List<string> GetClasses()
+		{
+            return GetFromLocalizedString<ClassEnum>();
+		}
+
+		public static List<string> GetGenders()
+		{
+			return GetFromLocalizedString<GenderEnum>();
+		}
+
+        private static List<string> GetFromLocalizedString<T>()
+        {
+            var list = new List<string>();
+
+            foreach (T e in Enum.GetValues(typeof(T)))
 			{
-				countries.Add(NSBundle.MainBundle.LocalizedString(country.ToString().ToLower(), null));
+				list.Add(NSBundle.MainBundle.LocalizedString(e.ToString(), null));
 			}
 
-			return countries;
-		}
+			return list;
+        }
+
     }
 }

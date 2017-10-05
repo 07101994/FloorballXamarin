@@ -28,13 +28,13 @@ namespace FloorballAdminiOS.UI.Entity
 
         private object PickerModelSelectedObjet => (Value as UIFloorballPickerViewModel).SelectedValue;
 
-        public string SegmentModelSelectedValue
+        public object SegmentModelSelectedValue
         {
             get
             {
                 var segmentControl = Value as SegmentControlModel;
 
-                return segmentControl.Segments[segmentControl.Selected].Item1;
+                return segmentControl.SelectedValues[segmentControl.Selected];
             }
         }
 

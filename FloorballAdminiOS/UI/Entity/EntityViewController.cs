@@ -4,16 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoreGraphics;
 using Floorball;
+using Floorball.Exceptions;
 using FloorballAdminiOS.UI.Entity.TableViewCells;
+using FloorballPCL.Exceptions;
 using Foundation;
 using UIKit;
 
 namespace FloorballAdminiOS.UI.Entity
 {
-    public partial class EntityViewController : UITableViewController
+    public partial class EntityViewController : UITableViewController, EntityScreen
     {
 
-        public List<EntityTableViewModel> Model { get; set; }
+        //public List<EntityTableViewModel> Model { get; set; }
 
         public EntityPresenter<EntityScreen> EntityPresenter { get; set; }
 
@@ -24,13 +26,13 @@ namespace FloorballAdminiOS.UI.Entity
         public EntityViewController(string nibName, NSBundle bundle) : base(nibName, bundle)
         {
             SelectedRow = -1;
-            Model = new List<EntityTableViewModel>();
+            //Model = new List<EntityTableViewModel>();
         }
 
 		public EntityViewController(IntPtr handle) : base(handle)
         {
             SelectedRow = -1;
-            Model = new List<EntityTableViewModel>();
+            //Model = new List<EntityTableViewModel>();
 		}
 
         public async override void ViewDidLoad()
@@ -38,18 +40,29 @@ namespace FloorballAdminiOS.UI.Entity
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
 
+            EntityPresenter.AttachScreen(this);
+
             AddTableViewHeader(EntityPresenter.GetTableHeader(Crud));
             AddSaveButton();
 
-            if (Crud == UpdateType.Update)
+            try
             {
-                await EntityPresenter.SetDataFromServer();
+				await EntityPresenter.SetDataFromServer(Crud);
+
+				TableView.ReloadData();
+            }
+            catch (Exception ex)
+            {
+                AppDelegate.SharedAppDelegate.ShowErrorMessage(this,ex.Message);
             }
 
-            Model = EntityPresenter.GetTableViewModel();
+        }
 
-            TableView.ReloadData();
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
 
+            EntityPresenter.ClearModel();
         }
 
         private void AddSaveButton()
@@ -73,13 +86,19 @@ namespace FloorballAdminiOS.UI.Entity
             NavigationItem.RightBarButtonItem.Enabled = false;
             try
             {
-                await EntityPresenter.Save(Model);
-
+                await EntityPresenter.ValidateAndSave();
             }
-            catch (Exception ex)
+            catch (CommunicationException)
+            {
+                AppDelegate.SharedAppDelegate.ShowErrorMessage(this, "Hiba történt a mentés során!");
+            } 
+            catch (ValidationException ex)
+            {
+				AppDelegate.SharedAppDelegate.ShowErrorMessage(this, ex.Message, ex.Title);
+            }
+            finally
             {
                 NavigationItem.RightBarButtonItem.Enabled = true;
-                AppDelegate.SharedAppDelegate.ShowErrorMessage(this, ex.Message);
             }
         }
 
@@ -111,19 +130,19 @@ namespace FloorballAdminiOS.UI.Entity
 
         public override nint RowsInSection(UITableView tableView, nint section)
         {
-            return Model.Count();
+            return EntityPresenter.Model.Count();
         }
 
 		public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
 		{
-            var model = Model.ElementAt(indexPath.Row);
+            var model = EntityPresenter.Model.ElementAt(indexPath.Row);
 
             return model.CellType == TableViewCellType.DatePicker || model.CellType == TableViewCellType.Picker ? (model.IsVisible ? 216.0f : 0.0f) : TableView.RowHeight;
 		}
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            var model = Model.ElementAt(indexPath.Row);
+            var model = EntityPresenter.Model.ElementAt(indexPath.Row);
 
             switch (model.CellType)
             {
@@ -167,7 +186,7 @@ namespace FloorballAdminiOS.UI.Entity
 
             try
             {
-				var model = Model.ElementAt(indexPath.Row + 1);
+				var model = EntityPresenter.Model.ElementAt(indexPath.Row + 1);
 
 				var previouslySelectedRow = SelectedRow;
 				SelectedRow = indexPath.Row;
@@ -218,7 +237,7 @@ namespace FloorballAdminiOS.UI.Entity
 			{
                 previouslySelectedRow++;
 
-				var previousModel = Model.ElementAt(previouslySelectedRow);
+				var previousModel = EntityPresenter.Model.ElementAt(previouslySelectedRow);
 
 				previousModel.IsVisible = false;
 
@@ -273,6 +292,13 @@ namespace FloorballAdminiOS.UI.Entity
 			cell.DatePicker.Hidden = true;
 			cell.DatePicker.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            cell.DatePicker.ValueChanged += (sender, e) => 
+            {
+				EntityPresenter.Model.ElementAt(SelectedRow).Value = (sender as UIDatePicker).Date.ToString();
+
+				TableView.ReloadRows(new NSIndexPath[] { NSIndexPath.FromRowSection(SelectedRow, 0) }, UITableViewRowAnimation.None);
+			};
+
 			return cell;
         }
 
@@ -314,9 +340,9 @@ namespace FloorballAdminiOS.UI.Entity
 
             int i = 0;
 
-            foreach (var segment in segmentModel.Segments)
+            foreach (var segment in segmentModel.Model)
             {
-                cell.SegmentControl.InsertSegment(segment.Item1,i++,false);
+                cell.SegmentControl.InsertSegment(segment,i++,false);
             }
 
             cell.SegmentControl.SelectedSegment = segmentModel.Selected;
@@ -337,10 +363,11 @@ namespace FloorballAdminiOS.UI.Entity
             cell.Label.Text = model.Label;
             cell.TextField.Text = model.Value as string;
 
-            cell.TextField.ValueChanged += (sender, e) => 
-            {
-                model.Value = ((UITextField)sender).Text;
-            };
+
+            cell.TextField.AddTarget((sender, e) => 
+            { 
+                model.Value = ((UITextField)sender).Text; 
+            }, UIControlEvent.EditingChanged);
 
             return cell;
         }
@@ -361,7 +388,7 @@ namespace FloorballAdminiOS.UI.Entity
 
         void PickerModel_SelectionChanged(string val)
         {
-            Model.ElementAt(SelectedRow).Value = val;
+            EntityPresenter.Model.ElementAt(SelectedRow).Value = val;
 
             TableView.ReloadRows(new NSIndexPath[] { NSIndexPath.FromRowSection(SelectedRow, 0) }, UITableViewRowAnimation.None);
 

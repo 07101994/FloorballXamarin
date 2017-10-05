@@ -11,6 +11,8 @@ namespace FloorballAdminiOS.UI.Entity.Stadium
     {
 		StadiumInteractor stadiumInteractor;
 
+        StadiumModel stadium;
+
 		public override void AttachScreen(EntityScreen screen)
 		{
 			base.AttachScreen(screen);
@@ -19,7 +21,12 @@ namespace FloorballAdminiOS.UI.Entity.Stadium
 			Url = "/api/floorball/stadiums";
 		}
 
-		public override void DetachScreen()
+        public override void ClearModel()
+        {
+            Model.Clear();
+        }
+
+        public override void DetachScreen()
 		{
 			base.DetachScreen();
 		}
@@ -29,34 +36,41 @@ namespace FloorballAdminiOS.UI.Entity.Stadium
             return crud == UpdateType.Create ? "Add Stadium" : "Update Stadium";
         }
 
-        public override List<EntityTableViewModel> GetTableViewModel()
+        public override List<EntityTableViewModel> SetTableViewModel()
         {
-			if (Model.Count == 0)
-			{
-				Model.Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = "" });
-				Model.Add(new EntityTableViewModel { Label = "Address", CellType = TableViewCellType.TextField, IsVisible = true, Value = "" });
-			}
+            Model.Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = stadium == null ? "" : stadium.Name });
+            Model.Add(new EntityTableViewModel { Label = "Address", CellType = TableViewCellType.TextField, IsVisible = true, Value = stadium == null ? "" : stadium.Address });
 
 			return Model;
         }
 
-        public async override Task Save(List<EntityTableViewModel> model)
+        protected async override Task Save()
         {
-			Model = model;
 
-			var stadiumModel = new StadiumModel()
-			{
-
-			};
-
-            await stadiumInteractor.AddEntity(Url, "Error during adding stadium!", stadiumModel);
+            await stadiumInteractor.AddEntity(Url, "Error during adding stadium!", stadium);
 
 			Model.Clear();
         }
 
-        public async override Task SetDataFromServer()
+        public async override Task SetDataFromServer(UpdateType crud)
         {
-            await stadiumInteractor.GetEntityById(Url, "Error during getting stadium", "1");
+
+            if (crud == UpdateType.Update)
+            {
+                stadium = await stadiumInteractor.GetEntityById(Url, "Error during getting stadium", "1");    
+            }
+
+            await Task.FromResult<object>(null);
+
+            SetTableViewModel();
+        }
+
+        protected override void Validate()
+        {
+			stadium = new StadiumModel()
+			{
+
+			};
         }
     }
 }

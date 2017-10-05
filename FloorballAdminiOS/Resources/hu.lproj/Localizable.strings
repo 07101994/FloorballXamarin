@@ -40,7 +40,7 @@
 "countries" = "Országok";
 "HU" = "Magyarország";
 "SE" = "Svédország";
-"FL" = "Finnország";
+"Fl" = "Finnország";
 "SW" = "Svájc";
 "CZ" = "Csehország";
 
@@ -78,8 +78,8 @@
 "teamPlayers" = "Játékosok";
 
 /*Gender*/
-"Men" = "férfi";
-"Women" = "női";
+"men" = "férfi";
+"women" = "női";
 
 /*ClassTypes*/
 "FirstClass" = "Első osztály";

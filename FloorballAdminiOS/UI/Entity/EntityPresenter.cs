@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Floorball;
 using Floorball.REST.RESTManagers;
 using FloorballAdminiOS.Interactor;
+using FloorballPCL.Exceptions;
 
 namespace FloorballAdminiOS.UI.Entity
 {
@@ -23,13 +24,39 @@ namespace FloorballAdminiOS.UI.Entity
 
 		//EntityInteractor<T> entityInteractor;
 
-		public abstract List<EntityTableViewModel> GetTableViewModel();
+		public abstract List<EntityTableViewModel> SetTableViewModel();
 
 		public abstract string GetTableHeader(UpdateType crud);
 
-		public abstract Task SetDataFromServer();
+		public abstract Task SetDataFromServer(UpdateType crud);
 
-		public abstract Task Save(List<EntityTableViewModel> model);
+        public abstract void ClearModel();
+
+        protected abstract Task Save();
+
+        protected abstract void Validate();
+
+        public async Task ValidateAndSave()
+        {
+			try
+			{
+				Validate();
+			}
+			catch (ValidationException)
+			{
+				throw;
+			}
+			catch (Exception ex)
+			{
+                throw new ValidationException("Validation error", "Some values not correct", ex);
+			}
+
+			ClearModel();
+
+            await Save();
+        }
+
+
 
     }
 }

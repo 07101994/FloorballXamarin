@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Floorball;
 using UIKit;
 
 namespace FloorballAdminiOS.UI.Entity
@@ -10,7 +11,7 @@ namespace FloorballAdminiOS.UI.Entity
     public class UIFloorballPickerViewModel : UIPickerViewModel
     {
         List<string> pickerModel;
-        List<object> selectedValues;
+        List<object> selectedValues = new List<object>();
 
         public object SelectedValue { get; set; }
 
@@ -20,10 +21,54 @@ namespace FloorballAdminiOS.UI.Entity
         {
         }
 
-		public UIFloorballPickerViewModel(List<string> pickerModel, List<object> selectedValues = null)
+		public UIFloorballPickerViewModel(IEnumerable<string> pickerModel, IEnumerable<string> selectedValues = null)
 		{
-            this.pickerModel = pickerModel;
-            this.selectedValues = selectedValues;
+            this.pickerModel = pickerModel.ToList();
+
+            foreach (var v in selectedValues)
+            {
+                this.selectedValues.Add(v);
+            }
+		}
+
+		public UIFloorballPickerViewModel(IEnumerable<string> pickerModel, IEnumerable<int> selectedValues = null)
+		{
+			this.pickerModel = pickerModel.ToList();
+
+			foreach (var v in selectedValues)
+			{
+				this.selectedValues.Add(v);
+			}
+		}
+
+		public UIFloorballPickerViewModel(IEnumerable<string> pickerModel, IEnumerable<CountriesEnum> selectedValues = null)
+		{
+			this.pickerModel = pickerModel.ToList();
+
+			foreach (var v in selectedValues)
+			{
+				this.selectedValues.Add(v);
+			}
+		}
+
+		public UIFloorballPickerViewModel(IEnumerable<string> pickerModel, IEnumerable<LeagueTypeEnum> selectedValues = null)
+		{
+			this.pickerModel = pickerModel.ToList();
+
+			foreach (var v in selectedValues)
+			{
+				this.selectedValues.Add(v);
+			}
+		}
+
+		public UIFloorballPickerViewModel(IEnumerable<string> pickerModel, IEnumerable<ClassEnum> selectedValues = null)
+		{
+			this.pickerModel = pickerModel.ToList();
+
+			foreach (var v in selectedValues)
+			{
+				this.selectedValues.Add(v);
+			}
 		}
 
 		public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
