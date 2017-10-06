@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CoreGraphics;
 using Floorball;
 using Floorball.Exceptions;
+using FloorballAdminiOS.Helper;
 using FloorballAdminiOS.UI.Entity.TableViewCells;
 using FloorballPCL.Exceptions;
 using Foundation;
@@ -23,22 +24,16 @@ namespace FloorballAdminiOS.UI.Entity
 
         public int SelectedRow { get; set; }
 
-        public EntityViewController(string nibName, NSBundle bundle) : base(nibName, bundle)
-        {
-            SelectedRow = -1;
-            //Model = new List<EntityTableViewModel>();
-        }
+        public EntityViewController(string nibName, NSBundle bundle) : base(nibName, bundle) { }
 
-		public EntityViewController(IntPtr handle) : base(handle)
-        {
-            SelectedRow = -1;
-            //Model = new List<EntityTableViewModel>();
-		}
+		public EntityViewController(IntPtr handle) : base(handle) { }
 
         public async override void ViewDidLoad()
         {
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
+
+            SelectedRow = -1;
 
             EntityPresenter.AttachScreen(this);
 
@@ -137,7 +132,7 @@ namespace FloorballAdminiOS.UI.Entity
 		{
             var model = EntityPresenter.Model.ElementAt(indexPath.Row);
 
-            return model.CellType == TableViewCellType.DatePicker || model.CellType == TableViewCellType.Picker ? (model.IsVisible ? 216.0f : 0.0f) : TableView.RowHeight;
+            return model.CellType == TableViewCellType.DatePicker || model.CellType == TableViewCellType.Picker || model.CellType == TableViewCellType.TimePicker || model.CellType == TableViewCellType.DateAndTimePicker ? (model.IsVisible ? 216.0f : 0.0f) : TableView.RowHeight;
 		}
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
@@ -165,6 +160,14 @@ namespace FloorballAdminiOS.UI.Entity
                 case TableViewCellType.DatePicker:
 
                     return SetNonSelectable(GetDatePickerCell(tableView, model));
+
+                case TableViewCellType.TimePicker:
+
+                    return SetNonSelectable(GetTimePickerCell(tableView, model));
+
+                case TableViewCellType.DateAndTimePicker:
+
+                    return SetNonSelectable(GetDateAndTimePickerCell(tableView, model));
 
                 default:
 
@@ -207,7 +210,7 @@ namespace FloorballAdminiOS.UI.Entity
 					
 
 				}
-				else if (model.CellType == TableViewCellType.DatePicker)
+				else if (model.CellType == TableViewCellType.DatePicker || model.CellType == TableViewCellType.TimePicker || model.CellType == TableViewCellType.DateAndTimePicker)
 				{
 
                     var selectedCell = tableView.CellAt(NSIndexPath.FromRowSection(indexPath.Row + 1, 0)) as EntityDatePickerCell;
@@ -249,7 +252,7 @@ namespace FloorballAdminiOS.UI.Entity
 
                     return true;
 				}
-				else if (previousModel.CellType == TableViewCellType.Picker)
+				else if (previousModel.CellType == TableViewCellType.DatePicker || previousModel.CellType == TableViewCellType.TimePicker || previousModel.CellType == TableViewCellType.DateAndTimePicker)
 				{
 					var cell = tableView.CellAt(NSIndexPath.FromRowSection(previouslySelectedRow, 0)) as EntityDatePickerCell;
 
@@ -285,6 +288,44 @@ namespace FloorballAdminiOS.UI.Entity
             });
         }
 
+		private UITableViewCell GetDateAndTimePickerCell(UITableView tableView, EntityTableViewModel model)
+		{
+			var cell = tableView.DequeueReusableCell("DatePickerCell") as EntityDatePickerCell;
+
+			cell.DatePicker.Hidden = true;
+			cell.DatePicker.TranslatesAutoresizingMaskIntoConstraints = false;
+
+			cell.DatePicker.Mode = UIDatePickerMode.DateAndTime;
+
+			cell.DatePicker.ValueChanged += (sender, e) =>
+			{
+				EntityPresenter.Model.ElementAt(SelectedRow).Value = (sender as UIDatePicker).Date.ToString();
+
+				TableView.ReloadRows(new NSIndexPath[] { NSIndexPath.FromRowSection(SelectedRow, 0) }, UITableViewRowAnimation.None);
+			};
+
+			return cell;
+		}
+
+		private UITableViewCell GetTimePickerCell(UITableView tableView, EntityTableViewModel model)
+		{
+			var cell = tableView.DequeueReusableCell("DatePickerCell") as EntityDatePickerCell;
+
+			cell.DatePicker.Hidden = true;
+			cell.DatePicker.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            cell.DatePicker.Mode = UIDatePickerMode.Time;
+
+			cell.DatePicker.ValueChanged += (sender, e) =>
+			{
+                EntityPresenter.Model.ElementAt(SelectedRow).Value = iOSHelper.NSDateToDateTime((sender as UIDatePicker).Date).TimeOfDay.ToString(@"hh\-mm");
+
+				TableView.ReloadRows(new NSIndexPath[] { NSIndexPath.FromRowSection(SelectedRow, 0) }, UITableViewRowAnimation.None);
+			};
+
+			return cell;
+		}
+
         private UITableViewCell GetDatePickerCell(UITableView tableView, EntityTableViewModel model)
         {
             var cell = tableView.DequeueReusableCell("DatePickerCell") as EntityDatePickerCell;
@@ -294,9 +335,9 @@ namespace FloorballAdminiOS.UI.Entity
 
             cell.DatePicker.ValueChanged += (sender, e) => 
             {
-				EntityPresenter.Model.ElementAt(SelectedRow).Value = (sender as UIDatePicker).Date.ToString();
-
-				TableView.ReloadRows(new NSIndexPath[] { NSIndexPath.FromRowSection(SelectedRow, 0) }, UITableViewRowAnimation.None);
+                EntityPresenter.Model.ElementAt(SelectedRow).Value = iOSHelper.NSDateToDateTime((sender as UIDatePicker).Date).Date.ToString("yyyy-MM-dd");
+				
+                TableView.ReloadRows(new NSIndexPath[] { NSIndexPath.FromRowSection(SelectedRow, 0) }, UITableViewRowAnimation.None);
 			};
 
 			return cell;

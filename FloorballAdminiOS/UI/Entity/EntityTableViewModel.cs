@@ -4,7 +4,7 @@ using Floorball;
 namespace FloorballAdminiOS.UI.Entity
 {
     public enum TableViewCellType {
-        TextField, SegmenControl, Label, Picker, DatePicker
+        TextField, SegmenControl, Label, Picker, DatePicker, DateAndTimePicker, TimePicker
     }
 
     public class EntityTableViewModel

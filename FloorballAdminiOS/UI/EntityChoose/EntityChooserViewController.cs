@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Floorball;
 using FloorballAdminiOS.UI.Entity;
+using FloorballAdminiOS.UI.EntitySearch;
 using UIKit;
 
 namespace FloorballAdminiOS.UI.EntityChoose
@@ -109,7 +110,7 @@ namespace FloorballAdminiOS.UI.EntityChoose
 
 				case UpdateType.Update:
 
-                    //ShowChooseEntityVC(EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).Item2);
+                    ShowSearchEntityVC(EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).Item3);
 
 					break;
 
@@ -121,9 +122,11 @@ namespace FloorballAdminiOS.UI.EntityChoose
         
         }
 
-        private void ShowChooseEntityVC(string controllerId)
+        private void ShowSearchEntityVC(EntitySearchPresenter<EntitySearchScreen> presenter)
         {
-            
+            var controller = Storyboard.InstantiateViewController("EntitySearchViewController") as EntitySearchViewController;
+            controller.Presenter = presenter;
+            NavigationController.PushViewController(controller, true);
         }
 
         private void ShowEntityVC(EntityPresenter<EntityScreen> presenter)

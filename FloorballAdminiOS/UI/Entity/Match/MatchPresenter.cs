@@ -58,7 +58,7 @@ namespace FloorballAdminiOS.UI.Entity.Match
             Model.Add(new EntityTableViewModel { Label = "Date", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : match.Date.ToString() });
 			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.DatePicker, IsVisible = false, Value = "" });
             Model.Add(new EntityTableViewModel { Label = "Time", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : match.Time.ToString() });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.DatePicker, IsVisible = false, Value = "" });
+			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.TimePicker, IsVisible = false, Value = "" });
             Model.Add(new EntityTableViewModel { Label = "Stadium", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : stadiums.Single(s => s.Id == match.StadiumId).Name });
 			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(stadiums.Select(s => s.Name), stadiums.Select(s => s.Id)) });
 

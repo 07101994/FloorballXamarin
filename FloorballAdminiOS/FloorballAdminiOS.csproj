@@ -130,6 +130,8 @@
     <Folder Include="UI\Entity\Stadium\" />
     <Folder Include="UI\Entity\Referee\" />
     <Folder Include="Resources\hu.lproj\" />
+    <Folder Include="UI\EntitySearch\" />
+    <Folder Include="Interactor\Search\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\base.lproj\Main.storyboard" />
@@ -223,6 +225,23 @@
     <Compile Include="UI\Entity\Player\PlayerPresenter.cs" />
     <Compile Include="UI\Entity\Stadium\StadiumPresenter.cs" />
     <Compile Include="UI\Entity\Referee\RefereePresenter.cs" />
+    <Compile Include="UI\EntitySearch\EntitySearchPresenter.cs" />
+    <Compile Include="UI\EntitySearch\EntitySearchScreen.cs" />
+    <Compile Include="UI\Entity\League\LeagueSearchPresenter.cs" />
+    <Compile Include="Interactor\Search\SearchInteractor.cs" />
+    <Compile Include="UI\EntitySearch\SearchBaseViewController.cs" />
+    <Compile Include="Res.cs" />
+    <Compile Include="Res.designer.cs">
+      <DependentUpon>Res.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EntitySearch\ResultsTableViewController.cs" />
+    <Compile Include="UI\EntitySearch\ResultsTableViewController.designer.cs">
+      <DependentUpon>ResultsTableViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EntitySearch\EntitySearchViewController.cs" />
+    <Compile Include="UI\EntitySearch\EntitySearchViewController.designer.cs">
+      <DependentUpon>EntitySearchViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloorballPCL\FloorballPCL.csproj">

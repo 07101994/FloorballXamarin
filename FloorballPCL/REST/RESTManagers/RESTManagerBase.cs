@@ -16,7 +16,8 @@ namespace Floorball.REST.RESTManagers
     {
         //protected static FloorballSerializer deserial = new FloorballSerializer(new JsonSerializer());
         protected static string Port = "";
-        protected static string ServerUri = "floorball.azurewebsites.net";
+        //protected static string ServerUri = "floorball.azurewebsites.net";
+        protected static string ServerUri = "floorballdemo.azurewebsites.net";
         protected static string Scheme = "https";
 
         protected static string BaseAddress

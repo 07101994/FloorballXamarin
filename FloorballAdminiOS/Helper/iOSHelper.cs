@@ -40,5 +40,15 @@ namespace FloorballAdminiOS.Helper
 			return list;
         }
 
+		public static DateTime NSDateToDateTime(NSDate date)
+		{
+			return TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(2001, 1, 1, 0, 0, 0)).AddSeconds(date.SecondsSinceReferenceDate);
+		}
+
+		public static NSDate DateTimeToNSDate(DateTime date)
+		{
+			return NSDate.FromTimeIntervalSinceReferenceDate((date - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(2001, 1, 1, 0, 0, 0))).TotalSeconds);
+		}
+
     }
 }
