@@ -5,7 +5,7 @@ using FloorballPCL.Exceptions;
 
 namespace Floorball.Exceptions
 {
-    class CommunicationException : FloorballException
+    public class CommunicationException : FloorballException
     {
 
         public CommunicationException(string message, Exception innerException) : base(message,innerException) {}

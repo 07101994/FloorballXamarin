@@ -92,5 +92,38 @@ namespace Floorball
 
             return numbers;
         }
+
+		public static List<CountriesEnum> GetCountriesEnum()
+		{
+            return GetEnums<CountriesEnum>();
+		}
+
+		public static List<LeagueTypeEnum> GetLeagueTypeEnums()
+		{
+            return GetEnums<LeagueTypeEnum>();
+		}
+
+		public static List<ClassEnum> GetClassEnums()
+		{
+			return GetEnums<ClassEnum>();
+		}
+
+		public static List<GenderEnum> GetGenderEnums()
+		{
+			return GetEnums<GenderEnum>();
+		}
+
+        private static List<T> GetEnums<T>()
+        {
+            var enums = new List<T>();
+
+            foreach (T e in Enum.GetValues(typeof(T)))
+			{
+				enums.Add(e);
+			}
+
+			return enums;
+        }
+
 	}
 }

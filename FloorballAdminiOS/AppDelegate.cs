@@ -27,6 +27,10 @@ namespace FloorballAdminiOS
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
+
+			UoW = new UnitOfWork();
+			Network = new RESTManager();
+
             // Override point for customization after application launch.
             // If not required for your application you can safely delete this method
 
@@ -72,19 +76,23 @@ namespace FloorballAdminiOS
 			}
 		}
 
-        public void ShowErrorMessage(string message)
+        public void ShowErrorMessage(UIViewController vc, string message, string title = "Error")
         {
-            var alert = UIAlertController.Create("Error",message,UIAlertControllerStyle.Alert);
+            var alert = UIAlertController.Create(title,message,UIAlertControllerStyle.Alert);
             alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null));
-            Window.RootViewController.PresentViewController(alert,true,null);
-
+            vc.PresentViewController(alert,true,null);
         }
+
+		public void ShowErrorMessage(string message)
+		{
+			ShowErrorMessage(Window.RootViewController, message);
+		}
 
         public void ShowConfirmationMessage(UIViewController vc, string title, string message, Action<UIAlertAction> handler)
         {
 			var alert = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
-			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, handler));
             alert.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+            alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, handler));
 			vc.PresentViewController(alert, true, null);
         }
 

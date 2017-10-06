@@ -78,7 +78,6 @@
     <Compile Include="Model\StatisticModel.cs" />
     <Compile Include="Model\TeamModel.cs" />
     <Compile Include="Model\UpdateModel.cs" />
-    <Compile Include="REST\FloorbalRESTClient.cs" />
     <Compile Include="Signalr\FloorballClient.cs" />
     <Compile Include="Updater\UpdateData.cs" />
     <Compile Include="Updater\Updater.cs" />
@@ -104,6 +103,7 @@
     <Compile Include="LocalDB\IDBManager.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Exceptions\FloorballException.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

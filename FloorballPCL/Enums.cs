@@ -51,5 +51,20 @@ namespace Floorball
     {
         Create, Update, Delete
     }
+
+    public enum LeagueTypeEnum
+    {
+        League, Cup, PlayOff
+    }
+
+    public enum ClassEnum
+    {
+        FirstClass, SecondClass, ThirdClass, U21, U19, U17, U15, U13, U11, U9
+    }
+
+    public enum GenderEnum
+    {
+        Men, Women
+    }
 }
 

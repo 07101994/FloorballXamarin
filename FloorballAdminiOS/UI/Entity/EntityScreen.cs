@@ -1,5 +1,5 @@
 ﻿using System;
-namespace FloorballAdminiOS.UI
+namespace FloorballAdminiOS.UI.Entity
 {
     public interface EntityScreen
     {

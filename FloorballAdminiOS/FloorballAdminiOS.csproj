@@ -120,7 +120,18 @@
     <Folder Include="UI\EntityChoose\" />
     <Folder Include="Resources\Images.xcassets\logo.imageset\" />
     <Folder Include="Resources\Images.xcassets\menu.imageset\" />
-    <Folder Include="UI\League\" />
+    <Folder Include="UI\Entity\" />
+    <Folder Include="UI\Entity\TableViewCells\" />
+    <Folder Include="UI\Entity\League\" />
+    <Folder Include="Interactor\Entity\" />
+    <Folder Include="UI\Entity\Match\" />
+    <Folder Include="UI\Entity\Team\" />
+    <Folder Include="UI\Entity\Player\" />
+    <Folder Include="UI\Entity\Stadium\" />
+    <Folder Include="UI\Entity\Referee\" />
+    <Folder Include="Resources\hu.lproj\" />
+    <Folder Include="UI\EntitySearch\" />
+    <Folder Include="Interactor\Search\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\base.lproj\Main.storyboard" />
@@ -171,17 +182,66 @@
     <Compile Include="UI\Menu\MenuViewController.designer.cs">
       <DependentUpon>MenuViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\League\LeagueViewContoller.cs" />
-    <Compile Include="UI\League\LeagueViewContoller.designer.cs">
-      <DependentUpon>LeagueViewContoller.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\EntityPresenter.cs" />
-    <Compile Include="UI\EntityScreen.cs" />
-    <Compile Include="UI\EntityViewController.cs" />
-    <Compile Include="UI\EntityViewController.designer.cs">
+    <Compile Include="UI\Entity\EntityPresenter.cs" />
+    <Compile Include="UI\Entity\EntityScreen.cs" />
+    <Compile Include="UI\Entity\EntityViewController.cs" />
+    <Compile Include="UI\Entity\EntityViewController.designer.cs">
       <DependentUpon>EntityViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UIFloorballPickerViewModel.cs" />
+    <Compile Include="UI\Entity\UIFloorballPickerViewModel.cs" />
+    <Compile Include="UI\Entity\TableViewCells\EntityTextFieldCell.cs" />
+    <Compile Include="UI\Entity\TableViewCells\EntityTextFieldCell.designer.cs">
+      <DependentUpon>EntityTextFieldCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Entity\TableViewCells\EntitySegmentControlCell.cs" />
+    <Compile Include="UI\Entity\TableViewCells\EntitySegmentControlCell.designer.cs">
+      <DependentUpon>EntitySegmentControlCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Entity\TableViewCells\EntityLabelCell.cs" />
+    <Compile Include="UI\Entity\TableViewCells\EntityLabelCell.designer.cs">
+      <DependentUpon>EntityLabelCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Entity\TableViewCells\EntityPickerViewCell.cs" />
+    <Compile Include="UI\Entity\TableViewCells\EntityPickerViewCell.designer.cs">
+      <DependentUpon>EntityPickerViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Entity\TableViewCells\EntityDatePickerCell.cs" />
+    <Compile Include="UI\Entity\TableViewCells\EntityDatePickerCell.designer.cs">
+      <DependentUpon>EntityDatePickerCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Entity\EntityTableViewModel.cs" />
+    <Compile Include="Helper\iOSHelper.cs" />
+    <Compile Include="UI\Entity\SegmentControlModel.cs" />
+    <Compile Include="Interactor\EntityInteractor.cs" />
+    <Compile Include="UI\Entity\League\LeaguePresenter.cs" />
+    <Compile Include="Interactor\Entity\LeagueInteractor.cs" />
+    <Compile Include="UI\Entity\Match\MatchPresenter.cs" />
+    <Compile Include="Interactor\Entity\MatchInteractor.cs" />
+    <Compile Include="UI\Entity\Team\TeamPresenter.cs" />
+    <Compile Include="Interactor\Entity\TeamInteractor.cs" />
+    <Compile Include="Interactor\Entity\PlayerInteractor.cs" />
+    <Compile Include="Interactor\Entity\StadiumInteractor.cs" />
+    <Compile Include="Interactor\Entity\RefereeInteractor.cs" />
+    <Compile Include="UI\Entity\Player\PlayerPresenter.cs" />
+    <Compile Include="UI\Entity\Stadium\StadiumPresenter.cs" />
+    <Compile Include="UI\Entity\Referee\RefereePresenter.cs" />
+    <Compile Include="UI\EntitySearch\EntitySearchPresenter.cs" />
+    <Compile Include="UI\EntitySearch\EntitySearchScreen.cs" />
+    <Compile Include="UI\Entity\League\LeagueSearchPresenter.cs" />
+    <Compile Include="Interactor\Search\SearchInteractor.cs" />
+    <Compile Include="UI\EntitySearch\SearchBaseViewController.cs" />
+    <Compile Include="Res.cs" />
+    <Compile Include="Res.designer.cs">
+      <DependentUpon>Res.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EntitySearch\ResultsTableViewController.cs" />
+    <Compile Include="UI\EntitySearch\ResultsTableViewController.designer.cs">
+      <DependentUpon>ResultsTableViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EntitySearch\EntitySearchViewController.cs" />
+    <Compile Include="UI\EntitySearch\EntitySearchViewController.designer.cs">
+      <DependentUpon>EntitySearchViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloorballPCL\FloorballPCL.csproj">
@@ -190,7 +250,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\hu.lproj\Localizable.strings" />
+    <BundleResource Include="Resources\hu.lproj\Main.strings" />
     <BundleResource Include="Resources\base.lproj\Localizable.strings" />
+    <BundleResource Include="Resources\base.lproj\Main.strings" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
