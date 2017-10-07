@@ -36,13 +36,13 @@ namespace FloorballAdminiOS.UI.Entity.League
                 if (prevEntity == null || entity.Country != prevEntity.Country)
                 {
                     SearchModel.Add(new List<SearchCell>());
-                    Titles.Add(entity.Country.ToFriendlyString());
+                    Titles.Add(new SearchTitle { MainTitle = entity.Country.ToFriendlyString(), Subtitle = "" });
                 }
 
 				SearchModel.Last().Add(new SearchCell
 				{
 					Title = entity.Name,
-					Subtitle = entity.Year.Year + " - " + entity.type,
+					Subtitle = entity.Year.Year.ToString() + " - " + entity.type,
 					RightDetail = entity.Sex
 				});
 
@@ -50,7 +50,7 @@ namespace FloorballAdminiOS.UI.Entity.League
             }
 
             FilteredSearchModel =  new List<List<SearchCell>>(SearchModel);
-            FilteredTitles = new List<string>(Titles);
+            FilteredTitles = new List<SearchTitle>(Titles);
         }
 
     }

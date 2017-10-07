@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Floorball
+namespace FloorballAdminiOS
 {
-	public static class Extensions
-	{
-		
+    public static class Extensions
+    {
 		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
 		{
 			HashSet<TKey> seenKeys = new HashSet<TKey>();
@@ -17,7 +16,5 @@ namespace Floorball
 				}
 			}
 		}
-
-
-	}
+    }
 }

@@ -35,10 +35,25 @@ namespace FloorballAdminiOS.UI.EntitySearch
 			return Presenter.FilteredSearchModel.ElementAt(Convert.ToInt32(section)).Count();
 		}
 
-		public override string TitleForHeader(UITableView tableView, nint section)
+		/*public override string TitleForHeader(UITableView tableView, nint section)
 		{
 			return Presenter.FilteredTitles.ElementAt(Convert.ToInt32(section));
-		}
+		}*/
+
+        public override UIView GetViewForHeader(UITableView tableView, nint section)
+        {
+            var cell = tableView.DequeueReusableCell("HeaderCell");
+
+			(cell.ViewWithTag(100) as UILabel).Text = Presenter.FilteredTitles.ElementAt(Convert.ToInt32(section)).MainTitle;
+			(cell.ViewWithTag(101) as UILabel).Text = Presenter.FilteredTitles.ElementAt(Convert.ToInt32(section)).Subtitle;
+
+            return cell;
+        }
+
+        public override nfloat GetHeightForHeader(UITableView tableView, nint section)
+        {
+            return 28;
+        }
 
 		public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
 		{

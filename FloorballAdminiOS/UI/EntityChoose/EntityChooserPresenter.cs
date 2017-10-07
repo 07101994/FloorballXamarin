@@ -17,11 +17,11 @@ namespace FloorballAdminiOS.UI.EntityChoose
 		public List<Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>> Entitites { get; set; } = new List<Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>>()
 		{
 			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.League, new LeaguePresenter(), new LeagueSearchPresenter()),
-			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Player,new PlayerPresenter(), null),
-			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Team,new TeamPresenter(), null),
-			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Match,new MatchPresenter(), null),
-			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Referee,new RefereePresenter(), null),
-			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Stadium,new StadiumPresenter(), null)
+			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Player,new PlayerPresenter(), new PlayerSearchPresenter()),
+			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Team,new TeamPresenter(), new TeamSearchPresenter()),
+			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Match,new MatchPresenter(), new MatchSearchPresenter()),
+			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Referee,new RefereePresenter(), new RefereeSearchPresenter()),
+			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Stadium,new StadiumPresenter(), new StadiumSearchPresenter())
 		};
 
     }

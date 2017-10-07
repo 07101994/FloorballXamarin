@@ -12,13 +12,19 @@ namespace FloorballAdminiOS.UI.EntitySearch
 
     }
 
+    public class SearchTitle
+    {
+        public string MainTitle { get; set; }
+        public string Subtitle { get; set; }
+    }
+
     public abstract class EntitySearchPresenter<T> : Presenter<T>
     {
         public List<List<SearchCell>> SearchModel { get; set; }
         public List<List<SearchCell>> FilteredSearchModel { get; set; }
 
-        public List<string> Titles { get; set; }
-        public List<string> FilteredTitles { get; set; }
+        public List<SearchTitle> Titles { get; set; }
+        public List<SearchTitle> FilteredTitles { get; set; }
 
         public abstract Task GetEntitiesFromServer();
 
@@ -27,8 +33,9 @@ namespace FloorballAdminiOS.UI.EntitySearch
             base.AttachScreen(screen);
 
 			SearchModel = new List<List<SearchCell>>();
-            FilteredSearchModel = new List<List<SearchCell>>();
-			Titles = new List<string>();
+            FilteredSearchModel = SearchModel;
+			Titles = new List<SearchTitle>();
+            FilteredTitles = Titles;
         }
 
 		public void Search(string searchString)
@@ -37,12 +44,12 @@ namespace FloorballAdminiOS.UI.EntitySearch
             if (string.IsNullOrWhiteSpace(searchString) || searchString.Length < 2)
             {
                 FilteredSearchModel = new List<List<SearchCell>>(SearchModel);
-                FilteredTitles = new List<string>(Titles);
+                FilteredTitles = new List<SearchTitle>(Titles);
                 return;
             }
 
             FilteredSearchModel = new List<List<SearchCell>>();
-            FilteredTitles = new List<string>();
+            FilteredTitles = new List<SearchTitle>();
 
             var i = 0;
 

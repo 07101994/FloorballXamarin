@@ -230,10 +230,6 @@
     <Compile Include="UI\Entity\League\LeagueSearchPresenter.cs" />
     <Compile Include="Interactor\Search\SearchInteractor.cs" />
     <Compile Include="UI\EntitySearch\SearchBaseViewController.cs" />
-    <Compile Include="Res.cs" />
-    <Compile Include="Res.designer.cs">
-      <DependentUpon>Res.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\EntitySearch\ResultsTableViewController.cs" />
     <Compile Include="UI\EntitySearch\ResultsTableViewController.designer.cs">
       <DependentUpon>ResultsTableViewController.cs</DependentUpon>
@@ -242,6 +238,12 @@
     <Compile Include="UI\EntitySearch\EntitySearchViewController.designer.cs">
       <DependentUpon>EntitySearchViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Entity\Match\MatchSearchPresenter.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="UI\Entity\Player\PlayerSearchPresenter.cs" />
+    <Compile Include="UI\Entity\Referee\RefereeSearchPresenter.cs" />
+    <Compile Include="UI\Entity\Stadium\StadiumSearchPresenter.cs" />
+    <Compile Include="UI\Entity\Team\TeamSearchPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloorballPCL\FloorballPCL.csproj">
