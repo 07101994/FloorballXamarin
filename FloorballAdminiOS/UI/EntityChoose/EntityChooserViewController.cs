@@ -65,7 +65,7 @@ namespace FloorballAdminiOS.UI.EntityChoose
             // Release any cached data, images, etc that aren't in use.
         }
 
-		public async override void ViewDidAppear(bool animated)
+		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
 			EntityChooserPresenter.AttachScreen(this);
@@ -92,7 +92,7 @@ namespace FloorballAdminiOS.UI.EntityChoose
 		{
 			var cell = tableView.DequeueReusableCell("EntityCell", indexPath);
 
-            cell.TextLabel.Text = Opertaion + EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).Item1.ToString();
+            cell.TextLabel.Text = Opertaion + EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).UpdateEnum.ToString();
 
 			return cell;
 
@@ -104,13 +104,15 @@ namespace FloorballAdminiOS.UI.EntityChoose
             {
                 case UpdateType.Create:
 
-                    ShowEntityVC(EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).Item2);
+                    ShowEntityVC(EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).EntityPresenter);
 
                     break;
 
 				case UpdateType.Update:
 
-                    ShowSearchEntityVC(EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).Item3);
+                    var model = EntityChooserPresenter.Entitites.ElementAt(indexPath.Row);
+
+                    ShowSearchEntityVC(model.EntityPresenter,model.EntitySearchPresenter);
 
 					break;
 
@@ -122,10 +124,11 @@ namespace FloorballAdminiOS.UI.EntityChoose
         
         }
 
-        private void ShowSearchEntityVC(EntitySearchPresenter<EntitySearchScreen> presenter)
+        private void ShowSearchEntityVC(EntityPresenter<EntityScreen> entityPresenter, EntitySearchPresenter<EntitySearchScreen> presenter)
         {
             var controller = Storyboard.InstantiateViewController("EntitySearchViewController") as EntitySearchViewController;
             controller.Presenter = presenter;
+            controller.EntityPresenter = entityPresenter;
             NavigationController.PushViewController(controller, true);
         }
 

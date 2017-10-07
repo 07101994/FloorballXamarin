@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Floorball;
+using FloorballAdminiOS.UI.Entity;
 using Foundation;
 using UIKit;
 
@@ -8,6 +10,8 @@ namespace FloorballAdminiOS.UI.EntitySearch
     public class SearchBaseViewController : UITableViewController, EntitySearchScreen
     {
         public EntitySearchPresenter<EntitySearchScreen> Presenter { get; set; }
+
+        public EntityPresenter<EntityScreen> EntityPresenter { get; set; }
 
 		public SearchBaseViewController()
 		{
@@ -72,5 +76,18 @@ namespace FloorballAdminiOS.UI.EntitySearch
 
 			return cell;
 		}
+
+        public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+        {
+
+            if (segue.Identifier == "UpdateSegue")
+            {
+				var controller = Storyboard.InstantiateViewController("EntityViewController") as EntityViewController;
+				controller.Crud = UpdateType.Update;
+				controller.EntityPresenter = EntityPresenter;
+				NavigationController.PushViewController(controller, true);
+            }
+
+        }
     }
 }
