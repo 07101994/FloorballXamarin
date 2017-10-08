@@ -6,6 +6,7 @@ using FloorballAdminiOS.Helper;
 using FloorballAdminiOS.Interactor.Entity;
 using FloorballPCL.Exceptions;
 using FloorballServer.Models.Floorball;
+using Foundation;
 
 namespace FloorballAdminiOS.UI.Entity.League
 {
@@ -21,7 +22,7 @@ namespace FloorballAdminiOS.UI.Entity.League
             base.AttachScreen(screen);
 
             leagueInteractor = new LeagueInteractor();
-            Url = "/api/floorball/leagues";
+            Url = "/api/floorball/leagues/{id}";
         }
 
         public override void DetachScreen()
@@ -46,7 +47,7 @@ namespace FloorballAdminiOS.UI.Entity.League
 			Model.Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = leagueModel == null ? "" : leagueModel.Name });
 			Model.Add(new EntityTableViewModel { Label = "Year", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" : leagueModel.Year.Year.ToString() });
 			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(years, years) });
-			Model.Add(new EntityTableViewModel { Label = "Country", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" : leagueModel.Country.ToFriendlyString() });
+			Model.Add(new EntityTableViewModel { Label = "Country", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" : NSBundle.MainBundle.LocalizedString(e.ToString(), null) });
 			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(countries, countriesEnum) });
 			Model.Add(new EntityTableViewModel { Label = "Type", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" : leagueModel.type });
 			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(leagueTypes, leagueTypesEnum) });
@@ -66,7 +67,7 @@ namespace FloorballAdminiOS.UI.Entity.League
             
 			if (crud == UpdateType.Update)
 			{
-				leagueModel = await leagueInteractor.GetEntityById(Url, "Error during getting league", "1");
+				leagueModel = await leagueInteractor.GetEntityById(Url, "Error during getting league", EntityId);
 			}
         
             SetTableViewModel();
@@ -78,12 +79,17 @@ namespace FloorballAdminiOS.UI.Entity.League
 			return crud == UpdateType.Create ? "Add League" : "Update League";
 		}
 
-		protected override async Task Save()
+		protected override async Task Save(UpdateType crud)
 		{
 
-			await leagueInteractor.AddEntity(Url, "Error during adding league!", leagueModel);
-
-			leagueModel = null;
+            if (crud == UpdateType.Create)
+            {
+				await leagueInteractor.AddEntity(Url, "Error during adding league!", leagueModel);
+			} 
+            else
+            {
+                await leagueInteractor.UpdateEntity(Url, "Error during updating league!", leagueModel);
+            }
 
 		}
 
@@ -108,7 +114,7 @@ namespace FloorballAdminiOS.UI.Entity.League
 
         public override void ClearModel()
         {
-
+            leagueModel = null;
 			Model.Clear();
 
         }

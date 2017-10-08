@@ -55,6 +55,7 @@ namespace FloorballAdminiOS.UI.Entity.Match
 
                 SearchModel.Last().Add(new SearchCell
                 {
+                    Id = entity.Id,
                     Title = teams.Single(t => t.Id == entity.HomeTeamId).Name + " - " + teams.Single(t => t.Id == entity.AwayTeamId).Name,
                     Subtitle = entity.Date.ToString("yyyy-MM-dd hh:mm"),
                     RightDetail = entity.Round.ToString()

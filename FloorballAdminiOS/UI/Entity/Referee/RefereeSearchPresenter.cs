@@ -29,14 +29,6 @@ namespace FloorballAdminiOS.UI.Entity.Referee
 			Task<List<RefereeModel>> entitiesTask = interactor.GetEntities("api/floorball/referees", "Error during getting referees");
 			tasks.Add(entitiesTask);
 
-			/*Task<List<LeagueModel>> leaguesTask = interactor.GetEntities<LeagueModel>("api/floorball/leagues", "Error during getting leagues");
-            tasks.Add(leaguesTask);
-
-            Task<List<TeamModel>> teamsTask = interactor.GetEntities<TeamModel>("api/floorball/teams", "Error during getting teams");
-            tasks.Add(teamsTask);*/
-
-			//Task<Dictionary<int, List<int>>> playersAndTeamsTask =  interactor.GetEntityMappings("api/floorball/players/teams", "Error during getting teams for player");
-
 			await Task.WhenAll(tasks);
 
 			var entities = entitiesTask.Result;
@@ -58,6 +50,7 @@ namespace FloorballAdminiOS.UI.Entity.Referee
 
 				SearchModel.Last().Add(new SearchCell
 				{
+                    Id = entity.Id,
 					Title = entity.Name,
                     Subtitle = "Match count: " + entity.Number.ToString(),
 					RightDetail = ""

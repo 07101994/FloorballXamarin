@@ -56,6 +56,7 @@ namespace FloorballAdminiOS.UI.Entity.Player
 
 				SearchModel.Last().Add(new SearchCell
 				{
+                    Id = entity.RegNum,
 					Title = entity.FirstName + "  " + entity.SecondName,
 					Subtitle = entity.BirthDate.ToString("yyyy-MM-dd"),
 					RightDetail = "men"

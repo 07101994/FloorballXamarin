@@ -24,11 +24,12 @@ namespace FloorballAdminiOS.UI.Entity.Match
 			base.AttachScreen(screen);
 
 			matchInteractor = new MatchInteractor();
-			Url = "/api/floorball/matches";
+            Url = "/api/floorball/matches/{id}";
 		}
 
         public override void ClearModel()
         {
+            match = null;
             Model.Clear();
         }
 
@@ -66,12 +67,17 @@ namespace FloorballAdminiOS.UI.Entity.Match
 			return Model;
         }
 
-        protected async override Task Save()
+        protected async override Task Save(UpdateType crud)
         {
-
-            await matchInteractor.AddEntity(Url, "Error during adding match!", match);
-
-			Model.Clear();
+            if (crud == UpdateType.Create)
+            {
+				await matchInteractor.AddEntity(Url, "Error during adding match!", match);
+			}
+            else
+            {
+				await matchInteractor.UpdateEntity(Url, "Error during updating match!", match);
+			}
+			
         }
 
         public async override Task SetDataFromServer(UpdateType crud)
@@ -82,7 +88,7 @@ namespace FloorballAdminiOS.UI.Entity.Match
 
             if (crud == UpdateType.Update)
             {
-				matchTask = matchInteractor.GetEntityById(Url, "Error during getting match", "1");
+				matchTask = matchInteractor.GetEntityById(Url, "Error during getting match", EntityId);
 				tasks.Add(matchTask);
 			}
 

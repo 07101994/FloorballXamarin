@@ -16,8 +16,6 @@ namespace FloorballAdminiOS.UI.Entity
     public partial class EntityViewController : UITableViewController, EntityScreen
     {
 
-        //public List<EntityTableViewModel> Model { get; set; }
-
         public EntityPresenter<EntityScreen> EntityPresenter { get; set; }
 
         public UpdateType Crud { get; set; }
@@ -64,7 +62,7 @@ namespace FloorballAdminiOS.UI.Entity
         {
             var button = new UIBarButtonItem();
             button.Style = UIBarButtonItemStyle.Plain;
-            button.Title = "Save";
+            button.Title = Crud == UpdateType.Create ? "Create" : "Update";
 
             button.Clicked += SaveClicked;
 
@@ -81,7 +79,7 @@ namespace FloorballAdminiOS.UI.Entity
             NavigationItem.RightBarButtonItem.Enabled = false;
             try
             {
-                await EntityPresenter.ValidateAndSave();
+                await EntityPresenter.ValidateAndSave(Crud);
             }
             catch (CommunicationException)
             {

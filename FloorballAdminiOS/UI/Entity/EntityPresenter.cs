@@ -11,6 +11,8 @@ namespace FloorballAdminiOS.UI.Entity
     public abstract class EntityPresenter<T> : Presenter<T>
     {
 
+        public int EntityId { get; set; }
+
         public List<EntityTableViewModel> Model { get; set; }
 
         public EntityPresenter()
@@ -32,11 +34,11 @@ namespace FloorballAdminiOS.UI.Entity
 
         public abstract void ClearModel();
 
-        protected abstract Task Save();
+        protected abstract Task Save(UpdateType crud);
 
         protected abstract void Validate();
 
-        public async Task ValidateAndSave()
+        public async Task ValidateAndSave(UpdateType crud)
         {
 			try
 			{
@@ -51,9 +53,9 @@ namespace FloorballAdminiOS.UI.Entity
                 throw new ValidationException("Validation error", "Some values not correct", ex);
 			}
 
-			ClearModel();
+            await Save(crud);
 
-            await Save();
+            ClearModel();
         }
 
 

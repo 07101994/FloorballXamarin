@@ -55,6 +55,7 @@ namespace FloorballAdminiOS.UI.Entity.Stadium
 
 				SearchModel.Last().Add(new SearchCell
 				{
+                    Id = entity.Id,
 					Title = entity.Name,
 					Subtitle = entity.Address,
 					RightDetail = ""

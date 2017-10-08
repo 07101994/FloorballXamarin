@@ -18,11 +18,12 @@ namespace FloorballAdminiOS.UI.Entity.Referee
 			base.AttachScreen(screen);
 
 			refereeInteractor = new RefereeInteractor();
-			Url = "/api/floorball/referees";
+            Url = "/api/floorball/referees/{id}";
 		}
 
         public override void ClearModel()
         {
+            referee = null;
             Model.Clear();
         }
 
@@ -43,19 +44,24 @@ namespace FloorballAdminiOS.UI.Entity.Referee
 			return Model;
         }
 
-        protected async override Task Save()
+        protected async override Task Save(UpdateType crud)
         {
+            if (crud == UpdateType.Create)
+            {
+				await refereeInteractor.AddEntity(Url, "Error during adding referee!", referee);
+			}
+            else
+            {
+				await refereeInteractor.UpdateEntity(Url, "Error during updating referee!", referee);
+			}
 
-            await refereeInteractor.AddEntity(Url, "Error during adding referee!", referee);
-
-			Model.Clear();
         }
 
         public async override Task SetDataFromServer(UpdateType crud)
         {
             if (crud == UpdateType.Update)
             {
-                referee = await refereeInteractor.GetEntityById(Url, "Error during getting referee", "1");    
+                referee = await refereeInteractor.GetEntityById(Url, "Error during getting referee", EntityId);    
             }
 
             await Task.FromResult<object>(null);

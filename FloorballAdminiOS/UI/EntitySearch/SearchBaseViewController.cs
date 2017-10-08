@@ -82,10 +82,15 @@ namespace FloorballAdminiOS.UI.EntitySearch
 
             if (segue.Identifier == "UpdateSegue")
             {
-				var controller = Storyboard.InstantiateViewController("EntityViewController") as EntityViewController;
+                var indexPath = TableView.IndexPathForSelectedRow;
+
+                EntityPresenter.EntityId = Presenter.FilteredSearchModel[Convert.ToInt32(indexPath.Section)][indexPath.Row].Id;
+
+				var controller = segue.DestinationViewController as EntityViewController;
 				controller.Crud = UpdateType.Update;
 				controller.EntityPresenter = EntityPresenter;
-				NavigationController.PushViewController(controller, true);
+				
+
             }
 
         }

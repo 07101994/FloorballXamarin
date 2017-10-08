@@ -23,12 +23,12 @@ namespace FloorballAdminiOS.Interactor
             return 1;   
         }
 
-        public async Task<T> GetEntityById(string url, string errorMsg, string id)
+        public async Task<T> GetEntityById(string url, string errorMsg, int id)
         {
 			return await Network.GetAsync<T>(new HTTPGetRequestModel()
 			{
 				Url = url,
-				UrlParams = new Dictionary<string, string>() { { "id", id } },
+				UrlParams = new Dictionary<string, string>() { { "id", id.ToString() } },
 				ErrorMsg = errorMsg
 			});
         }
@@ -41,6 +41,16 @@ namespace FloorballAdminiOS.Interactor
 				ErrorMsg = errorMsg
 			});
         }
+
+		public async Task<int> UpdateEntity(string url, string errorMsg, T body)
+		{
+			return await Network.PutAsync<T, int>(new HTTPPutRequestModel<T>
+			{
+				Url = url,
+				ErrorMsg = errorMsg,
+				Body = body
+			});
+		}
 
     }
 }

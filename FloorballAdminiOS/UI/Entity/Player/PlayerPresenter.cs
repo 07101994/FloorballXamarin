@@ -18,11 +18,12 @@ namespace FloorballAdminiOS.UI.Entity.Player
 			base.AttachScreen(screen);
 
 			playerInteractor = new PlayerInteractor();
-			Url = "/api/floorball/players";
+            Url = "/api/floorball/players/{id}";
 		}
 
         public override void ClearModel()
         {
+            player = null;
             Model.Clear();
         }
 
@@ -47,12 +48,18 @@ namespace FloorballAdminiOS.UI.Entity.Player
 			return Model;
         }
 
-        protected async override Task Save()
+        protected async override Task Save(UpdateType crud)
         {
 
-            await playerInteractor.AddEntity(Url, "Error during adding player!", player);
+            if (crud == UpdateType.Create)
+            {
+				await playerInteractor.AddEntity(Url, "Error during adding player!", player);
+            } 
+            else
+            {
+				await playerInteractor.UpdateEntity(Url, "Error during updating player!", player);
+			}
 
-			Model.Clear();
         }
 
         public async override Task SetDataFromServer(UpdateType crud)
@@ -63,7 +70,7 @@ namespace FloorballAdminiOS.UI.Entity.Player
 
             if (crud == UpdateType.Update)
             {
-                playerTask = playerInteractor.GetEntityById(Url, "Error during getting player", "1");    
+                playerTask = playerInteractor.GetEntityById(Url, "Error during getting player", EntityId);    
                 tasks.Add(playerTask);
             }
 

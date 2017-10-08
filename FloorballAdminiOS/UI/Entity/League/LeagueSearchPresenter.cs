@@ -41,6 +41,7 @@ namespace FloorballAdminiOS.UI.Entity.League
 
 				SearchModel.Last().Add(new SearchCell
 				{
+                    Id = entity.Id,
 					Title = entity.Name,
 					Subtitle = entity.Year.Year.ToString() + " - " + entity.type,
 					RightDetail = entity.Sex

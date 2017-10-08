@@ -18,11 +18,12 @@ namespace FloorballAdminiOS.UI.Entity.Stadium
 			base.AttachScreen(screen);
 
 			stadiumInteractor = new StadiumInteractor();
-			Url = "/api/floorball/stadiums";
+            Url = "/api/floorball/stadiums/{id}";
 		}
 
         public override void ClearModel()
         {
+            stadium = null;
             Model.Clear();
         }
 
@@ -44,12 +45,17 @@ namespace FloorballAdminiOS.UI.Entity.Stadium
 			return Model;
         }
 
-        protected async override Task Save()
+        protected async override Task Save(UpdateType crud)
         {
+            if (crud == UpdateType.Create)
+            {
+				await stadiumInteractor.AddEntity(Url, "Error during adding stadium!", stadium);
+			} 
+            else
+            {
+				await stadiumInteractor.UpdateEntity(Url, "Error during updating stadium!", stadium);
+			}
 
-            await stadiumInteractor.AddEntity(Url, "Error during adding stadium!", stadium);
-
-			Model.Clear();
         }
 
         public async override Task SetDataFromServer(UpdateType crud)
@@ -57,7 +63,7 @@ namespace FloorballAdminiOS.UI.Entity.Stadium
 
             if (crud == UpdateType.Update)
             {
-                stadium = await stadiumInteractor.GetEntityById(Url, "Error during getting stadium", "1");    
+                stadium = await stadiumInteractor.GetEntityById(Url, "Error during getting stadium", EntityId);    
             }
 
             await Task.FromResult<object>(null);

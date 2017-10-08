@@ -91,7 +91,7 @@ namespace Floorball.REST.RESTManagers
 			{
 				foreach (var param in pathParams)
 				{
-					uri.Replace("{" + param.Key + "}", param.Value);
+					uri = uri.Replace("{" + param.Key + "}", param.Value);
 				}
 			}
 
