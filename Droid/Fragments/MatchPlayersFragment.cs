@@ -52,8 +52,8 @@ namespace Floorball.Droid.Fragments
             Match = Arguments.GetObject<Match>("match");
             HomeTeam = Arguments.GetObject<Team>("homeTeam");
             AwayTeam = Arguments.GetObject<Team>("awayTeam");
-            HomePlayers = HomeTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.RegNum));
-            AwayPlayers = AwayTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.RegNum));
+            HomePlayers = HomeTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.Id));
+            AwayPlayers = AwayTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.Id));
             Events = Arguments.GetObject<IEnumerable<Event>>("events");
 
             adapter = new MatchPlayersAdapter(HomePlayers, AwayPlayers, Events);
@@ -65,8 +65,8 @@ namespace Floorball.Droid.Fragments
             // Use this to return your custom view for this Fragment
             View root = inflater.Inflate(Resource.Layout.MatchPlayers, container, false);
 
-            root.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
-            root.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
+            root.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.ScoreH.ToString();
+            root.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.ScoreA.ToString();
             root.FindViewById<TextView>(Resource.Id.homeTeamName).Text = HomeTeam.Name;
             root.FindViewById<TextView>(Resource.Id.awayTeamName).Text = AwayTeam.Name;
 

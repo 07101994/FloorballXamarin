@@ -67,7 +67,7 @@ namespace Floorball.Droid.Fragments
             {
                 newRow = Activity.LayoutInflater.Inflate(Resource.Layout.StatisticsTableRow, table, false) as ViewGroup;
                 (newRow.GetChildAt(0) as TextView).Text = (i++).ToString();
-                (newRow.GetChildAt(1) as TextView).Text = Players.Where(p => p.RegNum == stat.PlayerId).First().Name;
+                (newRow.GetChildAt(1) as TextView).Text = Players.Where(p => p.Id == stat.PlayerId).First().Name;
                 (newRow.GetChildAt(2) as TextView).Text = Teams.Where(t => t.Id == stat.TeamId).First().Name; 
                 (newRow.GetChildAt(3) as TextView).Text = stat.Goals.ToString();
                 (newRow.GetChildAt(4) as TextView).Text = stat.Assists.ToString();

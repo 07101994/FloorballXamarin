@@ -49,7 +49,7 @@ namespace Floorball.Droid.Adapters
 
             foreach (var player in players)
             {
-                model.Add(new PlayerWithEventsModel { Name = player.ShortName, Events = events.Where(e => e.PlayerId == player.RegNum) });
+                model.Add(new PlayerWithEventsModel { Name = player.ShortName, Events = events.Where(e => e.PlayerId == player.Id) });
             }
 
             return model.OrderBy(m => m.Goals).ThenBy(m => m.Assists).ThenBy(m => m.P2).ThenBy(m => m.P5).ThenBy(m => m.P10).ThenBy(m => m.PV).ThenBy(m => m.Number).ToList();

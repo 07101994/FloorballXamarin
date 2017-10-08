@@ -73,8 +73,8 @@ namespace Floorball.Droid.Adapters
                         Time = actualMatch.Time,
                         HomeTeam = homeTeam.Name,
                         AwayTeam = awayTeam.Name,
-                        HomeScore = actualMatch.GoalsH,
-                        AwayScore = actualMatch.GoalsA,
+                        HomeScore = actualMatch.ScoreH,
+                        AwayScore = actualMatch.ScoreA,
                         MatchId = actualMatch.Id,
                         State = actualMatch.State
                     });

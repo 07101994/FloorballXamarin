@@ -399,15 +399,15 @@ namespace Floorball.Droid.Activities
             var match = ActualMatches.FirstOrDefault(m => m.Id == e.MatchId);
             if (match != null)
             {
-                if (e.Type == "G")
+                if (e.Type == EventType.G)
                 {
                     if (e.TeamId == match.HomeTeamId)
                     {
-                        match.GoalsH++;
+                        match.ScoreH++;
                     }
                     else
                     {
-                        match.GoalsA++;
+                        match.ScoreA++;
                     }
                 }
                 match.Time = match.Time < e.Time ? e.Time : match.Time;

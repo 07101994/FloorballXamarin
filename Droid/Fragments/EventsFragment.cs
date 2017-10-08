@@ -90,8 +90,8 @@ namespace Floorball.Droid.Fragments
             root.FindViewById<TextView>(Resource.Id.homeTeamName).Text = HomeTeam.Name;
             root.FindViewById<TextView>(Resource.Id.awayTeamName).Text = AwayTeam.Name;
 
-            root.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
-            root.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
+            root.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.ScoreH.ToString();
+            root.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.ScoreA.ToString();
 
             root.FindViewById<TextView>(Resource.Id.actualTime).Text = UIHelper.GetMatchFullTime(Match.Time);
 
@@ -124,7 +124,7 @@ namespace Floorball.Droid.Fragments
 
             Event e = UoW.EventRepo.GetEventById(eventId);
 
-            if (e.Type != "A")
+            if (e.Type != EventType.A)
             {
                 var eventModel = new Models.MatchEventModel { Id = e.Id };
 
@@ -146,43 +146,43 @@ namespace Floorball.Droid.Fragments
                     eventModel.ViewType = 1;
                 }
 
-                if (e.Type == "P2" || e.Type == "P10")
+                if (e.Type == EventType.P2 || e.Type == EventType.P10)
                 {
                     eventModel.ResourceId = Resource.Drawable.ic_numeric_2_box_grey600_24dp;
                     
                 }
                 else
                 {
-                    if (e.Type == "P5")
+                    if (e.Type == EventType.P5)
                     {
                         eventModel.ResourceId = Resource.Drawable.ic_numeric_2_box_grey600_24dp;
                     }
                     else
                     {
-                        if (e.Type == "G")
+                        if (e.Type == EventType.G)
                         {
                             eventModel.IsGoal = true;
                             if (e.TeamId == HomeTeam.Id)
                             {
-                                Match.GoalsH++;
+                                Match.ScoreH++;
                                 Activity.RunOnUiThread(() =>
                                 {
-                                    View.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
+                                    View.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.ScoreH.ToString();
                                 });
                             }
                             else
                             {
-                                Match.GoalsA++;
+                                Match.ScoreA++;
                                 Activity.RunOnUiThread(() =>
                                 {
-                                    View.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
+                                    View.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.ScoreA.ToString();
                                 });
                             }
                             eventModel.ResourceId = Resource.Drawable.ball;
                             var assist = UoW.EventRepo.GetAssisByGoal(e.Id);
                             if (assist != null)
                             {
-                                eventModel.Assist = new MatchEventModel { ResourceId = Resource.Drawable.ball, Player = Match.Players.First(p => p.RegNum == assist.PlayerId) };
+                                eventModel.Assist = new MatchEventModel { ResourceId = Resource.Drawable.ball, Player = Match.Players.First(p => p.Id == assist.PlayerId) };
                             }
                         }
                     }
@@ -211,18 +211,18 @@ namespace Floorball.Droid.Fragments
                 {
                     if (removed.ViewType == 0)
                     {
-                        Match.GoalsH++;
+                        Match.ScoreH++;
                         Activity.RunOnUiThread(() =>
                         {
-                            View.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.GoalsH.ToString();
+                            View.FindViewById<TextView>(Resource.Id.homeTeamScore).Text = Match.ScoreH.ToString();
                         });
                     }
                     else
                     {
-                        Match.GoalsA++;
+                        Match.ScoreA++;
                         Activity.RunOnUiThread(() =>
                         {
-                            View.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.GoalsA.ToString();
+                            View.FindViewById<TextView>(Resource.Id.awayTeamScore).Text = Match.ScoreA.ToString();
                         });
                     }
                 }
@@ -252,34 +252,34 @@ namespace Floorball.Droid.Fragments
 
             foreach (var e in events)
             {
-                if (e.Type != "A")
+                if (e.Type != EventType.A)
                 {
                     var eventModel = new Models.MatchEventModel { Id = e.Id };
 
                     if (e.TeamId == HomeTeam.Id)
                     {
-                        eventModel.Player = HomeTeam.Players.Where(p => p.RegNum == e.PlayerId).First();
+                        eventModel.Player = HomeTeam.Players.Where(p => p.Id == e.PlayerId).First();
                         eventModel.ViewType = 0;
                     }
                     else
                     {
-                        eventModel.Player = AwayTeam.Players.Where(p => p.RegNum == e.PlayerId).First();
+                        eventModel.Player = AwayTeam.Players.Where(p => p.Id == e.PlayerId).First();
                         eventModel.ViewType = 1;
                     }
 
-                    if (e.Type == "P2" || e.Type == "P10")
+                    if (e.Type == EventType.P2 || e.Type == EventType.P10)
                     {
                         eventModel.ResourceId = Resource.Drawable.ic_numeric_2_box_grey600_24dp;
                     }
                     else
                     {
-                        if (e.Type == "P5")
+                        if (e.Type == EventType.P5)
                         {
                             eventModel.ResourceId = Resource.Drawable.ic_numeric_2_box_grey600_24dp;
                         }
                         else
                         {
-                            if (e.Type == "G")
+                            if (e.Type == EventType.G)
                             {
                                 eventModel.ResourceId = Resource.Drawable.ball;
                                 eventModel.IsGoal = true;

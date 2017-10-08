@@ -36,9 +36,9 @@ namespace Floorball.Droid.Adapters
                         Contents.Add(new MatchResultModel
                         {
                             HomeTeam = teams.Where(t => t.Id == match.HomeTeamId).First().Name + " ",
-                            HomeScore = match.GoalsH.ToString(),
+                            HomeScore = match.ScoreH.ToString(),
                             AwayTeam = teams.Where(t => t.Id == match.AwayTeamId).First().Name,
-                            AwayScore = match.GoalsA.ToString(),
+                            AwayScore = match.ScoreA.ToString(),
                             Id = match.Id
                         });
                     }
@@ -47,9 +47,9 @@ namespace Floorball.Droid.Adapters
                         Contents.Add(new MatchResultModel
                         {
                             AwayTeam = teams.Where(t => t.Id == match.HomeTeamId).First().Name + " ",
-                            AwayScore = match.GoalsH.ToString(),
+                            AwayScore = match.ScoreH.ToString(),
                             HomeTeam = teams.Where(t => t.Id == match.AwayTeamId).First().Name,
-                            HomeScore = match.GoalsA.ToString(),
+                            HomeScore = match.ScoreA.ToString(),
                             Id = match.Id
                         });
                     }

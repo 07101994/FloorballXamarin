@@ -263,6 +263,7 @@
     <Compile Include="ViewHolders\YearViewHolder.cs" />
     <Compile Include="Utils\DBManager.cs" />
     <Compile Include="Utils\ImageManager.cs" />
+    <Compile Include="Utils\TextManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\fl.png" />

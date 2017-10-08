@@ -76,10 +76,10 @@ namespace Floorball.Droid.Activities
                     LeagueName = league.Name,
                     Year = league.Year,
                     NumberOfMatches = leagueMatchIds.Count(),
-                    TwoMinutesPenalties = leagueEvents.Where(e => e.Type == "P2").Count(),
-                    FiveMinutesPenalties = leagueEvents.Where(e => e.Type == "P5").Count(),
-                    TenMinutesPenalties = leagueEvents.Where(e => e.Type == "P10").Count(),
-                    FinalPenalties = leagueEvents.Where(e => e.Type == "PV").Count()
+                    TwoMinutesPenalties = leagueEvents.Where(e => e.Type == EventType.P2).Count(),
+                    FiveMinutesPenalties = leagueEvents.Where(e => e.Type == EventType.P5).Count(),
+                    TenMinutesPenalties = leagueEvents.Where(e => e.Type == EventType.P10).Count(),
+                    FinalPenalties = leagueEvents.Where(e => e.Type == EventType.PV).Count()
 
             });
 

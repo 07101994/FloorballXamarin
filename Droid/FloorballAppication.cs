@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Floorball.Droid.Utils;
+using FloorballPCL;
 
 namespace Floorball.Droid
 {
@@ -17,10 +18,15 @@ namespace Floorball.Droid
     public class FloorballAppication : Application
     {
 
+        public static ITextManager TextManager { get; set; }
+
         public override void OnCreate()
         {
 			UnitOfWork.DBManager = new DBManager();
 			UnitOfWork.ImageManager = new ImageManager();
+
+            TextManager = new TextManager(Context);
+
         }
 
         public FloorballAppication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference,transfer)

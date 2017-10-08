@@ -40,9 +40,9 @@ namespace Floorball.Droid.Adapters
                         Contents.Add(new MatchResultModel
                         {
                             HomeTeam = teams.Where(t => t.Id == matchesInRound.ElementAt(k).HomeTeamId).First().Name + " ",
-                            HomeScore = matchesInRound.ElementAt(j).GoalsH.ToString(),
+                            HomeScore = matchesInRound.ElementAt(j).ScoreH.ToString(),
                             AwayTeam = teams.Where(t => t.Id == matchesInRound.ElementAt(k).AwayTeamId).First().Name,
-                            AwayScore = matchesInRound.ElementAt(j).GoalsA.ToString(),
+                            AwayScore = matchesInRound.ElementAt(j).ScoreA.ToString(),
                             Id = matchesInRound.ElementAt(j).Id
                         });
 

@@ -30,7 +30,7 @@ namespace Floorball.Droid.Adapters
             leagues.ToList().ForEach(l =>
             {
                 ListItems.Add(new ListItem { Type = 0, Index = Headers.Count });
-                var header = new HeaderModel { Country = l.First().Country, Title = l.First().Country.ToFriendlyString() };
+                var header = new HeaderModel { Country = l.First().Country, Title = FloorballAppication.TextManager.GetText(l.First().Country)};
                 Headers.Add(header);
 
                 foreach (var value in l)

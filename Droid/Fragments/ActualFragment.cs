@@ -109,7 +109,7 @@ namespace Floorball.Droid.Fragments
         {
             LocalDB.Tables.Event e = UoW.EventRepo.GetEventById(eventId);
 
-            if (e.Type == "G")
+            if (e.Type == EventType.G)
             {
                 var match = adapter.Contents.FirstOrDefault(c => (c as LiveMatchModel).MatchId == e.MatchId);
                 if (match != null)

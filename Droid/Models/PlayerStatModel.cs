@@ -27,14 +27,14 @@ namespace Floorball.Droid.Models
         {
             get
             {
-                return Stats.First(s => s.Name == "G").Number.ToString();
+                return Stats.First(s => s.Type == StatType.G).Number.ToString();
             }
         }
         public string Assists
         {
             get
             {
-                return Stats.First(s => s.Name == "A").Number.ToString();
+                return Stats.First(s => s.Type == StatType.A).Number.ToString();
             }
         }
         public string Penalties
@@ -42,9 +42,9 @@ namespace Floorball.Droid.Models
             get
             {
                 int penaltySum = 0;
-                penaltySum += Stats.Where(s => s.Name == "P2").First().Number * 2;
-                penaltySum += Stats.Where(s => s.Name == "P5").First().Number * 5;
-                int p10 = Stats.Where(s => s.Name == "P10").First().Number * 10;
+                penaltySum += Stats.Where(s => s.Type == StatType.P2).First().Number * 2;
+                penaltySum += Stats.Where(s => s.Type == StatType.P5).First().Number * 5;
+                int p10 = Stats.Where(s => s.Type == StatType.P10).First().Number * 10;
                 penaltySum += p10;
 
                 return penaltySum + " (" + p10 + ") perc";

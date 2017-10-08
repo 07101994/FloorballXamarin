@@ -47,7 +47,7 @@ namespace Floorball.Droid.Activities
 
             FindViewById<TextView>(Resource.Id.playerName).Text = Player.Name;
             FindViewById<TextView>(Resource.Id.birthDate).Text = Player.BirthDate.ToShortDateString();
-            FindViewById<TextView>(Resource.Id.regNum).Text = Player.RegNum.ToString();
+            FindViewById<TextView>(Resource.Id.regNum).Text = Player.Id.ToString();
 
             recyclerView = FindViewById<RecyclerView>(Resource.Id.recyclerView);
             adapter = new PlayerStatsAdapter(CreateStatModels());
@@ -60,7 +60,7 @@ namespace Floorball.Droid.Activities
         {
             List<PlayerStatModel> stats = new List<PlayerStatModel>();
 
-            foreach (var stat in UoW.StatiscticRepo.GetStatisticsByPlayer(Player.RegNum).GroupBy(s => s.TeamId).Select(s => s.ToList()))
+            foreach (var stat in UoW.StatiscticRepo.GetStatisticsByPlayer(Player.Id).GroupBy(s => s.TeamId).Select(s => s.ToList()))
             {
                 var team = Teams.First(t => stat.First().TeamId == t.Id);
 
@@ -98,7 +98,7 @@ namespace Floorball.Droid.Activities
             base.InitProperties();
 
             Player = Intent.GetObject<Player>("player");
-            Statistics = UoW.StatiscticRepo.GetStatisticsByPlayer(Player.RegNum);
+            Statistics = UoW.StatiscticRepo.GetStatisticsByPlayer(Player.Id);
             Teams = Statistics.Select(s => UoW.TeamRepo.GetTeamById(s.TeamId)).GroupBy(t => t.Id).Select(g => g.First()).OrderByDescending(t => t.Year).ToList();
         }
 
