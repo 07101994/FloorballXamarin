@@ -20,9 +20,9 @@ namespace Floorball.LocalDB.Tables
 
         public StateEnum State { get; set; }
 
-        public short GoalsH { get; set; }
+        public short ScoreH { get; set; }
 
-        public short GoalsA { get; set; }
+        public short ScoreA { get; set; }
 
         public TimeSpan Time { get; set; }
 

@@ -17,7 +17,7 @@ namespace Floorball.REST.RESTHelpers
     public partial class RESTHelper : RESTHelperBase
     {
 
-        public static int AddLeague(string name, DateTime year, string type, string class1, int rounds)
+        public static int AddLeague(string name, DateTime year, LeagueTypeEnum type, ClassEnum classname, short rounds)
         {
             return Network.Post<LeagueModel,int>(new HTTPPostRequestModel<LeagueModel>
             {
@@ -27,14 +27,14 @@ namespace Floorball.REST.RESTHelpers
 				{
 					Name = name,
 					Year = year,
-					type = type,
-					ClassName = class1,
+					Type = type,
+					Class = classname,
 					Rounds = rounds
 				}
             });
         }
 
-        public static int AddPlayer(string firstName, string secondName, int regNum, int number, DateTime year)
+        public static int AddPlayer(string firstName, string lastName, int id, int number, DateTime year)
         {
 			return Network.Post<PlayerModel, int>(new HTTPPostRequestModel<PlayerModel>
 			{
@@ -43,8 +43,8 @@ namespace Floorball.REST.RESTHelpers
 				Body = new PlayerModel
 				{
                     FirstName = firstName,
-                    SecondName = secondName,
-                    RegNum = regNum,
+                    LastName = lastName,
+                    Id = id,
                     Number = (short)number,
                     BirthDate = year
 				}
@@ -83,7 +83,7 @@ namespace Floorball.REST.RESTHelpers
 
         }
 
-        public static int AddStadium(string name, string address)
+        public static int AddStadium(string name, string address, string city, string country, string postCode)
         {
 			return Network.Post<StadiumModel, int>(new HTTPPostRequestModel<StadiumModel>
 			{
@@ -92,12 +92,15 @@ namespace Floorball.REST.RESTHelpers
 				Body = new StadiumModel
 				{
                     Name = name,
-                    Address = address
+                    Address = address,
+                    City = city,
+                    Country = country,
+                    PostCode = postCode
 				}
 			});
         }
 
-        public static int AddTeam(string name, DateTime year, string coach, string sex, CountriesEnum country, int stadiumId, int leagueId)
+        public static int AddTeam(string name, DateTime year, string coach, GenderEnum gender, CountriesEnum country, int stadiumId, int leagueId)
         {
             return Network.Post<TeamModel, int>(new HTTPPostRequestModel<TeamModel>
             {
@@ -108,7 +111,7 @@ namespace Floorball.REST.RESTHelpers
                     Name = name,
                     Year = year,
                     Coach = coach,
-                    Sex = sex,
+                    Gender = gender,
                     Country = country,
                     StadiumId = stadiumId,
                     LeagueId = leagueId
@@ -116,7 +119,7 @@ namespace Floorball.REST.RESTHelpers
             });
         }
 
-        public static int AddEvent(int matchId, string type, TimeSpan time, int playerId, int eventMessageId, int teamId)
+        public static int AddEvent(int matchId, EventType type, TimeSpan time, int playerId, int eventMessageId, int teamId)
         {
 			return Network.Post<EventModel, int>(new HTTPPostRequestModel<EventModel>
 			{

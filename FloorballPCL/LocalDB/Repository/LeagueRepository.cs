@@ -108,7 +108,7 @@ namespace Floorball.LocalDB.Repository
 
         #region POST
 
-        public int AddLeague(int id, string name, DateTime year, string type, string classname, int rounds, CountriesEnum country, string sex)
+        public int AddLeague(int id, string name, DateTime year, LeagueTypeEnum type, ClassEnum classname, short rounds, CountriesEnum country, GenderEnum gender)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
@@ -118,10 +118,10 @@ namespace Floorball.LocalDB.Repository
                 l.Name = name;
                 l.Year = year;
                 l.Type = type;
-                l.ClassName = classname;
+                l.Class = classname;
                 l.Rounds = rounds;
                 l.Country = country;
-				l.Sex = sex;
+				l.Gender = gender;
 
                 db.Insert(l);
 
@@ -135,7 +135,7 @@ namespace Floorball.LocalDB.Repository
             {
                 try
                 {
-                    AddLeague(m.Id, m.Name, m.Year, m.type, m.ClassName, m.Rounds, m.Country, m.Sex);
+                    AddLeague(m.Id, m.Name, m.Year, m.Type, m.Class, m.Rounds, m.Country, m.Gender);
                 }
                 catch (Exception)
                 {
@@ -162,10 +162,10 @@ namespace Floorball.LocalDB.Repository
                 l.Name = league.Name;
                 l.Year = league.Year;
                 l.Type = league.Type;
-                l.ClassName = league.ClassName;
+                l.Class = league.Class;
                 l.Rounds = league.Rounds;
                 l.Country = league.Country;
-                l.Sex = league.Sex;
+                l.Gender = league.Gender;
 
                 db.Update(l);
 

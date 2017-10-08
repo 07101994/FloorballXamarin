@@ -14,6 +14,8 @@ namespace Floorball.REST.RESTManagers
         {
             try
             {
+                var req = CreateGetUri(request);
+
 				var response = await client.GetAsync(CreateGetUri(request));
                 var contentString = await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<T>(contentString);

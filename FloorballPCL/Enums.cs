@@ -14,27 +14,8 @@ namespace Floorball
         Confirmed,Playing,Ended
     }
 
-    public static class CountriesEnumExtensions
+    public static class EnumExtensions
     {
-        public static string ToFriendlyString(this CountriesEnum country)
-        {
-            switch (country)
-            {
-                case CountriesEnum.HU:
-                    return "Hungary";
-                case CountriesEnum.SE:
-                    return "Sweden";
-                case CountriesEnum.FL:
-                    return "Finnland";
-                case CountriesEnum.SW:
-                    return "Switzerland";
-                case CountriesEnum.CZ:
-                    return "Checz Republic";
-                default:
-                    return "";
-            }
-        }
-
         public static T ToEnum<T>(this string value)
         {
             return (T)Enum.Parse(typeof(T), value, true);
@@ -66,5 +47,15 @@ namespace Floorball
     {
         Men, Women
     }
+
+	public enum EventType
+	{
+		G, A, P2, P5, P10, PV, T, S
+	}
+
+	public enum StatType
+	{
+		G, A, P2, P5, P10, PV, M
+	}
 }
 

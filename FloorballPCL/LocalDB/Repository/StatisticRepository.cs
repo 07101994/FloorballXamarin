@@ -39,7 +39,7 @@ namespace Floorball.LocalDB.Repository
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
-                return db.GetAllWithChildren<Statistic>().Where(s => s.PlayerRegNum == playerId);
+                return db.GetAllWithChildren<Statistic>().Where(s => s.PlayerId == playerId);
             }
         }
 

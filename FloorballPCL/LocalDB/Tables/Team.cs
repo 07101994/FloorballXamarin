@@ -30,7 +30,7 @@ namespace Floorball.LocalDB.Tables
 
         public short Get { get; set; }
 
-        public string Sex { get; set; }
+        public GenderEnum Gender { get; set; }
 
         public CountriesEnum Country { get; set; }
 

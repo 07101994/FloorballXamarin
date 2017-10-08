@@ -51,7 +51,7 @@ namespace Floorball.LocalDB.Repository
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
-                return db.GetAllWithChildren<Player>().Where(p => p.RegNum == playerId).First().Matches;
+                return db.GetAllWithChildren<Player>().Where(p => p.Id == playerId).First().Matches;
 
             }
         }
@@ -93,8 +93,8 @@ namespace Floorball.LocalDB.Repository
                 m.Id = id;
                 m.HomeTeamId = homeTeamId;
                 m.AwayTeamId = awayTeamId;
-                m.GoalsH = goalsH;
-                m.GoalsA = goalsA;
+                m.ScoreH = goalsH;
+                m.ScoreA = goalsA;
                 m.LeagueId = leagueId;
                 m.Round = round;
                 m.StadiumId = stadiumId;
@@ -116,7 +116,7 @@ namespace Floorball.LocalDB.Repository
             {
                 try
                 {
-                    AddMatch(m.Id, m.HomeTeamId, m.AwayTeamId, m.GoalsH, m.GoalsA, m.Round, m.State, m.Time, m.Date, m.LeagueId, m.StadiumId);
+                    AddMatch(m.Id, m.HomeTeamId, m.AwayTeamId, m.ScoreH, m.ScoreA, m.Round, m.State, m.Time, m.Date, m.LeagueId, m.StadiumId);
                 }
                 catch (Exception)
                 {
@@ -137,8 +137,8 @@ namespace Floorball.LocalDB.Repository
                 m.AwayTeamId = match.AwayTeamId;
                 m.HomeTeamId = match.HomeTeamId;
                 m.Date = match.Date;
-                m.GoalsA = match.GoalsA;
-                m.GoalsH = match.GoalsH;
+                m.ScoreA = match.ScoreA;
+                m.ScoreH = match.ScoreH;
                 m.LeagueId = match.LeagueId;
                 m.Round = match.Round;
                 m.StadiumId = match.StadiumId;

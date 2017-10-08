@@ -15,21 +15,21 @@ namespace Floorball
 
             List<PlayerStatisticsModel> models = new List<PlayerStatisticsModel>();
 
-            IEnumerable<int> ids = statistics.Select(s => s.PlayerRegNum).Distinct();
+            IEnumerable<int> ids = statistics.Select(s => s.PlayerId).Distinct();
             foreach (var id in ids)
             {
-                IEnumerable<Statistic> playerStats = statistics.Where(s => s.PlayerRegNum == id);
+                IEnumerable<Statistic> playerStats = statistics.Where(s => s.PlayerId == id);
 
                 PlayerStatisticsModel model = new PlayerStatisticsModel();
                 model.PlayerId = id;
                 model.TeamId = playerStats.First().TeamId;
-                model.Goals = playerStats.Where(s => s.Name == "G").First().Number;
-                model.Assists = playerStats.Where(s => s.Name == "A").First().Number;
+                model.Goals = playerStats.Where(s => s.Type == StatType.G).First().Number;
+                model.Assists = playerStats.Where(s => s.Type ==StatType.A).First().Number;
 
-                int penaltyTime = playerStats.Where(s => s.Name == "P2").First().Number * 2;
-                penaltyTime += playerStats.Where(s => s.Name == "P5").First().Number * 5;
+                int penaltyTime = playerStats.Where(s => s.Type == StatType.P2).First().Number * 2;
+                penaltyTime += playerStats.Where(s => s.Type == StatType.P5).First().Number * 5;
 
-                model.Penalties = penaltyTime + " (" + playerStats.Where(s => s.Name == "P10").First().Number * 10 + ")";
+                model.Penalties = penaltyTime + " (" + playerStats.Where(s => s.Type == StatType.P10).First().Number * 10 + ")";
 
                 models.Add(model);
 

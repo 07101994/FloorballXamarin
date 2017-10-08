@@ -13,14 +13,14 @@ namespace Floorball.LocalDB.Tables
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public StatType Type { get; set; }
 
         public short Number { get; set; }
 
         //Relationships
 
         [ForeignKey(typeof(Player))]
-        public int PlayerRegNum { get; set; }
+        public int PlayerId { get; set; }
 
         [ForeignKey(typeof(Team))]
         public int TeamId { get; set; }

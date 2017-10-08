@@ -54,7 +54,7 @@ namespace Floorball.LocalDB.Repository
             {
                 var goal = db.Get<Event>(eventid);
 
-                return db.GetAllWithChildren<Event>(e => e.Time == goal.Time && e.Type == "A" && e.MatchId == goal.MatchId).First();
+                return db.GetAllWithChildren<Event>(e => e.Time == goal.Time && e.Type == EventType.A && e.MatchId == goal.MatchId).First();
             }
 
         }
@@ -64,7 +64,7 @@ namespace Floorball.LocalDB.Repository
         #region POST
 
 
-        public int AddEvent(int id, int matchId, string type, TimeSpan time, int playerId, int evenetMessageId, int teamId)
+        public int AddEvent(int id, int matchId, EventType type, TimeSpan time, int playerId, int evenetMessageId, int teamId)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
@@ -79,12 +79,12 @@ namespace Floorball.LocalDB.Repository
 
                 db.Insert(e);
 
-                if (playerId != -1 && type != "I" && type != "B")
+                if (playerId != -1 && type != EventType.T && type != EventType.S)
                 {
-                    ChangeStatisticFromPlayer(playerId, teamId, type, db, "up");
+                    ChangeStatisticFromPlayer(playerId, teamId, (StatType)Enum.Parse(typeof(EventType), type.ToString()), db, "up");
                 }
 
-                if (type == "G" && !Manager.Instance.IsInit)
+                if (type == EventType.G && !Manager.Instance.IsInit)
                 {
                     ChangeMatchGoals(db,matchId,teamId, time, "up");
                 }
@@ -99,11 +99,11 @@ namespace Floorball.LocalDB.Repository
             m.Time = m.Time < time ? time : m.Time;
             if (teamId == m.HomeTeamId)
             {
-                m.GoalsH = direction == "up" ? (short)(m.GoalsH + 1) : (short)(m.GoalsH - 1);
+                m.ScoreH = direction == "up" ? (short)(m.ScoreH + 1) : (short)(m.ScoreH - 1);
             }
             else
             {
-                m.GoalsA = direction == "up" ? (short)(m.GoalsA + 1) : (short)(m.GoalsA - 1);
+                m.ScoreA = direction == "up" ? (short)(m.ScoreA + 1) : (short)(m.ScoreA - 1);
             }
 
             db.Update(m);
@@ -141,7 +141,7 @@ namespace Floorball.LocalDB.Repository
                     var homeTeam = db.GetWithChildren<Team>(match.HomeTeamId);
                     var awayTeam = db.GetWithChildren<Team>(match.AwayTeamId);
 
-                    if (homeTeam.Players.Select(p => p.RegNum).Contains(e.PlayerId))
+                    if (homeTeam.Players.Select(p => p.Id).Contains(e.PlayerId))
                     {
                         t = homeTeam.Id;
                     }
@@ -150,9 +150,9 @@ namespace Floorball.LocalDB.Repository
                         t = awayTeam.Id;
                     }
 
-                    ChangeStatisticFromPlayer(e.PlayerId, t, e.Type, db, "down");
+                    ChangeStatisticFromPlayer(e.PlayerId, t, (StatType)Enum.Parse(typeof(EventType), e.Type.ToString()), db, "down");
 
-                    if (e.Type == "G" && !Manager.Instance.IsInit)
+                    if (e.Type == EventType.G && !Manager.Instance.IsInit)
                     {
                         ChangeMatchGoals(db, e.MatchId, e.TeamId, e.Time, "down");
                     }
@@ -167,10 +167,10 @@ namespace Floorball.LocalDB.Repository
 
         #region PUT
 
-        private void ChangeStatisticFromPlayer(int playerId, int teamId, string type, SQLiteConnection db, string direction)
+        private void ChangeStatisticFromPlayer(int playerId, int teamId, StatType type, SQLiteConnection db, string direction)
         {
 
-            Statistic stat = db.GetAllWithChildren<Statistic>().Where(s => s.PlayerRegNum == playerId && s.TeamId == teamId && s.Name == type).First();
+            Statistic stat = db.GetAllWithChildren<Statistic>().Where(s => s.PlayerId == playerId && s.TeamId == teamId && s.Type == type).First();
 
             if (direction == "up")
             {

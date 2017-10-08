@@ -279,7 +279,7 @@ namespace Floorball.Updater
                 {
                     case UpdateType.Create:
 
-                        UoW.EventRepo.AddEvent(c.Value<int>("Id"), c.Value<int>("MatchId"), c.Value<string>("Type"), TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture), c.Value<int>("PlayerId"), c.Value<int>("EventMessageId"), c.Value<int>("TeamId"));
+                        UoW.EventRepo.AddEvent(c.Value<int>("Id"), c.Value<int>("MatchId"), c.Value<EventType>("Type"), TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture), c.Value<int>("PlayerId"), c.Value<int>("EventMessageId"), c.Value<int>("TeamId"));
 
                         break;
                     case UpdateType.Update:
@@ -287,7 +287,7 @@ namespace Floorball.Updater
                         UoW.EventRepo.UpdateEvent(new Event {
                             Id = c.Value<int>("Id"),
                             MatchId = c.Value<int>("MatchId"),
-                            Type = c.Value<string>("Type"),
+                            Type = c.Value<EventType>("Type"),
                             Time = TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture),
                             PlayerId = c.Value<int>("PlayerId"),
                             EventMessageId = c.Value<int>("EventMessageId"),
@@ -350,7 +350,7 @@ namespace Floorball.Updater
                 {
                     case UpdateType.Create:
 
-                        UoW.StadiumRepo.AddStadium(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<string>("Address"));
+                        UoW.StadiumRepo.AddStadium(c.Value<int>("Id"), c.Value<string>("Name"), c.Value<string>("Address"),c.Value<string>("Country"),c.Value<string>("City"),c.Value<string>("PostCode"));
 
                         break;
                     case UpdateType.Update:
@@ -358,7 +358,10 @@ namespace Floorball.Updater
                         UoW.StadiumRepo.UpdateStadium(new Stadium {
                             Id = c.Value<int>("Id"),
                             Name = c.Value<string>("Name"),
-                            Address = c.Value<string>("Address")
+                            Address = c.Value<string>("Address"),
+                            City = c.Value<string>("City"),
+                            Country = c.Value<string>("Country"),
+                            PostCode = c.Value<string>("PostCode")
                         });
 
                         break;
@@ -390,8 +393,8 @@ namespace Floorball.Updater
 
                         UoW.PlayerRepo.UpdatePlayer(new Player {
                             FirstName = c.Value<string>("FirstName"),
-                            SecondName = c.Value<string>("SecondName"),
-                            RegNum = c.Value<int>("RegNum"),
+                            LastName = c.Value<string>("SecondName"),
+                            Id = c.Value<int>("RegNum"),
                             Number = c.Value<short>("Number"),
                             BirthDate = DateTime.ParseExact(c.Value<string>("BirthDate"), "yyyy-MM-dd", CultureInfo.InvariantCulture)
                         });
@@ -427,8 +430,8 @@ namespace Floorball.Updater
                             Id = c.Value<int>("Id"),
                             HomeTeamId = c.Value<int>("HomeTeamId"),
                             AwayTeamId = c.Value<int>("AwayTeamId"),
-                            GoalsH = c.Value<short>("GoalsH"),
-                            GoalsA = c.Value<short>("GoalsA"),
+                            ScoreH = c.Value<short>("GoalsH"),
+                            ScoreA = c.Value<short>("GoalsA"),
                             Round= c.Value<short>("Round"),
                             State = c.Value<StateEnum>("State"),
                             Time = TimeSpan.ParseExact(c.Value<string>("Time"), "g", CultureInfo.InvariantCulture),
@@ -460,7 +463,7 @@ namespace Floorball.Updater
                     case UpdateType.Create:
 
                         UnitOfWork.ImageManager.SaveImage(c.Value<byte[]>("Image"), c.Value<string>("ImageName"));
-                        UoW.TeamRepo.AddTeam(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Coach"), c.Value<string>("Sex"), c.Value<CountriesEnum>("Country"), c.Value<int>("StadiumId"), c.Value<int>("LeagueId"), c.Value<string>("ImageName"));
+                        UoW.TeamRepo.AddTeam(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Coach"), c.Value<GenderEnum>("Gender"), c.Value<CountriesEnum>("Country"), c.Value<int>("StadiumId"), c.Value<int>("LeagueId"), c.Value<string>("ImageName"));
 
                         break;
                     case UpdateType.Update:
@@ -471,7 +474,7 @@ namespace Floorball.Updater
                             Name = c.Value<string>("Name"),
                             Year = DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture),
                             Coach = c.Value<string>("Coach"),
-                            Sex = c.Value<string>("Sex"),
+                            Gender = c.Value<GenderEnum>("Gender"),
                             Country = c.Value<CountriesEnum>("Country"),
                             StadiumId = c.Value<int>("StadiumId"),
                             LeagueId = c.Value<int>("LeagueId"),
@@ -500,7 +503,7 @@ namespace Floorball.Updater
                 {
                     case UpdateType.Create:
 
-                        UoW.LeagueRepo.AddLeague(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<string>("Type"), c.Value<string>("ClassName"), c.Value<int>("Rounds"), c.Value<CountriesEnum>("Country"), c.Value<string>("Sex"));
+                        UoW.LeagueRepo.AddLeague(c.Value<int>("Id"), c.Value<string>("Name"), DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture), c.Value<LeagueTypeEnum>("Type"), c.Value<ClassEnum>("Class"), c.Value<short>("Rounds"), c.Value<CountriesEnum>("Country"), c.Value<GenderEnum>("Gender"));
 
                         break;
                     case UpdateType.Update:
@@ -509,11 +512,11 @@ namespace Floorball.Updater
                             Id = c.Value<int>("Id"),
                             Name = c.Value<string>("Name"),
                             Year = DateTime.ParseExact(c.Value<string>("Year"), "yyyy", CultureInfo.InvariantCulture),
-                            Type = c.Value<string>("Type"),
-                            ClassName = c.Value<string>("ClassName"),
-                            Rounds = c.Value<int>("Rounds"),
+                            Type = c.Value<LeagueTypeEnum>("Type"),
+                            Class = c.Value<ClassEnum>("Class"),
+                            Rounds = c.Value<short>("Rounds"),
                             Country = c.Value<CountriesEnum>("Country"),
-                            Sex = c.Value<string>("Sex")
+                            Gender = c.Value<GenderEnum>("Gender")
                         }); 
 
                         break;

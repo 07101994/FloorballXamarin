@@ -16,15 +16,15 @@ namespace Floorball.LocalDB.Tables
 
         public DateTime Year { get; set; }
 
-        public string Type { get; set; }
+        public LeagueTypeEnum Type { get; set; }
 
-        public string ClassName { get; set; }
+        public ClassEnum Class { get; set; }
 
-        public int Rounds { get; set; }
+        public short Rounds { get; set; }
 
         public CountriesEnum Country { get; set; }
 
-		public string Sex { get; set; }
+		public GenderEnum Gender { get; set; }
 
     }
 }

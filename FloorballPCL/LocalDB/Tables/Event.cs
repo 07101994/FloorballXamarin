@@ -12,7 +12,7 @@ namespace Floorball.LocalDB.Tables
         [PrimaryKey]
         public int Id { get; set; }
 
-        public string Type { get; set; }
+        public EventType Type { get; set; }
 
         public TimeSpan Time { get; set; }
 

@@ -11,13 +11,13 @@ namespace Floorball.Droid.Models
     {
         public string Name { get; set; }
         public string Number { get; set; }
-        public IEnumerable<LocalDB.Tables.Event> Events { get; set; }
+        public IEnumerable<Event> Events { get; set; }
 
         public int Goals
         {
             get
             {
-                return Events.Count(e => e.Type == "G");
+                return Events.Count(e => e.Type == EventType.G);
             }
         }
 
@@ -25,7 +25,7 @@ namespace Floorball.Droid.Models
         {
             get
             {
-                return Events.Count(e => e.Type == "A");
+                return Events.Count(e => e.Type == EventType.A);
             }
         }
 
@@ -33,7 +33,7 @@ namespace Floorball.Droid.Models
         {
             get
             {
-                return Events.Count(e => e.Type == "P2");
+                return Events.Count(e => e.Type == EventType.P2);
             }
         }
 
@@ -41,7 +41,7 @@ namespace Floorball.Droid.Models
         {
             get
             {
-                return Events.Count(e => e.Type == "P5");
+                return Events.Count(e => e.Type == EventType.P5);
             }
         }
 
@@ -49,7 +49,7 @@ namespace Floorball.Droid.Models
         {
             get
             {
-                return Events.Count(e => e.Type == "P10");
+                return Events.Count(e => e.Type == EventType.P10);
             }
         }
 
@@ -57,7 +57,7 @@ namespace Floorball.Droid.Models
         {
             get
             {
-                return Events.Count(e => e.Type == "PV");
+                return Events.Count(e => e.Type == EventType.PV);
             }
         }
 

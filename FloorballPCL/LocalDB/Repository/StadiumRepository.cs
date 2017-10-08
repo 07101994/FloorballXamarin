@@ -37,14 +37,19 @@ namespace Floorball.LocalDB.Repository
 
         #region POST
 
-        public int AddStadium(int id, string name, string address)
+        public int AddStadium(int id, string name, string address, string city, string country, string postCode)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
-                Stadium s = new Stadium();
-                s.Id = id;
-                s.Name = name;
-                s.Address = address;
+                Stadium s = new Stadium
+                {
+                    Id = id,
+                    Name = name,
+                    Address = address,
+                    City = city,
+                    Country = country,
+                    PostCode = postCode                    
+                };
 
                 db.Insert(s);
 
@@ -58,7 +63,7 @@ namespace Floorball.LocalDB.Repository
             {
                 try
                 {
-                    AddStadium(m.Id, m.Name, m.Address);
+                    AddStadium(m.Id, m.Name, m.Address, m.City, m.Country, m.PostCode);
                 }
                 catch (Exception)
                 {
@@ -78,6 +83,9 @@ namespace Floorball.LocalDB.Repository
 
                 s.Name = stadium.Name;
                 s.Address = stadium.Address;
+                s.Country = stadium.Country;
+                s.City = stadium.City;
+                s.PostCode = stadium.PostCode;
 
                 db.Update(s);
 

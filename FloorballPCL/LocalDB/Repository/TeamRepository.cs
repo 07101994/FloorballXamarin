@@ -92,7 +92,7 @@ namespace Floorball.LocalDB.Repository
 
         #region POST
 
-        public int AddTeam(int id, string name, DateTime year, string coach, string sex, CountriesEnum country, int stadiumId, int leagueId, string imageName, short get = 0, short scored = 0, short points = 0, short standing = -1)
+        public int AddTeam(int id, string name, DateTime year, string coach, GenderEnum gender, CountriesEnum country, int stadiumId, int leagueId, string imageName, short get = 0, short scored = 0, short points = 0, short standing = -1)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
@@ -101,7 +101,7 @@ namespace Floorball.LocalDB.Repository
                 t.Name = name;
                 t.Year = year;
                 t.Coach = coach;
-                t.Sex = sex;
+                t.Gender = gender;
                 t.Country = country;
                 t.Get = get;
                 t.Scored = scored;
@@ -127,7 +127,7 @@ namespace Floorball.LocalDB.Repository
                     {
                         ImageManager.SaveImage(m.Image, m.ImageName);
                     }
-                    AddTeam(m.Id, m.Name, m.Year, m.Coach, m.Sex, m.Country, m.StadiumId, m.LeagueId, m.ImageName, m.Get, m.Scored, m.Points, m.Standing);
+                    AddTeam(m.Id, m.Name, m.Year, m.Coach, m.Gender, m.Country, m.StadiumId, m.LeagueId, m.ImageName, m.Get, m.Scored, m.Points, m.Standing);
                 }
                 catch (Exception)
                 {
@@ -148,7 +148,7 @@ namespace Floorball.LocalDB.Repository
                 t.Name = team.Name;
                 t.Year = team.Year;
                 t.Coach = team.Coach;
-                t.Sex = team.Sex;
+                t.Gender = team.Gender;
                 t.Country = team.Country;
                 t.Get = team.Get;
                 t.Scored = team.Scored;

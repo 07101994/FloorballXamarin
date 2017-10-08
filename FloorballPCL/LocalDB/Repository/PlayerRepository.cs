@@ -72,21 +72,21 @@ namespace Floorball.LocalDB.Repository
 
         #region POST
 
-        public int AddPlayer(string firstName, string secondName, int regNum, short number, DateTime date)
+        public int AddPlayer(string firstName, string lastName, int id, short number, DateTime date)
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
                 Player p = new Player();
                 p.FirstName = firstName;
-                p.SecondName = secondName;
-                p.RegNum = regNum;
+                p.LastName = lastName;
+                p.Id = id;
                 p.Number = number;
                 p.BirthDate = date.Date;
                 p.Teams = new List<Team>();
 
                 db.Insert(p);
 
-                return p.RegNum;
+                return p.Id;
             }
         }
 
@@ -96,7 +96,7 @@ namespace Floorball.LocalDB.Repository
             {
                 try
                 {
-                    AddPlayer(m.FirstName, m.SecondName, m.RegNum, m.Number, m.BirthDate);
+                    AddPlayer(m.FirstName, m.LastName, m.Id, m.Number, m.BirthDate);
                 }
                 catch (Exception)
                 {
@@ -131,15 +131,13 @@ namespace Floorball.LocalDB.Repository
         private void AddStatisticsForPlayerInTeam(Player player, Team team, SQLiteConnection db)
         {
 
-            string[] types = new string[] { "G", "A", "P2", "P5", "P10", "PV", "APP" };
-
-            foreach (var type in types)
+            foreach (var type in Enum.GetValues(typeof(StatType)))
             {
                 Statistic s = new Statistic();
-                s.Name = type;
+                s.Type = (StatType)type;
                 s.Number = 0;
                 s.TeamId = team.Id;
-                s.PlayerRegNum = player.RegNum;
+                s.PlayerId = player.Id;
 
 
                 db.Insert(s);
@@ -183,7 +181,7 @@ namespace Floorball.LocalDB.Repository
 
                     foreach (var palyerId in d.Value)
                     {
-                        Player player = players.FirstOrDefault(p => p.RegNum == palyerId);
+                        Player player = players.FirstOrDefault(p => p.Id == palyerId);
 
                         player.Teams.Add(team);
                         team.Players.Add(player);
@@ -212,7 +210,7 @@ namespace Floorball.LocalDB.Repository
 
                     foreach (var playerId in d.Value)
                     {
-                        Player player = players.FirstOrDefault(p => p.RegNum == playerId);
+                        Player player = players.FirstOrDefault(p => p.Id == playerId);
 
                         player.Matches.Add(match);
                         match.Players.Add(player);
@@ -230,16 +228,16 @@ namespace Floorball.LocalDB.Repository
         {
             using (var db = new SQLiteConnection(Platform, DatabasePath))
             {
-                Player p = db.Find<Player>(player.RegNum);
+                Player p = db.Find<Player>(player.Id);
 
                 p.FirstName = player.FirstName;
-                p.SecondName = player.SecondName;
+                p.LastName = player.LastName;
                 p.Number = player.Number;
                 p.BirthDate = player.BirthDate;
 
                 db.Update(p);
 
-                return p.RegNum;
+                return p.Id;
             }
         }
 
@@ -287,7 +285,7 @@ namespace Floorball.LocalDB.Repository
         private void RemoveStatisticsForPlayerInTeam(Player player, Team team, SQLiteConnection db)
         {
 
-            var statisctics = db.GetAllWithChildren<Statistic>().Where(s => s.PlayerRegNum == player.RegNum && s.TeamId == team.Id);
+            var statisctics = db.GetAllWithChildren<Statistic>().Where(s => s.PlayerId == player.Id && s.TeamId == team.Id);
 
             foreach (var s in statisctics)
             {

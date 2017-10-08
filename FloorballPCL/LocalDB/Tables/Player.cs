@@ -10,17 +10,17 @@ namespace Floorball.LocalDB.Tables
     public class Player
     {
         [PrimaryKey]//, AutoIncrement]
-        public int RegNum { get; set; }
+        public int Id { get; set; }
 
         public string FirstName { get; set; }
 
-        public string SecondName { get; set; }
+        public string LastName { get; set; }
 
         public string Name
         {
             get
             {
-                return FirstName + " " + SecondName;
+                return FirstName + " " + LastName;
             }
         }
 
@@ -28,9 +28,9 @@ namespace Floorball.LocalDB.Tables
         {
             get
             {
-                if (SecondName != null)
+                if (LastName != null)
                 {
-                    return FirstName + ". " + SecondName[0];
+                    return FirstName + ". " + LastName[0];
                 }
                 return FirstName;
             }
