@@ -23,7 +23,7 @@ namespace FloorballAdminiOS.UI.Login
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
 
-            LoginPresenter = new LoginPresenter();
+            LoginPresenter = new LoginPresenter(AppDelegate.SharedAppDelegate.TextManager);
 
         }
 

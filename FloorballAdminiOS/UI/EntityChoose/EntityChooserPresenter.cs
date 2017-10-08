@@ -9,6 +9,7 @@ using FloorballAdminiOS.UI.Entity.Referee;
 using FloorballAdminiOS.UI.Entity.Stadium;
 using FloorballAdminiOS.UI.Entity.Team;
 using FloorballAdminiOS.UI.EntitySearch;
+using FloorballPCL;
 
 namespace FloorballAdminiOS.UI.EntityChoose
 {
@@ -23,56 +24,54 @@ namespace FloorballAdminiOS.UI.EntityChoose
 
     public class EntityChooserPresenter : Presenter<EntityChooserScreen>
     {
-		/*public List<Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>> Entitites { get; set; } = new List<Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>>()
-		{
-			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.League, new LeaguePresenter(), new LeagueSearchPresenter()),
-			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Player,new PlayerPresenter(), new PlayerSearchPresenter()),
-			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Team,new TeamPresenter(), new TeamSearchPresenter()),
-			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Match,new MatchPresenter(), new MatchSearchPresenter()),
-			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Referee,new RefereePresenter(), new RefereeSearchPresenter()),
-			new Tuple<UpdateEnum, EntityPresenter<EntityScreen>, EntitySearchPresenter<EntitySearchScreen>>(UpdateEnum.Stadium,new StadiumPresenter(), new StadiumSearchPresenter())
-		};*/
 
-		public List<EntityChooserPresenterModel> Entitites { get; set; } = new List<EntityChooserPresenterModel>
-		{
-			new EntityChooserPresenterModel
-            {
-                UpdateEnum = UpdateEnum.League,
-                EntityPresenter = new LeaguePresenter(),
-                EntitySearchPresenter = new LeagueSearchPresenter()
-            },
-			new EntityChooserPresenterModel
-			{
-				UpdateEnum = UpdateEnum.Player,
-				EntityPresenter = new PlayerPresenter(),
-				EntitySearchPresenter = new PlayerSearchPresenter()
-			},
-			new EntityChooserPresenterModel
-			{
-				UpdateEnum = UpdateEnum.Team,
-				EntityPresenter = new TeamPresenter(),
-				EntitySearchPresenter = new TeamSearchPresenter()
-			},
-			new EntityChooserPresenterModel
-			{
-				UpdateEnum = UpdateEnum.Match,
-				EntityPresenter = new MatchPresenter(),
-				EntitySearchPresenter = new MatchSearchPresenter()
-			},
-			new EntityChooserPresenterModel
-            {
-                UpdateEnum = UpdateEnum.Referee,
-				EntityPresenter = new RefereePresenter(),
-				EntitySearchPresenter = new RefereeSearchPresenter()
-			},
-			new EntityChooserPresenterModel
-			{
-				UpdateEnum = UpdateEnum.Stadium,
-				EntityPresenter = new StadiumPresenter(),
-				EntitySearchPresenter = new StadiumSearchPresenter()
-			}
-			
-		};
+        public List<EntityChooserPresenterModel> Entities { get; set; }
+
+        public EntityChooserPresenter(ITextManager textManager) : base(textManager)
+        {
+			Entities = new List<EntityChooserPresenterModel>
+    		{
+    			new EntityChooserPresenterModel
+    			{
+    				UpdateEnum = UpdateEnum.League,
+    				EntityPresenter = new LeaguePresenter(TextManager),
+    				EntitySearchPresenter = new LeagueSearchPresenter(TextManager)
+    			},
+    			new EntityChooserPresenterModel
+    			{
+    				UpdateEnum = UpdateEnum.Player,
+    				EntityPresenter = new PlayerPresenter(TextManager),
+    				EntitySearchPresenter = new PlayerSearchPresenter(TextManager)
+    			},
+    			new EntityChooserPresenterModel
+    			{
+    				UpdateEnum = UpdateEnum.Team,
+    				EntityPresenter = new TeamPresenter(TextManager),
+    				EntitySearchPresenter = new TeamSearchPresenter(TextManager)
+    			},
+    			new EntityChooserPresenterModel
+    			{
+    				UpdateEnum = UpdateEnum.Match,
+    				EntityPresenter = new MatchPresenter(TextManager),
+    				EntitySearchPresenter = new MatchSearchPresenter(TextManager)
+    			},
+    			new EntityChooserPresenterModel
+    			{
+    				UpdateEnum = UpdateEnum.Referee,
+    				EntityPresenter = new RefereePresenter(TextManager),
+    				EntitySearchPresenter = new RefereeSearchPresenter(TextManager)
+    			},
+    			new EntityChooserPresenterModel
+    			{
+    				UpdateEnum = UpdateEnum.Stadium,
+    				EntityPresenter = new StadiumPresenter(TextManager),
+    				EntitySearchPresenter = new StadiumSearchPresenter(TextManager)
+    			}
+
+    		};
+
+        }
+
 
     }
 }

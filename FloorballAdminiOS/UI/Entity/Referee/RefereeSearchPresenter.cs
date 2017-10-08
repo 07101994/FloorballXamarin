@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Floorball;
 using FloorballAdminiOS.Interactor.Search;
 using FloorballAdminiOS.UI.EntitySearch;
+using FloorballPCL;
 using FloorballServer.Models.Floorball;
 
 namespace FloorballAdminiOS.UI.Entity.Referee
@@ -14,7 +15,11 @@ namespace FloorballAdminiOS.UI.Entity.Referee
 
 		SearchInteractor<RefereeModel> interactor;
 
-		public override void AttachScreen(EntitySearchScreen screen)
+        public RefereeSearchPresenter(ITextManager textManager) : base(textManager)
+        {
+        }
+
+        public override void AttachScreen(EntitySearchScreen screen)
 		{
 			base.AttachScreen(screen);
 			interactor = new SearchInteractor<RefereeModel>();
@@ -45,7 +50,7 @@ namespace FloorballAdminiOS.UI.Entity.Referee
 				if (prevEntity == null || entity.Country != prevEntity.Country)
 				{
 					SearchModel.Add(new List<SearchCell>());
-					Titles.Add(new SearchTitle { MainTitle = entity.Country.ToFriendlyString(), Subtitle = "" });
+                    Titles.Add(new SearchTitle { MainTitle =  AppDelegate.SharedAppDelegate.TextManager.GetText(entity.Country), Subtitle = "" });
 				}
 
 				SearchModel.Last().Add(new SearchCell

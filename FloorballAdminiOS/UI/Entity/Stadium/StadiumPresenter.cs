@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Floorball;
 using FloorballAdminiOS.Interactor.Entity;
+using FloorballPCL;
 using FloorballServer.Models.Floorball;
 
 namespace FloorballAdminiOS.UI.Entity.Stadium
@@ -13,7 +14,11 @@ namespace FloorballAdminiOS.UI.Entity.Stadium
 
         StadiumModel stadium;
 
-		public override void AttachScreen(EntityScreen screen)
+        public StadiumPresenter(ITextManager textManager) : base(textManager)
+        {
+        }
+
+        public override void AttachScreen(EntityScreen screen)
 		{
 			base.AttachScreen(screen);
 

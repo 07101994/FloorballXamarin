@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FloorballAdminiOS.Interactor.Search;
 using FloorballAdminiOS.UI.EntitySearch;
+using FloorballPCL;
 using FloorballServer.Models.Floorball;
 
 namespace FloorballAdminiOS.UI.Entity.Match
@@ -12,7 +13,11 @@ namespace FloorballAdminiOS.UI.Entity.Match
     {
 		SearchInteractor<MatchModel> interactor;
 
-		public override void AttachScreen(EntitySearchScreen screen)
+        public MatchSearchPresenter(ITextManager textManager) : base(textManager)
+        {
+        }
+
+        public override void AttachScreen(EntitySearchScreen screen)
 		{
 			base.AttachScreen(screen);
 			interactor = new SearchInteractor<MatchModel>();
@@ -50,7 +55,7 @@ namespace FloorballAdminiOS.UI.Entity.Match
 				{
 					SearchModel.Add(new List<SearchCell>());
                     var league = leagues.Single(l => l.Id == entity.LeagueId);
-                    Titles.Add(new SearchTitle { MainTitle = league.Name + " - " + league.ClassName, Subtitle = league.Sex });
+                    Titles.Add(new SearchTitle { MainTitle = league.Name + " - " + TextManager.GetText(league.Class), Subtitle = TextManager.GetText(league.Gender) });
 				}
 
                 SearchModel.Last().Add(new SearchCell

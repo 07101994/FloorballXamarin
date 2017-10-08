@@ -2,6 +2,7 @@
 using Floorball;
 using Floorball.REST.RESTManagers;
 using FloorballAdminiOS.Helper;
+using FloorballPCL;
 using Foundation;
 using UIKit;
 
@@ -17,6 +18,8 @@ namespace FloorballAdminiOS
 		public DateTime LastSyncDate { get; set; }
 		public UnitOfWork UoW { get; set; }
 		public IRESTManager Network { get; set; }
+        public ITextManager TextManager { get; set; }
+
         public override UIWindow Window { get; set; }
 
 		static AppDelegate()

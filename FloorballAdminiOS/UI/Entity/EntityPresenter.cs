@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Floorball;
 using Floorball.REST.RESTManagers;
 using FloorballAdminiOS.Interactor;
+using FloorballPCL;
 using FloorballPCL.Exceptions;
 
 namespace FloorballAdminiOS.UI.Entity
@@ -15,16 +16,12 @@ namespace FloorballAdminiOS.UI.Entity
 
         public List<EntityTableViewModel> Model { get; set; }
 
-        public EntityPresenter()
+        public EntityPresenter(ITextManager textManager) : base(textManager)
         {
             Model = new List<EntityTableViewModel>();
         }
 
         public string Url { get; set; }
-
-		//public T Model { get; set; }
-
-		//EntityInteractor<T> entityInteractor;
 
 		public abstract List<EntityTableViewModel> SetTableViewModel();
 

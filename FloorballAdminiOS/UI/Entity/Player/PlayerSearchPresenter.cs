@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FloorballAdminiOS.Interactor.Search;
 using FloorballAdminiOS.UI.EntitySearch;
+using FloorballPCL;
 using FloorballServer.Models.Floorball;
 
 namespace FloorballAdminiOS.UI.Entity.Player
@@ -12,7 +13,11 @@ namespace FloorballAdminiOS.UI.Entity.Player
     {
 		SearchInteractor<PlayerModel> interactor;
 
-		public override void AttachScreen(EntitySearchScreen screen)
+        public PlayerSearchPresenter(ITextManager textManager) : base(textManager)
+        {
+        }
+
+        public override void AttachScreen(EntitySearchScreen screen)
 		{
 			base.AttachScreen(screen);
 			interactor = new SearchInteractor<PlayerModel>();
@@ -45,7 +50,7 @@ namespace FloorballAdminiOS.UI.Entity.Player
 
 			List<SearchCell> searchList = new List<SearchCell>();
 
-			foreach (var entity in entities.OrderBy(e => e.FirstName).ThenBy(e => e.SecondName).ThenBy(e => e.BirthDate))
+			foreach (var entity in entities.OrderBy(e => e.FirstName).ThenBy(e => e.LastName).ThenBy(e => e.BirthDate))
 			{
 
 				if (prevEntity == null || entity.FirstName != prevEntity.FirstName)
@@ -56,10 +61,10 @@ namespace FloorballAdminiOS.UI.Entity.Player
 
 				SearchModel.Last().Add(new SearchCell
 				{
-                    Id = entity.RegNum,
-					Title = entity.FirstName + "  " + entity.SecondName,
+                    Id = entity.Id,
+					Title = entity.FirstName + "  " + entity.LastName,
 					Subtitle = entity.BirthDate.ToString("yyyy-MM-dd"),
-					RightDetail = "men"
+                    RightDetail = TextManager.GetText(entity.Gender)
 				});
 
 				prevEntity = entity;

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using FloorballAdminiOS.Interactor;
 using FloorballAdminiOS.UI;
 using FloorballAdminiOS.UI.Matches;
+using FloorballPCL;
 using FloorballServer.Models.Floorball;
 
 namespace FloorballAdminiOS.UI.Matches
@@ -19,7 +20,7 @@ namespace FloorballAdminiOS.UI.Matches
 
         public List<LeagueModel> Leagues { get; set; }
 
-        public MatchesPresenter()
+        public MatchesPresenter(ITextManager textManager) : base(textManager)
         {
             Matches = new List<MatchModel>();
             Teams = new List<TeamModel>();

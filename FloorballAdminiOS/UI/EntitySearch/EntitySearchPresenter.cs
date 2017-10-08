@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FloorballPCL;
 
 namespace FloorballAdminiOS.UI.EntitySearch
 {
@@ -22,6 +23,10 @@ namespace FloorballAdminiOS.UI.EntitySearch
 
     public abstract class EntitySearchPresenter<T> : Presenter<T>
     {
+        public EntitySearchPresenter(ITextManager textManager) : base(textManager)
+        {
+        }
+
         public List<List<SearchCell>> SearchModel { get; set; }
         public List<List<SearchCell>> FilteredSearchModel { get; set; }
 

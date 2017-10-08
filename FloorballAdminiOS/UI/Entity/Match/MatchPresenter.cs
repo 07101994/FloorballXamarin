@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Floorball;
 using FloorballAdminiOS.Helper;
 using FloorballAdminiOS.Interactor.Entity;
+using FloorballPCL;
 using FloorballServer.Models.Floorball;
 
 namespace FloorballAdminiOS.UI.Entity.Match
@@ -19,7 +20,11 @@ namespace FloorballAdminiOS.UI.Entity.Match
         List<LeagueModel> leagues;
         List<StadiumModel> stadiums;
 
-		public override void AttachScreen(EntityScreen screen)
+        public MatchPresenter(ITextManager textManager) : base(textManager)
+        {
+        }
+
+        public override void AttachScreen(EntityScreen screen)
 		{
 			base.AttachScreen(screen);
 
@@ -128,8 +133,8 @@ namespace FloorballAdminiOS.UI.Entity.Match
 				Time = Model[11].PickerValueAsTimeSpan,
 				StadiumId = Model[13].PickerValueAsInt,
 				State = StateEnum.Confirmed,
-				GoalsH = 0,
-				GoalsA = 0
+				ScoreH = 0,
+				ScoreA = 0
 			};
         }
     }

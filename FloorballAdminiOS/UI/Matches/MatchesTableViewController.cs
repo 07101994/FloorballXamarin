@@ -27,7 +27,7 @@ namespace FloorballAdminiOS.UI.Matches
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
 
-            MatchesPresenter = new MatchesPresenter();
+            MatchesPresenter = new MatchesPresenter(AppDelegate.SharedAppDelegate.TextManager);
             RefreshControl = new UIRefreshControl();
             RefreshControl.ValueChanged += RefreshMatches;
 
@@ -94,8 +94,8 @@ namespace FloorballAdminiOS.UI.Matches
             cell.Date.Text = match.Date.ToString();
             cell.HomeTeamName.Text = MatchesPresenter.Teams.Single(t => t.Id == match.HomeTeamId).Name;
             cell.AwayTeamName.Text = MatchesPresenter.Teams.Single(t => t.Id == match.AwayTeamId).Name;
-			cell.HomeScore.Text = match.GoalsH.ToString();
-			cell.AwayScore.Text = match.GoalsA.ToString();
+			cell.HomeScore.Text = match.ScoreH.ToString();
+			cell.AwayScore.Text = match.ScoreA.ToString();
 
 			return cell;
         }

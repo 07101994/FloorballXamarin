@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Floorball;
 using FloorballAdminiOS.Interactor.Entity;
+using FloorballPCL;
 using FloorballServer.Models.Floorball;
 
 namespace FloorballAdminiOS.UI.Entity.Player
@@ -13,7 +14,11 @@ namespace FloorballAdminiOS.UI.Entity.Player
 
         PlayerModel player;
 
-		public override void AttachScreen(EntityScreen screen)
+        public PlayerPresenter(ITextManager textManager) : base(textManager)
+        {
+        }
+
+        public override void AttachScreen(EntityScreen screen)
 		{
 			base.AttachScreen(screen);
 
@@ -41,7 +46,7 @@ namespace FloorballAdminiOS.UI.Entity.Player
         {
 			
             Model.Add(new EntityTableViewModel { Label = "First Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = player == null ? "" : player.FirstName });
-            Model.Add(new EntityTableViewModel { Label = "Last Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = player == null ? "" : player.SecondName });
+            Model.Add(new EntityTableViewModel { Label = "Last Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = player == null ? "" : player.LastName });
             Model.Add(new EntityTableViewModel { Label = "Birth Date", CellType = TableViewCellType.Label, IsVisible = true, Value = player == null ? "" : player.BirthDate.ToString() });
 			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.DatePicker, IsVisible = false, Value = "" });
 

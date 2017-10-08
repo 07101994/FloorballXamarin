@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Floorball;
 using FloorballAdminiOS.Interactor.Search;
 using FloorballAdminiOS.UI.EntitySearch;
+using FloorballPCL;
 using FloorballServer.Models.Floorball;
 
 namespace FloorballAdminiOS.UI.Entity.League
@@ -13,6 +14,10 @@ namespace FloorballAdminiOS.UI.Entity.League
     public class LeagueSearchPresenter : EntitySearchPresenter<EntitySearchScreen>
     {
         SearchInteractor<LeagueModel> interactor;
+
+        public LeagueSearchPresenter(ITextManager textManager) : base(textManager)
+        {
+        }
 
         public override void AttachScreen(EntitySearchScreen screen)
         {
@@ -36,15 +41,15 @@ namespace FloorballAdminiOS.UI.Entity.League
                 if (prevEntity == null || entity.Country != prevEntity.Country)
                 {
                     SearchModel.Add(new List<SearchCell>());
-                    Titles.Add(new SearchTitle { MainTitle = entity.Country.ToFriendlyString(), Subtitle = "" });
+                    Titles.Add(new SearchTitle { MainTitle = TextManager.GetText(entity.Country), Subtitle = "" });
                 }
 
 				SearchModel.Last().Add(new SearchCell
 				{
                     Id = entity.Id,
 					Title = entity.Name,
-					Subtitle = entity.Year.Year.ToString() + " - " + entity.type,
-					RightDetail = entity.Sex
+					Subtitle = entity.Year.Year.ToString() + " - " + entity.Type,
+                    RightDetail = AppDelegate.SharedAppDelegate.TextManager.GetText(entity.Gender)
 				});
 
                 prevEntity = entity;

@@ -44,11 +44,14 @@ namespace FloorballAdminiOS.UI.Entity
 
         public string PickerValueAsString => PickerModelSelectedObjet.ToString();
 
-        public CountriesEnum PickerValueAsCountriesEnum => PickerModelSelectedObjet.ToString().ToEnum<CountriesEnum>();
-
         public int PickerValueAsInt => Convert.ToInt32(PickerModelSelectedObjet);
 
         public short PickerValueAsShort => Convert.ToInt16(PickerModelSelectedObjet);
+
+        public T GetPickerValuesAsEnum<T>()
+        {
+            return PickerModelSelectedObjet.ToString().ToEnum<T>();
+        }
 
     }
 }

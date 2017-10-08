@@ -54,7 +54,7 @@ namespace FloorballAdminiOS.UI.EntityChoose
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
 
-            EntityChooserPresenter = new EntityChooserPresenter();
+            EntityChooserPresenter = new EntityChooserPresenter(AppDelegate.SharedAppDelegate.TextManager);
             NavigationItem.Title = "Choose action";
 
         }
@@ -85,14 +85,14 @@ namespace FloorballAdminiOS.UI.EntityChoose
 
 		public override nint RowsInSection(UITableView tableView, nint section)
 		{
-			return EntityChooserPresenter.Entitites.Count;
+			return EntityChooserPresenter.Entities.Count;
 		}
 
 		public override UITableViewCell GetCell(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
 			var cell = tableView.DequeueReusableCell("EntityCell", indexPath);
 
-            cell.TextLabel.Text = Opertaion + EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).UpdateEnum.ToString();
+            cell.TextLabel.Text = Opertaion + EntityChooserPresenter.Entities.ElementAt(indexPath.Row).UpdateEnum.ToString();
 
 			return cell;
 
@@ -104,13 +104,13 @@ namespace FloorballAdminiOS.UI.EntityChoose
             {
                 case UpdateType.Create:
 
-                    ShowEntityVC(EntityChooserPresenter.Entitites.ElementAt(indexPath.Row).EntityPresenter);
+                    ShowEntityVC(EntityChooserPresenter.Entities.ElementAt(indexPath.Row).EntityPresenter);
 
                     break;
 
 				case UpdateType.Update:
 
-                    var model = EntityChooserPresenter.Entitites.ElementAt(indexPath.Row);
+                    var model = EntityChooserPresenter.Entities.ElementAt(indexPath.Row);
 
                     ShowSearchEntityVC(model.EntityPresenter,model.EntitySearchPresenter);
 

@@ -244,6 +244,7 @@
     <Compile Include="UI\Entity\Referee\RefereeSearchPresenter.cs" />
     <Compile Include="UI\Entity\Stadium\StadiumSearchPresenter.cs" />
     <Compile Include="UI\Entity\Team\TeamSearchPresenter.cs" />
+    <Compile Include="Helper\TextManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloorballPCL\FloorballPCL.csproj">

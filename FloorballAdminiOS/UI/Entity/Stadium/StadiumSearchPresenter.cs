@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FloorballAdminiOS.Interactor.Search;
 using FloorballAdminiOS.UI.EntitySearch;
+using FloorballPCL;
 using FloorballServer.Models.Floorball;
 
 namespace FloorballAdminiOS.UI.Entity.Stadium
@@ -12,7 +13,11 @@ namespace FloorballAdminiOS.UI.Entity.Stadium
     {
 		SearchInteractor<StadiumModel> interactor;
 
-		public override void AttachScreen(EntitySearchScreen screen)
+        public StadiumSearchPresenter(ITextManager textManager) : base(textManager)
+        {
+        }
+
+        public override void AttachScreen(EntitySearchScreen screen)
 		{
 			base.AttachScreen(screen);
 			interactor = new SearchInteractor<StadiumModel>();

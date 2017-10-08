@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FloorballAdminiOS.Interactor;
+using FloorballPCL;
 
 namespace FloorballAdminiOS.UI.Login
 {
@@ -8,6 +9,10 @@ namespace FloorballAdminiOS.UI.Login
     {
 
         LoginInteractor loginInteractor;
+
+        public LoginPresenter(ITextManager textManager) : base(textManager)
+        {
+        }
 
         public override void AttachScreen(LoginScreen screen)
         {

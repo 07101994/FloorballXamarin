@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Floorball;
 using FloorballAdminiOS.Helper;
 using FloorballAdminiOS.Interactor.Entity;
+using FloorballPCL;
 using FloorballServer.Models.Floorball;
 
 namespace FloorballAdminiOS.UI.Entity.Team
@@ -18,7 +19,11 @@ namespace FloorballAdminiOS.UI.Entity.Team
         List<StadiumModel> stadiums;
         List<LeagueModel> leagues;
 
-		public override void AttachScreen(EntityScreen screen)
+        public TeamPresenter(ITextManager textManager) : base(textManager)
+        {
+        }
+
+        public override void AttachScreen(EntityScreen screen)
 		{
 			base.AttachScreen(screen);
 
@@ -60,7 +65,7 @@ namespace FloorballAdminiOS.UI.Entity.Team
             Model.Add(new EntityTableViewModel { Label = "Coach", CellType = TableViewCellType.TextField, IsVisible = true, Value = team == null ? "" : team.Coach });
             Model.Add(new EntityTableViewModel { Label = "Stadium", CellType = TableViewCellType.Label, IsVisible = true, Value = team == null ? "" : stadiums.Single(s => s.Id == team.StadiumId).Name });
 			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(stadiums.Select(s => s.Name), stadiums.Select(s => s.Id)) });
-            Model.Add(new EntityTableViewModel { Label = "Country", CellType = TableViewCellType.Label, IsVisible = true, Value = team == null ? "" : team.Country.ToFriendlyString() });
+            Model.Add(new EntityTableViewModel { Label = "Country", CellType = TableViewCellType.Label, IsVisible = true, Value = team == null ? "" : TextManager.GetText(team.Country) });
 			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(countries, countriesEnum) });
             Model.Add(new EntityTableViewModel { Label = "TeamId", CellType = TableViewCellType.TextField, IsVisible = true, Value = team == null ? "" : team.TeamId.ToString() });
 		
