@@ -103,10 +103,10 @@ namespace Floorball.iOS
 
 		}
 
-		public void Update(string sex)
+        public void Update(GenderEnum gender)
 		{
 
-			ActualTeams = Teams.Where(t => t.Sex == sex);
+			ActualTeams = Teams.Where(t => t.Gender == gender);
 			InitProperties();
 			TableView.ReloadData();
 		}

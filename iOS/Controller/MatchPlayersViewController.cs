@@ -43,8 +43,8 @@ namespace Floorball.iOS
 			HomeTeamName.Text = HomeTeam.Name;
 			AwayTeamName.Text = AwayTeam.Name;
 
-			HomeScore.Text = Match.GoalsH.ToString();
-			AwayScore.Text = Match.GoalsA.ToString();
+			HomeScore.Text = Match.ScoreH.ToString();
+			AwayScore.Text = Match.ScoreA.ToString();
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -59,8 +59,8 @@ namespace Floorball.iOS
 			if (segue.Identifier == "MatchStats")
 			{
 				var vc = segue.DestinationViewController as MatchStatsViewController;
-				vc.HomePlayers = HomeTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.RegNum));
-            	vc.AwayPlayers = AwayTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.RegNum));
+				vc.HomePlayers = HomeTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.Id));
+            	vc.AwayPlayers = AwayTeam.Players.Intersect(Match.Players, new KeyEqualityComparer<Player>(p => p.Id));
 				vc.Events = Events;
 
 

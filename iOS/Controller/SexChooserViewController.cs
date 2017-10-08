@@ -43,7 +43,7 @@ namespace Floorball.iOS
 			{
 				var vc = segue.DestinationViewController as TeamsViewController;
 				vc.Teams = AppDelegate.SharedAppDelegate.UoW.TeamRepo.GetTeamsByYear(Date);
-				vc.ActualTeams = vc.Teams.Where(t => t.Sex == "ferfi");
+				vc.ActualTeams = vc.Teams.Where(t => t.Gender == GenderEnum.Men);
 				Embedded = vc;
 			} 
 			else
@@ -52,7 +52,7 @@ namespace Floorball.iOS
 				{
 					var vc = segue.DestinationViewController as LeaguesViewController;
 					vc.Leagues = AppDelegate.SharedAppDelegate.UoW.LeagueRepo.GetLeaguesByYear(Date);	
-					vc.ActualLeagues = vc.Leagues.Where(l => l.Sex == "ferfi");
+					vc.ActualLeagues = vc.Leagues.Where(l => l.Gender == GenderEnum.Men);
 					Embedded = vc;
 				}
 			}
@@ -69,13 +69,13 @@ namespace Floorball.iOS
 
 					if (sender.SelectedSegment == 0)
 					{
-						teamsVC.Update("ferfi");
+						teamsVC.Update(GenderEnum.Men);
 					}
 					else
 					{
 						if (sender.SelectedSegment == 1)
 						{
-							teamsVC.Update("noi");
+							teamsVC.Update(GenderEnum.Women);
 						}
 					}
 
@@ -88,13 +88,13 @@ namespace Floorball.iOS
 
 					if (sender.SelectedSegment == 0)
 					{
-						leaguesVC.Update("ferfi");
+						leaguesVC.Update(GenderEnum.Men);
 					}
 					else
 					{
 						if (sender.SelectedSegment == 1)
 						{
-							leaguesVC.Update("noi");
+							leaguesVC.Update(GenderEnum.Women);
 						}
 					}
 

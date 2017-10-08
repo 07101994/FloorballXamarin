@@ -333,9 +333,9 @@ namespace Floorball.iOS
 			cell.Time.LineBreakMode = UILineBreakMode.WordWrap;
 			cell.Time.Text = Floorball.UIHelper.GetMatchTime(match.Time, match.State).Replace("\\n", " ");
 			cell.HomeTeam.Text = homeTeam.Name;
-			cell.HomeScore.Text = match.GoalsH.ToString();
+			cell.HomeScore.Text = match.ScoreH.ToString();
 			cell.AwayTeam.Text = awayTeam.Name;
-			cell.AwayScore.Text = match.GoalsA.ToString();
+			cell.AwayScore.Text = match.ScoreA.ToString();
 
 			return cell;
 		}

@@ -78,8 +78,8 @@ namespace Floorball.iOS
 				(cell.ViewWithTag(201) as UILabel).Text = AppDelegate.SharedAppDelegate.UoW.TeamRepo.GetTeamById(match.HomeTeamId).Name;
 			}
 
-			(cell.ViewWithTag(202) as UILabel).Text = match.GoalsH.ToString();
-			(cell.ViewWithTag(204) as UILabel).Text = match.GoalsA.ToString();
+			(cell.ViewWithTag(202) as UILabel).Text = match.ScoreH.ToString();
+			(cell.ViewWithTag(204) as UILabel).Text = match.ScoreA.ToString();
 			
 			return cell;
 		}

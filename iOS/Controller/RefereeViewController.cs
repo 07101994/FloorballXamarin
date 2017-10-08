@@ -95,9 +95,9 @@ namespace Floorball.iOS
 		{
 
 			int penaltySum = 0;
-			penaltySum += stats.Where(s => s.TeamId == teamId && s.Name == "P2").First().Number * 2;
-			penaltySum += stats.Where(s => s.TeamId == teamId && s.Name == "P5").First().Number * 5;
-			int p10 = stats.Where(s => s.TeamId == teamId && s.Name == "P10").First().Number * 10;
+			penaltySum += stats.Where(s => s.TeamId == teamId && s.Type == StatType.P2).First().Number * 2;
+			penaltySum += stats.Where(s => s.TeamId == teamId && s.Type == StatType.P5).First().Number * 5;
+			int p10 = stats.Where(s => s.TeamId == teamId && s.Type == StatType.P10).First().Number * 10;
 			penaltySum += p10;
 
 			return penaltySum + " (" + p10 + ") perc";

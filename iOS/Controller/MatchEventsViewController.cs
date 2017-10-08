@@ -54,12 +54,12 @@ namespace Floorball.iOS
 			if (e.TeamId == HomeTeam.Id)
 			{
 				cell = tableView.DequeueReusableCell("HomeEventCell", indexPath);
-				(cell.ViewWithTag(201) as UILabel).Text = HomeTeam.Players.First(p => p.RegNum == e.PlayerId).ShortName;
+				(cell.ViewWithTag(201) as UILabel).Text = HomeTeam.Players.First(p => p.Id == e.PlayerId).ShortName;
 			}
 			else
 			{ 
 				cell = tableView.DequeueReusableCell("AwayEventCell", indexPath);
-				(cell.ViewWithTag(201) as UILabel).Text = AwayTeam.Players.First(p => p.RegNum == e.PlayerId).ShortName;
+				(cell.ViewWithTag(201) as UILabel).Text = AwayTeam.Players.First(p => p.Id == e.PlayerId).ShortName;
 			}
 
 			(cell.ViewWithTag(200) as UILabel).Text = Floorball.UIHelper.GetMatchFullTime(e.Time);
@@ -76,31 +76,31 @@ namespace Floorball.iOS
 
 		private UITableViewCell SetImage(UITableViewCell cell, Event e)
 		{
-			if (e.Type == "P2")
+			if (e.Type == EventType.P2)
 			{
 				(cell.ViewWithTag(202) as UIImageView).Image = UIImage.FromBundle("2minutes");
 			}
 			else
 			{
-				if (e.Type == "P5")
+				if (e.Type == EventType.P5)
 				{
 					(cell.ViewWithTag(202) as UIImageView).Image = UIImage.FromBundle("5minutes");
 				}
 				else
 				{
-					if (e.Type == "G")
+					if (e.Type == EventType.G)
 					{
 						(cell.ViewWithTag(202) as UIImageView).Image = UIImage.FromBundle("goal");
 					}
 					else
 					{
-						if (e.Type == "P10")
+						if (e.Type == EventType.P10)
 						{
 							(cell.ViewWithTag(202) as UIImageView).Image = UIImage.FromBundle("10minutes");
 						}
 						else
 						{
-							if (e.Type == "PV")
+							if (e.Type == EventType.PV)
 							{
 								(cell.ViewWithTag(202) as UIImageView).Image = UIImage.FromBundle("redcard");
 							}

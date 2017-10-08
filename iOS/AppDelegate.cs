@@ -5,6 +5,7 @@ using Floorball.iOS.Helper;
 using Floorball.LocalDB;
 using Floorball.REST;
 using Floorball.REST.RESTManagers;
+using FloorballPCL;
 using Foundation;
 using SidebarNavigation;
 using UIKit;
@@ -21,6 +22,7 @@ namespace Floorball.iOS
 		public DateTime LastSyncDate { get; set; }
 		public UnitOfWork UoW { get; set; }
         public IRESTManager Network { get; set; }
+        public ITextManager TextManager { get; set; }
 
 		public override UIWindow Window { get; set; }
 

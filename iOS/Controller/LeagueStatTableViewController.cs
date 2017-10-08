@@ -56,7 +56,7 @@ namespace Floorball.iOS
 			var actualStat = PlayerStatistics.ElementAt(indexPath.Row);
 
 			(cell.ViewWithTag(200) as UILabel).Text = (indexPath.Row + 1).ToString();
-			(cell.ViewWithTag(201) as UILabel).Text = Players.First(p => p.RegNum == actualStat.PlayerId).Name;
+			(cell.ViewWithTag(201) as UILabel).Text = Players.First(p => p.Id == actualStat.PlayerId).Name;
 			(cell.ViewWithTag(202) as UILabel).Text = Teams.First(t => t.Id == actualStat.TeamId).Name;
 			(cell.ViewWithTag(203) as UILabel).Text = actualStat.Goals.ToString();
 			(cell.ViewWithTag(204) as UILabel).Text = actualStat.Assists.ToString();

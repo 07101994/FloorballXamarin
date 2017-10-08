@@ -59,7 +59,7 @@ namespace Floorball.iOS
 		{
 			var league = LeaguesByCountry.ElementAt(Convert.ToInt16(section)).First();
 
-			return UIHelper.MakeImageWithLabelInSectionHeader(headerHeight, league.Country.ToString().ToLower(), league.Country.ToFriendlyString());	
+            return UIHelper.MakeImageWithLabelInSectionHeader(headerHeight, league.Country.ToString().ToLower(), AppDelegate.SharedAppDelegate.TextManager.GetText(league.Country.ToString()));	
 		}
 
 		public override nfloat GetHeightForHeader(UITableView tableView, nint section)
@@ -101,9 +101,9 @@ namespace Floorball.iOS
 
 		}
 
-		public void Update(string sex)
+		public void Update(GenderEnum gender)
 		{
-			ActualLeagues = Leagues.Where(l => l.Sex == sex);
+			ActualLeagues = Leagues.Where(l => l.Gender == gender);
 			InitProperties();
 			TableView.ReloadData();
 

@@ -66,8 +66,8 @@ namespace Floorball.iOS
 
 			var vc = Storyboard.InstantiateViewController("PlayerContainerViewController") as PlayerContainerViewController;
 			vc.Player = player;
-			vc.Teams = AppDelegate.SharedAppDelegate.UoW.TeamRepo.GetTeamsByPlayer(player.RegNum);
-			vc.StatisticsByTeam = AppDelegate.SharedAppDelegate.UoW.StatiscticRepo.GetStatisticsByPlayer(player.RegNum).GroupBy(s => s.TeamId).Select(s => s.ToList()).ToList();
+			vc.Teams = AppDelegate.SharedAppDelegate.UoW.TeamRepo.GetTeamsByPlayer(player.Id);
+			vc.StatisticsByTeam = AppDelegate.SharedAppDelegate.UoW.StatiscticRepo.GetStatisticsByPlayer(player.Id).GroupBy(s => s.TeamId).Select(s => s.ToList()).ToList();
 			vc.MatchCounts = player.Matches.GroupBy(m => m.LeagueId).Select(m => m.ToList()).Select(m => m.Count).ToList();
 
 			ParentViewController.NavigationController.PushViewController(vc, true);

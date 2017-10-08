@@ -84,10 +84,10 @@ namespace Floorball.iOS
 				List<Event> events = AppDelegate.SharedAppDelegate.UoW.EventRepo.GetEventsByLeague(league.Id).ToList();
 				stats.Add(new RefereeStatModel() { 
 					NumberOfMatches = events.Count,
-					TwoMinutesPenalties = events.Where(e => e.Type == "P2").Count(),
-					FiveMinutesPenalties = events.Where(e => e.Type == "P5").Count(),
-					TenMinutesPenalties = events.Where(e => e.Type == "P10").Count(),
-					FinalPenalties = events.Where(e => e.Type == "PV").Count()
+					TwoMinutesPenalties = events.Where(e => e.Type == EventType.P2).Count(),
+					FiveMinutesPenalties = events.Where(e => e.Type == EventType.P5).Count(),
+					TenMinutesPenalties = events.Where(e => e.Type == EventType.P10).Count(),
+					FinalPenalties = events.Where(e => e.Type == EventType.PV).Count()
 				
 				});
 

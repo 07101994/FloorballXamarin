@@ -104,6 +104,7 @@
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Exceptions\FloorballException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
+    <Compile Include="ITextManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

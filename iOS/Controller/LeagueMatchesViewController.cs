@@ -67,9 +67,9 @@ namespace Floorball.iOS
 
 			(cell.ViewWithTag(200) as UILabel).Text = match.Date.ToString();
 			(cell.ViewWithTag(201) as UILabel).Text = Teams.First(t => t.Id == match.HomeTeamId).Name;
-			(cell.ViewWithTag(202) as UILabel).Text = match.GoalsH.ToString();
+			(cell.ViewWithTag(202) as UILabel).Text = match.ScoreH.ToString();
 			(cell.ViewWithTag(203) as UILabel).Text = Teams.First(t => t.Id == match.AwayTeamId).Name;
-			(cell.ViewWithTag(204) as UILabel).Text = match.GoalsA.ToString();
+			(cell.ViewWithTag(204) as UILabel).Text = match.ScoreA.ToString();
 
 			return cell;
 		}

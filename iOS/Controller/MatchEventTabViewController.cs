@@ -45,8 +45,8 @@ namespace Floorball.iOS
 			//HomeTeamImage.Image = new UIImage("phx.png");
 			//AwayTeamImage.Image = new UIImage("phx.png");
 
-			HomsScore.Text = Match.GoalsH.ToString();
-			AwayScore.Text = Match.GoalsA.ToString();
+			HomsScore.Text = Match.ScoreH.ToString();
+			AwayScore.Text = Match.ScoreA.ToString();
 			Time.Text = Floorball.UIHelper.GetMatchTime(Match.Time, Match.State);
 		
 		}
@@ -63,7 +63,7 @@ namespace Floorball.iOS
 			if (segue.Identifier == "MatchEventsSegue")
 			{
 					var vc = segue.DestinationViewController as MatchEventsViewController;
-					vc.Events = Events.Where(e => e.Type != "A");
+					vc.Events = Events.Where(e => e.Type != EventType.A);
 					vc.HomeTeam = HomeTeam;
 					vc.AwayTeam = AwayTeam;
 			}

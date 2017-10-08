@@ -87,8 +87,8 @@ namespace Floorball.iOS
 
 			var stats = StatisticsByTeam.ElementAt(indexPath.Section);
 
-			(cell.ViewWithTag(200) as UILabel).Text = stats.First(s => s.Name == "G").Number.ToString();
-			(cell.ViewWithTag(201) as UILabel).Text = stats.First(s => s.Name == "A").Number.ToString();
+			(cell.ViewWithTag(200) as UILabel).Text = stats.First(s => s.Type == StatType.G).Number.ToString();
+			(cell.ViewWithTag(201) as UILabel).Text = stats.First(s => s.Type == StatType.A).Number.ToString();
 			(cell.ViewWithTag(202) as UILabel).Text = CratePenalty(stats,Teams.ElementAt(indexPath.Section).Id);
 			(cell.ViewWithTag(203) as UILabel).Text = MatchCounts.ElementAt(indexPath.Section).ToString();
 
@@ -105,9 +105,9 @@ namespace Floorball.iOS
 		{
 
 			int penaltySum = 0;
-			penaltySum += stats.Where(s => s.TeamId == teamId && s.Name == "P2").First().Number * 2;
-			penaltySum += stats.Where(s => s.TeamId == teamId && s.Name == "P5").First().Number * 5;
-			int p10 = stats.Where(s => s.TeamId == teamId && s.Name == "P10").First().Number * 10;
+			penaltySum += stats.Where(s => s.TeamId == teamId && s.Type == StatType.P2).First().Number * 2;
+			penaltySum += stats.Where(s => s.TeamId == teamId && s.Type == StatType.P5).First().Number * 5;
+			int p10 = stats.Where(s => s.TeamId == teamId && s.Type == StatType.P10).First().Number * 10;
 			penaltySum += p10;
 
 			return penaltySum + " (" + p10 + ") perc";
