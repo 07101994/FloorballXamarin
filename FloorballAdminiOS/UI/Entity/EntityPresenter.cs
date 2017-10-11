@@ -14,16 +14,16 @@ namespace FloorballAdminiOS.UI.Entity
 
         public int EntityId { get; set; }
 
-        public List<EntityTableViewModel> Model { get; set; }
+        public List<List<EntityTableViewModel>> Model { get; set; }
 
         public EntityPresenter(ITextManager textManager) : base(textManager)
         {
-            Model = new List<EntityTableViewModel>();
+            Model = new List<List<EntityTableViewModel>>();
         }
 
         public string Url { get; set; }
 
-		public abstract List<EntityTableViewModel> SetTableViewModel();
+		public abstract List<List<EntityTableViewModel>> SetTableViewModel();
 
 		public abstract string GetTableHeader(UpdateType crud);
 

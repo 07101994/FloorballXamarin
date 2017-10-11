@@ -111,67 +111,87 @@ namespace FloorballAdminiOS.UI.Entity
 
 		}
 
-        public override nfloat GetHeightForHeader(UITableView tableView, nint section)
-        {
-            return 0;
-        }
-
         public override nint NumberOfSections(UITableView tableView)
-        {
-            return 1;
-        }
-
-        public override nint RowsInSection(UITableView tableView, nint section)
         {
             return EntityPresenter.Model.Count();
         }
 
+        public override string TitleForHeader(UITableView tableView, nint section)
+        {
+            return section == 0 ? EntityPresenter.TextManager.GetText("entityMainSection") : EntityPresenter.TextManager.GetText("entitySubSection");
+        }
+
+        public override nint RowsInSection(UITableView tableView, nint section)
+        {
+            return EntityPresenter.Model[Convert.ToInt32(section)].Count();
+        }
+
 		public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
 		{
-            var model = EntityPresenter.Model.ElementAt(indexPath.Row);
 
-            return model.CellType == TableViewCellType.DatePicker || model.CellType == TableViewCellType.Picker || model.CellType == TableViewCellType.TimePicker || model.CellType == TableViewCellType.DateAndTimePicker ? (model.IsVisible ? 216.0f : 0.0f) : TableView.RowHeight;
+            if (indexPath.Section == 0) 
+            {
+                var model = EntityPresenter.Model[0][indexPath.Row];
+
+				return model.CellType == TableViewCellType.DatePicker || model.CellType == TableViewCellType.Picker || model.CellType == TableViewCellType.TimePicker || model.CellType == TableViewCellType.DateAndTimePicker ? (model.IsVisible ? 216.0f : 0.0f) : TableView.RowHeight;
+			}
+
+            return base.GetHeightForRow(tableView, indexPath);
 		}
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            var model = EntityPresenter.Model.ElementAt(indexPath.Row);
 
-            switch (model.CellType)
+            if (indexPath.Section == 0)
             {
-                case TableViewCellType.TextField:
+                var model = EntityPresenter.Model[0][indexPath.Row];
 
-                    return SetNonSelectable(GetTextFieldCell(tableView, model));
+                switch (model.CellType)
+                {
+                    case TableViewCellType.TextField:
 
-                case TableViewCellType.SegmenControl:
+                        return SetNonSelectable(GetTextFieldCell(tableView, model));
 
-                    return SetNonSelectable(GetSegmentControlCell(tableView, model));
+                    case TableViewCellType.SegmenControl:
 
-                case TableViewCellType.Label:
+                        return SetNonSelectable(GetSegmentControlCell(tableView, model));
 
-                    return GetLabelCell(tableView, model);
+                    case TableViewCellType.Label:
 
-                case TableViewCellType.Picker:
+                        return GetLabelCell(tableView, model);
 
-                    return SetNonSelectable(GetPickerCell(tableView, model));
+                    case TableViewCellType.Picker:
 
-                case TableViewCellType.DatePicker:
+                        return SetNonSelectable(GetPickerCell(tableView, model));
 
-                    return SetNonSelectable(GetDatePickerCell(tableView, model));
+                    case TableViewCellType.DatePicker:
 
-                case TableViewCellType.TimePicker:
+                        return SetNonSelectable(GetDatePickerCell(tableView, model));
 
-                    return SetNonSelectable(GetTimePickerCell(tableView, model));
+                    case TableViewCellType.TimePicker:
 
-                case TableViewCellType.DateAndTimePicker:
+                        return SetNonSelectable(GetTimePickerCell(tableView, model));
 
-                    return SetNonSelectable(GetDateAndTimePickerCell(tableView, model));
+                    case TableViewCellType.DateAndTimePicker:
 
-                default:
+                        return SetNonSelectable(GetDateAndTimePickerCell(tableView, model));
 
-                    throw new Exception("Unsupported cell type");
+                    default:
+
+                        throw new Exception("Unsupported cell type");
+
+                }
 
             }
+            else 
+            {
+                var cell = tableView.DequeueReusableCell("NavigationCell");
+
+                cell.TextLabel.Text = EntityPresenter.Model[1][indexPath.Row].Label;
+
+                return cell;
+            }
+
 
         }
 
@@ -185,50 +205,55 @@ namespace FloorballAdminiOS.UI.Entity
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
 
-            try
+            if (indexPath.Section == 0) 
             {
-				var model = EntityPresenter.Model.ElementAt(indexPath.Row + 1);
-
-				var previouslySelectedRow = SelectedRow;
-				SelectedRow = indexPath.Row;
-
-				if (model.CellType == TableViewCellType.Picker)
+				try
 				{
-                    
-                    var selectedCell = tableView.CellAt(NSIndexPath.FromRowSection(indexPath.Row + 1, 0)) as EntityPickerViewCell;
+					var model = EntityPresenter.Model[0][indexPath.Row + 1];
 
-                    if (!ChangePreviousVisibility(tableView, previouslySelectedRow, selectedCell.PickerView, model)) 
-                    {
+					var previouslySelectedRow = SelectedRow;
+					SelectedRow = indexPath.Row;
 
-						model.IsVisible = !model.IsVisible;
+					if (model.CellType == TableViewCellType.Picker)
+					{
 
-						ChangePickerVisibility(selectedCell.PickerView, model.IsVisible);
+						var selectedCell = tableView.CellAt(NSIndexPath.FromRowSection(indexPath.Row + 1, 0)) as EntityPickerViewCell;
 
-					};
-					
+						if (!ChangePreviousVisibility(tableView, previouslySelectedRow, selectedCell.PickerView, model))
+						{
 
+							model.IsVisible = !model.IsVisible;
+
+							ChangePickerVisibility(selectedCell.PickerView, model.IsVisible);
+
+						};
+
+
+					}
+					else if (model.CellType == TableViewCellType.DatePicker || model.CellType == TableViewCellType.TimePicker || model.CellType == TableViewCellType.DateAndTimePicker)
+					{
+
+						var selectedCell = tableView.CellAt(NSIndexPath.FromRowSection(indexPath.Row + 1, 0)) as EntityDatePickerCell;
+
+						if (!ChangePreviousVisibility(tableView, previouslySelectedRow, selectedCell.DatePicker, model))
+						{
+
+							model.IsVisible = !model.IsVisible;
+
+							ChangePickerVisibility(selectedCell.DatePicker, model.IsVisible);
+
+						}
+
+					}
 				}
-				else if (model.CellType == TableViewCellType.DatePicker || model.CellType == TableViewCellType.TimePicker || model.CellType == TableViewCellType.DateAndTimePicker)
+				catch (Exception)
 				{
-
-                    var selectedCell = tableView.CellAt(NSIndexPath.FromRowSection(indexPath.Row + 1, 0)) as EntityDatePickerCell;
-
-                    if (!ChangePreviousVisibility(tableView, previouslySelectedRow, selectedCell.DatePicker, model))
-                    {
-
-						model.IsVisible = !model.IsVisible;
-
-						ChangePickerVisibility(selectedCell.DatePicker, model.IsVisible);       
-
-                    }
-
 				}
-            }
-            catch (Exception) 
-            {
+
+				TableView.DeselectRow(indexPath, true);
             }
 
-            TableView.DeselectRow(indexPath, true);
+
 
         }
 
@@ -238,7 +263,7 @@ namespace FloorballAdminiOS.UI.Entity
 			{
                 previouslySelectedRow++;
 
-				var previousModel = EntityPresenter.Model.ElementAt(previouslySelectedRow);
+				var previousModel = EntityPresenter.Model[0][previouslySelectedRow];
 
 				previousModel.IsVisible = false;
 
@@ -297,7 +322,7 @@ namespace FloorballAdminiOS.UI.Entity
 
 			cell.DatePicker.ValueChanged += (sender, e) =>
 			{
-				EntityPresenter.Model.ElementAt(SelectedRow).Value = (sender as UIDatePicker).Date.ToString();
+				EntityPresenter.Model[0][SelectedRow].Value = (sender as UIDatePicker).Date.ToString();
 
 				TableView.ReloadRows(new NSIndexPath[] { NSIndexPath.FromRowSection(SelectedRow, 0) }, UITableViewRowAnimation.None);
 			};
@@ -316,7 +341,7 @@ namespace FloorballAdminiOS.UI.Entity
 
 			cell.DatePicker.ValueChanged += (sender, e) =>
 			{
-                EntityPresenter.Model.ElementAt(SelectedRow).Value = iOSHelper.NSDateToDateTime((sender as UIDatePicker).Date).TimeOfDay.ToString(@"hh\-mm");
+                EntityPresenter.Model[0][SelectedRow].Value = iOSHelper.NSDateToDateTime((sender as UIDatePicker).Date).TimeOfDay.ToString(@"hh\-mm");
 
 				TableView.ReloadRows(new NSIndexPath[] { NSIndexPath.FromRowSection(SelectedRow, 0) }, UITableViewRowAnimation.None);
 			};
@@ -333,7 +358,7 @@ namespace FloorballAdminiOS.UI.Entity
 
             cell.DatePicker.ValueChanged += (sender, e) => 
             {
-                EntityPresenter.Model.ElementAt(SelectedRow).Value = iOSHelper.NSDateToDateTime((sender as UIDatePicker).Date).Date.ToString("yyyy-MM-dd");
+                EntityPresenter.Model[0][SelectedRow].Value = iOSHelper.NSDateToDateTime((sender as UIDatePicker).Date).Date.ToString("yyyy-MM-dd");
 				
                 TableView.ReloadRows(new NSIndexPath[] { NSIndexPath.FromRowSection(SelectedRow, 0) }, UITableViewRowAnimation.None);
 			};
@@ -427,10 +452,18 @@ namespace FloorballAdminiOS.UI.Entity
 
         void PickerModel_SelectionChanged(string val)
         {
-            EntityPresenter.Model.ElementAt(SelectedRow).Value = val;
+            EntityPresenter.Model[0][SelectedRow].Value = val;
 
             TableView.ReloadRows(new NSIndexPath[] { NSIndexPath.FromRowSection(SelectedRow, 0) }, UITableViewRowAnimation.None);
 
+        }
+
+        public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+        {
+            if (segue.Identifier == "NavigationSegue")
+            {
+                
+            }
         }
 
     }

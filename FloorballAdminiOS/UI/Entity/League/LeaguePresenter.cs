@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Floorball;
 using FloorballAdminiOS.Helper;
@@ -35,7 +36,7 @@ namespace FloorballAdminiOS.UI.Entity.League
             base.DetachScreen();
         }
 
-		public override List<EntityTableViewModel> SetTableViewModel()
+		public override List<List<EntityTableViewModel>> SetTableViewModel()
 		{
 
 			var years = UIHelper.GetNumbers(2012, 2018);
@@ -49,18 +50,20 @@ namespace FloorballAdminiOS.UI.Entity.League
 			var genders = iOSHelper.GetGenders();
 			var genderEnums = UIHelper.GetGenderEnums();
 
-			Model.Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = leagueModel == null ? "" : leagueModel.Name });
-			Model.Add(new EntityTableViewModel { Label = "Year", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" : leagueModel.Year.Year.ToString() });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(years, years) });
-			Model.Add(new EntityTableViewModel { Label = "Country", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" : TextManager.GetText(leagueModel.Country)});
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(countries, countriesEnum) });
-            Model.Add(new EntityTableViewModel { Label = "Type", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" : TextManager.GetText(leagueModel.Type) });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(leagueTypes, leagueTypesEnum) });
-            Model.Add(new EntityTableViewModel { Label = "Class", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" :  TextManager.GetText(leagueModel.Class) });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(classes, classesEnum) });
-			Model.Add(new EntityTableViewModel { Label = "Rounds", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" : leagueModel.Rounds.ToString() });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(rounds, rounds) });
-			Model.Add(new EntityTableViewModel { Label = "Gender", CellType = TableViewCellType.SegmenControl, IsVisible = true, Value = new SegmentControlModel(genders, genderEnums) });
+            Model.Add(new List<EntityTableViewModel>());
+
+			Model.Last().Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = leagueModel == null ? "" : leagueModel.Name });
+			Model.Last().Add(new EntityTableViewModel { Label = "Year", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" : leagueModel.Year.Year.ToString() });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(years, years) });
+			Model.Last().Add(new EntityTableViewModel { Label = "Country", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" : TextManager.GetText(leagueModel.Country)});
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(countries, countriesEnum) });
+            Model.Last().Add(new EntityTableViewModel { Label = "Type", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" : TextManager.GetText(leagueModel.Type) });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(leagueTypes, leagueTypesEnum) });
+            Model.Last().Add(new EntityTableViewModel { Label = "Class", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" :  TextManager.GetText(leagueModel.Class) });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(classes, classesEnum) });
+			Model.Last().Add(new EntityTableViewModel { Label = "Rounds", CellType = TableViewCellType.Label, IsVisible = true, Value = leagueModel == null ? "" : leagueModel.Rounds.ToString() });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(rounds, rounds) });
+			Model.Last().Add(new EntityTableViewModel { Label = "Gender", CellType = TableViewCellType.SegmenControl, IsVisible = true, Value = new SegmentControlModel(genders, genderEnums) });
 
 			
 			return Model;
@@ -102,13 +105,13 @@ namespace FloorballAdminiOS.UI.Entity.League
         {
 			leagueModel = new LeagueModel()
 			{
-				Name = Model[0].ValueAsString,
-				Year = Model[2].PickerValueAsDateTime,
-				Country = Model[4].GetPickerValuesAsEnum<CountriesEnum>(),
-				Type = Model[6].GetPickerValuesAsEnum<LeagueTypeEnum>(),
-				Class = Model[8].GetPickerValuesAsEnum<ClassEnum>(),
-				Rounds = Model[10].PickerValueAsShort,
-				Gender = Model[12].SegmentModelSelectedValue.ToString().ToEnum<GenderEnum>()
+				Name = Model[0][0].ValueAsString,
+				Year = Model[0][2].PickerValueAsDateTime,
+				Country = Model[0][4].GetPickerValuesAsEnum<CountriesEnum>(),
+				Type = Model[0][6].GetPickerValuesAsEnum<LeagueTypeEnum>(),
+				Class = Model[0][8].GetPickerValuesAsEnum<ClassEnum>(),
+				Rounds = Model[0][10].PickerValueAsShort,
+				Gender = Model[0][12].SegmentModelSelectedValue.ToString().ToEnum<GenderEnum>()
 			};
 
 			if (leagueModel.Name == "")

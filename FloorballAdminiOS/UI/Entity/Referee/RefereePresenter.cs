@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Floorball;
 using FloorballAdminiOS.Interactor.Entity;
@@ -42,9 +43,11 @@ namespace FloorballAdminiOS.UI.Entity.Referee
             return crud == UpdateType.Create ? "Add Referee" : "Update Referee";
         }
 
-        public override List<EntityTableViewModel> SetTableViewModel()
+        public override List<List<EntityTableViewModel>> SetTableViewModel()
         {
-            Model.Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = referee == null ? "" : referee.Name });
+            Model.Add(new List<EntityTableViewModel>());
+
+            Model.Last().Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = referee == null ? "" : referee.Name });
 
 			return Model;
         }

@@ -47,7 +47,7 @@ namespace FloorballAdminiOS.UI.Entity.Team
             return crud == UpdateType.Create ? "Add Team" : "Update Team";
         }
 
-        public override List<EntityTableViewModel> SetTableViewModel()
+        public override List<List<EntityTableViewModel>> SetTableViewModel()
         {
 			
             var years = UIHelper.GetNumbers(2012, 2018);
@@ -56,20 +56,23 @@ namespace FloorballAdminiOS.UI.Entity.Team
 			var countries = iOSHelper.GetCountries();
 			var countriesEnum = UIHelper.GetCountriesEnum();
 
-            Model.Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = team == null ? "" : team.Name });
-            Model.Add(new EntityTableViewModel { Label = "Gender", CellType = TableViewCellType.SegmenControl, IsVisible = true, Value = new SegmentControlModel(genders, genderEnums) });
-            Model.Add(new EntityTableViewModel { Label = "Year", CellType = TableViewCellType.Label, IsVisible = true, Value = team == null ? "" : team.Year.Year.ToString() });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(years, years) });
-            Model.Add(new EntityTableViewModel { Label = "League", CellType = TableViewCellType.Label, IsVisible = true, Value = team == null ? "" : leagues.Single(l => l.Id == team.LeagueId).Name });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(leagues.Select(l => l.Name), leagues.Select(l => l.Id)) });
-            Model.Add(new EntityTableViewModel { Label = "Coach", CellType = TableViewCellType.TextField, IsVisible = true, Value = team == null ? "" : team.Coach });
-            Model.Add(new EntityTableViewModel { Label = "Stadium", CellType = TableViewCellType.Label, IsVisible = true, Value = team == null ? "" : stadiums.Single(s => s.Id == team.StadiumId).Name });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(stadiums.Select(s => s.Name), stadiums.Select(s => s.Id)) });
-            Model.Add(new EntityTableViewModel { Label = "Country", CellType = TableViewCellType.Label, IsVisible = true, Value = team == null ? "" : TextManager.GetText(team.Country) });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(countries, countriesEnum) });
-            Model.Add(new EntityTableViewModel { Label = "TeamId", CellType = TableViewCellType.TextField, IsVisible = true, Value = team == null ? "" : team.TeamId.ToString() });
-		
+            Model.Add( new List<EntityTableViewModel>());
 
+            Model.Last().Add(new EntityTableViewModel { Label = "Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = team == null ? "" : team.Name });
+            Model.Last().Add(new EntityTableViewModel { Label = "Gender", CellType = TableViewCellType.SegmenControl, IsVisible = true, Value = new SegmentControlModel(genders, genderEnums) });
+            Model.Last().Add(new EntityTableViewModel { Label = "Year", CellType = TableViewCellType.Label, IsVisible = true, Value = team == null ? "" : team.Year.Year.ToString() });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(years, years) });
+            Model.Last().Add(new EntityTableViewModel { Label = "League", CellType = TableViewCellType.Label, IsVisible = true, Value = team == null ? "" : leagues.Single(l => l.Id == team.LeagueId).Name });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(leagues.Select(l => l.Name), leagues.Select(l => l.Id)) });
+            Model.Last().Add(new EntityTableViewModel { Label = "Coach", CellType = TableViewCellType.TextField, IsVisible = true, Value = team == null ? "" : team.Coach });
+            Model.Last().Add(new EntityTableViewModel { Label = "Stadium", CellType = TableViewCellType.Label, IsVisible = true, Value = team == null ? "" : stadiums.Single(s => s.Id == team.StadiumId).Name });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(stadiums.Select(s => s.Name), stadiums.Select(s => s.Id)) });
+            Model.Last().Add(new EntityTableViewModel { Label = "Country", CellType = TableViewCellType.Label, IsVisible = true, Value = team == null ? "" : TextManager.GetText(team.Country) });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(countries, countriesEnum) });
+            Model.Last().Add(new EntityTableViewModel { Label = "TeamId", CellType = TableViewCellType.TextField, IsVisible = true, Value = team == null ? "" : team.TeamId.ToString() });
+
+            Model.Add(new List<EntityTableViewModel>());
+            Model.Last().Add(new EntityTableViewModel{Label = TextManager.GetText("TeamMembers")});
 
 			return Model;
         }

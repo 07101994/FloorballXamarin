@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Floorball;
 using FloorballAdminiOS.Interactor.Entity;
@@ -42,13 +43,14 @@ namespace FloorballAdminiOS.UI.Entity.Player
             return crud == UpdateType.Create ? "Add Player" : "Update Player";
         }
 
-        public override List<EntityTableViewModel> SetTableViewModel()
+        public override List<List<EntityTableViewModel>> SetTableViewModel()
         {
-			
-            Model.Add(new EntityTableViewModel { Label = "First Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = player == null ? "" : player.FirstName });
-            Model.Add(new EntityTableViewModel { Label = "Last Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = player == null ? "" : player.LastName });
-            Model.Add(new EntityTableViewModel { Label = "Birth Date", CellType = TableViewCellType.Label, IsVisible = true, Value = player == null ? "" : player.BirthDate.ToString() });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.DatePicker, IsVisible = false, Value = "" });
+			Model.Add(new List<EntityTableViewModel>());
+
+            Model.Last().Add(new EntityTableViewModel { Label = "First Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = player == null ? "" : player.FirstName });
+            Model.Last().Add(new EntityTableViewModel { Label = "Last Name", CellType = TableViewCellType.TextField, IsVisible = true, Value = player == null ? "" : player.LastName });
+            Model.Last().Add(new EntityTableViewModel { Label = "Birth Date", CellType = TableViewCellType.Label, IsVisible = true, Value = player == null ? "" : player.BirthDate.ToString() });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.DatePicker, IsVisible = false, Value = "" });
 
 			return Model;
         }

@@ -48,26 +48,33 @@ namespace FloorballAdminiOS.UI.Entity.Match
             return crud == UpdateType.Create ? "Add Match" : "Update Match";
         }
 
-        public override List<EntityTableViewModel> SetTableViewModel()
+        public override List<List<EntityTableViewModel>> SetTableViewModel()
         {
 			
             var rounds = UIHelper.GetNumbers(1, 30);
 
-            Model.Add(new EntityTableViewModel { Label = "League", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : leagues.Single(l => l.Id == match.Id).Name });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(leagues.Select(l => l.Name), leagues.Select(l => l.Id)) });
-            Model.Add(new EntityTableViewModel { Label = "Home Team", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : teams.Single(t => t.Id == match.HomeTeamId).Name });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(teams.Select(t => t.Name), teams.Select(t => t.Id)) });
-			Model.Add(new EntityTableViewModel { Label = "Away Team", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : teams.Single(t => t.Id == match.AwayTeamId).Name });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(teams.Select(t => t.Name), teams.Select(t => t.Id)) });
-            Model.Add(new EntityTableViewModel { Label = "Round", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : match.Round.ToString() });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(rounds, rounds) });
-            Model.Add(new EntityTableViewModel { Label = "Date", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : match.Date.ToString() });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.DatePicker, IsVisible = false, Value = "" });
-            Model.Add(new EntityTableViewModel { Label = "Time", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : match.Time.ToString() });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.TimePicker, IsVisible = false, Value = "" });
-            Model.Add(new EntityTableViewModel { Label = "Stadium", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : stadiums.Single(s => s.Id == match.StadiumId).Name });
-			Model.Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(stadiums.Select(s => s.Name), stadiums.Select(s => s.Id)) });
+            Model.Add(new List<EntityTableViewModel>());
+    
+            Model.Last().Add(new EntityTableViewModel { Label = "League", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : leagues.Single(l => l.Id == match.Id).Name });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(leagues.Select(l => l.Name), leagues.Select(l => l.Id)) });
+            Model.Last().Add(new EntityTableViewModel { Label = "Home Team", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : teams.Single(t => t.Id == match.HomeTeamId).Name });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(teams.Select(t => t.Name), teams.Select(t => t.Id)) });
+			Model.Last().Add(new EntityTableViewModel { Label = "Away Team", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : teams.Single(t => t.Id == match.AwayTeamId).Name });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(teams.Select(t => t.Name), teams.Select(t => t.Id)) });
+            Model.Last().Add(new EntityTableViewModel { Label = "Round", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : match.Round.ToString() });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(rounds, rounds) });
+            Model.Last().Add(new EntityTableViewModel { Label = "Date", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : match.Date.ToString() });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.DatePicker, IsVisible = false, Value = "" });
+            Model.Last().Add(new EntityTableViewModel { Label = "Time", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : match.Time.ToString() });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.TimePicker, IsVisible = false, Value = "" });
+            Model.Last().Add(new EntityTableViewModel { Label = "Stadium", CellType = TableViewCellType.Label, IsVisible = true, Value = match == null ? "" : stadiums.Single(s => s.Id == match.StadiumId).Name });
+			Model.Last().Add(new EntityTableViewModel { CellType = TableViewCellType.Picker, IsVisible = false, Value = new UIFloorballPickerViewModel(stadiums.Select(s => s.Name), stadiums.Select(s => s.Id)) });
 
+            Model.Add(new List<EntityTableViewModel>());
+
+            Model.Last().Add(new EntityTableViewModel { Label = TextManager.GetText("HomeTeamPlayers") });
+            Model.Last().Add(new EntityTableViewModel { Label = TextManager.GetText("AwayTeamPlayers") });
+            Model.Last().Add(new EntityTableViewModel { Label = TextManager.GetText("MatchReferees") });
 
 			return Model;
         }
@@ -125,13 +132,13 @@ namespace FloorballAdminiOS.UI.Entity.Match
         {
 			match = new MatchModel()
 			{
-				LeagueId = Model[1].PickerValueAsInt,
-				HomeTeamId = Model[3].PickerValueAsInt,
-				AwayTeamId = Model[5].PickerValueAsInt,
-				Round = Model[7].PickerValueAsShort,
-				Date = Model[9].PickerValueAsDateTime,
-				Time = Model[11].PickerValueAsTimeSpan,
-				StadiumId = Model[13].PickerValueAsInt,
+				LeagueId = Model[0][1].PickerValueAsInt,
+				HomeTeamId = Model[0][3].PickerValueAsInt,
+				AwayTeamId = Model[0][5].PickerValueAsInt,
+				Round = Model[0][7].PickerValueAsShort,
+				Date = Model[0][9].PickerValueAsDateTime,
+				Time = Model[0][11].PickerValueAsTimeSpan,
+				StadiumId = Model[0][13].PickerValueAsInt,
 				State = StateEnum.Confirmed,
 				ScoreH = 0,
 				ScoreA = 0

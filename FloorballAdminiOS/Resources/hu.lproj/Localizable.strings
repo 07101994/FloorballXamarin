@@ -97,3 +97,15 @@
 "League" = "Liga";
 "Cup" = "Kupa";
 "PlayOff" = "Rájátszás";
+
+/*entity section namess*/
+"entityMainSection" = "Törzsadatok";
+"entitySubSection" = "Navigációk";
+
+/*entity navigation names*/
+/*entity navigation names*/
+"HomeTeamPlayers" = "Hazai játékosok";
+"AwayTeamPlayers" = "Vendég játékosok";
+"MatchReferees" = "Bírók";
+"TeamMembers" = "Csapattagok";
+
