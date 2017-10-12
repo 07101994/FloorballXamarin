@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Floorball;
 
 namespace FloorballAdminiOS.UI.Entity
@@ -22,7 +23,7 @@ namespace FloorballAdminiOS.UI.Entity
         {
             get
             {
-                return Value.ToString();   
+                return Value.ToString();
             }
         }
 
@@ -52,6 +53,8 @@ namespace FloorballAdminiOS.UI.Entity
         {
             return PickerModelSelectedObjet.ToString().ToEnum<T>();
         }
+
+        public List<List<NavigationModel>> ValueAsNavModels => Value as List<List<NavigationModel>>;
 
     }
 }

@@ -42,6 +42,16 @@ namespace FloorballAdminiOS.Interactor
 			});
         }
 
+		public async Task<List<T1>> GetNavEntities<T1>(string url, string errorMsg, int id)
+		{
+			return await Network.GetAsync<List<T1>>(new HTTPGetRequestModel()
+			{
+				Url = url,
+				ErrorMsg = errorMsg,
+                UrlParams = new Dictionary<string, string>() { { "id", id.ToString() } }
+			});
+		}
+
 		public async Task<int> UpdateEntity(string url, string errorMsg, T body)
 		{
 			return await Network.PutAsync<T, int>(new HTTPPutRequestModel<T>

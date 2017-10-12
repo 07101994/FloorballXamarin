@@ -9,6 +9,14 @@ using FloorballPCL.Exceptions;
 
 namespace FloorballAdminiOS.UI.Entity
 {
+    public class NavigationModel
+    {
+        public string Title { get; set; }
+        public string Subtitle { get; set; }
+        public int Id { get; set; }
+
+    }
+
     public abstract class EntityPresenter<T> : Presenter<T>
     {
 
@@ -16,9 +24,14 @@ namespace FloorballAdminiOS.UI.Entity
 
         public List<List<EntityTableViewModel>> Model { get; set; }
 
+		public List<List<NavigationModel>> NavigationModels { get; set; }
+		public List<List<NavigationModel>> FilteredNavigationModels { get; set; }
+
         public EntityPresenter(ITextManager textManager) : base(textManager)
         {
             Model = new List<List<EntityTableViewModel>>();
+            NavigationModels = new List<List<NavigationModel>>();
+            FilteredNavigationModels = new List<List<NavigationModel>>();
         }
 
         public string Url { get; set; }
@@ -34,6 +47,9 @@ namespace FloorballAdminiOS.UI.Entity
         protected abstract Task Save(UpdateType crud);
 
         protected abstract void Validate();
+
+        public virtual string GetNavigationTextSelected(int rowNumber) { return ""; }
+        public virtual string GetNavigationTextNonSelected(int rowNumber) { return ""; }
 
         public async Task ValidateAndSave(UpdateType crud)
         {
@@ -55,7 +71,37 @@ namespace FloorballAdminiOS.UI.Entity
             ClearModel();
         }
 
+		public void Search(string searchString)
+		{
 
+			if (string.IsNullOrWhiteSpace(searchString) || searchString.Length < 2)
+			{
+				FilteredNavigationModels = new List<List<NavigationModel>>();
+                FilteredNavigationModels.Add(new List<NavigationModel>(NavigationModels[0]));
+                FilteredNavigationModels.Add(new List<NavigationModel>(NavigationModels[1]));
+				return;
+			}
+
+			FilteredNavigationModels = new List<List<NavigationModel>>();
+
+
+            foreach (var navigationModels in NavigationModels)
+			{
+				var filteredList = new List<NavigationModel>();
+
+                foreach (var navigationModel in navigationModels)
+				{
+					if (navigationModel.Title.StartsWith(searchString, StringComparison.Ordinal))
+					{
+						filteredList.Add(navigationModel);
+					}
+				}
+
+				FilteredNavigationModels.Add(filteredList);
+
+			}
+
+		}
 
     }
 }

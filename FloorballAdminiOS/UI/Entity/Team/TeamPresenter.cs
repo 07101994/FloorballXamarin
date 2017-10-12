@@ -18,6 +18,9 @@ namespace FloorballAdminiOS.UI.Entity.Team
 
         List<StadiumModel> stadiums;
         List<LeagueModel> leagues;
+        List<PlayerModel> players;
+
+        List<PlayerModel> teamPlayers;
 
         public TeamPresenter(ITextManager textManager) : base(textManager)
         {
@@ -72,7 +75,11 @@ namespace FloorballAdminiOS.UI.Entity.Team
             Model.Last().Add(new EntityTableViewModel { Label = "TeamId", CellType = TableViewCellType.TextField, IsVisible = true, Value = team == null ? "" : team.TeamId.ToString() });
 
             Model.Add(new List<EntityTableViewModel>());
-            Model.Last().Add(new EntityTableViewModel{Label = TextManager.GetText("TeamMembers")});
+            Model.Last().Add(new EntityTableViewModel{Label = TextManager.GetText("TeamMembers"), Value = new List<List<NavigationModel>>
+                {
+                    players.Where(p => teamPlayers.Select(p1 => p1.Id).ToList().Contains(p.Id)).Select(p => new NavigationModel{Id = p.Id, Title = p.FirstName + " " + p.LastName, Subtitle = p.BirthDate.ToString("yyyy-MM-dd")}).OrderBy(p => p.Title).ToList(),
+                    players.Where(p => !teamPlayers.Select(p1 => p1.Id).ToList().Contains(p.Id)).Select(p => new NavigationModel{Id = p.Id, Title = p.FirstName + " " + p.LastName, Subtitle = p.BirthDate.ToString("yyyy-MM-dd")}).OrderBy(p => p.Title).ToList()
+                }});
 
 			return Model;
         }
@@ -96,11 +103,19 @@ namespace FloorballAdminiOS.UI.Entity.Team
             List<Task> tasks = new List<Task>();
 
             Task<TeamModel> teamTask = null;
+            Task<List<PlayerModel>> playersTask = null;
+            Task<List<PlayerModel>> teamPlayersTask = null;
 
             if (crud == UpdateType.Update)
             {
                 teamTask = teamInteractor.GetEntityById(Url, "Error during getting team", EntityId);    
                 tasks.Add(teamTask);
+
+				playersTask = teamInteractor.GetEntities<PlayerModel>("api/floorball/players", "Error during getting players");
+				tasks.Add(playersTask);
+
+                teamPlayersTask = teamInteractor.GetNavEntities<PlayerModel>("api/floorball/teams/{id}/players", "Error during getting players to team", EntityId);
+				tasks.Add(teamPlayersTask);
             }
 
 			Task<List<StadiumModel>> stadiumsTask = teamInteractor.GetEntities<StadiumModel>("api/floorball/stadiums", "Error during getting stadiums");
@@ -109,15 +124,19 @@ namespace FloorballAdminiOS.UI.Entity.Team
 			Task<List<LeagueModel>> leaguesTask = teamInteractor.GetEntities<LeagueModel>("api/floorball/leagues", "Error during getting leagues");
 			tasks.Add(leaguesTask);
 
+
             await Task.WhenAll(tasks);
 
             if (crud == UpdateType.Update)
             {
                 team = teamTask.Result;     
+                players = playersTask.Result;
+                teamPlayers = teamPlayersTask.Result;
             }
 
             stadiums = stadiumsTask.Result;
             leagues = leaguesTask.Result;
+
 
             SetTableViewModel();
         }
@@ -129,5 +148,16 @@ namespace FloorballAdminiOS.UI.Entity.Team
 
 			};
         }
+
+        public override string GetNavigationTextSelected(int rowNumber)
+        {
+            return rowNumber == 0 ? TextManager.GetText("SelectedPlayers") : "";
+        }
+
+        public override string GetNavigationTextNonSelected(int rowNumber)
+        {
+            return rowNumber == 0 ? TextManager.GetText("NonSelectedPlayers") : "";
+        }
+
     }
 }

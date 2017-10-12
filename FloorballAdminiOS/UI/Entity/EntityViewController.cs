@@ -7,6 +7,7 @@ using Floorball;
 using Floorball.Exceptions;
 using FloorballAdminiOS.Helper;
 using FloorballAdminiOS.UI.Entity.TableViewCells;
+using FloorballAdminiOS.UI.Navigations;
 using FloorballPCL.Exceptions;
 using Foundation;
 using UIKit;
@@ -442,14 +443,6 @@ namespace FloorballAdminiOS.UI.Entity
             // Release any cached data, images, etc that aren't in use.
         }
 
-		public void ShowConfirmationMessage(string title, string message, Action<UIAlertAction> handler)
-		{
-			var alert = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
-			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, handler));
-			alert.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
-			PresentViewController(alert, true, null);
-		}
-
         void PickerModel_SelectionChanged(string val)
         {
             EntityPresenter.Model[0][SelectedRow].Value = val;
@@ -462,7 +455,22 @@ namespace FloorballAdminiOS.UI.Entity
         {
             if (segue.Identifier == "NavigationSegue")
             {
+                var vc = segue.DestinationViewController as NavigationsViewController;
+
+                var index = TableView.IndexPathForSelectedRow.Row;
+
+                vc.SelectedText = EntityPresenter.GetNavigationTextSelected(index);
+                vc.NonSelectedText = EntityPresenter.GetNavigationTextNonSelected(index);
                 
+
+                vc.Presenter = EntityPresenter;
+
+                vc.Presenter.NavigationModels = new List<List<NavigationModel>>(EntityPresenter.Model[1][TableView.IndexPathForSelectedRow.Row].ValueAsNavModels);
+                vc.Presenter.FilteredNavigationModels = new List<List<NavigationModel>>();
+
+                vc.Presenter.FilteredNavigationModels.Add(new List<NavigationModel>(vc.Presenter.NavigationModels[0]));
+                vc.Presenter.FilteredNavigationModels.Add(new List<NavigationModel>(vc.Presenter.NavigationModels[1]));
+
             }
         }
 

@@ -21,7 +21,6 @@ namespace FloorballAdminiOS.UI.EntitySearch
         public async override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            // Perform any additional setup after loading the view, typically from a nib.
 
             try
             {
